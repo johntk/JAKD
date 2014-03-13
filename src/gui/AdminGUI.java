@@ -12,6 +12,7 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 	/**
 	 * 
 	 */
+	//test
 	private static final long serialVersionUID = 1L;
 	private CardLayout cards;
 	private JFrame frame;
