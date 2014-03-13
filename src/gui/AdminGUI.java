@@ -17,12 +17,21 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 	private JFrame frame;
 	private static final int FRAME_WIDTH = 1148;
 	private static final int FRAME_HEIGHT = 827;
-	private JButton genReportBtn, editUserBtn,  editProdBtn, financialManagBtn, addUser, addProd, editUser, editProd, removeUser, removeProd;
-	private JLabel logo, digiProdDetails, spacer, userDetails, elecProdDetails;
-	private JTextField forenameBx, other, supplierID, currentStock, sellPrice, costPrice, prodTitle, type, prodId, surenamebx, line1Bx, line2Bx, Line3Bx, staffIDBx, pinBx, PPSBx;
+	private JButton genReportBtn, editUserBtn,  editProdBtn, financialManagBtn, 
+	addUser, addProd, editUser, editProd, removeUser, removeProd;
 	
-	private JPanel  cardPanel, editDigiProdBtnsPanel, digiProdDetailsPanel, editDigiProdPanel, elecProdDetailsPanel, editElecProdBtnsPanel, editUserBtnsPanel, genReportPanel, editUserPanel, editElecProdPanel, financialPanel, userDetailsPanel;
-	private GridBagLayout layout = new GridBagLayout();
+	private JLabel logo, digiProdDetails, spacer, userDetails, elecProdDetails;
+	
+	private JTextField forenameBx, other, supplierID, currentStock, sellPrice, 
+	costPrice, prodTitle, type, prodId, surenamebx, line1Bx, line2Bx, Line3Bx, 
+	staffIDBx, pinBx, PPSBx;
+	
+	private JPanel  cardPanel, editDigiProdBtnsPanel, digiProdDetailsPanel, 
+	editDigiProdPanel, elecProdDetailsPanel, editElecProdBtnsPanel, 
+	editUserBtnsPanel, genReportPanel, editUserPanel, editElecProdPanel, 
+	financialPanel, userDetailsPanel;
+	
+	private BorderLayout layout = new BorderLayout();
 	private GridBagConstraints gc = new GridBagConstraints();
 	private Color cl;
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
@@ -32,7 +41,6 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 		//Main frame declaration
 		frame = new JFrame();
 		frame.setLayout(layout);
-		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		frame.setTitle("Admin Screen");
 		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		frame.setLocationRelativeTo(null);
