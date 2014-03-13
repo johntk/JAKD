@@ -197,7 +197,7 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
         JButton [] editUserBtnsArray = {
 				addUser = new JButton("Add User"),
 				removeUser = new JButton("Remove User"),
-				editUser = new JButton("Edit User"),
+				editUser = new JButton("Update User"),
 				
 		        };
         
@@ -339,7 +339,7 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
         JButton [] editElecProdBtnsArray = {
 				addProd = new JButton("Add Product"),
 				removeProd = new JButton("Remove Product"),
-				editProd= new JButton("Edit Product"),
+				editProd= new JButton("Update Product"),
 				
 		        };
         
@@ -445,8 +445,11 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
     	    		gc.weighty = 0.1; 
     	    		gc.weightx = 10.0;
     	    		digiProdRadioBtns[j].setFont(font);
+    	    		digiProdRadioBtns[j].addItemListener(this);
     	    		digiProdDetailsPanel.add(digiProdRadioBtns[j], gc);
     	    		count++;
+    	    		
+    	    		
     			}
     		}
     		}
@@ -480,7 +483,7 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
         JButton [] editDigiProdBtnsArray = {
 				addProd = new JButton("Add Product"),
 				removeProd = new JButton("Remove Product"),
-				editProd= new JButton("Edit Product"),
+				editProd= new JButton("Update Product"),
 				
 		        };
         
@@ -591,12 +594,7 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 	
 	public void itemStateChanged(ItemEvent it) {
 		
-		JPanel prodSelect = new JPanel();  
-		prodSelect.add(new JRadioButton("Electronic product"));
-		prodSelect.add(new JRadioButton("Digital Product"));
-		JOptionPane.showOptionDialog(null, prodSelect,  
-		    "Radio Test", JOptionPane.YES_NO_CANCEL_OPTION,  
-		    JOptionPane.QUESTION_MESSAGE, null, null, null); 
+		
 		
 	}
 }
