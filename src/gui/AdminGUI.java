@@ -18,10 +18,10 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 	private static final int FRAME_WIDTH = 1148;
 	private static final int FRAME_HEIGHT = 827;
 	private JButton genReportBtn, editUserBtn,  editProdBtn, financialManagBtn, addUser, addProd, editUser, editProd, removeUser, removeProd;
-	private JLabel logo, spacer, userDetails, elecProdDetails;
+	private JLabel logo, digiProdDetails, spacer, userDetails, elecProdDetails;
 	private JTextField forenameBx, other, supplierID, currentStock, sellPrice, costPrice, prodTitle, type, prodId, surenamebx, line1Bx, line2Bx, Line3Bx, staffIDBx, pinBx, PPSBx;
 	
-	private JPanel  cardPanel, elecProdDetailsPanel, editElecProdBtnsPanel, editUserBtnsPanel, genReportPanel, editUserPanel, editElecProdPanel, financialPanel, userDetailsPanel;
+	private JPanel  cardPanel, editDigiProdBtnsPanel, digiProdDetailsPanel, editDigiProdPanel, elecProdDetailsPanel, editElecProdBtnsPanel, editUserBtnsPanel, genReportPanel, editUserPanel, editElecProdPanel, financialPanel, userDetailsPanel;
 	private GridBagLayout layout = new GridBagLayout();
 	private GridBagConstraints gc = new GridBagConstraints();
 	private Color cl;
@@ -254,18 +254,18 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
         new JLabel(" Other")
         };
         
-        JRadioButton cd;  
-    	JRadioButton dvd; 
-    	JRadioButton game; 
+        JRadioButton phono;  
+    	JRadioButton console; 
+    	JRadioButton dock; 
         JRadioButton[] elecProdRadioBtns ={
-        cd = new JRadioButton("CD"),
-        dvd =new JRadioButton("DVD"),
-        game = new JRadioButton("Game")
+        phono = new JRadioButton("Head Phone"),
+        console =new JRadioButton("Console"),
+        dock = new JRadioButton("Dock")
         };
         ButtonGroup group = new ButtonGroup();
-		group.add(cd);
-		group.add(dvd);
-		group.add(game);
+		group.add(phono);
+		group.add(console);
+		group.add(dock);
         
         for(int i = 0; i < elecProdDetailLb.length; i++)
         {
@@ -357,6 +357,147 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 		
 		
 		
+		//Edit Digital product panel**************************************************
+        editDigiProdPanel =  new JPanel();
+        editDigiProdPanel.setLayout(new BorderLayout());
+        digiProdDetails = new JLabel("Digital Product");
+        digiProdDetails.setBorder(new EmptyBorder(10,500,0,0));
+        digiProdDetails.setFont(font);
+        editDigiProdPanel.add(digiProdDetails, BorderLayout.NORTH);
+        
+        //product detail panel, inside the Edit product  panel
+        digiProdDetailsPanel = new JPanel();
+        digiProdDetailsPanel.setLayout(new GridBagLayout());
+        digiProdDetailsPanel.setPreferredSize(new Dimension(550, 600));
+        digiProdDetailsPanel.setBorder(border);
+       
+        //Adding labels and textbox to the product details panel
+        JTextField [] digiProdDetailBx = {
+        		prodTitle = new JTextField(),
+        		type = new JTextField(),
+        		prodId = new JTextField(),
+        		costPrice = new JTextField(),
+        		sellPrice = new JTextField(),
+        		currentStock = new JTextField(),
+        		supplierID = new JTextField(),
+        		other = new JTextField(),
+        }; 
+        
+        JLabel [] digiProdDetailLb = {
+        new JLabel(" Product title"),
+        new JLabel(" Type"),
+        new JLabel(" Product ID"),
+        new JLabel(" Cost price"),
+        new JLabel(" Selling price"),
+        new JLabel(" Current stock"),
+        new JLabel(" Supplier ID"),
+        new JLabel(" Other")
+        };
+        
+        JRadioButton cd;  
+    	JRadioButton dvd; 
+    	JRadioButton game; 
+    	
+        JRadioButton[] digiProdRadioBtns ={
+        cd = new JRadioButton("CD"),
+        dvd =new JRadioButton("DVD"),
+        game = new JRadioButton("Game")
+        };
+        ButtonGroup digiGroup = new ButtonGroup();
+        digiGroup.add(cd);
+        digiGroup.add(dvd);
+        digiGroup.add(game);
+        
+        for(int i = 0; i < digiProdDetailLb.length; i++)
+        {
+        	gc.gridx = 0; 
+    		gc.gridy = i; 
+    		gc.gridwidth = 1; 
+    		gc.gridheight = 1; 
+    		gc.weighty = 0.1; 
+    		gc.weightx = 10.0;
+    		gc.anchor = GridBagConstraints.WEST;
+    		digiProdDetailLb[i].setFont(font);
+    		digiProdDetailsPanel.add(digiProdDetailLb[i], gc);
+        	
+    		//Adds the radio buttons
+    		if(i == 1)
+    		{
+    		int count =0;
+    		while(count < 3)
+    		{
+    			
+    			for(int j = 0; j < digiProdRadioBtns.length; j++)
+    			{
+    				gc.gridx = j + 1; 
+    	    		gc.gridy = 1 ; 
+    	    		gc.gridwidth = 1; 
+    	    		gc.gridheight = 1; 
+    	    		gc.weighty = 0.1; 
+    	    		gc.weightx = 10.0;
+    	    		digiProdRadioBtns[j].setFont(font);
+    	    		digiProdDetailsPanel.add(digiProdRadioBtns[j], gc);
+    	    		count++;
+    			}
+    		}
+    		}
+    		if(i == 1)
+    		{
+    			
+    		}
+    		else
+    		{
+        	gc.gridx = 1; 
+    		gc.gridy = i  ; 
+    		gc.gridwidth = 1; 
+    		gc.gridheight = 1; 
+    		gc.weighty = 0.2; 
+    		gc.weightx = 10.0;
+    		gc.gridwidth = 3;
+    		digiProdDetailBx[i].setPreferredSize(new Dimension(300, 30));
+    		digiProdDetailsPanel.add(digiProdDetailBx[i], gc);
+    		}
+        }
+        
+        editDigiProdPanel.add(digiProdDetailsPanel, BorderLayout.EAST);
+        
+        //button panel inside edit product panel
+        editDigiProdBtnsPanel = new JPanel();
+        editDigiProdBtnsPanel.setLayout(new GridBagLayout());
+        editDigiProdBtnsPanel.setPreferredSize(new Dimension(250, 50));
+        
+        
+        //Adding buttons to the button panel inside the edit product panel
+        JButton [] editDigiProdBtnsArray = {
+				addProd = new JButton("Add Product"),
+				removeProd = new JButton("Remove Product"),
+				editProd= new JButton("Edit Product"),
+				
+		        };
+        
+		for(int i = 0; i < editDigiProdBtnsArray.length; i++)
+        {
+			gc.gridx = 0; 
+			gc.gridy = i; 
+			gc.gridwidth = 1; 
+			gc.gridheight = 1; 
+			gc.weighty = 0.0; 
+			gc.weightx = 0.0;
+			gc.insets = new Insets(10,0,0,0);
+			editDigiProdBtnsArray[i].setIcon(new ImageIcon("src/resources/blueButton.png"));
+			editDigiProdBtnsArray[i].setFont(new Font("sansserif",Font.BOLD,16));
+			editDigiProdBtnsArray[i].setPreferredSize(new Dimension(180, 50));
+			editDigiProdBtnsArray[i].setHorizontalTextPosition(JButton.CENTER);
+			editDigiProdBtnsArray[i].setVerticalTextPosition(JButton.CENTER);
+			
+			editDigiProdBtnsArray[i].addActionListener(this);
+			editDigiProdBtnsPanel.add(editDigiProdBtnsArray[i], gc);
+        }
+		editDigiProdPanel.add(editDigiProdBtnsPanel, BorderLayout.WEST);
+        //Electric product panel end******************************************************
+		
+		
+		
 		
         //Financial panel
         financialPanel =  new JPanel();
@@ -373,7 +514,8 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
         cardPanel.add(genReportPanel, "first");
         cardPanel.add(editUserPanel, "second");
         cardPanel.add(editElecProdPanel , "third");
-        cardPanel.add(financialPanel, "forth");
+        cardPanel.add(editDigiProdPanel , "forth");
+        cardPanel.add(financialPanel, "fifth");
 		cardPanel.setBorder(border);
 		cardPanel.setPreferredSize(new Dimension(820, 10));
 		frame.add(cardPanel, BorderLayout.EAST);
@@ -427,7 +569,7 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 			}
 			else
 			{
-				cards.show(cardPanel, "second");
+				cards.show(cardPanel, "forth");
 			}
         }
 		else if(e.getSource() == financialManagBtn)
