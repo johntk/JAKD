@@ -47,21 +47,27 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		con = new JButton(cn);
 		con.setBackground(Color.WHITE);
 		con.setBorder(null);
+		con.addActionListener(this);
 		headp = new JButton(hp);
 		headp.setBackground(Color.WHITE);
 		headp.setBorder(null);
+		headp.addActionListener(this);
 		game = new JButton(gm);
 		game.setBackground(Color.WHITE);
 		game.setBorder(null);
+		game.addActionListener(this);
 		music = new JButton(mu);
 		music.setBackground(Color.WHITE);
 		music.setBorder(null);
+		music.addActionListener(this);
 		dvds = new JButton(dvd);
 		dvds.setBackground(Color.WHITE);
 		dvds.setBorder(null);
+		dvds.addActionListener(this);
 		soundd = new JButton(sd);
 		soundd.setBackground(Color.WHITE);
 		soundd.setBorder(null);
+		soundd.addActionListener(this);
 		search = new JButton(src);
 		search.setBackground(Color.WHITE);
 		search.setBorder(null);
@@ -69,6 +75,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		deals = new JButton(dl);
 		deals.setBackground(Color.WHITE);
 		deals.setBorder(null);
+		deals.addActionListener(this);
 
 		header = new JPanel(new BorderLayout());
 		exit = new JButton("Close");
@@ -113,6 +120,10 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		if(e.getSource()==search)
 		{
 			KioskSearch ks = new KioskSearch();
+		}
+		if(e.getSource()==game)
+		{
+			KioskGameOptions kso = new KioskGameOptions();
 		}
 	}
 	
