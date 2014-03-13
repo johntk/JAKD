@@ -13,6 +13,7 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 	 * 
 	 */
 	//test
+	
 	private static final long serialVersionUID = 1L;
 	private CardLayout cards;
 	private JFrame frame;
@@ -20,6 +21,18 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 	private static final int FRAME_HEIGHT = 827;
 	private JButton genReportBtn, editUserBtn,  editProdBtn, financialManagBtn, 
 	addUser, addProd, editUser, editProd, removeUser, removeProd;
+	
+	 
+	private JRadioButton phono = new JRadioButton("Headphones");
+	private JRadioButton console =new JRadioButton("Console");
+	private JRadioButton dock = new JRadioButton("Dock");
+	  
+	private JRadioButton cd = new JRadioButton("CD");
+	private JRadioButton dvd =new JRadioButton("DVD");
+	private JRadioButton game = new JRadioButton("Game");
+	
+	JRadioButton[] digiProdRadioBtns  = new JRadioButton[]{cd, dvd, game};
+	JRadioButton[] elecProdRadioBtns  = new JRadioButton[]{phono, console, dock};
 	
 	private JLabel logo, digiProdDetails, spacer, userDetails, elecProdDetails;
 	
@@ -263,14 +276,8 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
         new JLabel(" Other")
         };
         
-        JRadioButton phono;  
-    	JRadioButton console; 
-    	JRadioButton dock; 
-        JRadioButton[] elecProdRadioBtns ={
-        phono = new JRadioButton("Head Phone"),
-        console =new JRadioButton("Console"),
-        dock = new JRadioButton("Dock")
-        };
+        
+      
         ButtonGroup group = new ButtonGroup();
 		group.add(phono);
 		group.add(console);
@@ -403,15 +410,12 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
         new JLabel(" Other")
         };
         
-        JRadioButton cd;  
-    	JRadioButton dvd; 
-    	JRadioButton game; 
+       
     	
-        JRadioButton[] digiProdRadioBtns ={
-        cd = new JRadioButton("CD"),
-        dvd =new JRadioButton("DVD"),
-        game = new JRadioButton("Game")
-        };
+       
+        		
+               
+       
         ButtonGroup digiGroup = new ButtonGroup();
         digiGroup.add(cd);
         digiGroup.add(dvd);
@@ -448,8 +452,6 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
     	    		digiProdRadioBtns[j].addItemListener(this);
     	    		digiProdDetailsPanel.add(digiProdRadioBtns[j], gc);
     	    		count++;
-    	    		
-    	    		
     			}
     		}
     		}
@@ -594,7 +596,31 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 	
 	public void itemStateChanged(ItemEvent it) {
 		
+		String[] digiPopup = {"cdPopup", "dvdPopup", "second"};
+		String[] elecPopup = {"phonoPopup", "consolePopup", "dockPopup"};
 		
+		for(int i =0; i < digiProdRadioBtns.length; i++ )
+		{
+			if(digiProdRadioBtns[i].isSelected())
+			{
+				
+				cards.show(cardPanel, digiPopup[i]);
+				
+			}
+			
+			
+		}
+		for(int i =0; i < elecProdRadioBtns.length; i++ )
+		{
+			if(elecProdRadioBtns[i].isSelected())
+			{
+				
+				cards.show(cardPanel, elecPopup[i]);
+				
+			}
+			
+			
+		}
 		
 	}
 }
