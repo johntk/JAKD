@@ -10,11 +10,13 @@ public class KioskStartScreen extends JFrame implements ActionListener
 {
 	private JFrame frame;
 	private String srcPath;
-	private JPanel content,header,footer;
+	private JPanel content,header,footer,pswd;
 	private ImageIcon cn,hp,gm,mu,dvd,sd,src,dl,logo,close;
 	private JButton exit,con,headp,game,music,dvds,soundd,search,deals;
-	private JLabel logoLabel;
+	private JLabel logoLabel,pinLbl;
 	private JLabel empty1,empty2,empty3,empty4;
+	private JPasswordField jpf;
+	private String OK = "ok";
 
 	public KioskStartScreen()
 	{
@@ -26,7 +28,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		frame.setLocationRelativeTo(null);
 		frame.setUndecorated(true);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+
 		srcPath = "src/kioskScreens/Resources/images/";
 
 		cn = new ImageIcon(srcPath+"console.png");
@@ -111,12 +113,23 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		frame.setVisible(true);
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 		frame.requestFocus();
+
+		pswd = new JPanel(new GridLayout(1,2));
+		pinLbl = new JLabel("PIN:");
+		jpf = new JPasswordField(4);
+		pswd.add(pinLbl);
+		pswd.add(jpf);
 	}
-	
+
 	public void actionPerformed(ActionEvent e)
 	{
 		if(e.getSource()==exit)
 		{
+			/*int input = JOptionPane.showConfirmDialog(frame, pswd, "Enter your PIN:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			if(input == 0000)
+			{
+				System.exit(0);
+			}*/
 			System.exit(0);
 		}
 		if(e.getSource()==search)
@@ -128,7 +141,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 			KioskGameOptions kso = new KioskGameOptions();
 		}
 	}
-	
+
 	public static void main(String args[])
 	{
 		KioskStartScreen kss = new KioskStartScreen();
