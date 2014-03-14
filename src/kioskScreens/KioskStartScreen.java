@@ -132,13 +132,35 @@ public class KioskStartScreen extends JFrame implements ActionListener
 			}*/
 			System.exit(0);
 		}
-		if(e.getSource()==search)
-		{
+		if(e.getSource()==search){
 			KioskSearch ks = new KioskSearch();
 		}
-		if(e.getSource()==game)
-		{
+		if(e.getSource()==game){
 			KioskGameOptions kso = new KioskGameOptions();
+		}
+		if(e.getSource()==music){
+			KioskResultsScreen krs = new KioskResultsScreen();
+			krs.setHeading("Music");
+		}
+		if(e.getSource()==dvds){
+			KioskResultsScreen krs = new KioskResultsScreen();
+			krs.setHeading("DVD");
+		}
+		if(e.getSource()==con){
+			KioskResultsScreen krs = new KioskResultsScreen();
+			krs.setHeading("Consoles");
+		}
+		if(e.getSource()==headp){
+			KioskResultsScreen krs = new KioskResultsScreen();
+			krs.setHeading("Headphones");
+		}
+		if(e.getSource()==soundd){
+			KioskResultsScreen krs = new KioskResultsScreen();
+			krs.setHeading("Sound Docks");
+		}
+		if(e.getSource()==deals){
+			KioskResultsScreen krs = new KioskResultsScreen();
+			krs.setHeading("Deals");
 		}
 	}
 
