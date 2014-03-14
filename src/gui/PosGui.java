@@ -65,7 +65,7 @@ public class PosGui extends JFrame implements ActionListener
 		gc = new GridBagConstraints();
 		
 		logo = new JLabel("");
-		logo.setIcon(new ImageIcon("src/gui/resources/logo.jpeg"));
+		logo.setIcon(new ImageIcon("src/resources/logo.jpeg"));
 		logo.setPreferredSize(new Dimension(295, 120));
 		gc.gridx = 0; // col
 		gc.gridy = 0; // row
@@ -102,7 +102,7 @@ public class PosGui extends JFrame implements ActionListener
 			gc.gridheight = 1; 
 			gc.weighty = 0.2; 
 			gc.weightx = 0.0;
-			sideButtonsArray[i].setIcon(new ImageIcon("src/gui/resources/blueButton.png"));
+			sideButtonsArray[i].setIcon(new ImageIcon("src/resources/blueButton.png"));
 			sideButtonsArray[i].setFont(new Font("sansserif",Font.BOLD,22));
 			sideButtonsArray[i].setPreferredSize(new Dimension(280, 100));
 			sideButtonsArray[i].setHorizontalTextPosition(JButton.CENTER);
