@@ -29,7 +29,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		frame.setUndecorated(true);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		srcPath = "src/kioskScreens/Resources/images/";
+		srcPath = "src/resources/kioskFiles/images/";
 
 		cn = new ImageIcon(srcPath+"console.png");
 		hp = new ImageIcon(srcPath+"headphones.png");

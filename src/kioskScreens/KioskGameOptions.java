@@ -26,7 +26,7 @@ public class KioskGameOptions extends JFrame implements ActionListener
 		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		frame.setUndecorated(true);
 		
-		srcPath = "src/kioskScreens/Resources/images/";
+		srcPath = "src/resources/kioskFiles/images/";
 		gc = new GridBagConstraints();
 		hm = new ImageIcon(srcPath+"home.png");
 		xb = new ImageIcon(srcPath+"xbox.png");

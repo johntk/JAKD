@@ -28,7 +28,7 @@ public class KioskSearch extends JFrame implements ActionListener
 		frame.setUndecorated(true);
 		f1=new Font("Calibri",Font.PLAIN,20);
 
-		srcPath = "src/kioskScreens/Resources/images/";
+		srcPath = "src/resources/kioskFiles/images/";
 		gc = new GridBagConstraints();
 		hm = new ImageIcon(srcPath+"home.png");
 		logo = new ImageIcon(srcPath+"logo.png");
