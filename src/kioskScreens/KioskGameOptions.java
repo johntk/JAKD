@@ -56,8 +56,9 @@ public class KioskGameOptions extends JFrame implements ActionListener
 		center.setBackground(new Color(0,0,0,0));
 		main.add(center,BorderLayout.CENTER);
 		
-		//add buttons to center panel
+		//add buttons and heading to center panel
 		heading = new JLabel("Choose a Platform...");
+		heading.setBorder(BorderFactory.createEmptyBorder(0,0,50,0));
 		heading.setFont(new Font("Calibri",Font.PLAIN,50));
 		gc.gridx = 1;
 		gc.gridy = 0;

@@ -11,7 +11,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 	private JFrame frame;
 	private String srcPath;
 	private JPanel content,header,footer;
-	private ImageIcon cn,hp,gm,mu,dvd,sd,src,dl,logo;
+	private ImageIcon cn,hp,gm,mu,dvd,sd,src,dl,logo,close;
 	private JButton exit,con,headp,game,music,dvds,soundd,search,deals;
 	private JLabel logoLabel;
 	private JLabel empty1,empty2,empty3,empty4;
@@ -38,6 +38,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		src = new ImageIcon(srcPath+"search.png");
 		dl = new ImageIcon(srcPath+"deals.png");
 		logo = new ImageIcon(srcPath+"logo3.png");
+		close = new ImageIcon(srcPath+"close.png");
 
 		empty1 = new JLabel(" ");
 		empty2 = new JLabel(" ");
@@ -78,7 +79,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		deals.addActionListener(this);
 
 		header = new JPanel(new BorderLayout());
-		exit = new JButton("Close");
+		exit = new JButton("Close",close);
 		exit.setBackground(new Color(238,238,238));
 		exit.setPreferredSize(new Dimension(100,50));
 		exit.addActionListener(this);
@@ -109,6 +110,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 
 		frame.setVisible(true);
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+		frame.requestFocus();
 	}
 	
 	public void actionPerformed(ActionEvent e)
