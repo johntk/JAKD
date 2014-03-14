@@ -86,7 +86,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		header.add(exit,BorderLayout.EAST);
 		frame.add(header,BorderLayout.NORTH);
 
-		content = new JPanel(new GridLayout(2,6,0,5));
+		content = new JPanel(new GridLayout(2,6));
 		content.setBackground(new Color(0,0,0,0));
 		content.add(empty1);
 		content.add(search);

@@ -27,7 +27,7 @@ public class KioskSearch extends JFrame implements ActionListener
 		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		frame.setUndecorated(true);
 		f1=new Font("Calibri",Font.PLAIN,20);
-		
+
 		srcPath = "src/kioskScreens/Resources/images/";
 		gc = new GridBagConstraints();
 		hm = new ImageIcon(srcPath+"home.png");
@@ -96,14 +96,18 @@ public class KioskSearch extends JFrame implements ActionListener
 					search.setText("");
 				}
 			}
-			public void focusLost(FocusEvent e) {
-				search.setText("Search for a Product...");
-				search.setForeground(Color.LIGHT_GRAY);
+			public void focusLost(FocusEvent e)
+			{
+				if(search.getText().equals(""))
+				{
+					search.setText("Search for a Product...");
+					search.setForeground(Color.LIGHT_GRAY);
+				}
 			}
 		});
 		frame.setVisible(true);
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-		searchBtn.requestFocus();
+		frame.requestFocus();
 	}
 
 	public void actionPerformed(ActionEvent e)
