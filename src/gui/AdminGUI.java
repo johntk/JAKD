@@ -117,7 +117,7 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 		test4.addActionListener(this);
 		financialPanel.add(test4);
 
-		// Main panel for displaying all the above panels on action performed
+		// Main panel for displaying all the  panels on action performed
 		cards = new CardLayout();
 
 		cardPanel.setLayout(cards);
@@ -156,12 +156,15 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 
 		} else if (e.getSource() == editProdBtn) {
 			prodSelect();
+			String prodSearch;
 			if (elcProdRB.isSelected()) {
 				cards.show(cardPanel, "editElec");
-				String prodSearch = JOptionPane.showInputDialog(null,
+				prodSearch = JOptionPane.showInputDialog(null,
 						"Enter the name of product you wish to edit");
 			} else if (digiProdRB.isSelected()) {
 				cards.show(cardPanel, "editDigi");
+				 prodSearch = JOptionPane.showInputDialog(null,
+						"Enter the name of product you wish to edit");
 			} else {
 
 			}

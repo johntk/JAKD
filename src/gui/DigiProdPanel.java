@@ -20,7 +20,7 @@ public class DigiProdPanel extends JPanel implements ActionListener,
 	private JTextField other, supplierID, currentStock, sellPrice, costPrice,
 			prodTitle, type, prodId;
 	private JPanel editDigiProdBtnsPanel, digiProdDetailsPanel;
-
+	
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border border = BorderFactory.createCompoundBorder(space, line);
@@ -87,6 +87,7 @@ public class DigiProdPanel extends JPanel implements ActionListener,
 						gc.weightx = 10.0;
 						digiProdRadioBtns[j].setFont(font);
 						digiProdDetailsPanel.add(digiProdRadioBtns[j], gc);
+						digiProdRadioBtns[j].addItemListener(this);
 						count++;
 					}
 				}
@@ -141,19 +142,25 @@ public class DigiProdPanel extends JPanel implements ActionListener,
 
 	}
 
+	
+	
+	
+	
+	
 	public void actionPerformed(ActionEvent e) {
 
 	}
 
 	public void itemStateChanged(ItemEvent e) {
 
-		String[] digiPopup = { "cdPopup", "dvdPopup", "financial" };
+		String[] digiPopup = { "cdDialog", "dvdDialog", "gameDialog" };
 
 		for (int i = 0; i < digiProdRadioBtns.length; i++) {
 			if (digiProdRadioBtns[i].isSelected()) {
-				// this will be JDiolog
-				// cards.show(cardPanel, digiPopup[i]);
-
+				
+				ProdDialog a = new	ProdDialog(digiPopup[i]);
+				
+				
 			}
 
 		}
