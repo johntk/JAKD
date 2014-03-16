@@ -171,12 +171,10 @@ public class KioskStartScreen extends JFrame implements ActionListener
 			db.queryConsoles();
 		}
 		if(e.getSource()==headp){
-			KioskResultsScreen krs = new KioskResultsScreen();
-			krs.setHeading("Headphones");
+			db.queryHeadphones();
 		}
 		if(e.getSource()==soundd){
-			KioskResultsScreen krs = new KioskResultsScreen();
-			krs.setHeading("Sound Docks");
+			db.querySoundDocks();
 		}
 		if(e.getSource()==deals){
 			KioskResultsScreen krs = new KioskResultsScreen();

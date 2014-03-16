@@ -508,7 +508,7 @@ public class DBsql
 			stmt.execute("insert into DVD values('D0000004',146,'The Hunger Games - Catching Fire','Lionsgate',13.60,25.99,'D0000012')");
 			stmt.execute("insert into DVD values('D0000005',113,'Thor - The Dark World','Walt Disney',11.59,21.99,'D0000013')");
 			stmt.execute("insert into GAME values('G0000001','UBI SOFT','PS4','Assassin''s Creed IV Black Flag',26.40,45.99,'D0000014')");
-			stmt.execute("insert into GAME values('G0000002','Activision','Xbox360','Call of Duty: Ghosts',18.20,26.99,'D0000015')");
+			stmt.execute("insert into GAME values('G0000002','Activision','Xbox360','Call of Duty - Ghosts',18.20,26.99,'D0000015')");
 			stmt.execute("insert into GAME values('G0000003','Rockstar Games','Xbox360','Grand Theft Auto V',26.50,44.99,'D0000016')");
 			stmt.execute("insert into GAME values('G0000004','Konami','PS4','Metal Gear Solid V Ground Zeroes',17.60,24.99,'D0000017')");
 			stmt.execute("insert into CONSOLE values('L0000001',500,'Y',1,200,260,'E0000001')");

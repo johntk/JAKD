@@ -45,7 +45,7 @@ public class KioskResultsScreen implements ActionListener
 		home.setBorder(null);
 		home.addActionListener(this);
 		top.add(home, BorderLayout.WEST);
-		
+
 		main.add(top,BorderLayout.NORTH);
 
 		//add center JPanel to main frame
@@ -53,15 +53,15 @@ public class KioskResultsScreen implements ActionListener
 		center.setBackground(new Color(0,0,0,0));
 		center.setBorder(BorderFactory.createEmptyBorder(0,120,0,120));
 		main.add(center,BorderLayout.CENTER);
-		
+
 		centerTop = new JPanel(new GridBagLayout());
 		centerTop.setBackground(new Color(0,0,0,0));
 		resultsHeading = new JLabel("Displaying Results for... ");
 		resultsHeading.setFont(new Font("Calibri",Font.PLAIN,40));
 		centerTop.add(resultsHeading);
 		center.add(centerTop,BorderLayout.NORTH);
-		
-		
+
+
 		resultWindow = new JPanel(new GridBagLayout());
 		scrollPane = new JScrollPane(resultWindow);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(25);
@@ -71,7 +71,7 @@ public class KioskResultsScreen implements ActionListener
 		logoLabel = new JLabel(logo);
 		footer.add(logoLabel);
 		frame.add(footer,BorderLayout.SOUTH);
-		
+
 		frame.setVisible(true);
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 		frame.requestFocus();
@@ -81,7 +81,7 @@ public class KioskResultsScreen implements ActionListener
 	{
 		resultsHeading.setText(resultsHeading.getText()+s);
 	}
-	
+
 	//Adds product result to results panel
 	public void addResult(String img,String desc,int y,double price)
 	{
@@ -99,7 +99,7 @@ public class KioskResultsScreen implements ActionListener
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		resultWindow.add(r,gc);
 	}
-	
+
 	public void actionPerformed(ActionEvent e)
 	{
 		if(e.getSource()==home)
@@ -107,36 +107,36 @@ public class KioskResultsScreen implements ActionListener
 			frame.dispose();
 		}
 	}
-	
+
 	//*********Inner Class to construct a product result***********
-		private class Result
+	private class Result
+	{
+		private ImageIcon productImage;
+		private String imageFile;
+		private JLabel image,description,salePrice;
+		//private String salePrice;
+		private JPanel resultPanel;
+		private String srcPath;
+
+		Result(String img,String desc,double price)
 		{
-			private ImageIcon productImage;
-			private String imageFile;
-			private JLabel image,description,salePrice;
-			//private String salePrice;
-			private JPanel resultPanel;
-			private String srcPath;
-			
-			Result(String img,String desc,double price)
-			{
-				imageFile = img;
-				salePrice = new JLabel("  - €"+price);
-				salePrice.setFont(new Font("Calibri",Font.BOLD,25));
-				salePrice.setForeground(new Color(143,164,179));
-				description = new JLabel("  "+desc);
-				description.setFont(new Font("Calibri",Font.PLAIN,25));
-				resultPanel = new JPanel(new BorderLayout());
-				srcPath = "src/resources/kioskFiles/productImages/thumbs/";
-				productImage = new ImageIcon(srcPath+imageFile);
-				image = new JLabel(productImage);
-				resultPanel.add(image,BorderLayout.WEST);
-				resultPanel.add(description,BorderLayout.CENTER);
-				resultPanel.add(salePrice,BorderLayout.EAST);
-			}
-			public JPanel getResult()
-			{
-				return resultPanel;
-			}
+			imageFile = img;
+			salePrice = new JLabel("  - €"+price);
+			salePrice.setFont(new Font("Calibri",Font.BOLD,25));
+			salePrice.setForeground(new Color(143,164,179));
+			description = new JLabel("  "+desc);
+			description.setFont(new Font("Calibri",Font.PLAIN,25));
+			resultPanel = new JPanel(new BorderLayout());
+			srcPath = "src/resources/kioskFiles/productImages/thumbs/";
+			productImage = new ImageIcon(srcPath+imageFile);
+			image = new JLabel(productImage);
+			resultPanel.add(image,BorderLayout.WEST);
+			resultPanel.add(description,BorderLayout.CENTER);
+			resultPanel.add(salePrice,BorderLayout.EAST);
 		}
+		public JPanel getResult()
+		{
+			return resultPanel;
+		}
+	}
 }

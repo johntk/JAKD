@@ -148,7 +148,55 @@ public class DBconnection
 			System.out.println("ERROR: " + ex.getMessage());
 		}
 	}
+	
+	public void queryHeadphones()
+	{
+		KioskResultsScreen krs = new KioskResultsScreen();
+		krs.setHeading("HEADPHONES");
+		String description;
+		double salePrice;
+		int y=0;
+		try {
+			stmt = conn.createStatement();
+			String sqlStatement = "select e.manufacturer, e.model, h.headphone_sale_price from product p, electronic e, headphones h where p.prod_id = e.prod_id and h.elec_id = e.elec_id";
+			rset = stmt.executeQuery(sqlStatement);
+			while (rset.next())
+			{
+				description = rset.getString("manufacturer")+" - "+rset.getString("model");
+				salePrice = rset.getDouble("headphone_sale_price");
+				krs.addResult(rset.getString("model")+".jpg", description, y, salePrice);
+				y++;
+			}
+		} catch (Exception ex)
+		{
+			System.out.println("ERROR: " + ex.getMessage());
+		}
+	}
 
+	public void querySoundDocks()
+	{
+		KioskResultsScreen krs = new KioskResultsScreen();
+		krs.setHeading("SOUNDDOCKS");
+		String description;
+		double salePrice;
+		int y=0;
+		try {
+			stmt = conn.createStatement();
+			String sqlStatement = "select e.manufacturer, e.model, s.sd_sale_price from product p, electronic e, SOUND_DOCK s where p.prod_id = e.prod_id and s.elec_id = e.elec_id";
+			rset = stmt.executeQuery(sqlStatement);
+			while (rset.next())
+			{
+				description = rset.getString("manufacturer")+" - "+rset.getString("model");
+				salePrice = rset.getDouble("sd_sale_price");
+				krs.addResult(rset.getString("model")+".jpg", description, y, salePrice);
+				y++;
+			}
+		} catch (Exception ex)
+		{
+			System.out.println("ERROR: " + ex.getMessage());
+		}
+	}
+	
 	public void closeDB()
 	{
 		try
