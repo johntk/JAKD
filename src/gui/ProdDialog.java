@@ -11,8 +11,10 @@ import javax.swing.border.*;
 public class ProdDialog extends JDialog  {
 
 
-	private JButton ok;
-	private JPanel cardPanel,  cdPopup, dvdPopup, GamePopup, phonoPopup, dockPopup, consolePopup;
+	
+	private JPanel cardPanel,  cdPopup, dvdPopup, gamePopup, phonoPopup, dockPopup, consolePopup;
+	private String[] popup = {"cd", "dvd", "game", "phono", "console", "dock"};
+	
 	private CardLayout cards;
 	
 	private JDialog cd;
@@ -22,15 +24,19 @@ public class ProdDialog extends JDialog  {
 	private Border border = BorderFactory.createCompoundBorder(space, line);
 	private BorderLayout layout = new BorderLayout();
 	
-	private static final int FRAME_WIDTH = 840;
-	private static final int FRAME_HEIGHT = 500;
-	
 	public ProdDialog(String popUp)
 	{
+		
 		
 
 		cdPopup = new CDPopup();
 		dvdPopup = new DVDPopup();
+		gamePopup = new CDPopup();
+		phonoPopup = new DVDPopup();
+		dockPopup = new CDPopup();
+		consolePopup = new DVDPopup();
+		
+		
 		cardPanel = new JPanel();
 		cards = new CardLayout();
 
@@ -42,30 +48,26 @@ public class ProdDialog extends JDialog  {
 		cardPanel.setLayout(cards);
 		cardPanel.add(cdPopup, "cd");
 		cardPanel.add(dvdPopup, "dvd");
-//		cardPanel.add(GamePopup, "game");
-//		cardPanel.add(phonoPopup, "phono");
-//		cardPanel.add(dockPopup, "dock");
-//		cardPanel.add(consolePopup, "console");
+		cardPanel.add(gamePopup, "game");
+		cardPanel.add(phonoPopup, "phono");
+		cardPanel.add(dockPopup, "dock");
+		cardPanel.add(consolePopup, "console");
 		cardPanel.setBorder(border);
 		
 		cd.add(cardPanel, BorderLayout.EAST);
 		
 
-		if(popUp == "cdDialog")
+		for(int i =0; i < 6; i++)
 		{
-			cards.show(cardPanel, "cd");
-			cd.setSize(250,250);
+			if(popUp == popup[i])
+			{
+				cards.show(cardPanel, popup[i]);
+				cd.pack();
+			}
 			
 		}
-		else if(popUp == "dvdDialog")
-		{
-			cards.show(cardPanel, "dvd");
-			cd.setSize(500,250);
-		}
-		
+
 		cd.setVisible(true);
-		
-		System.out.println(popUp);
-		
+
 	}
 }

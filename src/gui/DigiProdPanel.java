@@ -153,7 +153,7 @@ public class DigiProdPanel extends JPanel implements ActionListener,
 
 	public void itemStateChanged(ItemEvent e) {
 
-		String[] digiPopup = { "cdDialog", "dvdDialog", "gameDialog" };
+		String[] digiPopup = { "cd", "dvd", "game" };
 
 		for (int i = 0; i < digiProdRadioBtns.length; i++) {
 			if (digiProdRadioBtns[i].isSelected()) {
