@@ -31,9 +31,14 @@ public class DigiProdPanel extends JPanel implements ActionListener,
 	private JRadioButton dvd = new JRadioButton("DVD");
 	private JRadioButton game = new JRadioButton("Game");
 	private JRadioButton[] digiProdRadioBtns = new JRadioButton[] { cd, dvd, game };
+	private JFrame jFrame;
+	
+	
+	public DigiProdPanel(JFrame jFrame) {
 
-	public DigiProdPanel() {
-
+		
+		this.jFrame = jFrame;
+		
 		this.setLayout(new BorderLayout());
 		digiProdDetails = new JLabel("Digital Product");
 		digiProdDetails.setBorder(new EmptyBorder(10, 500, 0, 0));
@@ -144,11 +149,6 @@ public class DigiProdPanel extends JPanel implements ActionListener,
 
 	}
 
-	
-	
-	
-	
-	
 	public void actionPerformed(ActionEvent e) {
 
 	}
@@ -160,12 +160,9 @@ public class DigiProdPanel extends JPanel implements ActionListener,
 		for (int i = 0; i < digiProdRadioBtns.length; i++) {
 			if (digiProdRadioBtns[i].isSelected()) {
 				
-				ProdDialog a = new	ProdDialog(digiPopup[i]);
-				
-				
-			}
+				ProdDialog a = new	ProdDialog(digiPopup[i], jFrame);
 
+			}
 		}
 	}
-
 }

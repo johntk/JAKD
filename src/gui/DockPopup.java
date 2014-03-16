@@ -1,25 +1,25 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.*;
+
 import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.border.TitledBorder;
 
-public class DVDPopup extends JPanel{
+public class DockPopup extends JPanel{
 
+	
 	private JLabel name, address, phone, email;
 	private JTextField nameTBox, addressTBox, phoneTBox, emailTBox;
 	private JButton ok;
 
-	public DVDPopup()
+	public DockPopup()
 	{
 		
 		this.setLayout(new BorderLayout());
 		
 
 		JPanel top = new JPanel(new GridLayout(0,2));
-		top.setBorder(new TitledBorder("DVD"));
+		top.setBorder(new TitledBorder("Dock"));
 		this.add(top, BorderLayout.NORTH);
 		
 		name = new JLabel("bob:");
