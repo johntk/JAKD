@@ -505,8 +505,8 @@ public class DBsql
 			stmt.execute("insert into DVD values('D0000001',135,'Captain Phillips','Columbia Pictures',12.58,26.99,'D0000009')");
 			stmt.execute("insert into DVD values('D0000002',118,'Dallas Buyers Club','Focus Features',13.50,24.99,'D0000010')");
 			stmt.execute("insert into DVD values('D0000003',91,'Gravity','Warner Brothers',12.55,24.99,'D0000011')");
-			stmt.execute("insert into DVD values('D0000004',146,'The Hunger Games: Catching Fire','Lionsgate',13.60,25.99,'D0000012')");
-			stmt.execute("insert into DVD values('D0000005',113,'Thor: The Dark World','Walt Disney',11.59,21.99,'D0000013')");
+			stmt.execute("insert into DVD values('D0000004',146,'The Hunger Games - Catching Fire','Lionsgate',13.60,25.99,'D0000012')");
+			stmt.execute("insert into DVD values('D0000005',113,'Thor - The Dark World','Walt Disney',11.59,21.99,'D0000013')");
 			stmt.execute("insert into GAME values('G0000001','UBI SOFT','PS4','Assassin''s Creed IV Black Flag',26.40,45.99,'D0000014')");
 			stmt.execute("insert into GAME values('G0000002','Activision','Xbox360','Call of Duty: Ghosts',18.20,26.99,'D0000015')");
 			stmt.execute("insert into GAME values('G0000003','Rockstar Games','Xbox360','Grand Theft Auto V',26.50,44.99,'D0000016')");
