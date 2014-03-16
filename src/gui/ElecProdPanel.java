@@ -86,6 +86,7 @@ public class ElecProdPanel extends JPanel implements ActionListener,
 						gc.weighty = 0.1;
 						gc.weightx = 10.0;
 						elecProdRadioBtns[j].setFont(font);
+						elecProdRadioBtns[j].addItemListener(this);
 						elecProdDetailsPanel.add(elecProdRadioBtns[j], gc);
 						count++;
 					}
@@ -145,14 +146,14 @@ public class ElecProdPanel extends JPanel implements ActionListener,
 
 	}
 
-	public void itemStateChanged(ItemEvent arg0) {
+	public void itemStateChanged(ItemEvent e) {
 
-		String[] elecPopup = { "phonoPopup", "consolePopup", "dockPopup" };
+		String[] elecPopup = { "phono", "console", "dock" };
 
 		for (int i = 0; i < elecProdRadioBtns.length; i++) {
 			if (elecProdRadioBtns[i].isSelected()) {
-				// this will be JDiolog
-				// cards.show(cardPanel, elecPopup[i]);
+				
+				ProdDialog el = new	ProdDialog(elecPopup[i]);
 
 			}
 

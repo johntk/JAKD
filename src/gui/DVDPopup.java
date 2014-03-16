@@ -23,7 +23,7 @@ public class DVDPopup extends JPanel{
 	{
 		
 		this.setLayout(new BorderLayout());
-		this.setSize(250,250);
+		
 
 		JPanel top = new JPanel(new GridLayout(0,2));
 		top.setBorder(new TitledBorder("DVD"));
