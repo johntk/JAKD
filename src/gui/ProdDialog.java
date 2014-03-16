@@ -5,18 +5,11 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-
-
-
 public class ProdDialog extends JDialog  {
 
-
-	
 	private JPanel cardPanel,  cdPopup, dvdPopup, gamePopup, phonoPopup, dockPopup, consolePopup;
 	private String[] popup = {"cd", "dvd", "game", "phono", "console", "dock"};
-	
 	private CardLayout cards;
-	
 	private JDialog cd;
 	
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10, 10);
@@ -24,23 +17,22 @@ public class ProdDialog extends JDialog  {
 	private Border border = BorderFactory.createCompoundBorder(space, line);
 	private BorderLayout layout = new BorderLayout();
 	
-	public ProdDialog(String popUp)
+	public ProdDialog(String popUp, JFrame jFrame)
 	{
 		
 		
-
 		cdPopup = new CDPopup();
 		dvdPopup = new DVDPopup();
-		gamePopup = new CDPopup();
-		phonoPopup = new DVDPopup();
-		dockPopup = new CDPopup();
-		consolePopup = new DVDPopup();
+		gamePopup = new GamePopup();
+		phonoPopup = new HeadphonePopup();
+		dockPopup = new DockPopup();
+		consolePopup = new ConsolePopup();
 		
 		
 		cardPanel = new JPanel();
 		cards = new CardLayout();
 
-		cd = new JDialog();
+		cd = new JDialog(jFrame,true);
 		
 		cd.setLocationRelativeTo(null);
 
@@ -64,7 +56,6 @@ public class ProdDialog extends JDialog  {
 				cards.show(cardPanel, popup[i]);
 				cd.pack();
 			}
-			
 		}
 
 		cd.setVisible(true);

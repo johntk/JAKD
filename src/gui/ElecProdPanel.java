@@ -29,9 +29,14 @@ public class ElecProdPanel extends JPanel implements ActionListener,
 	private JRadioButton console = new JRadioButton("Console");
 	private JRadioButton dock = new JRadioButton("Dock");
 	private JRadioButton[] elecProdRadioBtns = new JRadioButton[] { phono,console, dock };
+	private JFrame jFrame;
+	
+	
+	public ElecProdPanel(JFrame jFrame) {
 
-	public ElecProdPanel() {
-
+		this.jFrame = jFrame;
+		
+		
 		this.setLayout(new BorderLayout());
 		elecProdDetails = new JLabel("Electronic Product");
 		elecProdDetails.setBorder(new EmptyBorder(10, 500, 0, 0));
@@ -153,7 +158,7 @@ public class ElecProdPanel extends JPanel implements ActionListener,
 		for (int i = 0; i < elecProdRadioBtns.length; i++) {
 			if (elecProdRadioBtns[i].isSelected()) {
 				
-				ProdDialog el = new	ProdDialog(elecPopup[i]);
+				ProdDialog el = new	ProdDialog(elecPopup[i], jFrame);
 
 			}
 

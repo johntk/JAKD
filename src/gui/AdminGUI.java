@@ -16,6 +16,11 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 	private JButton genReportBtn, editUserBtn, editProdBtn, financialManagBtn;
 	private JRadioButton elcProdRB, digiProdRB;
 
+	// Border declaration for use on east and west panels on main frame
+	private	Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10, 10);
+	private	Border line = (Border) BorderFactory.createLineBorder(Color.black);
+	private	Border border = BorderFactory.createCompoundBorder(space, line);
+	
 	private JLabel logo, spacer;
 
 	private JPanel cardPanel, digiProdPanel, genReportPanel, userPanel,
@@ -35,11 +40,6 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		cl = new Color(240, 240, 240);
-
-		// Border declaration for use on east and west panels on main frame
-		Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10, 10);
-		Border line = (Border) BorderFactory.createLineBorder(Color.black);
-		Border border = BorderFactory.createCompoundBorder(space, line);
 
 		// Left side buttons panel
 		JPanel sideButtons = new JPanel();
@@ -107,8 +107,8 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 		genReportPanel.add(test);
 
 		userPanel = new UserPanel();
-		elecProdPanel = new ElecProdPanel();
-		digiProdPanel = new DigiProdPanel();
+		elecProdPanel = new ElecProdPanel(frame);
+		digiProdPanel = new DigiProdPanel(frame);
 
 		// Financial panel
 		financialPanel = new JPanel();
