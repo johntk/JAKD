@@ -1,4 +1,4 @@
-package gui;
+package Popups;
 
 import java.awt.*;
 

@@ -1,25 +1,25 @@
-package gui;
-
+package Popups;
 
 import java.awt.*;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
-public class HeadphonePopup extends JPanel{
+public class DockPopup extends JPanel{
 
 	
 	private JLabel name, address, phone, email;
 	private JTextField nameTBox, addressTBox, phoneTBox, emailTBox;
 	private JButton ok;
 
-	public HeadphonePopup()
+	public DockPopup()
 	{
 		
 		this.setLayout(new BorderLayout());
 		
 
 		JPanel top = new JPanel(new GridLayout(0,2));
-		top.setBorder(new TitledBorder("HeadPhone"));
+		top.setBorder(new TitledBorder("Dock"));
 		this.add(top, BorderLayout.NORTH);
 		
 		name = new JLabel("bob:");
@@ -54,5 +54,4 @@ public class HeadphonePopup extends JPanel{
 		this.setVisible(true);
 		
 	}
-	
 }

@@ -6,14 +6,14 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import Popups.ProdDialog;
+
 public class DigiProdPanel extends JPanel implements ActionListener,
 		ItemListener {
 
 	/**
 	 * 
 	 */
-	
-	//test
 	private static final long serialVersionUID = 1L;
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();

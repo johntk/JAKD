@@ -1,26 +1,25 @@
-package gui;
+package Popups;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
+import javax.swing.border.*;
 
+public class DVDPopup extends JPanel{
 
-public class ConsolePopup extends JPanel{
-
-	
 	private JLabel name, address, phone, email;
 	private JTextField nameTBox, addressTBox, phoneTBox, emailTBox;
 	private JButton ok;
 
-	
-	public ConsolePopup()
+	public DVDPopup()
 	{
 		
 		this.setLayout(new BorderLayout());
 		
 
 		JPanel top = new JPanel(new GridLayout(0,2));
-		top.setBorder(new TitledBorder("Console"));
+		top.setBorder(new TitledBorder("DVD"));
 		this.add(top, BorderLayout.NORTH);
 		
 		name = new JLabel("bob:");
@@ -55,5 +54,4 @@ public class ConsolePopup extends JPanel{
 		this.setVisible(true);
 		
 	}
-	
 }
