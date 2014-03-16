@@ -1,38 +1,29 @@
-package gui;
+package Popups;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-
+import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.border.TitledBorder;
 
 
+public class ConsolePopup extends JPanel{
 
-public class CDPopup extends JPanel{
-
-	private JPanel cd;
+	
 	private JLabel name, address, phone, email;
 	private JTextField nameTBox, addressTBox, phoneTBox, emailTBox;
 	private JButton ok;
+
 	
-	private JDialog addD;
-	
-	
-	
-	public CDPopup()
+	public ConsolePopup()
 	{
-		
 		
 		this.setLayout(new BorderLayout());
 		
 
 		JPanel top = new JPanel(new GridLayout(0,2));
-		top.setBorder(new TitledBorder("CD"));
+		top.setBorder(new TitledBorder("Console"));
 		this.add(top, BorderLayout.NORTH);
 		
-		name = new JLabel("tom:");
+		name = new JLabel("bob:");
 		top.add(name);
 		nameTBox = new JTextField(5);
 		nameTBox.setPreferredSize(new Dimension(200,30));
@@ -64,4 +55,5 @@ public class CDPopup extends JPanel{
 		this.setVisible(true);
 		
 	}
+	
 }

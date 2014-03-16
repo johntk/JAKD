@@ -6,6 +6,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import Popups.ProdDialog;
+
 public class ElecProdPanel extends JPanel implements ActionListener,
 		ItemListener {
 
