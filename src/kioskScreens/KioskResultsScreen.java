@@ -21,9 +21,9 @@ public class KioskResultsScreen implements ActionListener
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
 		frame.setSize(1200,800);
-		//frame.setResizable(false);
+		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
-		//frame.setUndecorated(true);
+		frame.setUndecorated(true);
 
 		srcPath = "src/resources/kioskFiles/images/";
 		gc = new GridBagConstraints();
