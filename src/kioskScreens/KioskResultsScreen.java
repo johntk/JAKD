@@ -9,11 +9,9 @@ public class KioskResultsScreen implements ActionListener
 {
 	private JFrame frame;
 	private String srcPath;
-	private JPanel main,center,top,centerTop,footer;
+	private JPanel main,center,top,centerTop,footer,resultWindow;
 	private JScrollPane scrollPane;
-	private JTextPane textPane;
 	private JLabel resultsHeading,logoLabel;
-	private JLabel empty1;
 	private JButton home;
 	private ImageIcon hm,logo;
 	private GridBagConstraints gc;
@@ -22,7 +20,7 @@ public class KioskResultsScreen implements ActionListener
 	{
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
-		frame.setSize(1000,600);
+		frame.setSize(1200,800);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setUndecorated(true);
@@ -45,7 +43,6 @@ public class KioskResultsScreen implements ActionListener
 		home.setVerticalTextPosition(SwingConstants.BOTTOM );
 		home.setHorizontalTextPosition(SwingConstants.CENTER);
 		home.setBorder(null);
-		//home.setPreferredSize(new Dimension(100,100));
 		home.addActionListener(this);
 		top.add(home, BorderLayout.WEST);
 		
@@ -54,6 +51,7 @@ public class KioskResultsScreen implements ActionListener
 		//add center JPanel to main frame
 		center = new JPanel(new BorderLayout());
 		center.setBackground(new Color(0,0,0,0));
+		center.setBorder(BorderFactory.createEmptyBorder(0,120,0,120));
 		main.add(center,BorderLayout.CENTER);
 		
 		centerTop = new JPanel(new GridBagLayout());
@@ -64,8 +62,9 @@ public class KioskResultsScreen implements ActionListener
 		center.add(centerTop,BorderLayout.NORTH);
 		
 		
-		textPane = new JTextPane();
-		scrollPane = new JScrollPane(textPane);
+		resultWindow = new JPanel(new GridBagLayout());
+		scrollPane = new JScrollPane(resultWindow);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(25);
 		center.add(scrollPane,BorderLayout.CENTER);
 
 		footer = new JPanel();
@@ -83,6 +82,24 @@ public class KioskResultsScreen implements ActionListener
 		resultsHeading.setText(resultsHeading.getText()+s);
 	}
 	
+	//Adds product result to results panel
+	public void addResult(String img,String desc,int y,double price)
+	{
+		Result rslt = new Result(img,desc,price);
+		JPanel r = rslt.getResult();
+		/*if (y % 2 == 0)
+		{
+			r.setBackground(new Color(204,229,255));
+		}*/
+		gc.gridx =0;
+		gc.gridy =y;
+		gc.weightx=1;
+		gc.weighty=1;
+		r.setBorder(BorderFactory.createMatteBorder(20,50,10,20, frame.getContentPane().getBackground()));
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		resultWindow.add(r,gc);
+	}
+	
 	public void actionPerformed(ActionEvent e)
 	{
 		if(e.getSource()==home)
@@ -90,4 +107,35 @@ public class KioskResultsScreen implements ActionListener
 			frame.dispose();
 		}
 	}
+	
+	//*********Inner Class to construct a product result***********
+		private class Result
+		{
+			private ImageIcon productImage;
+			private String imageFile;
+			private JLabel image,description,salePrice;
+			//private String salePrice;
+			private JPanel resultPanel;
+			private String srcPath;
+			
+			Result(String img,String desc,double price)
+			{
+				imageFile = img;
+				salePrice = new JLabel("€"+price);
+				salePrice.setFont(new Font("Calibri",Font.BOLD,20));
+				description = new JLabel("  "+desc);
+				description.setFont(new Font("Calibri",Font.PLAIN,25));
+				resultPanel = new JPanel(new BorderLayout());
+				srcPath = "src/resources/kioskFiles/productImages/thumbs/";
+				productImage = new ImageIcon(srcPath+imageFile);
+				image = new JLabel(productImage);
+				resultPanel.add(image,BorderLayout.WEST);
+				resultPanel.add(description,BorderLayout.CENTER);
+				resultPanel.add(salePrice,BorderLayout.SOUTH);
+			}
+			public JPanel getResult()
+			{
+				return resultPanel;
+			}
+		}
 }

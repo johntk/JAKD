@@ -21,7 +21,7 @@ public class KioskSearch extends JFrame implements ActionListener
 	{
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
-		frame.setSize(1000,600);
+		frame.setSize(1200,800);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -46,7 +46,6 @@ public class KioskSearch extends JFrame implements ActionListener
 		home.setVerticalTextPosition(SwingConstants.BOTTOM );
 		home.setHorizontalTextPosition(SwingConstants.CENTER);
 		home.setBorder(null);
-		home.setPreferredSize(new Dimension(100,100));
 		home.addActionListener(this);
 		top.add(home, BorderLayout.WEST);
 		main.add(top,BorderLayout.NORTH);
@@ -89,6 +88,7 @@ public class KioskSearch extends JFrame implements ActionListener
 		searchBtn.setFont(new Font("Calibri",Font.BOLD,25));
 		searchBtn.setBackground(new Color(102,178,255));
 		searchBtn.setForeground(Color.white);
+		searchBtn.addActionListener(this);
 		gc.gridx = 0;
 		gc.gridy = 4;
 		center.add(searchBtn,gc);
@@ -118,6 +118,14 @@ public class KioskSearch extends JFrame implements ActionListener
 
 	public void actionPerformed(ActionEvent e)
 	{
+		if(e.getSource()==searchBtn){
+			if(search.getText().equals("Search for a Product...")){	
+			}
+			else{
+				KioskResultsScreen krs = new KioskResultsScreen();
+				krs.setHeading(search.getText());
+			}
+		}
 		if(e.getSource()==home)
 		{
 			frame.dispose();

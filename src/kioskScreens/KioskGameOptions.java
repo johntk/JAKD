@@ -20,7 +20,7 @@ public class KioskGameOptions extends JFrame implements ActionListener
 	{
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
-		frame.setSize(1000,600);
+		frame.setSize(1200,800);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -46,7 +46,6 @@ public class KioskGameOptions extends JFrame implements ActionListener
 		home.setVerticalTextPosition(SwingConstants.BOTTOM );
 		home.setHorizontalTextPosition(SwingConstants.CENTER);
 		home.setBorder(null);
-		home.setPreferredSize(new Dimension(100,100));
 		home.addActionListener(this);
 		top.add(home, BorderLayout.WEST);
 		main.add(top,BorderLayout.NORTH);
@@ -93,6 +92,18 @@ public class KioskGameOptions extends JFrame implements ActionListener
 	
 	public void actionPerformed(ActionEvent e)
 	{
+		if(e.getSource()==xbox){
+			KioskResultsScreen krs = new KioskResultsScreen();
+			krs.setHeading("Xbox Games");
+		}
+		if(e.getSource()==ps4){
+			KioskResultsScreen krs = new KioskResultsScreen();
+			krs.setHeading("PS4 Games");
+		}
+		if(e.getSource()==wii){
+			KioskResultsScreen krs = new KioskResultsScreen();
+			krs.setHeading("Wii Games");
+		}
 		if(e.getSource()==home)
 		{
 			frame.dispose();

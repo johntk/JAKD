@@ -3,8 +3,11 @@ package kioskScreens;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
+import java.sql.SQLException;
 
 import javax.swing.*;
+
+import db.DBconnection;
 
 public class KioskStartScreen extends JFrame implements ActionListener
 {
@@ -16,20 +19,23 @@ public class KioskStartScreen extends JFrame implements ActionListener
 	private JLabel logoLabel,pinLbl;
 	private JLabel empty1,empty2,empty3,empty4;
 	private JPasswordField jpf;
+	private GridBagConstraints gc;
 	private String OK = "ok";
+	private DBconnection db;
 
 	public KioskStartScreen()
 	{
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setLayout(new BorderLayout());
-		frame.setSize(1000,600);
+		frame.setSize(1200,800);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setUndecorated(true);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		srcPath = "src/resources/kioskFiles/images/";
+		gc = new GridBagConstraints();
 
 		cn = new ImageIcon(srcPath+"console.png");
 		hp = new ImageIcon(srcPath+"headphones.png");
@@ -42,44 +48,6 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		logo = new ImageIcon(srcPath+"logo3.png");
 		close = new ImageIcon(srcPath+"close.png");
 
-		empty1 = new JLabel(" ");
-		empty2 = new JLabel(" ");
-		empty3 = new JLabel(" ");
-		empty4 = new JLabel(" ");
-
-		con = new JButton(cn);
-		con.setBackground(Color.WHITE);
-		con.setBorder(null);
-		con.addActionListener(this);
-		headp = new JButton(hp);
-		headp.setBackground(Color.WHITE);
-		headp.setBorder(null);
-		headp.addActionListener(this);
-		game = new JButton(gm);
-		game.setBackground(Color.WHITE);
-		game.setBorder(null);
-		game.addActionListener(this);
-		music = new JButton(mu);
-		music.setBackground(Color.WHITE);
-		music.setBorder(null);
-		music.addActionListener(this);
-		dvds = new JButton(dvd);
-		dvds.setBackground(Color.WHITE);
-		dvds.setBorder(null);
-		dvds.addActionListener(this);
-		soundd = new JButton(sd);
-		soundd.setBackground(Color.WHITE);
-		soundd.setBorder(null);
-		soundd.addActionListener(this);
-		search = new JButton(src);
-		search.setBackground(Color.WHITE);
-		search.setBorder(null);
-		search.addActionListener(this);
-		deals = new JButton(dl);
-		deals.setBackground(Color.WHITE);
-		deals.setBorder(null);
-		deals.addActionListener(this);
-
 		header = new JPanel(new BorderLayout());
 		exit = new JButton("Close",close);
 		exit.setBackground(new Color(238,238,238));
@@ -89,20 +57,81 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		header.add(exit,BorderLayout.EAST);
 		frame.add(header,BorderLayout.NORTH);
 
-		content = new JPanel(new GridLayout(2,6));
+		content = new JPanel(new GridBagLayout());
 		content.setBackground(new Color(0,0,0,0));
-		content.add(empty1);
-		content.add(search);
-		content.add(music);
-		content.add(dvds);
-		content.add(con);
-		content.add(empty2);
-		content.add(empty3);
-		content.add(game);
-		content.add(headp);
-		content.add(soundd);
-		content.add(deals);
-		content.add(empty4);
+
+		search = new JButton(src);
+		search.setBackground(Color.WHITE);
+		search.setBorder(null);
+		search.addActionListener(this);
+		gc.gridx = 0;
+		gc.gridy = 1;
+		search.setBorder(BorderFactory.createMatteBorder(20,20,20,20, frame.getContentPane().getBackground()));
+		content.add(search,gc);
+
+		music = new JButton(mu);
+		music.setBackground(Color.WHITE);
+		music.setBorder(null);
+		music.addActionListener(this);
+		gc.gridx = 1;
+		gc.gridy = 1;
+		music.setBorder(BorderFactory.createMatteBorder(20,20,20,20, frame.getContentPane().getBackground()));
+		content.add(music,gc);
+
+		dvds = new JButton(dvd);
+		dvds.setBackground(Color.WHITE);
+		dvds.setBorder(null);
+		dvds.addActionListener(this);
+		gc.gridx = 2;
+		gc.gridy = 1;
+		dvds.setBorder(BorderFactory.createMatteBorder(20,20,20,20, frame.getContentPane().getBackground()));
+		content.add(dvds,gc);
+
+		con = new JButton(cn);
+		con.setBackground(Color.WHITE);
+		con.setBorder(null);
+		con.addActionListener(this);
+		gc.gridx = 3;
+		gc.gridy = 1;
+		con.setBorder(BorderFactory.createMatteBorder(20,20,20,20, frame.getContentPane().getBackground()));
+		content.add(con,gc);
+
+		game = new JButton(gm);
+		game.setBackground(Color.WHITE);
+		game.setBorder(null);
+		game.addActionListener(this);
+		gc.gridx = 0;
+		gc.gridy = 2;
+		game.setBorder(BorderFactory.createMatteBorder(20,20,20,20, frame.getContentPane().getBackground()));
+		content.add(game,gc);
+
+		headp = new JButton(hp);
+		headp.setBackground(Color.WHITE);
+		headp.setBorder(null);
+		headp.addActionListener(this);
+		gc.gridx = 1;
+		gc.gridy = 2;
+		headp.setBorder(BorderFactory.createMatteBorder(20,20,20,20, frame.getContentPane().getBackground()));
+		content.add(headp,gc);
+
+		soundd = new JButton(sd);
+		soundd.setBackground(Color.WHITE);
+		soundd.setBorder(null);
+		soundd.addActionListener(this);
+		gc.gridx = 2;
+		gc.gridy = 2;
+		soundd.setBorder(BorderFactory.createMatteBorder(20,20,20,20, frame.getContentPane().getBackground()));
+		content.add(soundd,gc);
+
+		deals = new JButton(dl);
+		deals.setBackground(Color.WHITE);
+		deals.setBorder(null);
+		deals.addActionListener(this);
+		gc.gridx = 3;
+		gc.gridy = 2;
+		deals.setBorder(BorderFactory.createMatteBorder(20,20,20,20, frame.getContentPane().getBackground()));
+		content.add(deals,gc);
+
 		frame.add(content,BorderLayout.CENTER);
 
 		footer = new JPanel();
@@ -114,6 +143,9 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 		frame.requestFocus();
 
+		db = new DBconnection();
+		db.openDB();
+
 		pswd = new JPanel(new GridLayout(1,2));
 		pinLbl = new JLabel("PIN:");
 		jpf = new JPasswordField(4);
@@ -123,15 +155,6 @@ public class KioskStartScreen extends JFrame implements ActionListener
 
 	public void actionPerformed(ActionEvent e)
 	{
-		if(e.getSource()==exit)
-		{
-			/*int input = JOptionPane.showConfirmDialog(frame, pswd, "Enter your PIN:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-			if(input == 0000)
-			{
-				System.exit(0);
-			}*/
-			System.exit(0);
-		}
 		if(e.getSource()==search){
 			KioskSearch ks = new KioskSearch();
 		}
@@ -139,12 +162,10 @@ public class KioskStartScreen extends JFrame implements ActionListener
 			KioskGameOptions kso = new KioskGameOptions();
 		}
 		if(e.getSource()==music){
-			KioskResultsScreen krs = new KioskResultsScreen();
-			krs.setHeading("Music");
+			db.queryMusic();
 		}
 		if(e.getSource()==dvds){
-			KioskResultsScreen krs = new KioskResultsScreen();
-			krs.setHeading("DVD");
+			db.queryDVD();
 		}
 		if(e.getSource()==con){
 			KioskResultsScreen krs = new KioskResultsScreen();
@@ -161,6 +182,22 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		if(e.getSource()==deals){
 			KioskResultsScreen krs = new KioskResultsScreen();
 			krs.setHeading("Deals");
+		}
+		if(e.getSource()==exit)
+		{
+			/*int input = JOptionPane.showConfirmDialog(frame, pswd, "Enter your PIN:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			if(input == 0000)
+			{
+				System.exit(0);
+			}*/
+			try
+			{
+				db.closeDB();
+			} catch (Exception se){
+				System.out.println("Could not close connection");
+				se.printStackTrace();
+			}
+			System.exit(0);
 		}
 	}
 
