@@ -75,12 +75,12 @@ public class DBconnection
 		return numResults;
 	}
 
-
 	public void queryMusic()
 	{
 		KioskResultsScreen krs = new KioskResultsScreen();
 		krs.setHeading("MUSIC");
 		String description;
+		String productThumb;
 		double salePrice;
 		int y=0;
 		try {
@@ -91,7 +91,8 @@ public class DBconnection
 			{
 				description = rset.getString("artist_name")+" - "+rset.getString("album_name");
 				salePrice = rset.getDouble("cd_sale_price");
-				krs.addResult(rset.getString("album_name")+".jpg", description, y, salePrice);
+				productThumb = rset.getString("album_name")+".jpg";
+				krs.addResult(productThumb, description, y, salePrice);
 				y++;
 			}
 		} catch (Exception ex)
@@ -116,6 +117,30 @@ public class DBconnection
 				description = rset.getString("dvd_name");
 				salePrice = rset.getDouble("dvd_sale_price");
 				krs.addResult(rset.getString("dvd_name")+".jpg", description, y, salePrice);
+				y++;
+			}
+		} catch (Exception ex)
+		{
+			System.out.println("ERROR: " + ex.getMessage());
+		}
+	}
+	
+	public void queryConsoles()
+	{
+		KioskResultsScreen krs = new KioskResultsScreen();
+		krs.setHeading("CONSOLES");
+		String description;
+		double salePrice;
+		int y=0;
+		try {
+			stmt = conn.createStatement();
+			String sqlStatement = "select e.manufacturer, e.model, c.console_sale_price from product p, electronic e, console c where p.prod_id = e.prod_id and c.elec_id = e.elec_id";
+			rset = stmt.executeQuery(sqlStatement);
+			while (rset.next())
+			{
+				description = rset.getString("manufacturer")+" - "+rset.getString("model");
+				salePrice = rset.getDouble("console_sale_price");
+				krs.addResult(rset.getString("model")+".jpg", description, y, salePrice);
 				y++;
 			}
 		} catch (Exception ex)

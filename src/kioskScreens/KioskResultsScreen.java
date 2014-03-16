@@ -21,9 +21,9 @@ public class KioskResultsScreen implements ActionListener
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
 		frame.setSize(1200,800);
-		frame.setResizable(false);
+		//frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
-		frame.setUndecorated(true);
+		//frame.setUndecorated(true);
 
 		srcPath = "src/resources/kioskFiles/images/";
 		gc = new GridBagConstraints();
@@ -89,12 +89,12 @@ public class KioskResultsScreen implements ActionListener
 		JPanel r = rslt.getResult();
 		/*if (y % 2 == 0)
 		{
-			r.setBackground(new Color(204,229,255));
+			r.setBackground(new Color(210,225,235));
 		}*/
 		gc.gridx =0;
 		gc.gridy =y;
-		gc.weightx=1;
-		gc.weighty=1;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
 		r.setBorder(BorderFactory.createMatteBorder(20,50,10,20, frame.getContentPane().getBackground()));
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		resultWindow.add(r,gc);
@@ -121,8 +121,9 @@ public class KioskResultsScreen implements ActionListener
 			Result(String img,String desc,double price)
 			{
 				imageFile = img;
-				salePrice = new JLabel("€"+price);
-				salePrice.setFont(new Font("Calibri",Font.BOLD,20));
+				salePrice = new JLabel("  - €"+price);
+				salePrice.setFont(new Font("Calibri",Font.BOLD,25));
+				salePrice.setForeground(new Color(143,164,179));
 				description = new JLabel("  "+desc);
 				description.setFont(new Font("Calibri",Font.PLAIN,25));
 				resultPanel = new JPanel(new BorderLayout());
@@ -131,7 +132,7 @@ public class KioskResultsScreen implements ActionListener
 				image = new JLabel(productImage);
 				resultPanel.add(image,BorderLayout.WEST);
 				resultPanel.add(description,BorderLayout.CENTER);
-				resultPanel.add(salePrice,BorderLayout.SOUTH);
+				resultPanel.add(salePrice,BorderLayout.EAST);
 			}
 			public JPanel getResult()
 			{
