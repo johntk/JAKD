@@ -285,7 +285,7 @@ public class DBsql
 			stmt.executeUpdate("Create table EMPLOYEE (emp_id NUMBER NOT NULL, f_name VARCHAR2(30), l_name VARCHAR2(30), house_number VARCHAR2(5), street VARCHAR2(30), town VARCHAR2(30), city VARCHAR2(30), pps_num VARCHAR2(30), pin_num NUMBER, manager VARCHAR2(1) CHECK(manager in ('Y', 'N')), PRIMARY KEY (emp_id))");
 			stmt.executeUpdate("Create table PRODUCT (prod_id VARCHAR2(50), prod_type VARCHAR2(20), current_stock NUMBER, PRIMARY KEY (prod_id))");
 			stmt.executeUpdate("Create table TRANSACTION (trans_id NUMBER NOT NULL, trans_date DATE, trans_type VARCHAR2(1) CHECK(trans_type IN('S','R')), total_cost NUMBER(30,2), quantity NUMBER, emp_id number, prod_id VARCHAR2(50), PRIMARY KEY (trans_id, prod_id), FOREIGN KEY (emp_id) REFERENCES EMPLOYEE(emp_id), FOREIGN KEY (prod_id) REFERENCES PRODUCT(prod_id))");
-			stmt.executeUpdate("Create table DIGITAL_PRODUCT (dig_id VARCHAR2(50), genre VARCHAR2(30), age_rating NUMBER, prod_id	VARCHAR2(50), PRIMARY KEY (dig_id), FOREIGN KEY (prod_id) REFERENCES PRODUCT(prod_id))");
+			stmt.executeUpdate("Create table DIGITAL_PRODUCT (dig_id VARCHAR2(50), genre	VARCHAR2(30), age_rating NUMBER, prod_id	VARCHAR2(50), PRIMARY KEY (dig_id), FOREIGN KEY (prod_id) REFERENCES PRODUCT(prod_id))");
 			stmt.executeUpdate("Create table ELECTRONIC (elec_id	VARCHAR2(50), manufacturer VARCHAR2(30), model VARCHAR2(30), colour VARCHAR2(30), prod_id VARCHAR2(50), PRIMARY KEY (elec_id), FOREIGN KEY (prod_id) REFERENCES PRODUCT(prod_id))");
 			stmt.executeUpdate("Create table DVD (dvd_id VARCHAR2(50), dvd_length NUMBER, dvd_name VARCHAR2(100), studio VARCHAR2(30), dvd_cost_price NUMBER(6,2), dvd_sale_price NUMBER(6,2), dig_id VARCHAR2(50), PRIMARY KEY (dvd_id), FOREIGN KEY (dig_id) REFERENCES DIGITAL_PRODUCT(dig_id))");
 			stmt.executeUpdate("Create table CD (cd_id VARCHAR2(50), album_length NUMBER, album_name VARCHAR2(30), record_company VARCHAR2(30), cd_cost_price NUMBER(6,2), cd_sale_price NUMBER(6,2), dig_id VARCHAR2(50), PRIMARY KEY (cd_id), FOREIGN KEY (dig_id) REFERENCES DIGITAL_PRODUCT(dig_id))");
@@ -505,8 +505,8 @@ public class DBsql
 			stmt.execute("insert into DVD values('D0000001',135,'Captain Phillips','Columbia Pictures',12.58,26.99,'D0000009')");
 			stmt.execute("insert into DVD values('D0000002',118,'Dallas Buyers Club','Focus Features',13.50,24.99,'D0000010')");
 			stmt.execute("insert into DVD values('D0000003',91,'Gravity','Warner Brothers',12.55,24.99,'D0000011')");
-			stmt.execute("insert into DVD values('D0000004',146,'The Hunger Games - Catching Fire','Lionsgate',13.60,25.99,'D0000012')");
-			stmt.execute("insert into DVD values('D0000005',113,'Thor - The Dark World','Walt Disney',11.59,21.99,'D0000013')");
+			stmt.execute("insert into DVD values('D0000004',146,'The Hunger Games: Catching Fire','Lionsgate',13.60,25.99,'D0000012')");
+			stmt.execute("insert into DVD values('D0000005',113,'Thor: The Dark World','Walt Disney',11.59,21.99,'D0000013')");
 			stmt.execute("insert into GAME values('G0000001','UBI SOFT','PS4','Assassin''s Creed IV Black Flag',26.40,45.99,'D0000014')");
 			stmt.execute("insert into GAME values('G0000002','Activision','Xbox360','Call of Duty: Ghosts',18.20,26.99,'D0000015')");
 			stmt.execute("insert into GAME values('G0000003','Rockstar Games','Xbox360','Grand Theft Auto V',26.50,44.99,'D0000016')");
