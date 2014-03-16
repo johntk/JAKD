@@ -12,6 +12,8 @@ public class DigiProdPanel extends JPanel implements ActionListener,
 	/**
 	 * 
 	 */
+	
+	//test
 	private static final long serialVersionUID = 1L;
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
