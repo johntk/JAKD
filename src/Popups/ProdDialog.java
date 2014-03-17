@@ -9,6 +9,7 @@ public class ProdDialog extends JDialog  {
 
 	private JPanel cardPanel,  cdPopup, dvdPopup, gamePopup, phonoPopup, dockPopup, consolePopup;
 	private String[] popup = {"cd", "dvd", "game", "phono", "console", "dock"};
+	private JPanel popups[] = new JPanel[]{ cardPanel,  cdPopup, dvdPopup, gamePopup, phonoPopup, dockPopup, consolePopup};
 	private CardLayout cards;
 	private JDialog cd;
 	
@@ -54,7 +55,7 @@ public class ProdDialog extends JDialog  {
 			if(popUp == popup[i])
 			{
 				cards.show(cardPanel, popup[i]);
-				cd.pack();
+				cd.setSize(cdPopup.getSize());
 			}
 		}
 

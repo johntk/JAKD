@@ -119,6 +119,7 @@ public class DigiProdPanel extends JPanel implements ActionListener,
 		// button panel inside edit product panel
 		editDigiProdBtnsPanel = new JPanel();
 		editDigiProdBtnsPanel.setLayout(new GridBagLayout());
+		
 		editDigiProdBtnsPanel.setPreferredSize(new Dimension(250, 50));
 
 		// Adding buttons to the button panel inside the edit product panel
@@ -143,6 +144,7 @@ public class DigiProdPanel extends JPanel implements ActionListener,
 			editDigiProdBtnsArray[i].setHorizontalTextPosition(JButton.CENTER);
 			editDigiProdBtnsArray[i].setVerticalTextPosition(JButton.CENTER);
 			editDigiProdBtnsArray[i].addActionListener(this);
+			
 			editDigiProdBtnsPanel.add(editDigiProdBtnsArray[i], gc);
 		}
 		this.add(editDigiProdBtnsPanel, BorderLayout.WEST);
