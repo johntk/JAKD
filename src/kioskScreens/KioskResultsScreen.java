@@ -18,6 +18,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener
 	private JButton home,view;
 	private ImageIcon hm,logo;
 	private ArrayList<Result> resultList;
+	private ArrayList<JButton> viewButtons;
 	private ArrayList<Integer> yPos;
 	private GridBagConstraints gc;
 
@@ -33,6 +34,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener
 
 		srcPath = "src/resources/kioskFiles/images/";
 		r = new JPanel();
+		viewButtons = new ArrayList<JButton>();
 		yPos = new ArrayList<Integer>();
 		resultList = new ArrayList<Result>();
 		gc = new GridBagConstraints();
@@ -92,14 +94,23 @@ public class KioskResultsScreen extends JFrame implements ActionListener
 		resultsHeading.setText(resultsHeading.getText()+s);
 	}
 
-	//Adds product result to results panel
-	public void addResult(String img,String desc,int y,double price)
+	// Creates a result object and adds it to the result arrayList
+	public void addResult(String img,String desc,int y,double price, String prodID)
 	{
-		Result rslt = new Result(img,desc,price);
+		view = new JButton("View Product Details");
+		view.setPreferredSize(new Dimension(180,50));
+		view.setBackground(new Color(33,106,206));
+		view.setForeground(Color.WHITE);
+		view.setFont(new Font("Calibri",Font.BOLD,15));
+		view.addActionListener(this);
+		viewButtons.add(view);
+
+		Result rslt = new Result(img,desc,price,prodID);
 		resultList.add(rslt);
 		yPos.add(y);
 	}
-	
+
+	//Adds product result to results panel
 	public void displayResult()
 	{
 		for(int i=0; i<resultList.size();i++)
@@ -112,25 +123,19 @@ public class KioskResultsScreen extends JFrame implements ActionListener
 			gc.fill = GridBagConstraints.HORIZONTAL;
 			gc.anchor = GridBagConstraints.NORTHWEST;
 			r.setBorder(BorderFactory.createEmptyBorder(10,20,10,160));
-			//Set colour on the result JPanel background where grid = even number
+			// Set colour on the result JPanel background where grid = even number
 			if (yPos.get(i) % 2 == 0)
 			{
 				r.setBackground(new Color(215,225,235));
 			}
 			resultWindow.add(r,gc);
-			
-			
-			view = new JButton("View Product Details");
-			view.setPreferredSize(new Dimension(180,50));
-			view.setBackground(new Color(33,106,206));
-			view.setForeground(Color.WHITE);
-			view.setFont(new Font("Calibri",Font.BOLD,15));
+
 			gc.gridx =2;
 			gc.gridy =0;
 			gc.weightx=0.0;
 			gc.weighty=0.0;
 			gc.anchor = GridBagConstraints.WEST;
-			r.add(view,gc);
+			r.add(viewButtons.get(i),gc);
 		}
 	}
 
@@ -139,6 +144,17 @@ public class KioskResultsScreen extends JFrame implements ActionListener
 		if(e.getSource()==home)
 		{
 			frame.dispose();
+		}
+
+		if(e.getSource() instanceof JButton)
+		{
+			for(int i=0; i<viewButtons.size(); i++)
+			{
+				if(((JButton)e.getSource()) == viewButtons.get(i))
+				{
+					ProductDisplay pd = new ProductDisplay(resultList.get(i).getProdID());
+				}
+			}
 		}
 	}
 }

@@ -9,11 +9,12 @@ public class Result extends JPanel
 	private String imageFile;
 	private JLabel image,description,salePrice;
 	private JPanel resultPanel;
-	private String srcPath;
+	private String srcPath, prodID;
 	private GridBagConstraints gc;
 
-	public Result(String img,String desc,double price)
+	public Result(String img,String desc,double price,String prodID)
 	{
+		this.prodID = prodID;
 		gc = new GridBagConstraints();
 		imageFile = img;
 		
@@ -48,10 +49,9 @@ public class Result extends JPanel
 		gc.anchor = GridBagConstraints.SOUTHWEST;
 		resultPanel.add(salePrice,gc);
 	}
-	public String getDescription()
+	public String getProdID()
 	{
-		String d = description.getText();
-		return d;
+		return prodID;
 	}
 	public JPanel getResult()
 	{

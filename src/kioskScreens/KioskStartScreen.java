@@ -154,7 +154,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		if(e.getSource()==search){
-			KioskSearch ks = new KioskSearch();
+			KioskSearch ks = new KioskSearch(db);
 		}
 		if(e.getSource()==game){
 			KioskGameOptions kso = new KioskGameOptions();

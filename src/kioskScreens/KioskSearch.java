@@ -20,8 +20,9 @@ public class KioskSearch extends JFrame implements ActionListener
 	private GridBagConstraints gc;
 	private DBconnection db;
 
-	public KioskSearch()
+	public KioskSearch(DBconnection d)
 	{
+		db = d;
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
 		frame.setSize(1000,600);
@@ -140,9 +141,6 @@ public class KioskSearch extends JFrame implements ActionListener
 		frame.setVisible(true);
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 		frame.requestFocus();
-
-		db = new DBconnection();
-		db.openDB();
 	}
 
 	public void actionPerformed(ActionEvent e)
@@ -160,13 +158,6 @@ public class KioskSearch extends JFrame implements ActionListener
 		if(e.getSource()==home)
 		{
 			frame.dispose();
-			try
-			{
-				db.closeDB();
-			} catch (Exception se){
-				System.out.println("Could not close connection");
-				se.printStackTrace();
-			}
 		}
 	}
 }
