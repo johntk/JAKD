@@ -10,31 +10,32 @@ import javax.swing.border.*;
 public class CDPopup extends JPanel{
 
 	
-	private JLabel artist, album, length, label, songName, songLength, cd, songNumber;
-	private JTextField artistTBox, albumTBox, lengthTBox, labelTBox;
+	private JLabel artist, genre, rating, length, label, songName, songLength, cd, songNumber;
+	private JTextField artistTBox, ratingTBox, lengthTBox, labelTBox, genreTBox;
 	private JButton ok;
 	
 	private	Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10, 10);
 	private	Border line = (Border) BorderFactory.createLineBorder(Color.black);
 	private	Border border = BorderFactory.createCompoundBorder(space, line);
 	
-	private JTextField other, supplierID, currentStock, sellPrice, costPrice,
-	prodTitle, type, prodId, other2, supplierID2, currentStock2, sellPrice2, costPrice2,
-	prodTitle2, type2, prodId2;
+	private JTextField song8, song7, song6, song5, song4,
+	song1, song2, song3, length8, length7, length6, length5, length4,
+	length1, length2, length3;
+	
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
 	
-	JTextField[] digiProdDetailBx = { prodTitle = new JTextField(),
-			type = new JTextField(), prodId = new JTextField(),
-			costPrice = new JTextField(), sellPrice = new JTextField(),
-			currentStock = new JTextField(), supplierID = new JTextField(),
-			other = new JTextField(), };
+	JTextField[] digiProdDetailBx = { song1 = new JTextField(),
+			song2 = new JTextField(), song3 = new JTextField(),
+			song4 = new JTextField(), song5 = new JTextField(),
+			song6 = new JTextField(), song7 = new JTextField(),
+			song8 = new JTextField(), };
 	
-	JTextField[] digiProdDetailBx2 = { prodTitle2 = new JTextField(),
-			type2 = new JTextField(), prodId2 = new JTextField(),
-			costPrice2 = new JTextField(), sellPrice2 = new JTextField(),
-			currentStock2 = new JTextField(), supplierID2 = new JTextField(),
-			other2 = new JTextField(), };
+	JTextField[] digiProdDetailBx2 = { length1 = new JTextField(),
+			length2 = new JTextField(), length3 = new JTextField(),
+			length4 = new JTextField(), length5 = new JTextField(),
+			length6 = new JTextField(), length7 = new JTextField(),
+			length8 = new JTextField(), };
 	
 	JLabel[] digiProdDetailLb = { new JLabel(" 1"),
 			new JLabel(" 2"), new JLabel(" 3"),
@@ -45,37 +46,51 @@ public class CDPopup extends JPanel{
 	public CDPopup()
 	{
 		
-		
+		this.setName("cd");
 		this.setLayout(new BorderLayout());
-		this.setSize(600, 400);
-		JPanel top = new JPanel(new GridLayout(0,2));
-		
-		cd = new JLabel("CD");
-		top.add(cd);
-		this.add(top, BorderLayout.NORTH);
+		this.setSize(540, 400);
+		JPanel top = new JPanel(new GridBagLayout());
+		this.setBorder(new TitledBorder("CD"));
+//		cd = new JLabel("CD");
+//		top.add(cd);
+//		this.add(top, BorderLayout.NORTH);
 
+		JPanel detailsPanel = new JPanel(new BorderLayout());
+		detailsPanel.setPreferredSize(new Dimension(200,80));
+		this.add(detailsPanel, BorderLayout.WEST);
+		
+		
 		JPanel details = new JPanel(new GridLayout(0,2));
 		details.setBorder(border);
-		details.setPreferredSize(new Dimension(200,80));
-		this.add(details, BorderLayout.WEST);
+		details.setPreferredSize(new Dimension(200,130));
+		detailsPanel.add(details, BorderLayout.NORTH);
+		
+		JPanel spacer = new JPanel();
+		spacer.setPreferredSize(new Dimension(200,100));
+		detailsPanel.add(spacer, BorderLayout.SOUTH);
 		
 		
-		artist = new JLabel("Artist");
+		artist = new JLabel(" Artist");
 		details.add(artist);
 		artistTBox = new JTextField();
 		details.add(artistTBox);
 		
-		album = new JLabel("Album");
-		details.add(album);
-		albumTBox = new JTextField();
-		details.add(albumTBox);
+		rating = new JLabel(" Rating");
+		details.add(rating);
+		ratingTBox = new JTextField();
+		details.add(ratingTBox);
 		
-		length = new JLabel("Length");
+		genre = new JLabel(" Genre");
+		details.add(genre);
+		genreTBox = new JTextField();
+		details.add(genreTBox);
+		
+		length = new JLabel(" Length");
 		details.add(length);
 		lengthTBox = new JTextField();
 		details.add(lengthTBox);
 		
-		label = new JLabel("Label");
+		label = new JLabel(" Label");
 		details.add(label);
 		labelTBox = new JTextField();
 		details.add(labelTBox);
@@ -83,11 +98,7 @@ public class CDPopup extends JPanel{
 		JPanel songs = new JPanel(new GridBagLayout());
 		songs.setPreferredSize(new Dimension(300, 200));
 		songs.setBorder(border);
-		
-		JPanel spacer = new JPanel();
-		
-		spacer.setPreferredSize(new Dimension(200,80));
-		
+	
 		
 		songNumber = new JLabel(" No.");
 		songName = new JLabel("Song");

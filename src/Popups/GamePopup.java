@@ -1,6 +1,7 @@
 package Popups;
 
 import java.awt.*;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
@@ -8,48 +9,45 @@ import javax.swing.border.TitledBorder;
 public class GamePopup extends JPanel{
 
 	
-	private JLabel name, address, phone, email;
-	private JTextField nameTBox, addressTBox, phoneTBox, emailTBox;
-	private JButton ok;
+	private JLabel genre, rating,  publisher;
+	private JTextField genreTBox, ratingTBox,  publisherTBox;
+	private JButton add;
 	
 	
 	public GamePopup()
 	{
-		
+		this.setName("game");
 		this.setLayout(new BorderLayout());
+		this.setSize(240, 200);
 		
+		JPanel details = new JPanel(new GridLayout(0,2));
+		details.setBorder(new TitledBorder("Game"));
 
-		JPanel top = new JPanel(new GridLayout(0,2));
-		top.setBorder(new TitledBorder("Game"));
-		this.add(top, BorderLayout.NORTH);
+		this.add(details, BorderLayout.NORTH);
 		
-		name = new JLabel("bob:");
-		top.add(name);
-		nameTBox = new JTextField(5);
-		nameTBox.setPreferredSize(new Dimension(200,30));
-		top.add(nameTBox);
+		genre = new JLabel("Genre");
+		details.add(genre);
+		genreTBox = new JTextField(5);
+		genreTBox.setPreferredSize(new Dimension(200,30));
+		details.add(genreTBox);
 		
-		address = new JLabel("Address:");
-		top.add(address);
-		addressTBox = new JTextField(5);
-		top.add(addressTBox);
+		rating = new JLabel("Rating:");
+		details.add(rating);
+		ratingTBox = new JTextField(5);
+		details.add(ratingTBox);
 		
-		phone = new JLabel("Phone:");
-		top.add(phone);
-		phoneTBox = new JTextField(5);
-		top.add(phoneTBox);
 		
-		email = new JLabel("Email:");
-		top.add(email);
-		emailTBox = new JTextField(5);
-		top.add(emailTBox);
+		publisher = new JLabel("Publisher");
+		details.add(publisher);
+		publisherTBox = new JTextField(5);
+		details.add(publisherTBox);
 		
 		JPanel bottom = new JPanel(new FlowLayout());
 		this.add(bottom, BorderLayout.SOUTH);
 		
-		ok = new JButton("OK");
-		ok.setPreferredSize(new Dimension(60,30));
-		bottom.add(ok);
+		add = new JButton("Add");
+		add.setPreferredSize(new Dimension(60,30));
+		bottom.add(add);
 		
 		
 		this.setVisible(true);

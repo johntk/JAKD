@@ -7,51 +7,47 @@ import javax.swing.border.TitledBorder;
 
 public class DockPopup extends JPanel{
 
-	
-	private JLabel name, address, phone, email;
-	private JTextField nameTBox, addressTBox, phoneTBox, emailTBox;
-	private JButton ok;
+	private JLabel wirelless, powerType, digitalRadio;
+	private JTextField wirellessTBox, powerTypeTBox, digitalRadioTBox;
+	private JButton add;
+
 
 	public DockPopup()
 	{
 		
 		this.setLayout(new BorderLayout());
-		
+		this.setSize(240, 240);
+		this.setName("dock");
 
-		JPanel top = new JPanel(new GridLayout(0,2));
-		top.setBorder(new TitledBorder("Dock"));
-		this.add(top, BorderLayout.NORTH);
+		JPanel details = new JPanel(new GridLayout(0,2));
+		details.setBorder(new TitledBorder("Dock"));
+		this.add(details, BorderLayout.NORTH);
 		
-		name = new JLabel("bob:");
-		top.add(name);
-		nameTBox = new JTextField(5);
-		nameTBox.setPreferredSize(new Dimension(200,30));
-		top.add(nameTBox);
+		wirelless = new JLabel("Genre");
+		details.add(wirelless);
+		wirellessTBox = new JTextField(5);
+		wirellessTBox.setPreferredSize(new Dimension(100,30));
+		details.add(wirellessTBox);
 		
-		address = new JLabel("Address:");
-		top.add(address);
-		addressTBox = new JTextField(5);
-		top.add(addressTBox);
+		powerType = new JLabel("Rating:");
+		details.add(powerType);
+		powerTypeTBox = new JTextField(5);
+		details.add(powerTypeTBox);
 		
-		phone = new JLabel("Phone:");
-		top.add(phone);
-		phoneTBox = new JTextField(5);
-		top.add(phoneTBox);
-		
-		email = new JLabel("Email:");
-		top.add(email);
-		emailTBox = new JTextField(5);
-		top.add(emailTBox);
+		digitalRadio = new JLabel("Length");
+		details.add(digitalRadio);
+		digitalRadioTBox = new JTextField(5);
+		details.add(digitalRadioTBox);
 		
 		JPanel bottom = new JPanel(new FlowLayout());
 		this.add(bottom, BorderLayout.SOUTH);
 		
-		ok = new JButton("OK");
-		ok.setPreferredSize(new Dimension(60,30));
-		bottom.add(ok);
-		
+		add = new JButton("Add");
+		add.setPreferredSize(new Dimension(60,30));
+		bottom.add(add);
 		
 		this.setVisible(true);
+		
 		
 	}
 }

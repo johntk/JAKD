@@ -1,54 +1,54 @@
 package Popups;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
 
 public class DVDPopup extends JPanel{
 
-	private JLabel name, address, phone, email;
-	private JTextField nameTBox, addressTBox, phoneTBox, emailTBox;
-	private JButton ok;
+	private JLabel genre, rating, length, publisher;
+	private JTextField genreTBox, ratingTBox, lengthTBox, publisherTBox;
+	private JButton add;
 
 	public DVDPopup()
 	{
 		
+		this.setName("dvd");
 		this.setLayout(new BorderLayout());
+		this.setSize(240, 200);
 		
-
-		JPanel top = new JPanel(new GridLayout(0,2));
-		top.setBorder(new TitledBorder("DVD"));
-		this.add(top, BorderLayout.NORTH);
+		JPanel details = new JPanel(new GridLayout(0,2));
+		details.setBorder(new TitledBorder("DVD"));
+		this.add(details, BorderLayout.NORTH);
 		
-		name = new JLabel("bob:");
-		top.add(name);
-		nameTBox = new JTextField(5);
-		nameTBox.setPreferredSize(new Dimension(200,30));
-		top.add(nameTBox);
+		genre = new JLabel("Genre");
+		details.add(genre);
+		genreTBox = new JTextField();
+		genreTBox.setPreferredSize(new Dimension(10,20));
+		details.add(genreTBox);
 		
-		address = new JLabel("Address:");
-		top.add(address);
-		addressTBox = new JTextField(5);
-		top.add(addressTBox);
+		rating = new JLabel("Rating:");
+		details.add(rating);
+		ratingTBox = new JTextField();
+		details.add(ratingTBox);
 		
-		phone = new JLabel("Phone:");
-		top.add(phone);
-		phoneTBox = new JTextField(5);
-		top.add(phoneTBox);
+		length = new JLabel("Length");
+		details.add(length);
+		lengthTBox = new JTextField();
+		details.add(lengthTBox);
 		
-		email = new JLabel("Email:");
-		top.add(email);
-		emailTBox = new JTextField(5);
-		top.add(emailTBox);
+		publisher = new JLabel("Publisher");
+		details.add(publisher);
+		publisherTBox = new JTextField();
+		details.add(publisherTBox);
 		
 		JPanel bottom = new JPanel(new FlowLayout());
 		this.add(bottom, BorderLayout.SOUTH);
 		
-		ok = new JButton("OK");
-		ok.setPreferredSize(new Dimension(60,30));
-		bottom.add(ok);
+		add = new JButton("Add");
+		add.setPreferredSize(new Dimension(60,30));
+		bottom.add(add);
 		
 		
 		this.setVisible(true);
