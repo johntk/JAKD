@@ -367,7 +367,7 @@ public class DBsql
 			stmt.execute("insert into DIGITAL_PRODUCT values('D0000017','Action',18,'P0000017')");
 			stmt.execute("insert into ELECTRONIC values('E0000001','Sony','Playstation 4','Black','P0000018')");
 			stmt.execute("insert into ELECTRONIC values('E0000002','Microsoft','Xbox 360','Black','P0000019')");
-			stmt.execute("insert into ELECTRONIC values('E0000003','Beats','Wireless Over-Ear Headphone','Black','P0000020')");
+			stmt.execute("insert into ELECTRONIC values('E0000003','Beats','Wireless Over-Ear Headphones','Black','P0000020')");
 			stmt.execute("insert into ELECTRONIC values('E0000004','Bose','AE2','White','P0000021')");
 			stmt.execute("insert into ELECTRONIC values('E0000005','Sennheiser','CX 300 II','Black','P0000022')");
 			stmt.execute("insert into ELECTRONIC values('E0000006','Sony','MDREX10LP','Black','P0000023')");

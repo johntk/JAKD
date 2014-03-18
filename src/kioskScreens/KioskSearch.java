@@ -5,6 +5,8 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import db.DBconnection;
+
 public class KioskSearch extends JFrame implements ActionListener
 {
 	private JFrame frame;
@@ -16,6 +18,7 @@ public class KioskSearch extends JFrame implements ActionListener
 	private Font f1;
 	private ImageIcon hm,logo;
 	private GridBagConstraints gc;
+	private DBconnection db;
 
 	public KioskSearch()
 	{
@@ -46,7 +49,6 @@ public class KioskSearch extends JFrame implements ActionListener
 		home.setVerticalTextPosition(SwingConstants.BOTTOM );
 		home.setHorizontalTextPosition(SwingConstants.CENTER);
 		home.setBorder(null);
-		home.setPreferredSize(new Dimension(100,100));
 		home.addActionListener(this);
 		top.add(home, BorderLayout.WEST);
 		main.add(top,BorderLayout.NORTH);
@@ -85,6 +87,7 @@ public class KioskSearch extends JFrame implements ActionListener
 		gc.gridy = 3;
 		center.add(empty1,gc);
 		searchBtn = new JButton("Search");
+		searchBtn.addActionListener(this);
 		searchBtn.setPreferredSize(new Dimension(160, 40));
 		searchBtn.setFont(new Font("Calibri",Font.BOLD,25));
 		searchBtn.setBackground(new Color(102,178,255));
@@ -111,17 +114,59 @@ public class KioskSearch extends JFrame implements ActionListener
 				}
 			}
 		});
+
+		search.addKeyListener(new KeyListener(){
+			public void keyPressed(KeyEvent e)
+		{
+			int key = e.getKeyCode();
+
+			if (key == KeyEvent.VK_ENTER)
+			{
+				if(search.getText().equals("Search for a Product...")){
+
+				}else
+				{
+					String searchTerm = search.getText();
+					db.queryAllProducts(searchTerm);
+				}
+		    }
+		}
+			public void keyReleased(KeyEvent e) {
+			}
+			public void keyTyped(KeyEvent e) {
+			}
+		});
+		
 		frame.setVisible(true);
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 		frame.requestFocus();
+
+		db = new DBconnection();
+		db.openDB();
 	}
 
 	public void actionPerformed(ActionEvent e)
 	{
+		if(e.getSource()==searchBtn)
+		{
+			if(search.getText().equals("Search for a Product...")){
+
+			}else
+			{
+				String searchTerm = search.getText();
+				db.queryAllProducts(searchTerm);
+			}
+		}
 		if(e.getSource()==home)
 		{
 			frame.dispose();
+			try
+			{
+				db.closeDB();
+			} catch (Exception se){
+				System.out.println("Could not close connection");
+				se.printStackTrace();
+			}
 		}
 	}
-
 }

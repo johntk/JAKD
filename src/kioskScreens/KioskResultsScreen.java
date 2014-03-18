@@ -2,18 +2,23 @@ package kioskScreens;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class KioskResultsScreen implements ActionListener
+import db.DBconnection;
+
+public class KioskResultsScreen extends JFrame implements ActionListener
 {
 	private JFrame frame;
 	private String srcPath;
-	private JPanel main,center,top,centerTop,footer,resultWindow;
+	private JPanel main,center,top,centerTop,footer,resultWindow,r;
 	private JScrollPane scrollPane;
 	private JLabel resultsHeading,logoLabel;
-	private JButton home;
+	private JButton home,view;
 	private ImageIcon hm,logo;
+	private ArrayList<Result> resultList;
+	private ArrayList<Integer> yPos;
 	private GridBagConstraints gc;
 
 	public KioskResultsScreen()
@@ -23,9 +28,13 @@ public class KioskResultsScreen implements ActionListener
 		frame.setSize(1200,800);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		frame.setUndecorated(true);
 
 		srcPath = "src/resources/kioskFiles/images/";
+		r = new JPanel();
+		yPos = new ArrayList<Integer>();
+		resultList = new ArrayList<Result>();
 		gc = new GridBagConstraints();
 		hm = new ImageIcon(srcPath+"home.png");
 		logo = new ImageIcon(srcPath+"logo3.png");
@@ -61,10 +70,11 @@ public class KioskResultsScreen implements ActionListener
 		centerTop.add(resultsHeading);
 		center.add(centerTop,BorderLayout.NORTH);
 
-
-		resultWindow = new JPanel(new GridBagLayout());
+		//add JPane to display results from DB
+		resultWindow = new JPanel();
+		resultWindow.setLayout(new GridBagLayout());
 		scrollPane = new JScrollPane(resultWindow);
-		scrollPane.getVerticalScrollBar().setUnitIncrement(25);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 		center.add(scrollPane,BorderLayout.CENTER);
 
 		footer = new JPanel();
@@ -86,18 +96,42 @@ public class KioskResultsScreen implements ActionListener
 	public void addResult(String img,String desc,int y,double price)
 	{
 		Result rslt = new Result(img,desc,price);
-		JPanel r = rslt.getResult();
-		/*if (y % 2 == 0)
+		resultList.add(rslt);
+		yPos.add(y);
+	}
+	
+	public void displayResult()
+	{
+		for(int i=0; i<resultList.size();i++)
 		{
-			r.setBackground(new Color(210,225,235));
-		}*/
-		gc.gridx =0;
-		gc.gridy =y;
-		gc.weightx=1.0;
-		gc.weighty=1.0;
-		r.setBorder(BorderFactory.createMatteBorder(20,50,10,20, frame.getContentPane().getBackground()));
-		gc.anchor = GridBagConstraints.NORTHWEST;
-		resultWindow.add(r,gc);
+			r = resultList.get(i).getResult();
+			gc.gridx =0;
+			gc.gridy =yPos.get(i);
+			gc.weightx=1.0;
+			gc.weighty=1.0;
+			gc.fill = GridBagConstraints.HORIZONTAL;
+			gc.anchor = GridBagConstraints.NORTHWEST;
+			r.setBorder(BorderFactory.createEmptyBorder(10,20,10,160));
+			//Set colour on the result JPanel background where grid = even number
+			if (yPos.get(i) % 2 == 0)
+			{
+				r.setBackground(new Color(215,225,235));
+			}
+			resultWindow.add(r,gc);
+			
+			
+			view = new JButton("View Product Details");
+			view.setPreferredSize(new Dimension(180,50));
+			view.setBackground(new Color(33,106,206));
+			view.setForeground(Color.WHITE);
+			view.setFont(new Font("Calibri",Font.BOLD,15));
+			gc.gridx =2;
+			gc.gridy =0;
+			gc.weightx=0.0;
+			gc.weighty=0.0;
+			gc.anchor = GridBagConstraints.WEST;
+			r.add(view,gc);
+		}
 	}
 
 	public void actionPerformed(ActionEvent e)

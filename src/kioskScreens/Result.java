@@ -1,37 +1,57 @@
 package kioskScreens;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
+import javax.swing.*;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-public class Result
+public class Result extends JPanel
 {
 	private ImageIcon productImage;
 	private String imageFile;
 	private JLabel image,description,salePrice;
-	//private String salePrice;
 	private JPanel resultPanel;
 	private String srcPath;
+	private GridBagConstraints gc;
 
 	public Result(String img,String desc,double price)
 	{
+		gc = new GridBagConstraints();
 		imageFile = img;
-		salePrice = new JLabel("  - €"+price);
-		salePrice.setFont(new Font("Calibri",Font.BOLD,25));
-		salePrice.setForeground(new Color(143,164,179));
-		description = new JLabel("  "+desc);
-		description.setFont(new Font("Calibri",Font.PLAIN,25));
-		resultPanel = new JPanel(new BorderLayout());
+		
+		resultPanel = new JPanel(new GridBagLayout());
 		srcPath = "src/resources/kioskFiles/productImages/thumbs/";
+		
 		productImage = new ImageIcon(srcPath+imageFile);
 		image = new JLabel(productImage);
-		resultPanel.add(image,BorderLayout.WEST);
-		resultPanel.add(description,BorderLayout.CENTER);
-		resultPanel.add(salePrice,BorderLayout.EAST);
+		gc.gridx =0;
+		gc.gridy =0;
+		gc.weightx=0.0;
+		gc.weighty=0.0;
+		gc.anchor = GridBagConstraints.SOUTHWEST;
+		resultPanel.add(image,gc);
+		
+		description = new JLabel("  "+desc);
+		description.setFont(new Font("Calibri",Font.PLAIN,25));
+		gc.gridx =1;
+		gc.gridy =0;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.anchor = GridBagConstraints.WEST;
+		resultPanel.add(description,gc);
+		
+		salePrice = new JLabel("  €"+price);
+		salePrice.setFont(new Font("Calibri",Font.BOLD|Font.ITALIC,20));
+		salePrice.setForeground(new Color(20,120,230));
+		gc.gridx =1;
+		gc.gridy =0;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.anchor = GridBagConstraints.SOUTHWEST;
+		resultPanel.add(salePrice,gc);
+	}
+	public String getDescription()
+	{
+		String d = description.getText();
+		return d;
 	}
 	public JPanel getResult()
 	{
