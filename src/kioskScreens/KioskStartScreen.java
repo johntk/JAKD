@@ -194,7 +194,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		}
 	}
 	
-	//Inner class to display game platform options
+	// Inner class to display game platform options
 	class KioskGameOptions extends JFrame implements ActionListener
 	{
 		private JFrame frame;

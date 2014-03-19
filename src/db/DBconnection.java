@@ -42,12 +42,12 @@ public class DBconnection
 			//ods.setPassword("");
 
 			name.requestFocusInWindow();
-			//JOptionPane.showMessageDialog(null, panel);
+			JOptionPane.showMessageDialog(null, panel);
 			ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
-			//ods.setUser(name.getText());
-			//ods.setPassword(pswd.getText());
-			ods.setUser("project");
-			ods.setPassword("project");
+			ods.setUser(name.getText());
+			ods.setPassword(pswd.getText());
+			//ods.setUser("project");
+			//ods.setPassword("project");
 
 			conn = ods.getConnection();
 			JOptionPane.showMessageDialog(null, "Connection Successful", "Success", JOptionPane.INFORMATION_MESSAGE);
