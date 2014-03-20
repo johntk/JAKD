@@ -21,9 +21,11 @@ public class KioskResultsScreen extends JFrame implements ActionListener
 	private ArrayList<JButton> viewButtons;
 	private ArrayList<Integer> yPos;
 	private GridBagConstraints gc;
+	private DBconnection db;
 
-	public KioskResultsScreen()
+	public KioskResultsScreen(DBconnection db)
 	{
+		this.db = db;
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
 		frame.setSize(1200,800);
@@ -115,6 +117,15 @@ public class KioskResultsScreen extends JFrame implements ActionListener
 	{
 		for(int i=0; i<resultList.size();i++)
 		{
+			JLabel number = new JLabel(yPos.get(i)+1+"");
+			gc.gridx =0;
+			gc.gridy =yPos.get(i);
+			gc.weightx=1.0;
+			gc.weighty=1.0;
+			gc.anchor = GridBagConstraints.WEST;
+			number.setBorder(BorderFactory.createEmptyBorder(0,4,0,0));
+			resultWindow.add(number,gc);
+			
 			r = resultList.get(i).getResult();
 			gc.gridx =0;
 			gc.gridy =yPos.get(i);
@@ -137,6 +148,24 @@ public class KioskResultsScreen extends JFrame implements ActionListener
 			gc.anchor = GridBagConstraints.WEST;
 			r.add(viewButtons.get(i),gc);
 		}
+		// Pad out the results panel if the number of results is less than 8
+		if(resultList.size()<8)
+		{
+			int temp = 8-resultList.size();
+			int tempY = resultList.size();
+			for(int i=0;i<temp;i++)
+			{
+				JLabel b = new JLabel(" ");
+				gc.gridx =0;
+				gc.gridy = tempY;
+				gc.weightx=1.0;
+				gc.weighty=1.0;
+				gc.fill = GridBagConstraints.HORIZONTAL;
+				gc.anchor = GridBagConstraints.NORTHWEST;
+				tempY++;
+				resultWindow.add(b,gc);
+			}
+		}
 	}
 
 	public void actionPerformed(ActionEvent e)
@@ -152,7 +181,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener
 			{
 				if(((JButton)e.getSource()) == viewButtons.get(i))
 				{
-					ProductDisplay pd = new ProductDisplay(resultList.get(i).getProdID());
+					ProductDisplay pd = new ProductDisplay(resultList.get(i).getProdID(),db);
 				}
 			}
 		}

@@ -6,6 +6,7 @@ import java.sql.*;
 import javax.swing.*;
 
 import kioskScreens.KioskResultsScreen;
+import kioskScreens.ProductDisplay;
 import oracle.jdbc.pool.OracleDataSource;
 
 public class DBconnection
@@ -17,9 +18,13 @@ public class DBconnection
 	private JTextField name;
 	private JPasswordField pswd;
 	private JPanel panel;
+	private DBconnection db;
+	private ProductDisplay pd;
 
-	public DBconnection()
+	public DBconnection(DBconnection db, ProductDisplay pd)
 	{
+		this.pd = pd;
+		this.db = db;
 		n = new JLabel("Enter your oracle user name");
 		p = new JLabel("Enter your oracle password");
 		name = new JTextField(20);
@@ -42,24 +47,29 @@ public class DBconnection
 			//ods.setPassword("");
 
 			name.requestFocusInWindow();
-			JOptionPane.showMessageDialog(null, panel);
 			ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
-			ods.setUser(name.getText());
-			ods.setPassword(pswd.getText());
-			//ods.setUser("project");
-			//ods.setPassword("project");
-
+			ods.setUser("project");
+			ods.setPassword("project");
 			conn = ods.getConnection();
-			JOptionPane.showMessageDialog(null, "Connection Successful", "Success", JOptionPane.INFORMATION_MESSAGE);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Failed to Connect", "Failed to Connect", JOptionPane.INFORMATION_MESSAGE);
-			System.out.print("Unable to load driver " + e);
+		} catch (Exception e){
+			try {
+				OracleDataSource ods = new OracleDataSource();
+				ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
+				JOptionPane.showMessageDialog(null, panel);
+				ods.setUser(name.getText());
+				ods.setPassword(pswd.getText());
+				conn = ods.getConnection();
+			}catch (Exception x)
+			{
+				JOptionPane.showMessageDialog(null, "Failed to Connect", "Failed to Connect", JOptionPane.INFORMATION_MESSAGE);
+				System.out.print("Unable to load driver " + x);
+			}
 		}
 	}
 
 	public void queryAllProducts(String sTerm)
 	{
-		KioskResultsScreen krs = new KioskResultsScreen();
+		KioskResultsScreen krs = new KioskResultsScreen(db);
 		krs.setHeading(sTerm.toUpperCase());
 		String description;
 		String productThumb;
@@ -74,7 +84,7 @@ public class DBconnection
 					"UNION select e.manufacturer||' '||e.model, h.headphone_sale_price, p.prod_id as prodID from electronic e, headphones h, product p where e.elec_id = h.elec_id and p.prod_id = e.prod_id and UPPER(e.manufacturer||' '||e.model) like UPPER('%"+sTerm+"%') "+
 					"UNION select e.manufacturer||' '||e.model, s.sd_sale_price, p.prod_id as prodID from electronic e, sound_dock s, product p where e.elec_id = s.elec_id and p.prod_id = e.prod_id and UPPER(e.manufacturer||' '||e.model) like UPPER('%"+sTerm+"%') "+
 					"UNION select e.manufacturer||' '||e.model, c.console_sale_price, p.prod_id as prodID from electronic e, console c, product p where e.elec_id = c.elec_id and p.prod_id = e.prod_id and UPPER(e.manufacturer||' '||e.model) like UPPER('%"+sTerm+"%') ";
-					rset = stmt.executeQuery(sqlStatement);
+			rset = stmt.executeQuery(sqlStatement);
 			while (rset.next())
 			{
 				description = rset.getString("description");
@@ -93,7 +103,7 @@ public class DBconnection
 
 	public void queryMusic()
 	{
-		KioskResultsScreen krs = new KioskResultsScreen();
+		KioskResultsScreen krs = new KioskResultsScreen(db);
 		krs.setHeading("MUSIC");
 		String description;
 		String productThumb;
@@ -122,7 +132,7 @@ public class DBconnection
 
 	public void queryDVD()
 	{
-		KioskResultsScreen krs = new KioskResultsScreen();
+		KioskResultsScreen krs = new KioskResultsScreen(db);
 		krs.setHeading("DVD");
 		String description;
 		double salePrice;
@@ -149,7 +159,7 @@ public class DBconnection
 
 	public void queryConsoles()
 	{
-		KioskResultsScreen krs = new KioskResultsScreen();
+		KioskResultsScreen krs = new KioskResultsScreen(db);
 		krs.setHeading("CONSOLES");
 		String description;
 		double salePrice;
@@ -176,7 +186,7 @@ public class DBconnection
 
 	public void queryHeadphones()
 	{
-		KioskResultsScreen krs = new KioskResultsScreen();
+		KioskResultsScreen krs = new KioskResultsScreen(db);
 		krs.setHeading("HEADPHONES");
 		String description;
 		double salePrice;
@@ -203,7 +213,7 @@ public class DBconnection
 
 	public void querySoundDocks()
 	{
-		KioskResultsScreen krs = new KioskResultsScreen();
+		KioskResultsScreen krs = new KioskResultsScreen(db);
 		krs.setHeading("SOUNDDOCKS");
 		String description;
 		double salePrice;
@@ -230,7 +240,7 @@ public class DBconnection
 
 	public void queryDeals()
 	{
-		KioskResultsScreen krs = new KioskResultsScreen();
+		KioskResultsScreen krs = new KioskResultsScreen(db);
 		krs.setHeading("SOUNDDOCKS");
 		String description;
 		double salePrice;
@@ -257,7 +267,7 @@ public class DBconnection
 
 	public void queryGames(String platform)
 	{
-		KioskResultsScreen krs = new KioskResultsScreen();
+		KioskResultsScreen krs = new KioskResultsScreen(db);
 		krs.setHeading(platform);
 		String description;
 		double salePrice;
@@ -280,6 +290,45 @@ public class DBconnection
 			System.out.println("ERROR: " + ex.getMessage());
 		}
 		krs.displayResult();
+	}
+
+	public void queryProductInfo(String prodID)
+	{
+		String prodType =null;
+		try
+		{
+			stmt = conn.createStatement();
+			String sqlStatement = "select prod_type from product where prod_id = '"+prodID+"'";
+			rset = stmt.executeQuery(sqlStatement);
+			prodType = rset.getString("prod_type");
+		}catch (Exception ex)
+		{
+			System.out.println("ERROR: " + ex.getMessage());
+		}
+
+		if(prodType.equals("DIGITAL_PRODUCT"))
+		{
+			String description;
+			double salePrice;
+			try {
+				stmt = conn.createStatement();
+				String sqlStatement = "select d.dvd_name, d.dvd_sale_price, p.prod_id as prodID from dvd d, DIGITAL_PRODUCT dp, product p where p.prod_id = dp.prod_id and dp.dig_id = d.dig_id";
+				rset = stmt.executeQuery(sqlStatement);
+				while (rset.next())
+				{
+					description = rset.getString("dvd_name");
+					salePrice = rset.getDouble("dvd_sale_price");
+				}
+			} catch (Exception ex)
+			{
+				System.out.println("ERROR: " + ex.getMessage());
+			}
+			pd.addDigitalProduct();
+		}
+		else if(prodType.equals("ELECTRONIC"))
+		{
+			pd.addElectronicProduct();
+		}
 	}
 
 	public void closeDB()

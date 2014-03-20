@@ -2,8 +2,6 @@ package kioskScreens;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.*;
-import java.sql.SQLException;
 
 import javax.swing.*;
 
@@ -20,6 +18,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 	private JPasswordField jpf;
 	private GridBagConstraints gc;
 	private DBconnection db;
+	private ProductDisplay pd;
 
 	public KioskStartScreen()
 	{
@@ -31,7 +30,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		frame.setLocationRelativeTo(null);
 		frame.setUndecorated(true);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+		
 		srcPath = "src/resources/kioskFiles/images/";
 		gc = new GridBagConstraints();
 
@@ -141,7 +140,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 		frame.requestFocus();
 
-		db = new DBconnection();
+		db = new DBconnection(db,pd);
 		db.openDB();
 
 		pswd = new JPanel(new GridLayout(1,2));
