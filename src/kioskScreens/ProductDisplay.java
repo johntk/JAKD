@@ -16,14 +16,13 @@ public class ProductDisplay extends JFrame implements ActionListener
 	private JScrollPane scrollPane;
 	private JButton home;
 	private JLabel resultsHeading,logoLabel;
-	private ImageIcon hm,logo,img;
+	private ImageIcon hm,logo;
 	private GridBagConstraints gc;
-	private DBconnection db;
+	private String srcPath;
 	
-	public ProductDisplay(String prodID, DBconnection db)
+	public ProductDisplay()
 	{
 		this.prodID = prodID;
-		this.db = db;
 		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.WHITE);
@@ -34,8 +33,10 @@ public class ProductDisplay extends JFrame implements ActionListener
 		frame.setUndecorated(true);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
+		srcPath = "src/resources/kioskFiles/productImages/";
 		hm = new ImageIcon("src/resources/kioskFiles/images/home.png");
 		logo = new ImageIcon("src/resources/kioskFiles/images/logo3.png");
+		gc = new GridBagConstraints();
 		
 		main = new JPanel(new BorderLayout());
 		main.setBackground(Color.WHITE);
@@ -66,8 +67,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		centerTop.add(resultsHeading);
 		center.add(centerTop,BorderLayout.NORTH);
 		
-		//Add panel to display all product details
-		//db.queryProductInfo(prodID);
+		//Add panel to display product details
 		productInfo = new JPanel();
 		productInfo.setLayout(new GridBagLayout());
 		scrollPane = new JScrollPane(productInfo);
@@ -82,13 +82,81 @@ public class ProductDisplay extends JFrame implements ActionListener
 		frame.setVisible(true);
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 		frame.requestFocus();
+		
 	}
 	
-	public void addElectronicProduct()
+	public void displayConsole()
 	{
 		
 	}
-	public void addDigitalProduct()
+	public void displayHeadphones()
+	{
+		
+	}
+	public void displaySoundDock()
+	{
+		
+	}
+	public void displayAlbum()
+	{
+		
+	}
+	public void displayGame(String title,String genre,String company,String platform,int rating,double salePrice,int currentStock)
+	{
+		JPanel result = new JPanel(new GridLayout(8,1));
+		
+		ImageIcon img = new ImageIcon(srcPath+title+".jpg");
+		JLabel i = new JLabel(img);
+		gc.gridx =0;
+		gc.gridy =0;
+		gc.weightx=1.0;
+		gc.weighty=0.0;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		i.setBorder(BorderFactory.createEmptyBorder(40,40,0,0));
+		productInfo.add(i,gc);
+		
+		JLabel t = new JLabel(title);
+		t.setFont(new Font("Calibri",Font.BOLD,50));
+		t.setForeground(new Color(33,106,206));
+		result.add(t);
+		
+		JLabel empty = new JLabel(" ");
+		result.add(empty);
+		
+		JLabel c = new JLabel("Company: "+company);
+		c.setFont(new Font("Calibri",Font.PLAIN,25));
+		result.add(c);
+		
+		JLabel p = new JLabel("Platform: "+platform);
+		p.setFont(new Font("Calibri",Font.PLAIN,25));
+		result.add(p);
+		
+		JLabel g = new JLabel("Genre: "+genre);
+		g.setFont(new Font("Calibri",Font.PLAIN,25));
+		result.add(g);
+		
+		JLabel r = new JLabel("Age Rating: "+rating);
+		r.setFont(new Font("Calibri",Font.PLAIN,25));
+		result.add(r);
+		
+		JLabel sp = new JLabel("Price: "+salePrice);
+		sp.setFont(new Font("Calibri",Font.PLAIN,25));
+		result.add(sp);
+		
+		JLabel cs = new JLabel("In-Stock: "+currentStock);
+		cs.setFont(new Font("Calibri",Font.PLAIN,25));
+		result.add(cs);
+		
+		gc.gridx =1;
+		gc.gridy =0;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		result.setBorder(BorderFactory.createEmptyBorder(40,20,0,0));
+		result.setPreferredSize(new Dimension(800,500));
+		productInfo.add(result,gc);
+	}
+	public void displayDVD()
 	{
 		
 	}

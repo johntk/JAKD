@@ -19,12 +19,9 @@ public class DBconnection
 	private JPasswordField pswd;
 	private JPanel panel;
 	private DBconnection db;
-	private ProductDisplay pd;
 
-	public DBconnection(DBconnection db, ProductDisplay pd)
+	public DBconnection()
 	{
-		this.pd = pd;
-		this.db = db;
 		n = new JLabel("Enter your oracle user name");
 		p = new JLabel("Enter your oracle password");
 		name = new JTextField(20);
@@ -238,32 +235,6 @@ public class DBconnection
 		krs.displayResult();
 	}
 
-	public void queryDeals()
-	{
-		KioskResultsScreen krs = new KioskResultsScreen(db);
-		krs.setHeading("SOUNDDOCKS");
-		String description;
-		double salePrice;
-		String prodID;
-		int y=0;
-		try {
-			stmt = conn.createStatement();
-			String sqlStatement = "select e.manufacturer||' '||e.model as description, s.sd_sale_price, p.prod_id as prodID from product p, electronic e, SOUND_DOCK s where p.prod_id = e.prod_id and s.elec_id = e.elec_id";
-			rset = stmt.executeQuery(sqlStatement);
-			while (rset.next())
-			{
-				description = rset.getString("description");
-				salePrice = rset.getDouble("sd_sale_price");
-				prodID = rset.getString("prodID");
-				krs.addResult(rset.getString("description")+".jpg", description, y, salePrice, prodID);
-				y++;
-			}
-		} catch (Exception ex)
-		{
-			System.out.println("ERROR: " + ex.getMessage());
-		}
-		krs.displayResult();
-	}
 
 	public void queryGames(String platform)
 	{
@@ -294,43 +265,64 @@ public class DBconnection
 
 	public void queryProductInfo(String prodID)
 	{
+		String PID = prodID;
+		ProductDisplay pd = new ProductDisplay();
+		String title =null;
+		String genre =null;
+		String company =null;
+		String platform =null;
+		int rating =0;
+		double salePrice =0;
+		int currentStock =0;
 		String prodType =null;
 		try
 		{
 			stmt = conn.createStatement();
-			String sqlStatement = "select prod_type from product where prod_id = '"+prodID+"'";
+			String sqlStatement = "select prod_type from product where prod_id = '"+PID+"'";
 			rset = stmt.executeQuery(sqlStatement);
-			prodType = rset.getString("prod_type");
+			while (rset.next())
+			{
+				prodType = rset.getString("PROD_TYPE");
+			}
 		}catch (Exception ex)
 		{
 			System.out.println("ERROR: " + ex.getMessage());
 		}
 
-		if(prodType.equals("DIGITAL_PRODUCT"))
+		if(prodType.equals("GAME"))
 		{
-			String description;
-			double salePrice;
 			try {
 				stmt = conn.createStatement();
-				String sqlStatement = "select d.dvd_name, d.dvd_sale_price, p.prod_id as prodID from dvd d, DIGITAL_PRODUCT dp, product p where p.prod_id = dp.prod_id and dp.dig_id = d.dig_id";
+				String sqlStatement = "select p.current_stock, dp.genre, dp.age_rating, g.company, g.platform, g.game_name, g.game_sale_price "+
+						"from product p, digital_product dp, game g "+
+						"where dp.prod_id = p.prod_id "+
+						"and dp.dig_id = g.dig_id "+
+						"and p.prod_id = '"+PID+"'";
 				rset = stmt.executeQuery(sqlStatement);
 				while (rset.next())
 				{
-					description = rset.getString("dvd_name");
-					salePrice = rset.getDouble("dvd_sale_price");
+					title = rset.getString("game_name");
+					genre = rset.getString("genre");
+					company = rset.getString("company");
+					platform = rset.getString("platform");
+					rating = rset.getInt("age_rating");
+					salePrice = rset.getDouble("game_sale_price");
+					currentStock = rset.getInt("current_stock");
+					
+					pd.displayGame(title,genre,company,platform,rating,salePrice,currentStock);
 				}
 			} catch (Exception ex)
 			{
 				System.out.println("ERROR: " + ex.getMessage());
 			}
-			pd.addDigitalProduct();
-		}
-		else if(prodType.equals("ELECTRONIC"))
-		{
-			pd.addElectronicProduct();
 		}
 	}
-
+	
+	public void setDB(DBconnection db)
+	{
+		this.db = db;
+	}
+	
 	public void closeDB()
 	{
 		try

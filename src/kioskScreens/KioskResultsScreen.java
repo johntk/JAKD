@@ -99,6 +99,11 @@ public class KioskResultsScreen extends JFrame implements ActionListener
 	// Creates a result object and adds it to the result arrayList
 	public void addResult(String img,String desc,int y,double price, String prodID)
 	{
+		Result rslt = new Result(img,desc,price,prodID);
+		resultList.add(rslt);
+		yPos.add(y);
+		
+		// Add a "view product details" button to each result in the arrayList
 		view = new JButton("View Product Details");
 		view.setPreferredSize(new Dimension(180,50));
 		view.setBackground(new Color(33,106,206));
@@ -106,10 +111,6 @@ public class KioskResultsScreen extends JFrame implements ActionListener
 		view.setFont(new Font("Calibri",Font.BOLD,15));
 		view.addActionListener(this);
 		viewButtons.add(view);
-
-		Result rslt = new Result(img,desc,price,prodID);
-		resultList.add(rslt);
-		yPos.add(y);
 	}
 
 	//Adds product result to results panel
@@ -181,7 +182,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener
 			{
 				if(((JButton)e.getSource()) == viewButtons.get(i))
 				{
-					ProductDisplay pd = new ProductDisplay(resultList.get(i).getProdID(),db);
+					db.queryProductInfo(resultList.get(i).getProdID());
 				}
 			}
 		}

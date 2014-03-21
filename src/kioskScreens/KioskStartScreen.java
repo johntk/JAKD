@@ -18,7 +18,6 @@ public class KioskStartScreen extends JFrame implements ActionListener
 	private JPasswordField jpf;
 	private GridBagConstraints gc;
 	private DBconnection db;
-	private ProductDisplay pd;
 
 	public KioskStartScreen()
 	{
@@ -140,8 +139,9 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 		frame.requestFocus();
 
-		db = new DBconnection(db,pd);
+		db = new DBconnection();
 		db.openDB();
+		db.setDB(db);
 
 		pswd = new JPanel(new GridLayout(1,2));
 		pinLbl = new JLabel("PIN:");
