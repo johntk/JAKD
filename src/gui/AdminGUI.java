@@ -6,6 +6,11 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+
+import model.Employee;
+import model.EmployeeList;
+import db.AdminOperations;
+
 public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 
 	private static final long serialVersionUID = 1L;
@@ -29,8 +34,12 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 	private BorderLayout layout = new BorderLayout();
 	private GridBagConstraints gc = new GridBagConstraints();
 	private Color cl;
-
-	public AdminGUI() {
+	
+	private int counter = 0;
+	private EmployeeList employeeList;
+	private AdminOperations adminOperations;
+	
+	public AdminGUI(AdminOperations ao, EmployeeList el) {
 		// Main frame declaration
 		frame = new JFrame();
 		frame.setLayout(layout);
@@ -39,6 +48,8 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+		this.employeeList = el;
+		this.adminOperations = ao;
 		cl = new Color(240, 240, 240);
 
 		// Left side buttons panel
@@ -106,7 +117,7 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 		test.addActionListener(this);
 		genReportPanel.add(test);
 
-		userPanel = new UserPanel();
+		userPanel = new UserPanel(frame, adminOperations, employeeList);
 		elecProdPanel = new ElecProdPanel(frame);
 		digiProdPanel = new DigiProdPanel(frame);
 
@@ -133,7 +144,22 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 		frame.setVisible(true);
 
 	}
-
+	
+	
+	
+	private int empID;
+	private String fName;
+	private String lName;
+	private String houseNum;
+	private String street;
+	private String town;
+	private String city;
+	private String PPS;
+	private int pin;
+	private String manager;
+	
+	
+	
 	public void prodSelect() {
 		JPanel prodSelect = new JPanel();
 		elcProdRB = new JRadioButton("Electronic product");
@@ -154,6 +180,8 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 			String nameSearch = JOptionPane.showInputDialog(null,
 					"Enter the name of person you wish to edit");
 
+			
+			
 		} else if (e.getSource() == editProdBtn) {
 			prodSelect();
 			String prodSearch;

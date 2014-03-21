@@ -2,8 +2,13 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
+
+import db.AdminOperations;
+import model.Employee;
+import model.EmployeeList;
 
 public class UserPanel extends JPanel implements ActionListener {
 
@@ -23,8 +28,15 @@ public class UserPanel extends JPanel implements ActionListener {
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border border = BorderFactory.createCompoundBorder(space, line);
 
-	public UserPanel() {
+	private int counter = 0;
+	private EmployeeList employeeList;
+	private AdminOperations adminOperations;
+	
+	public UserPanel(Frame frame, AdminOperations ao, EmployeeList el) {
 
+		this.employeeList = el;
+		this.adminOperations = ao;
+		
 		this.setLayout(new BorderLayout());
 		userDetails = new JLabel("User Details");
 		userDetails.setBorder(new EmptyBorder(10, 500, 0, 0));
@@ -100,8 +112,32 @@ public class UserPanel extends JPanel implements ActionListener {
 			editUserBtnsPanel.add(editUserBtnsArray[i], gc);
 		}
 		this.add(editUserBtnsPanel, BorderLayout.WEST);
+		
+		setFirst();
 	}
 
+	public void setFirst() {
+		int pos = 0;           // set to 0  and used below to retrieve 1st element from array list
+		counter=0;             // This is the counter used for the forward and back buttons
+		Employee e = employeeList.getEmployee(pos);
+		this.displayEmployee(e);
+	}
+	
+	
+ 
+	
+	public void displayEmployee(Employee e) {
+		staffIDBx.setText(Integer.toString(e.getEmpID()));
+		forenameBx.setText(e.getfName());
+		surenamebx.setText(e.getlName());
+		line1Bx.setText(e.getHouseNum());
+		line2Bx.setText(e.getStreet());
+		Line3Bx.setText(e.getTown());
+		line2Bx.setText(e.getCity());
+		pinBx.setText(Integer.toString(e.getPin()));
+		PPSBx.setText(e.getPPS());
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 
 	}

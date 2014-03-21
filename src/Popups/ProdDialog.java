@@ -28,7 +28,6 @@ public class ProdDialog extends JDialog {
 			if (popUp.equals(popupPanels[i].getName())) {
 				cdDialog.add(popupPanels[i]);
 				cdDialog.setSize(popupPanels[i].getSize());
-
 			}
 		}
 
