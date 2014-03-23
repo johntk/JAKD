@@ -308,7 +308,7 @@ public class DBconnection
 					rating = rset.getInt("age_rating");
 					salePrice = rset.getDouble("game_sale_price");
 					currentStock = rset.getInt("current_stock");
-					
+
 					pd.displayGame(title,genre,company,platform,rating,salePrice,currentStock);
 				}
 			} catch (Exception ex)
@@ -318,7 +318,8 @@ public class DBconnection
 		}
 		else if(prodType.equals("CD"))
 		{
-			String title =null;
+			String artist =null;
+			String album =null;
 			String genre =null;
 			String recordCompany =null;
 			String length =null;
@@ -327,7 +328,7 @@ public class DBconnection
 			int currentStock =0;
 			try {
 				stmt = conn.createStatement();
-				String sqlStatement = "select p.current_stock, dp.genre, dp.age_rating, a.artist_name||' - '||c.album_name as title, c.record_company, c.album_length, c.cd_sale_price "+
+				String sqlStatement = "select p.current_stock, dp.genre, dp.age_rating, a.artist_name, c.album_name, c.record_company, c.album_length, c.cd_sale_price "+
 						"from product p, digital_product dp, cd c, artist a, cd_artist ca "+
 						"where dp.prod_id = p.prod_id "+
 						"and dp.dig_id = c.dig_id "+
@@ -337,15 +338,158 @@ public class DBconnection
 				rset = stmt.executeQuery(sqlStatement);
 				while (rset.next())
 				{
-					title = rset.getString("title");
+					artist = rset.getString("artist_name");
+					album = rset.getString("album_name");
 					genre = rset.getString("genre");
 					recordCompany = rset.getString("record_company");
 					length = rset.getString("album_length");
 					rating = rset.getInt("age_rating");
 					salePrice = rset.getDouble("cd_sale_price");
 					currentStock = rset.getInt("current_stock");
-					
-					pd.displayCD(title,genre,recordCompany,length,rating,salePrice,currentStock);
+
+					pd.displayCD(artist,album,genre,recordCompany,length,rating,salePrice,currentStock);
+				}
+			} catch (Exception ex)
+			{
+				System.out.println("ERROR: " + ex.getMessage());
+			}
+		}
+		if(prodType.equals("DVD"))
+		{
+			String title =null;
+			String genre =null;
+			int length =0;
+			String studio =null;
+			int rating =0;
+			double salePrice =0;
+			int currentStock =0;
+			try {
+				stmt = conn.createStatement();
+				String sqlStatement = "select p.current_stock, dp.genre, dp.age_rating, d.studio, d.dvd_length, d.dvd_name, d.dvd_sale_price "+
+						"from product p, digital_product dp, dvd d "+
+						"where dp.prod_id = p.prod_id "+
+						"and dp.dig_id = d.dig_id "+
+						"and p.prod_id = '"+PID+"'";
+				rset = stmt.executeQuery(sqlStatement);
+				while (rset.next())
+				{
+					title = rset.getString("dvd_name");
+					genre = rset.getString("genre");
+					studio = rset.getString("studio");
+					length = rset.getInt("dvd_length");
+					rating = rset.getInt("age_rating");
+					salePrice = rset.getDouble("dvd_sale_price");
+					currentStock = rset.getInt("current_stock");
+
+					pd.displayDVD(title,genre,studio,length,rating,salePrice,currentStock);
+				}
+			} catch (Exception ex)
+			{
+				System.out.println("ERROR: " + ex.getMessage());
+			}
+		}
+		else if(prodType.equals("SOUNDDOCK"))
+		{
+			String manufacturer =null;
+			String model =null;
+			String colour =null;
+			String wireless =null;
+			int powerOutput = 0;
+			String digRadio =null;
+			double salePrice =0;
+			int currentStock =0;
+			try {
+				stmt = conn.createStatement();
+				String sqlStatement = "select p.current_stock, e.manufacturer, e.model, e.colour, sd.wireless, sd.power_ouput, sd.digital_radio, sd.sd_sale_price "+
+						"from product p, electronic e, sound_dock sd "+
+						"where e.prod_id = p.prod_id "+
+						"and e.elec_id = sd.elec_id "+
+						"and p.prod_id = '"+prodID+"'";
+						rset = stmt.executeQuery(sqlStatement);
+				while (rset.next())
+				{
+					manufacturer = rset.getString("manufacturer");
+					model = rset.getString("model");
+					colour = rset.getString("colour");
+					wireless = rset.getString("wireless");
+					powerOutput = rset.getInt("power_ouput");
+					digRadio = rset.getString("digital_radio");
+					salePrice = rset.getDouble("sd_sale_price");
+					currentStock = rset.getInt("current_stock");
+
+					pd.displaySoundDock(manufacturer,model,colour,wireless,powerOutput,digRadio,salePrice,currentStock);
+				}
+			} catch (Exception ex)
+			{
+				System.out.println("ERROR: " + ex.getMessage());
+			}
+		}
+		else if(prodType.equals("HEADPHONES"))
+		{
+			String manufacturer =null;
+			String model =null;
+			String colour =null;
+			String overEar =null;
+			String mic =null;
+			String iPhoneCompatible =null;
+			double salePrice =0;
+			int currentStock =0;
+			try {
+				stmt = conn.createStatement();
+				String sqlStatement = "select p.current_stock, e.manufacturer, e.model, e.colour, hp.over_ear, hp.microphone, hp.iphone_compatible, hp.headphone_sale_price "+
+						"from product p, electronic e, headphones hp "+
+						"where e.prod_id = p.prod_id "+
+						"and e.elec_id = hp.elec_id "+
+						"and p.prod_id = '"+prodID+"'";
+						rset = stmt.executeQuery(sqlStatement);
+				while (rset.next())
+				{
+					manufacturer = rset.getString("manufacturer");
+					model = rset.getString("model");
+					colour = rset.getString("colour");
+					overEar = rset.getString("over_ear");
+					mic = rset.getString("microphone");
+					iPhoneCompatible = rset.getString("iphone_compatible");
+					salePrice = rset.getDouble("headphone_sale_price");
+					currentStock = rset.getInt("current_stock");
+
+					pd.displayHeadphones(manufacturer,model,colour,overEar,mic,iPhoneCompatible,salePrice,currentStock);
+				}
+			} catch (Exception ex)
+			{
+				System.out.println("ERROR: " + ex.getMessage());
+			}
+		}
+		else if(prodType.equals("CONSOLE"))
+		{
+			String manufacturer =null;
+			String model =null;
+			String colour =null;
+			int storage =0;
+			String wifi =null;
+			int numControllers =0;
+			double salePrice =0;
+			int currentStock =0;
+			try {
+				stmt = conn.createStatement();
+				String sqlStatement = "select p.current_stock, e.manufacturer, e.model, e.colour, c.storage_size, c.wifi, c.num_controllers, c.console_sale_price "+
+						"from product p, electronic e, console c "+
+						"where e.prod_id = p.prod_id "+
+						"and e.elec_id = c.elec_id "+
+						"and p.prod_id = '"+prodID+"'";
+						rset = stmt.executeQuery(sqlStatement);
+				while (rset.next())
+				{
+					manufacturer = rset.getString("manufacturer");
+					model = rset.getString("model");
+					colour = rset.getString("colour");
+					storage = rset.getInt("storage_size");
+					wifi = rset.getString("wifi");
+					numControllers = rset.getInt("num_controllers");
+					salePrice = rset.getDouble("console_sale_price");
+					currentStock = rset.getInt("current_stock");
+
+					pd.displayConsole(manufacturer,model,colour,storage,wifi,numControllers,salePrice,currentStock);
 				}
 			} catch (Exception ex)
 			{
@@ -353,12 +497,12 @@ public class DBconnection
 			}
 		}
 	}
-	
+
 	public void setDB(DBconnection db)
 	{
 		this.db = db;
 	}
-	
+
 	public void closeDB()
 	{
 		try
