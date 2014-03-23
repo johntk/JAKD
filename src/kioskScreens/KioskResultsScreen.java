@@ -74,7 +74,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener
 		centerTop.add(resultsHeading);
 		center.add(centerTop,BorderLayout.NORTH);
 
-		//add JPane to display results from DB
+		//add JPanel to display results from DB
 		resultWindow = new JPanel();
 		resultWindow.setLayout(new GridBagLayout());
 		scrollPane = new JScrollPane(resultWindow);

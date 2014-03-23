@@ -31,7 +31,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setUndecorated(true);
-		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
 		srcPath = "src/resources/kioskFiles/productImages/";
 		hm = new ImageIcon("src/resources/kioskFiles/images/home.png");
@@ -97,12 +97,9 @@ public class ProductDisplay extends JFrame implements ActionListener
 	{
 		
 	}
-	public void displayAlbum()
+	public void displayCD(String title, String genre, String recordCompany, String length, int rating, double salePrice, int currentStock)
 	{
-		
-	}
-	public void displayGame(String title,String genre,String company,String platform,int rating,double salePrice,int currentStock)
-	{
+		// Add CD artwork and information
 		JPanel result = new JPanel(new GridLayout(8,1));
 		
 		ImageIcon img = new ImageIcon(srcPath+title+".jpg");
@@ -110,42 +107,44 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.gridx =0;
 		gc.gridy =0;
 		gc.weightx=1.0;
-		gc.weighty=0.0;
+		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		i.setBorder(BorderFactory.createEmptyBorder(40,40,0,0));
 		productInfo.add(i,gc);
 		
 		JLabel t = new JLabel(title);
-		t.setFont(new Font("Calibri",Font.BOLD,50));
-		t.setForeground(new Color(33,106,206));
+		t.setFont(new Font("Calibri",Font.BOLD,40));
+		t.setForeground(new Color(20,120,230));
 		result.add(t);
 		
 		JLabel empty = new JLabel(" ");
 		result.add(empty);
 		
-		JLabel c = new JLabel("Company: "+company);
-		c.setFont(new Font("Calibri",Font.PLAIN,25));
+		JLabel c = new JLabel("• Record Company: "+recordCompany);
+		c.setFont(new Font("Calibri",Font.PLAIN,20));
+		//c.setForeground(new Color(110,110,110));
 		result.add(c);
 		
-		JLabel p = new JLabel("Platform: "+platform);
-		p.setFont(new Font("Calibri",Font.PLAIN,25));
+		JLabel p = new JLabel("• Length: "+length+" minutes");
+		p.setFont(new Font("Calibri",Font.PLAIN,20));
 		result.add(p);
 		
-		JLabel g = new JLabel("Genre: "+genre);
-		g.setFont(new Font("Calibri",Font.PLAIN,25));
+		JLabel g = new JLabel("• Genre: "+genre);
+		g.setFont(new Font("Calibri",Font.PLAIN,20));
 		result.add(g);
 		
-		JLabel r = new JLabel("Age Rating: "+rating);
-		r.setFont(new Font("Calibri",Font.PLAIN,25));
+		JLabel r = new JLabel("• Age Rating: "+rating);
+		r.setFont(new Font("Calibri",Font.PLAIN,20));
 		result.add(r);
 		
-		JLabel sp = new JLabel("Price: "+salePrice);
-		sp.setFont(new Font("Calibri",Font.PLAIN,25));
-		result.add(sp);
-		
-		JLabel cs = new JLabel("In-Stock: "+currentStock);
-		cs.setFont(new Font("Calibri",Font.PLAIN,25));
+		JLabel cs = new JLabel("• In-Stock: "+currentStock);
+		cs.setFont(new Font("Calibri",Font.PLAIN,20));
 		result.add(cs);
+		
+		JLabel sp = new JLabel("Price: €"+salePrice);
+		sp.setFont(new Font("Calibri",Font.BOLD,25));
+		sp.setForeground(new Color(20,120,230));
+		result.add(sp);
 		
 		gc.gridx =1;
 		gc.gridy =0;
@@ -153,7 +152,66 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createEmptyBorder(40,20,0,0));
-		result.setPreferredSize(new Dimension(800,500));
+		result.setPreferredSize(new Dimension(1200,350));
+		productInfo.add(result,gc);
+		
+		// Add list of songs from CD
+		JPanel songs = new JPanel();
+		
+	}
+	
+	public void displayGame(String title,String genre,String company,String platform,int rating,double salePrice,int currentStock)
+	{
+		JPanel result = new JPanel(new GridLayout(7,1));
+		
+		ImageIcon img = new ImageIcon(srcPath+title+".jpg");
+		JLabel i = new JLabel(img);
+		gc.gridx =0;
+		gc.gridy =0;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		i.setBorder(BorderFactory.createMatteBorder(40,40,0,0,productInfo.getBackground()));
+		productInfo.add(i,gc);
+		
+		JLabel t = new JLabel(title);
+		t.setFont(new Font("Calibri",Font.BOLD,40));
+		t.setForeground(new Color(20,120,230));
+		result.add(t);
+		
+		JLabel c = new JLabel("• Company: "+company);
+		c.setFont(new Font("Calibri",Font.PLAIN,20));
+		//c.setForeground(new Color(110,110,110));
+		result.add(c);
+		
+		JLabel p = new JLabel("• Platform: "+platform);
+		p.setFont(new Font("Calibri",Font.PLAIN,20));
+		result.add(p);
+		
+		JLabel g = new JLabel("• Genre: "+genre);
+		g.setFont(new Font("Calibri",Font.PLAIN,20));
+		result.add(g);
+		
+		JLabel r = new JLabel("• Age Rating: "+rating);
+		r.setFont(new Font("Calibri",Font.PLAIN,20));
+		result.add(r);
+		
+		JLabel cs = new JLabel("• In-Stock: "+currentStock);
+		cs.setFont(new Font("Calibri",Font.PLAIN,20));
+		result.add(cs);
+
+		
+		JLabel sp = new JLabel("Price: €"+salePrice);
+		sp.setFont(new Font("Calibri",Font.BOLD,25));
+		result.add(sp);
+		
+		gc.gridx =1;
+		gc.gridy =0;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		result.setBorder(BorderFactory.createMatteBorder(40,20,0,0,productInfo.getBackground()));
+		result.setPreferredSize(new Dimension(1200,350));
 		productInfo.add(result,gc);
 	}
 	public void displayDVD()

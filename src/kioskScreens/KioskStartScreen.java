@@ -187,7 +187,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 				db.closeDB();
 			} catch (Exception se){
 				System.out.println("Could not close connection");
-				//se.printStackTrace();
+				se.printStackTrace();
 			}
 			System.exit(0);
 		}

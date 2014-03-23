@@ -267,13 +267,6 @@ public class DBconnection
 	{
 		String PID = prodID;
 		ProductDisplay pd = new ProductDisplay();
-		String title =null;
-		String genre =null;
-		String company =null;
-		String platform =null;
-		int rating =0;
-		double salePrice =0;
-		int currentStock =0;
 		String prodType =null;
 		try
 		{
@@ -291,6 +284,13 @@ public class DBconnection
 
 		if(prodType.equals("GAME"))
 		{
+			String title =null;
+			String genre =null;
+			String company =null;
+			String platform =null;
+			int rating =0;
+			double salePrice =0;
+			int currentStock =0;
 			try {
 				stmt = conn.createStatement();
 				String sqlStatement = "select p.current_stock, dp.genre, dp.age_rating, g.company, g.platform, g.game_name, g.game_sale_price "+
@@ -310,6 +310,42 @@ public class DBconnection
 					currentStock = rset.getInt("current_stock");
 					
 					pd.displayGame(title,genre,company,platform,rating,salePrice,currentStock);
+				}
+			} catch (Exception ex)
+			{
+				System.out.println("ERROR: " + ex.getMessage());
+			}
+		}
+		else if(prodType.equals("CD"))
+		{
+			String title =null;
+			String genre =null;
+			String recordCompany =null;
+			String length =null;
+			int rating =0;
+			double salePrice =0;
+			int currentStock =0;
+			try {
+				stmt = conn.createStatement();
+				String sqlStatement = "select p.current_stock, dp.genre, dp.age_rating, a.artist_name||' - '||c.album_name as title, c.record_company, c.album_length, c.cd_sale_price "+
+						"from product p, digital_product dp, cd c, artist a, cd_artist ca "+
+						"where dp.prod_id = p.prod_id "+
+						"and dp.dig_id = c.dig_id "+
+						"and a.artist_id = ca.artist_id "+
+						"and c.cd_id = ca.cd_id "+
+						"and p.prod_id = '"+PID+"'";
+				rset = stmt.executeQuery(sqlStatement);
+				while (rset.next())
+				{
+					title = rset.getString("title");
+					genre = rset.getString("genre");
+					recordCompany = rset.getString("record_company");
+					length = rset.getString("album_length");
+					rating = rset.getInt("age_rating");
+					salePrice = rset.getDouble("cd_sale_price");
+					currentStock = rset.getInt("current_stock");
+					
+					pd.displayCD(title,genre,recordCompany,length,rating,salePrice,currentStock);
 				}
 			} catch (Exception ex)
 			{
