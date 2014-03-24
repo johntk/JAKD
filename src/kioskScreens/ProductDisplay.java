@@ -3,6 +3,7 @@ package kioskScreens;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -14,16 +15,22 @@ public class ProductDisplay extends JFrame implements ActionListener
 	private JFrame frame;
 	private JPanel main,center,top,centerTop,footer,productInfo;
 	private JScrollPane scrollPane;
-	private JButton home;
+	private JButton home,pb;
 	private JLabel resultsHeading,logoLabel;
-	private ImageIcon hm,logo;
+	private ImageIcon hm,logo,play;
 	private GridBagConstraints gc;
 	private String srcPath;
-	DBconnection db;
+	private ArrayList<Song> songList;
+	private ArrayList<JButton> playButtons;
+	private DBconnection db;
 
 	public ProductDisplay(DBconnection db)
 	{
 		this.db = db;
+		playButtons = new ArrayList<JButton>();
+		songList = new ArrayList<Song>();
+		play = new ImageIcon("src/resources/kioskFiles/images/play.png");
+		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setLayout(new BorderLayout());
@@ -331,15 +338,16 @@ public class ProductDisplay extends JFrame implements ActionListener
 	public void displayCD(String artist,String album, String genre, String recordCompany, String length, int rating, double salePrice, int currentStock, String prodID)
 	{
 		// Add product image and information
+		int y = (songList.size()+1);
 		ImageIcon img = new ImageIcon(srcPath+artist+" - "+album+".jpg");
-		JLabel i = new JLabel(img);
+		JLabel im = new JLabel(img);
 		gc.gridx =0;
 		gc.gridy =0;
 		gc.weightx=1.0;
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
-		i.setBorder(BorderFactory.createEmptyBorder(40,40,0,0));
-		productInfo.add(i,gc);
+		im.setBorder(BorderFactory.createEmptyBorder(40,40,0,0));
+		productInfo.add(im,gc);
 		
 		JPanel result = new JPanel(new GridLayout(9,1));
 		gc.gridx =1;
@@ -390,8 +398,8 @@ public class ProductDisplay extends JFrame implements ActionListener
 		sp.setForeground(new Color(20,120,230));
 		result.add(sp);
 
-		// Add list of songs from CD
-		JPanel songs = new JPanel();
+		// Add JPanel to display list of songs from CD
+		JPanel songs = new JPanel(new GridLayout(y,3));
 		songs.setBackground(Color.WHITE);
 		gc.gridx =2;
 		gc.gridy =0;
@@ -399,22 +407,52 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		songs.setBorder(new CompoundBorder(
-				//BorderFactory.createEmptyBorder(40,20,0,100),
 				BorderFactory.createMatteBorder(40, 20, 0, 50, productInfo.getBackground()),
 			    BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY)));
 		songs.setPreferredSize(new Dimension(700,700));
 		productInfo.add(songs,gc);
 
-		JLabel title = new JLabel("Select a song to listen to a preview");
-		title.setFont(new Font("Calibri",Font.PLAIN,30));
+		JLabel blank = new JLabel(" ");
+		songs.add(blank);
+		JLabel title = new JLabel("Title:");
+		title.setFont(new Font("Calibri",Font.BOLD,25));
 		title.setForeground(new Color(20,120,230));
 		songs.add(title);
+		JLabel lgth = new JLabel("Length:");
+		lgth.setFont(new Font("Calibri",Font.BOLD,25));
+		lgth.setForeground(new Color(20,120,230));
+		songs.add(lgth);
 		
-		String albumID = db.queryAlbumID(prodID);
-		db.querySong(albumID);
-		//SongList sl = new SongList(prodID,db);
+		// Add list of song titles to songsPanel
+		for(int i=0; i<songList.size();i++)
+		{
+			songs.add(playButtons.get(i));
+			
+			JLabel n = new JLabel(songList.get(i).getTitle());
+			n.setFont(new Font("Calibri",Font.BOLD,20));
+			n.setForeground(Color.GRAY);
+			songs.add(n);
+			JLabel l = new JLabel(songList.get(i).getLength());
+			l.setFont(new Font("Calibri",Font.BOLD,20));
+			songs.add(l);
+		}
 	}
-
+	
+	
+	public void addSong(Song s)
+	{
+		pb = new JButton();
+		pb.setIcon(play);
+		pb.setBorderPainted(false); 
+		pb.setContentAreaFilled(false); 
+		//pb.setFocusPainted(false); 
+		pb.setOpaque(false);
+		pb.addActionListener(this);
+		playButtons.add(pb);
+		songList.add(s);
+	}
+	
+	
 	public void displayGame(String title,String genre,String company,String platform,int rating,double salePrice,int currentStock)
 	{
 		JPanel result = new JPanel(new GridLayout(8,1));
@@ -536,6 +574,16 @@ public class ProductDisplay extends JFrame implements ActionListener
 		if(e.getSource()==home)
 		{
 			frame.dispose();
+		}
+		if(e.getSource() instanceof JButton)
+		{
+			for(int i=0; i<playButtons.size(); i++)
+			{
+				if(((JButton)e.getSource()) == playButtons.get(i))
+				{
+					System.out.println(songList.get(i).getSongID());
+				}
+			}
 		}
 	}
 }
