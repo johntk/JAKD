@@ -149,10 +149,10 @@ public class KioskResultsScreen extends JFrame implements ActionListener
 			gc.anchor = GridBagConstraints.WEST;
 			r.add(viewButtons.get(i),gc);
 		}
-		// Pad out the results panel if the number of results is less than 8
-		if(resultList.size()<8)
+		// Pad out the results panel if the number of results is less than 10
+		if(resultList.size()<10)
 		{
-			int temp = 8-resultList.size();
+			int temp = 10-resultList.size();
 			int tempY = resultList.size();
 			for(int i=0;i<temp;i++)
 			{

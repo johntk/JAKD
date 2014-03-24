@@ -19,9 +19,11 @@ public class ProductDisplay extends JFrame implements ActionListener
 	private ImageIcon hm,logo;
 	private GridBagConstraints gc;
 	private String srcPath;
+	DBconnection db;
 
-	public ProductDisplay()
+	public ProductDisplay(DBconnection db)
 	{
+		this.db = db;
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setLayout(new BorderLayout());
@@ -326,7 +328,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		result.setPreferredSize(new Dimension(1200,350));
 		productInfo.add(result,gc);
 	}
-	public void displayCD(String artist,String album, String genre, String recordCompany, String length, int rating, double salePrice, int currentStock)
+	public void displayCD(String artist,String album, String genre, String recordCompany, String length, int rating, double salePrice, int currentStock, String prodID)
 	{
 		// Add product image and information
 		ImageIcon img = new ImageIcon(srcPath+artist+" - "+album+".jpg");
@@ -407,6 +409,10 @@ public class ProductDisplay extends JFrame implements ActionListener
 		title.setFont(new Font("Calibri",Font.PLAIN,30));
 		title.setForeground(new Color(20,120,230));
 		songs.add(title);
+		
+		String albumID = db.queryAlbumID(prodID);
+		db.querySong(albumID);
+		//SongList sl = new SongList(prodID,db);
 	}
 
 	public void displayGame(String title,String genre,String company,String platform,int rating,double salePrice,int currentStock)

@@ -5,8 +5,7 @@ import java.sql.*;
 
 import javax.swing.*;
 
-import kioskScreens.KioskResultsScreen;
-import kioskScreens.ProductDisplay;
+import kioskScreens.*;
 import oracle.jdbc.pool.OracleDataSource;
 
 public class DBconnection
@@ -265,7 +264,7 @@ public class DBconnection
 
 	public void queryProductInfo(String prodID)
 	{
-		ProductDisplay pd = new ProductDisplay();
+		ProductDisplay pd = new ProductDisplay(db);
 		String prodType =null;
 		try
 		{
@@ -347,7 +346,7 @@ public class DBconnection
 					salePrice = rset.getDouble("cd_sale_price");
 					currentStock = rset.getInt("current_stock");
 
-					pd.displayCD(artist,album,genre,recordCompany,length,rating,salePrice,currentStock);
+					pd.displayCD(artist,album,genre,recordCompany,length,rating,salePrice,currentStock,prodID);
 					pd.setHeading(artist+" - "+album);
 				}
 			} catch (Exception ex)
@@ -407,7 +406,7 @@ public class DBconnection
 						"where e.prod_id = p.prod_id "+
 						"and e.elec_id = sd.elec_id "+
 						"and p.prod_id = '"+prodID+"'";
-						rset = stmt.executeQuery(sqlStatement);
+				rset = stmt.executeQuery(sqlStatement);
 				while (rset.next())
 				{
 					manufacturer = rset.getString("manufacturer");
@@ -444,7 +443,7 @@ public class DBconnection
 						"where e.prod_id = p.prod_id "+
 						"and e.elec_id = hp.elec_id "+
 						"and p.prod_id = '"+prodID+"'";
-						rset = stmt.executeQuery(sqlStatement);
+				rset = stmt.executeQuery(sqlStatement);
 				while (rset.next())
 				{
 					manufacturer = rset.getString("manufacturer");
@@ -481,7 +480,7 @@ public class DBconnection
 						"where e.prod_id = p.prod_id "+
 						"and e.elec_id = c.elec_id "+
 						"and p.prod_id = '"+prodID+"'";
-						rset = stmt.executeQuery(sqlStatement);
+				rset = stmt.executeQuery(sqlStatement);
 				while (rset.next())
 				{
 					manufacturer = rset.getString("manufacturer");
@@ -500,6 +499,65 @@ public class DBconnection
 			{
 				System.out.println("ERROR: " + ex.getMessage());
 			}
+		}
+	}
+
+	public String queryAlbumID(String prodID)
+	{
+		String albumID = null;
+		try {
+			stmt = conn.createStatement();
+			String sqlStatement = "select c.cd_id "+
+					"from product p, digital_product dp, cd c "+
+					"where p.prod_id = dp.prod_id "+
+					"and dp.dig_id = c.dig_id "+
+					"and p.prod_id = '"+prodID+"'";
+			rset = stmt.executeQuery(sqlStatement);
+			while (rset.next())
+			{
+				albumID = rset.getString("cd_id");
+			}
+		} catch (Exception ex)
+		{
+			System.out.println("ERROR: " + ex.getMessage());
+		}
+		return albumID;
+	}
+
+	public void querySong(String albumID)
+	{
+		SongList sl = new SongList();
+		String songID =null;
+		String songName =null;
+		String length =null;
+		
+		String artist =null;
+		String album =null;
+		try {
+			stmt = conn.createStatement();
+			String sqlStatement = "select s.song_id, s.song_name, s.song_length, a.artist_name, c.album_name "+
+					"from product p, digital_product dp, cd c, artist a, cd_artist ca, song s "+
+					"where p.prod_id = dp.prod_id "+
+					"and dp.dig_id = c.dig_id "+
+					"and s.cd_id = c.cd_id "+
+					"and ca.artist_id = a.artist_id "+
+					"and ca.cd_id = c.cd_id "+
+					"and c.cd_id = '"+albumID+"'";
+			rset = stmt.executeQuery(sqlStatement);
+			while (rset.next())
+			{
+				songID = rset.getString("song_id");
+				songName = rset.getString("song_name");
+				length = rset.getString("song_length");
+				artist = rset.getString("artist_name");
+				album = rset.getString("album_name");
+				
+				Song s = new Song(songID,songName,length,artist,album);
+				sl.addSong(s);
+			}
+		} catch (Exception ex)
+		{
+			System.out.println("ERROR: " + ex.getMessage());
 		}
 	}
 

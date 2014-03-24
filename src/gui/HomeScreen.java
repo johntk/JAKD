@@ -2,10 +2,12 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
 
-import db.POSOperations;
+import kioskScreens.KioskStartScreen;
+import db.*;
 
 
 public class HomeScreen extends JFrame implements ActionListener 
@@ -23,6 +25,7 @@ public class HomeScreen extends JFrame implements ActionListener
 	private GridBagLayout layout, layout2;
 	private GridBagConstraints gc;
 	private Color cl;
+	private DBconnection db;
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	
 
@@ -51,7 +54,8 @@ public class HomeScreen extends JFrame implements ActionListener
 	
 	public HomeScreen()
 	{
-		
+		db = new DBconnection();
+		db.openDB();
 		
 		////////////////////////////////////////////////////////////////////////////
 		/////////////////////////////////        Frame     /////////////////////////
@@ -230,7 +234,7 @@ public class HomeScreen extends JFrame implements ActionListener
 		}
 		else if(e.getSource() == kiosk)
 		{
-			frame.setTitle("KIOSK");
+			KioskStartScreen kss = new KioskStartScreen(db);
 		}
 		else 
 		{
@@ -244,8 +248,6 @@ public class HomeScreen extends JFrame implements ActionListener
 	public static void main (String args[])
 	{
 		HomeScreen a = new HomeScreen();
-		
-
 	}
 }
 

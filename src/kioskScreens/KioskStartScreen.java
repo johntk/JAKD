@@ -19,8 +19,9 @@ public class KioskStartScreen extends JFrame implements ActionListener
 	private GridBagConstraints gc;
 	private DBconnection db;
 
-	public KioskStartScreen()
+	public KioskStartScreen(DBconnection db)
 	{
+		this.db = db;
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setLayout(new BorderLayout());
@@ -28,7 +29,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setUndecorated(true);
-		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
 		srcPath = "src/resources/kioskFiles/images/";
 		gc = new GridBagConstraints();
@@ -139,8 +140,8 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 		frame.requestFocus();
 
-		db = new DBconnection();
-		db.openDB();
+		//db = new DBconnection();
+		//db.openDB();
 		db.setDB(db);
 
 		pswd = new JPanel(new GridLayout(1,2));
@@ -189,7 +190,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 				System.out.println("Could not close connection");
 				se.printStackTrace();
 			}
-			System.exit(0);
+			frame.dispose();
 		}
 	}
 	
@@ -296,10 +297,5 @@ public class KioskStartScreen extends JFrame implements ActionListener
 				frame.dispose();
 			}
 		}
-	}
-	
-	public static void main(String args[])
-	{
-		KioskStartScreen kss = new KioskStartScreen();
 	}
 }
