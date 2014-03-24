@@ -5,13 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
 
 import db.DBconnection;
 
 public class ProductDisplay extends JFrame implements ActionListener
 {
 	private JFrame frame;
-	private String prodID;
 	private JPanel main,center,top,centerTop,footer,productInfo;
 	private JScrollPane scrollPane;
 	private JButton home;
@@ -22,8 +22,6 @@ public class ProductDisplay extends JFrame implements ActionListener
 
 	public ProductDisplay()
 	{
-		this.prodID = prodID;
-
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setLayout(new BorderLayout());
@@ -82,7 +80,11 @@ public class ProductDisplay extends JFrame implements ActionListener
 		frame.setVisible(true);
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 		frame.requestFocus();
-
+	}
+	
+	public void setHeading(String s)
+	{
+		resultsHeading.setText(resultsHeading.getText()+s);
 	}
 
 	public void displayConsole(String manufacturer,String model,String colour,int storage,String wifi,int numControllers,double salePrice,int currentStock)
@@ -123,9 +125,9 @@ public class ProductDisplay extends JFrame implements ActionListener
 
 		if(wifi.equals("Y"))
 		{
-			JLabel wf = new JLabel("• Wi-Fi: "+"Yes");
-			wf.setFont(new Font("Calibri",Font.PLAIN,20));
-			result.add(wf);
+			JLabel wf1 = new JLabel("• Wi-Fi: "+"Yes");
+			wf1.setFont(new Font("Calibri",Font.PLAIN,20));
+			result.add(wf1);
 		}
 		else
 		{
@@ -327,8 +329,6 @@ public class ProductDisplay extends JFrame implements ActionListener
 	public void displayCD(String artist,String album, String genre, String recordCompany, String length, int rating, double salePrice, int currentStock)
 	{
 		// Add product image and information
-		JPanel result = new JPanel(new GridLayout(9,1));
-
 		ImageIcon img = new ImageIcon(srcPath+artist+" - "+album+".jpg");
 		JLabel i = new JLabel(img);
 		gc.gridx =0;
@@ -338,6 +338,16 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		i.setBorder(BorderFactory.createEmptyBorder(40,40,0,0));
 		productInfo.add(i,gc);
+		
+		JPanel result = new JPanel(new GridLayout(9,1));
+		gc.gridx =1;
+		gc.gridy =0;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		result.setBorder(BorderFactory.createEmptyBorder(40,20,0,0));
+		result.setPreferredSize(new Dimension(450,350));
+		productInfo.add(result,gc);
 
 		JLabel a = new JLabel(artist);
 		a.setFont(new Font("Calibri",Font.BOLD,40));
@@ -378,18 +388,25 @@ public class ProductDisplay extends JFrame implements ActionListener
 		sp.setForeground(new Color(20,120,230));
 		result.add(sp);
 
-		gc.gridx =1;
+		// Add list of songs from CD
+		JPanel songs = new JPanel();
+		songs.setBackground(Color.WHITE);
+		gc.gridx =2;
 		gc.gridy =0;
 		gc.weightx=1.0;
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
-		result.setBorder(BorderFactory.createEmptyBorder(40,20,0,0));
-		result.setPreferredSize(new Dimension(1200,350));
-		productInfo.add(result,gc);
+		songs.setBorder(new CompoundBorder(
+				//BorderFactory.createEmptyBorder(40,20,0,100),
+				BorderFactory.createMatteBorder(40, 20, 0, 50, productInfo.getBackground()),
+			    BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY)));
+		songs.setPreferredSize(new Dimension(700,700));
+		productInfo.add(songs,gc);
 
-		// Add list of songs from CD
-		JPanel songs = new JPanel();
-
+		JLabel title = new JLabel("Select a song to listen to a preview");
+		title.setFont(new Font("Calibri",Font.PLAIN,30));
+		title.setForeground(new Color(20,120,230));
+		songs.add(title);
 	}
 
 	public void displayGame(String title,String genre,String company,String platform,int rating,double salePrice,int currentStock)

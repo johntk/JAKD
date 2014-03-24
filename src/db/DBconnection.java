@@ -265,13 +265,12 @@ public class DBconnection
 
 	public void queryProductInfo(String prodID)
 	{
-		String PID = prodID;
 		ProductDisplay pd = new ProductDisplay();
 		String prodType =null;
 		try
 		{
 			stmt = conn.createStatement();
-			String sqlStatement = "select prod_type from product where prod_id = '"+PID+"'";
+			String sqlStatement = "select prod_type from product where prod_id = '"+prodID+"'";
 			rset = stmt.executeQuery(sqlStatement);
 			while (rset.next())
 			{
@@ -297,7 +296,7 @@ public class DBconnection
 						"from product p, digital_product dp, game g "+
 						"where dp.prod_id = p.prod_id "+
 						"and dp.dig_id = g.dig_id "+
-						"and p.prod_id = '"+PID+"'";
+						"and p.prod_id = '"+prodID+"'";
 				rset = stmt.executeQuery(sqlStatement);
 				while (rset.next())
 				{
@@ -310,6 +309,7 @@ public class DBconnection
 					currentStock = rset.getInt("current_stock");
 
 					pd.displayGame(title,genre,company,platform,rating,salePrice,currentStock);
+					pd.setHeading(title);
 				}
 			} catch (Exception ex)
 			{
@@ -334,7 +334,7 @@ public class DBconnection
 						"and dp.dig_id = c.dig_id "+
 						"and a.artist_id = ca.artist_id "+
 						"and c.cd_id = ca.cd_id "+
-						"and p.prod_id = '"+PID+"'";
+						"and p.prod_id = '"+prodID+"'";
 				rset = stmt.executeQuery(sqlStatement);
 				while (rset.next())
 				{
@@ -348,6 +348,7 @@ public class DBconnection
 					currentStock = rset.getInt("current_stock");
 
 					pd.displayCD(artist,album,genre,recordCompany,length,rating,salePrice,currentStock);
+					pd.setHeading(artist+" - "+album);
 				}
 			} catch (Exception ex)
 			{
@@ -369,7 +370,7 @@ public class DBconnection
 						"from product p, digital_product dp, dvd d "+
 						"where dp.prod_id = p.prod_id "+
 						"and dp.dig_id = d.dig_id "+
-						"and p.prod_id = '"+PID+"'";
+						"and p.prod_id = '"+prodID+"'";
 				rset = stmt.executeQuery(sqlStatement);
 				while (rset.next())
 				{
@@ -382,6 +383,7 @@ public class DBconnection
 					currentStock = rset.getInt("current_stock");
 
 					pd.displayDVD(title,genre,studio,length,rating,salePrice,currentStock);
+					pd.setHeading(title);
 				}
 			} catch (Exception ex)
 			{
@@ -418,6 +420,7 @@ public class DBconnection
 					currentStock = rset.getInt("current_stock");
 
 					pd.displaySoundDock(manufacturer,model,colour,wireless,powerOutput,digRadio,salePrice,currentStock);
+					pd.setHeading(manufacturer+" "+model);
 				}
 			} catch (Exception ex)
 			{
@@ -454,6 +457,7 @@ public class DBconnection
 					currentStock = rset.getInt("current_stock");
 
 					pd.displayHeadphones(manufacturer,model,colour,overEar,mic,iPhoneCompatible,salePrice,currentStock);
+					pd.setHeading(manufacturer+" "+model);
 				}
 			} catch (Exception ex)
 			{
@@ -490,6 +494,7 @@ public class DBconnection
 					currentStock = rset.getInt("current_stock");
 
 					pd.displayConsole(manufacturer,model,colour,storage,wifi,numControllers,salePrice,currentStock);
+					pd.setHeading(manufacturer+" "+model);
 				}
 			} catch (Exception ex)
 			{

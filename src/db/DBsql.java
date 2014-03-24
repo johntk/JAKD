@@ -243,15 +243,15 @@ public class DBsql
 		try
 		{
 			Statement stmt = conn.createStatement();
-			stmt.executeUpdate("create sequence prod_seq start with 26 increment by 1");
+			stmt.executeUpdate("create sequence prod_seq start with 27 increment by 1");
 			stmt.executeUpdate("create sequence digi_seq start with 18 increment by 1");
-			stmt.executeUpdate("create sequence elec_seq start with 9 increment by 1");
+			stmt.executeUpdate("create sequence elec_seq start with 10 increment by 1");
 			stmt.executeUpdate("create sequence dvd_seq start with 6 increment by 1");
 			stmt.executeUpdate("create sequence game_seq start with 5 increment by 1");
 			stmt.executeUpdate("create sequence cd_seq start with 9 increment by 1");
 			stmt.executeUpdate("create sequence song_seq start with 106 increment by 1");
 			stmt.executeUpdate("create sequence artist_seq start with 9 increment by 1");
-			stmt.executeUpdate("create sequence console_seq start with 3 increment by 1");
+			stmt.executeUpdate("create sequence console_seq start with 4 increment by 1");
 			stmt.executeUpdate("create sequence sound_dock_seq start with 3 increment by 1");
 			stmt.executeUpdate("create sequence headphones_seq start with 5 increment by 1");
 			stmt.executeUpdate("create sequence transaction_seq start with 1000000 increment by 1");
@@ -348,6 +348,7 @@ public class DBsql
 			stmt.execute("insert into PRODUCT values('P0000023','HEADPHONES',8)");
 			stmt.execute("insert into PRODUCT values('P0000024','SOUNDDOCK',3)");
 			stmt.execute("insert into PRODUCT values('P0000025','SOUNDDOCK',5)");
+			stmt.execute("insert into PRODUCT values('P0000026','CONSOLE',8)");
 			stmt.execute("insert into DIGITAL_PRODUCT values('D0000001','Rock',12,'P0000001')");
 			stmt.execute("insert into DIGITAL_PRODUCT values('D0000002','Electronica',0,'P0000002')");
 			stmt.execute("insert into DIGITAL_PRODUCT values('D0000003','Soul',0,'P0000003')");
@@ -373,6 +374,7 @@ public class DBsql
 			stmt.execute("insert into ELECTRONIC values('E0000006','Sony','MDREX10LP','Black','P0000023')");
 			stmt.execute("insert into ELECTRONIC values('E0000007','Bose','SoundDock II','Black','P0000024')");
 			stmt.execute("insert into ELECTRONIC values('E0000008','Samsung','DA-E750','Red','P0000025')");
+			stmt.execute("insert into ELECTRONIC values('E0000009','Nintendo','Wii','White','P0000026')");
 			stmt.execute("insert into CD values('C0000001',68,'AM','Domino',9.50,16.99,'D0000001')");
 			stmt.execute("insert into CD values('C0000002',72,'Random Access Memories','Columbia',10.50,18.99,'D0000002')");
 			stmt.execute("insert into CD values('C0000003',75,'Love in the Future','Columbia',9.49,17.99,'D0000003')");
@@ -513,6 +515,7 @@ public class DBsql
 			stmt.execute("insert into GAME values('G0000004','Konami','PS4','Metal Gear Solid V Ground Zeroes',17.60,24.99,'D0000017')");
 			stmt.execute("insert into CONSOLE values('L0000001',500,'Y',1,200,260,'E0000001')");
 			stmt.execute("insert into CONSOLE values('L0000002',4,'Y',1,120,200,'E0000002')");
+			stmt.execute("insert into CONSOLE values('L0000003',0,'N',1,90,150,'E0000009')");
 			stmt.execute("insert into HEADPHONES values('H0000001','Y','N','Y',242.69,360.95,'E0000003')");
 			stmt.execute("insert into HEADPHONES values('H0000002','Y','N','Y',88.50,119.99,'E0000004')");
 			stmt.execute("insert into HEADPHONES values('H0000003','N','N','Y',21.50,31.99,'E0000005')");
