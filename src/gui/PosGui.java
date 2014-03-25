@@ -248,7 +248,7 @@ public class PosGui extends JPanel implements ActionListener
 				try
 				{
 					data.next();
-					products.setText(products.getText() + data.getString(2));
+					products.setText(products.getText() + data.getString(1) + data.getString(2) + data.getString(3));
 				}
 				catch(SQLException es)
 				{

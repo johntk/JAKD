@@ -59,42 +59,36 @@ public class POSOperations
 		}
 	}
 	
-	public ResultSet queryProduct(int prodInput)
+	public ResultSet queryProduct(String prodInput)
 	{
+		int count = 0;
+		String sql[] = new String[6];
+		sql[0] = "SELECT p.prod_id,d.dvd_name,d.dvd_sale_price FROM product p, DIGITAL_PRODUCT dp, dvd d where p.PROD_ID = dp.PROD_ID AND dp.DIG_ID = d.DIG_ID AND p.prod_id = '" + prodInput + "'";
+		sql[1] = "SELECT p.prod_id,c.album_name,c.cd_sale_price FROM product p, DIGITAL_PRODUCT dp, cd c where p.PROD_ID = dp.PROD_ID AND dp.DIG_ID = c.DIG_ID AND p.prod_id = '" + prodInput + "'";
+		sql[2] = "SELECT p.prod_id,g.game_name,g.game_sale_price FROM product p, DIGITAL_PRODUCT dp, game g where p.PROD_ID = dp.PROD_ID AND dp.DIG_ID = g.DIG_ID AND p.prod_id = '" + prodInput + "'";
+		sql[3] = "SELECT p.prod_id,e.manufacturer||' - '||e.model,c.CONSOLE_SALE_PRICE FROM product p, electronic e, console c where p.PROD_ID = e.PROD_ID AND e.elec_id = c.elec_ID AND p.prod_id = '" + prodInput + "'";
+		sql[4] = "SELECT p.prod_id,e.manufacturer||' - '||e.model,sd.sd_SALE_PRICE FROM product p, electronic e, sound_dock sd where p.PROD_ID = e.PROD_ID AND e.elec_id = sd.elec_ID AND p.prod_id = '" + prodInput + "'";
+		sql[5] = "SELECT p.prod_id,e.manufacturer||' - '||e.model,hp.HEADPHONE_SALE_PRICE FROM product p, electronic e, headphones hp where p.PROD_ID = e.PROD_ID AND e.elec_id = hp.elec_ID AND p.prod_id = '" + prodInput + "'";
 		
-		String prodID;
-		String description;
-		double salePrice;
-		
-		try {
+		try 
+		{
 			stmt = conn.createStatement();
+		
 			
-			String sqlStatement  = "SELECT p.prod_id,d.dvd_name,d.dvd_sale_price FROM product p, DIGITAL_PRODUCT dp, dvd d where p.PROD_ID = dp.PROD_ID AND dp.DIG_ID = d.DIG_ID AND p.prod_id = '" + prodInput + "'";
-			rset = stmt.executeQuery(sqlStatement);
-			if (rset == null)
+			while(rset == null)
 			{
-				sqlStatement = "SELECT p.prod_id,c.album_name,c.cd_sale_price FROM product p, DIGITAL_PRODUCT dp, cd c where p.PROD_ID = dp.PROD_ID AND dp.DIG_ID = c.DIG_ID AND p.prod_id = '" + prodInput + "'";
-				rset = stmt.executeQuery(sqlStatement);
-			
+				rset = stmt.executeQuery(sql[count]);
+				count++;
 			}
-					
+		
 			
-		
-		
-		
-		
-		
-		try
-		{
-			String queryProduct = "SELECT * FROM PRODUCT WHERE prod_id = '" + prodInput + "'";
-		
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(queryProduct);
 		}
-		catch (SQLException e)
+		catch(SQLException e)
 		{
-			System.out.println("Couldnt find product");
+			System.out.println("Couldn't find product");
 		}
+			
+			
 		return rset;
 	}
 	
