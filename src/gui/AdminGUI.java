@@ -7,12 +7,15 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 
+
 import model.Employee;
 import model.EmployeeList;
 import db.AdminOperations;
 
 public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 
+	
+	
 	private static final long serialVersionUID = 1L;
 	private CardLayout cards;
 	private JFrame frame;
@@ -39,7 +42,12 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 	private EmployeeList employeeList;
 	private AdminOperations adminOperations;
 	
-	public AdminGUI(AdminOperations ao, EmployeeList el) {
+	public AdminGUI() {
+		
+		
+		AdminOperations ao = new AdminOperations();
+		EmployeeList el = new EmployeeList(ao);
+		
 		// Main frame declaration
 		frame = new JFrame();
 		frame.setLayout(layout);

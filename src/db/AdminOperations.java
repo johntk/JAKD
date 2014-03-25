@@ -27,8 +27,8 @@ public class AdminOperations {
 			// Load the Oracle JDBC driver
 			OracleDataSource ods = new OracleDataSource();
 			ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
-			ods.setUser("project");
-			ods.setPassword("project");
+			ods.setUser("johntk86");
+			ods.setPassword("FuckYou");
 
 //			 Tallaght Database
 //			 ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
