@@ -6,8 +6,10 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import model.EmployeeList;
 import kioskScreens.KioskStartScreen;
 import db.*;
+
 
 
 public class HomeScreen extends JFrame implements ActionListener 
@@ -232,7 +234,7 @@ public class HomeScreen extends JFrame implements ActionListener
 		}
 		else if(e.getSource() == admin)
 		{
-			frame.setTitle("ADMIN MODE");
+			AdminGUI ag = new AdminGUI();
 			
 		}
 		else if(e.getSource() == kiosk)
