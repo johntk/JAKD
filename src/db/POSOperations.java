@@ -61,6 +61,21 @@ public class POSOperations
 	
 	public ResultSet queryProduct(String prodInput)
 	{
+		
+		try {
+			stmt = conn.createStatement();
+			String sqlStatement = "select d.dvd_name as description, d.dvd_sale_price as salePrice, p.prod_id as prodID from dvd d, product p, digital_product dp where UPPER(dvd_name) like UPPER('%"+prodInput+"%') and p.prod_id = dp.prod_id and d.dig_id = dp.dig_id "+
+					"UNION select g.game_name, g.game_sale_price, p.prod_id as prodID from game g, product p, digital_product dp where UPPER(game_name) like UPPER('%"+prodInput+"%') and p.prod_id = dp.prod_id and g.dig_id = dp.dig_id "+
+					"UNION select c.album_name, c.cd_sale_price, p.prod_id as prodID from cd c, digital_product d, product p where c.dig_id = d.dig_id and p.prod_id = d.prod_id like UPPER('%"+prodInput+"%') "+
+					"UNION select e.manufacturer||' '||e.model, h.headphone_sale_price, p.prod_id as prodID from electronic e, headphones h, product p where e.elec_id = h.elec_id and p.prod_id = e.prod_id and UPPER(e.manufacturer||' '||e.model) like UPPER('%"+prodInput+"%') "+
+					"UNION select e.manufacturer||' '||e.model, s.sd_sale_price, p.prod_id as prodID from electronic e, sound_dock s, product p where e.elec_id = s.elec_id and p.prod_id = e.prod_id and UPPER(e.manufacturer||' '||e.model) like UPPER('%"+prodInput+"%') "+
+					"UNION select e.manufacturer||' '||e.model, c.console_sale_price, p.prod_id as prodID from electronic e, console c, product p where e.elec_id = c.elec_id and p.prod_id = e.prod_id and UPPER(e.manufacturer||' '||e.model) like UPPER('%"+prodInput+"%') ";
+			rset = stmt.executeQuery(sqlStatement);
+		
+		
+		
+		
+		
 		try
 		{
 			String queryProduct = "SELECT * FROM PRODUCT WHERE prod_id = '" + prodInput + "'";

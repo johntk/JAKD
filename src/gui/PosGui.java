@@ -163,7 +163,7 @@ public class PosGui extends JPanel implements ActionListener
 			gc.gridy = i + 2; 
 			gc.gridwidth = 1; 
 			gc.gridheight = 1; 
-			gc.weighty = 0.2; 
+			gc.weighty = 0.001; 
 			gc.weightx = 0.0;
 			posButtons[i].setIcon(new ImageIcon("src/resources/blueButton.png"));
 			posButtons[i].setFont(new Font("sansserif",Font.BOLD,22));
@@ -243,7 +243,6 @@ public class PosGui extends JPanel implements ActionListener
 		else if(e.getSource() == enter)
 		{
 				po.openDB();
-				trans_idf.setText("50");
 				
 				data = po.queryProduct(enterProd.getText());
 				try
