@@ -22,6 +22,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 	public KioskStartScreen(DBconnection db)
 	{
 		this.db = db;
+		db.openDB();
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setLayout(new BorderLayout());

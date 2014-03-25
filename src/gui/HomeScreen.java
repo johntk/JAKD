@@ -55,7 +55,6 @@ public class HomeScreen extends JFrame implements ActionListener
 	public HomeScreen()
 	{
 		db = new DBconnection();
-		db.openDB();
 		
 		////////////////////////////////////////////////////////////////////////////
 		/////////////////////////////////        Frame     /////////////////////////
@@ -69,6 +68,10 @@ public class HomeScreen extends JFrame implements ActionListener
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		cl = new Color(240, 240, 240);
+		
+		//Set the Frame icon
+		ImageIcon titleIcon = new ImageIcon("src/resources/titleIcon.png");
+		frame.setIconImage(titleIcon.getImage());
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////

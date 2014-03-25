@@ -139,7 +139,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		result.add(man);
 
 		JLabel mod = new JLabel(model);
-		mod.setFont(new Font("Calibri",Font.BOLD,40));
+		mod.setFont(new Font("Calibri",Font.PLAIN,30));
 		mod.setForeground(new Color(20,120,230));
 		result.add(mod);
 
@@ -210,7 +210,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		result.add(man);
 
 		JLabel mod = new JLabel(model);
-		mod.setFont(new Font("Calibri",Font.BOLD,40));
+		mod.setFont(new Font("Calibri",Font.PLAIN,30));
 		mod.setForeground(new Color(20,120,230));
 		result.add(mod);
 
@@ -298,7 +298,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		result.add(man);
 
 		JLabel mod = new JLabel(model);
-		mod.setFont(new Font("Calibri",Font.BOLD,40));
+		mod.setFont(new Font("Calibri",Font.PLAIN,30));
 		mod.setForeground(new Color(20,120,230));
 		result.add(mod);
 
@@ -486,7 +486,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 			name = new JLabel(songList.get(i).getTitle());
 			name.setFont(new Font("Calibri",Font.PLAIN,20));
 			name.setForeground(Color.GRAY);
-			name.setBorder(BorderFactory.createEmptyBorder(0,0,0,50));
+			//name.setBorder(BorderFactory.createEmptyBorder(0,0,0,50));
 			songNames.add(name);
 			gc.gridx =1;
 			gc.gridy =y;
