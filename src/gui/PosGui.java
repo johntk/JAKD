@@ -244,10 +244,12 @@ public class PosGui extends JPanel implements ActionListener
 		{
 				po.openDB();
 				
-				data = po.queryProduct(enterProd.getText());
+				
 				try
 				{
+					data = po.queryProduct(enterProd.getText());
 					data.next();
+					System.out.println("under next///////");
 					products.setText(products.getText() + data.getString(1) + data.getString(2) + data.getString(3));
 				}
 				catch(SQLException es)

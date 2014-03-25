@@ -59,30 +59,37 @@ public class POSOperations
 		}
 	}
 	
-	public ResultSet queryProduct(String prodInput)
+	public ResultSet queryProduct(String prodInput) throws SQLException
 	{
-		int count = 0;
-		String sql[] = new String[6];
+		System.out.println("in query product");
+
+		/*String sql[] = new String[6];
 		sql[0] = "SELECT p.prod_id,d.dvd_name,d.dvd_sale_price FROM product p, DIGITAL_PRODUCT dp, dvd d where p.PROD_ID = dp.PROD_ID AND dp.DIG_ID = d.DIG_ID AND p.prod_id = '" + prodInput + "'";
 		sql[1] = "SELECT p.prod_id,c.album_name,c.cd_sale_price FROM product p, DIGITAL_PRODUCT dp, cd c where p.PROD_ID = dp.PROD_ID AND dp.DIG_ID = c.DIG_ID AND p.prod_id = '" + prodInput + "'";
 		sql[2] = "SELECT p.prod_id,g.game_name,g.game_sale_price FROM product p, DIGITAL_PRODUCT dp, game g where p.PROD_ID = dp.PROD_ID AND dp.DIG_ID = g.DIG_ID AND p.prod_id = '" + prodInput + "'";
 		sql[3] = "SELECT p.prod_id,e.manufacturer||' - '||e.model,c.CONSOLE_SALE_PRICE FROM product p, electronic e, console c where p.PROD_ID = e.PROD_ID AND e.elec_id = c.elec_ID AND p.prod_id = '" + prodInput + "'";
 		sql[4] = "SELECT p.prod_id,e.manufacturer||' - '||e.model,sd.sd_SALE_PRICE FROM product p, electronic e, sound_dock sd where p.PROD_ID = e.PROD_ID AND e.elec_id = sd.elec_ID AND p.prod_id = '" + prodInput + "'";
 		sql[5] = "SELECT p.prod_id,e.manufacturer||' - '||e.model,hp.HEADPHONE_SALE_PRICE FROM product p, electronic e, headphones hp where p.PROD_ID = e.PROD_ID AND e.elec_id = hp.elec_ID AND p.prod_id = '" + prodInput + "'";
-		
+		*/
+		String sql = "SELECT p.prod_id,d.dvd_name,d.dvd_sale_price FROM product p, DIGITAL_PRODUCT dp, dvd d where p.PROD_ID = dp.PROD_ID AND dp.DIG_ID = d.DIG_ID AND p.prod_id = '" + prodInput + "'" +
+				"union  SELECT p.prod_id,c.album_name,c.cd_sale_price FROM product p, DIGITAL_PRODUCT dp, cd c where p.PROD_ID = dp.PROD_ID AND dp.DIG_ID = c.DIG_ID AND p.prod_id = '" + prodInput + "'" +
+				"union  SELECT p.prod_id,g.game_name,g.game_sale_price FROM product p, DIGITAL_PRODUCT dp, game g where p.PROD_ID = dp.PROD_ID AND dp.DIG_ID = g.DIG_ID AND p.prod_id = '" + prodInput + "'" +
+				"union  SELECT p.prod_id,e.manufacturer||' - '||e.model,c.CONSOLE_SALE_PRICE FROM product p, electronic e, console c where p.PROD_ID = e.PROD_ID AND e.elec_id = c.elec_ID AND p.prod_id = '" + prodInput + "'" +
+				"union  SELECT p.prod_id,e.manufacturer||' - '||e.model,sd.sd_SALE_PRICE FROM product p, electronic e, sound_dock sd where p.PROD_ID = e.PROD_ID AND e.elec_id = sd.elec_ID AND p.prod_id = '" + prodInput + "'" +
+				"union  SELECT p.prod_id,e.manufacturer||' - '||e.model,hp.HEADPHONE_SALE_PRICE FROM product p, electronic e, headphones hp where p.PROD_ID = e.PROD_ID AND e.elec_id = hp.elec_ID AND p.prod_id = '" + prodInput + "'";
 		try 
 		{
+			System.out.println("in try");
 			stmt = conn.createStatement();
-		
-			
-			while(rset == null)
+			/*for(int i = 0; i < sql.length; i++)
 			{
-				rset = stmt.executeQuery(sql[count]);
-				count++;
-			}
-		
-			
+				rset = stmt.executeQuery(sql[i]);
+				System.out.println(i);
+				System.out.println(rset.next());
+			}*/
+			rset = stmt.executeQuery(sql);
 		}
+		
 		catch(SQLException e)
 		{
 			System.out.println("Couldn't find product");
