@@ -360,7 +360,8 @@ public class ProductDisplay extends JFrame implements ActionListener
 	public void displayCD(String artist,String album, String genre, String recordCompany, String length, int rating, double salePrice, int currentStock, String prodID)
 	{
 		// Add product image and information
-		int y = (songList.size()+1);
+		int y = 1;
+		
 		ImageIcon img = new ImageIcon(srcPath+artist+" - "+album+".jpg");
 		JLabel im = new JLabel(img);
 		gc.gridx =0;
@@ -442,7 +443,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		volumeControl.add(volume,BorderLayout.CENTER);
 
 		// Add JPanel to display list of songs from CD
-		JPanel songs = new JPanel(new GridLayout(y,3));
+		JPanel songs = new JPanel(new GridBagLayout());
 		songs.setBackground(Color.WHITE);
 		gc.gridx =2;
 		gc.gridy =0;
@@ -452,37 +453,58 @@ public class ProductDisplay extends JFrame implements ActionListener
 		songs.setBorder(new CompoundBorder(
 				BorderFactory.createMatteBorder(40, 20, 0, 50, productInfo.getBackground()),
 				BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY)));
-		songs.setPreferredSize(new Dimension(700,700));
+		songs.setPreferredSize(new Dimension(700,750));
 		productInfo.add(songs,gc);
 
-		JLabel blank = new JLabel(" ");
-		songs.add(blank);
 		JLabel title = new JLabel("Title:");
 		title.setFont(new Font("Calibri",Font.BOLD,25));
 		title.setForeground(new Color(20,120,230));
-		songs.add(title);
+		gc.gridx =1;
+		gc.gridy =0;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		songs.add(title,gc);
+		
 		JLabel lgth = new JLabel("Length:");
 		lgth.setFont(new Font("Calibri",Font.BOLD,25));
 		lgth.setForeground(new Color(20,120,230));
-		songs.add(lgth);
+		gc.gridx =2;
+		gc.gridy =0;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		songs.add(lgth,gc);
 
 		// Add list of song titles to songsPanel
 		for(int i=0; i<songList.size();i++)
 		{
-			songs.add(playButtons.get(i));
+			gc.gridx =0;
+			gc.gridy =y;
+			gc.weightx=1.0;
+			gc.weighty=1.0;
+			songs.add(playButtons.get(i),gc);
 
 			name = new JLabel(songList.get(i).getTitle());
 			name.setFont(new Font("Calibri",Font.PLAIN,20));
 			name.setForeground(Color.GRAY);
+			name.setBorder(BorderFactory.createEmptyBorder(0,0,0,50));
 			songNames.add(name);
-
-			songs.add(songNames.get(i));
+			gc.gridx =1;
+			gc.gridy =y;
+			gc.weightx=1.0;
+			gc.weighty=1.0;
+			songs.add(songNames.get(i),gc);
+			
+			
 			JLabel l = new JLabel(songList.get(i).getLength());
 			l.setFont(new Font("Calibri",Font.PLAIN,20));
-			songs.add(l);
+			gc.gridx =2;
+			gc.gridy =y;
+			gc.weightx=1.0;
+			gc.weighty=1.0;
+			songs.add(l,gc);
+			y++;
 		}
 	}
-
 
 	public void addSong(Song s)
 	{
@@ -490,7 +512,6 @@ public class ProductDisplay extends JFrame implements ActionListener
 		pb.setIcon(play);
 		pb.setBorderPainted(false); 
 		pb.setContentAreaFilled(false); 
-		//pb.setFocusPainted(false); 
 		pb.setOpaque(false);
 		pb.addActionListener(this);
 		playButtons.add(pb);
@@ -650,10 +671,10 @@ public class ProductDisplay extends JFrame implements ActionListener
 						}
 						else
 						{
-							ImageIcon ind = new ImageIcon("src/resources/kioskFiles/images/indicator.png");
+							//ImageIcon ind = new ImageIcon("src/resources/kioskFiles/images/indicator.png");
 							songNames.get(j).setForeground(new Color(20,120,230));
-							songNames.get(j).setFont(new Font("Calibri",Font.BOLD,21));
-							songNames.get(j).setIcon(ind);
+							songNames.get(j).setFont(new Font("Calibri",Font.BOLD,20));
+							//songNames.get(j).setIcon(ind);
 							playButtons.get(j).setIcon(stop);
 						}
 					}
