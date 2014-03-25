@@ -264,7 +264,7 @@ public class DBconnection
 
 	public void queryProductInfo(String prodID)
 	{
-		ProductDisplay pd = new ProductDisplay(db);
+		ProductDisplay pd = new ProductDisplay();
 		String prodType =null;
 		try
 		{
@@ -354,6 +354,7 @@ public class DBconnection
 			String songID =null;
 			String songName =null;
 			String songLength =null;
+			int songNum =1;
 
 			try {
 				stmt = conn.createStatement();
@@ -370,8 +371,9 @@ public class DBconnection
 					songName = rset.getString("song_name");
 					songLength = rset.getString("song_length");
 
-					Song s = new Song(songID,songName,songLength,artist,album);
+					Song s = new Song(songID,songName,songLength,artist,album,songNum);
 					pd.addSong(s);
+					songNum++;
 				}
 			} catch (Exception ex)
 			{
@@ -537,9 +539,9 @@ public class DBconnection
 	{
 		try
 		{
-			stmt.close();
-			rset.close();
-			conn.close();
+			if (stmt != null) stmt.close();
+			if (rset != null) rset.close();
+			if (conn != null) conn.close();
 			System.out.println("Connection closed");
 		} catch (SQLException e)
 		{

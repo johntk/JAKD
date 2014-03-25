@@ -1,12 +1,12 @@
 package kioskScreens;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
+import javax.swing.border.*;
+import javax.swing.event.*;
 
 import db.DBconnection;
 
@@ -16,21 +16,43 @@ public class ProductDisplay extends JFrame implements ActionListener
 	private JPanel main,center,top,centerTop,footer,productInfo;
 	private JScrollPane scrollPane;
 	private JButton home,pb;
-	private JLabel resultsHeading,logoLabel;
-	private ImageIcon hm,logo,play;
+	private JLabel resultsHeading,logoLabel,name;
+	private ImageIcon hm,logo,play,stop;
 	private GridBagConstraints gc;
 	private String srcPath;
 	private ArrayList<Song> songList;
 	private ArrayList<JButton> playButtons;
-	private DBconnection db;
+	private ArrayList<JLabel> songNames;
+	private AudioPlayer ap;
+	private JSlider volume;
 
-	public ProductDisplay(DBconnection db)
+	public ProductDisplay()
 	{
-		this.db = db;
 		playButtons = new ArrayList<JButton>();
 		songList = new ArrayList<Song>();
+		songNames = new ArrayList<JLabel>();
 		play = new ImageIcon("src/resources/kioskFiles/images/play.png");
-		
+		stop = new ImageIcon("src/resources/kioskFiles/images/stop.png");
+		ap = new AudioPlayer();
+
+		volume = new JSlider(JSlider.HORIZONTAL,0,100,90);
+		volume.setMajorTickSpacing(25);
+		volume.setPaintTicks(true);
+		volume.setPaintLabels(true);
+		volume.setPreferredSize(new Dimension(400,50));
+		volume.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent ev){
+				try{
+					float x = (float)volume.getValue();
+					float volLevel = x/200;
+					ap.setVolume(volLevel);
+				}catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+		});
+
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setLayout(new BorderLayout());
@@ -90,7 +112,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 		frame.requestFocus();
 	}
-	
+
 	public void setHeading(String s)
 	{
 		resultsHeading.setText(resultsHeading.getText()+s);
@@ -346,9 +368,13 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weightx=1.0;
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
-		im.setBorder(BorderFactory.createEmptyBorder(40,40,0,0));
-		productInfo.add(im,gc);
+		//im.setBorder(BorderFactory.createEmptyBorder(40,40,0,0));
 		
+		im.setBorder(new CompoundBorder(
+				BorderFactory.createEmptyBorder(40,40,0,0),
+				BorderFactory.createRaisedBevelBorder()));
+		productInfo.add(im,gc);
+
 		JPanel result = new JPanel(new GridLayout(9,1));
 		gc.gridx =1;
 		gc.gridy =0;
@@ -398,6 +424,23 @@ public class ProductDisplay extends JFrame implements ActionListener
 		sp.setForeground(new Color(20,120,230));
 		result.add(sp);
 
+		// Add volume controls to album preview window
+		JPanel volumeControl = new JPanel(new BorderLayout());
+		volumeControl.setBorder(new CompoundBorder(
+				BorderFactory.createEmptyBorder(530,20,0,0),
+				BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY)));
+		gc.gridx =1;
+		gc.gridy =0;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.anchor = GridBagConstraints.WEST;
+		productInfo.add(volumeControl,gc);
+		JLabel vc = new JLabel("Volume Control");
+		vc.setFont(new Font("Calibri",Font.BOLD,20));
+		vc.setForeground(new Color(20,120,230));
+		volumeControl.add(vc,BorderLayout.NORTH);
+		volumeControl.add(volume,BorderLayout.CENTER);
+
 		// Add JPanel to display list of songs from CD
 		JPanel songs = new JPanel(new GridLayout(y,3));
 		songs.setBackground(Color.WHITE);
@@ -408,7 +451,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		songs.setBorder(new CompoundBorder(
 				BorderFactory.createMatteBorder(40, 20, 0, 50, productInfo.getBackground()),
-			    BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY)));
+				BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY)));
 		songs.setPreferredSize(new Dimension(700,700));
 		productInfo.add(songs,gc);
 
@@ -422,23 +465,25 @@ public class ProductDisplay extends JFrame implements ActionListener
 		lgth.setFont(new Font("Calibri",Font.BOLD,25));
 		lgth.setForeground(new Color(20,120,230));
 		songs.add(lgth);
-		
+
 		// Add list of song titles to songsPanel
 		for(int i=0; i<songList.size();i++)
 		{
 			songs.add(playButtons.get(i));
-			
-			JLabel n = new JLabel(songList.get(i).getTitle());
-			n.setFont(new Font("Calibri",Font.BOLD,20));
-			n.setForeground(Color.GRAY);
-			songs.add(n);
+
+			name = new JLabel(songList.get(i).getTitle());
+			name.setFont(new Font("Calibri",Font.PLAIN,20));
+			name.setForeground(Color.GRAY);
+			songNames.add(name);
+
+			songs.add(songNames.get(i));
 			JLabel l = new JLabel(songList.get(i).getLength());
-			l.setFont(new Font("Calibri",Font.BOLD,20));
+			l.setFont(new Font("Calibri",Font.PLAIN,20));
 			songs.add(l);
 		}
 	}
-	
-	
+
+
 	public void addSong(Song s)
 	{
 		pb = new JButton();
@@ -451,8 +496,8 @@ public class ProductDisplay extends JFrame implements ActionListener
 		playButtons.add(pb);
 		songList.add(s);
 	}
-	
-	
+
+
 	public void displayGame(String title,String genre,String company,String platform,int rating,double salePrice,int currentStock)
 	{
 		JPanel result = new JPanel(new GridLayout(8,1));
@@ -471,7 +516,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		t.setFont(new Font("Calibri",Font.BOLD,40));
 		t.setForeground(new Color(20,120,230));
 		result.add(t);
-		
+
 		JLabel empty = new JLabel(" ");
 		result.add(empty);
 
@@ -532,7 +577,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 
 		JLabel empty = new JLabel(" ");
 		result.add(empty);
-		
+
 		JLabel st = new JLabel("• Studio: "+studio);
 		st.setFont(new Font("Calibri",Font.PLAIN,20));
 		result.add(st);
@@ -574,6 +619,13 @@ public class ProductDisplay extends JFrame implements ActionListener
 		if(e.getSource()==home)
 		{
 			frame.dispose();
+			try{
+				ap.stop();
+			}
+			catch(Exception ex)
+			{
+
+			}
 		}
 		if(e.getSource() instanceof JButton)
 		{
@@ -581,9 +633,41 @@ public class ProductDisplay extends JFrame implements ActionListener
 			{
 				if(((JButton)e.getSource()) == playButtons.get(i))
 				{
-					System.out.println(songList.get(i).getSongID());
+					try{
+						ap.stop();
+					}
+					catch(Exception ex){
+					}
+
+					for(int j=0; j<songNames.size(); j++)
+					{
+						if(songNames.get(j) != songNames.get(i))
+						{
+							songNames.get(j).setForeground(Color.GRAY);
+							songNames.get(j).setFont(new Font("Calibri",Font.PLAIN,20));
+							songNames.get(j).setIcon(null);
+							playButtons.get(j).setIcon(play);
+						}
+						else
+						{
+							ImageIcon ind = new ImageIcon("src/resources/kioskFiles/images/indicator.png");
+							songNames.get(j).setForeground(new Color(20,120,230));
+							songNames.get(j).setFont(new Font("Calibri",Font.BOLD,21));
+							songNames.get(j).setIcon(ind);
+							playButtons.get(j).setIcon(stop);
+						}
+					}
+					if(ap.getFile() == songList.get(i).getFile())
+					{
+						ap.stop();
+						playButtons.get(i).setIcon(play);
+						songNames.get(i).setIcon(null);
+						ap.nullFile();
+					}
+					else ap.play(songList.get(i).getFile());
+					volume.setValue(90);
 				}
 			}
 		}
 	}
-}
+}  
