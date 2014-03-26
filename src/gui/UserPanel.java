@@ -18,7 +18,7 @@ public class UserPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
-	private JButton addUser, editUser, removeUser;
+	private JButton addUser, editUser, removeUser, next, previous;
 	private JLabel userDetails;
 	private JTextField forenameBx, surenamebx, line1Bx, line2Bx, Line3Bx,
 			staffIDBx, pinBx, PPSBx;
@@ -92,6 +92,8 @@ public class UserPanel extends JPanel implements ActionListener {
 		JButton[] editUserBtnsArray = { addUser = new JButton("Add User"),
 				removeUser = new JButton("Remove User"),
 				editUser = new JButton("Update User"),
+				next = new JButton(">"),
+				previous = new JButton("<"),
 
 		};
 
@@ -140,5 +142,26 @@ public class UserPanel extends JPanel implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 
+		int totalContacts = employeeList.getNumEmployee();
+		
+			if (e.getSource().equals(next)) {
+				if ((counter + 1) < totalContacts) {
+					counter++;
+					this.displayEmployee(employeeList.getEmployee(counter));
+				}
+			} else if (e.getSource().equals(previous)) {
+				if ((counter - 1) >= 0) {
+					counter--;
+					this.displayEmployee(employeeList.getEmployee(counter));
+				}
+		
+		
+		
+		
+		
+		
+			}
+		
+		
 	}
 }
