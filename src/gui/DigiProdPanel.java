@@ -17,7 +17,7 @@ public class DigiProdPanel extends JPanel implements ActionListener,
 	private static final long serialVersionUID = 1L;
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
-	private JButton addProd, editProd, removeProd;
+	private JButton addProd, editProd, removeProd, exit;
 	private JLabel digiProdDetails;
 	private JTextField other, supplierID, currentStock, sellPrice, costPrice,
 			prodTitle, type, prodId;
@@ -27,23 +27,38 @@ public class DigiProdPanel extends JPanel implements ActionListener,
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border border = BorderFactory.createCompoundBorder(space, line);
 
+	private ImageIcon close;
+	
 	private JRadioButton cd = new JRadioButton("CD");
 	private JRadioButton dvd = new JRadioButton("DVD");
 	private JRadioButton game = new JRadioButton("Game");
 	private JRadioButton[] digiProdRadioBtns = new JRadioButton[] { cd, dvd, game };
-	private JFrame jFrame;
+	private JFrame frame;
 	
 	
-	public DigiProdPanel(JFrame jFrame) {
+	public DigiProdPanel(JFrame frame) {
 
 		
-		this.jFrame = jFrame;
+		this.frame = frame;
 		
 		this.setLayout(new BorderLayout());
+		
+		JPanel top = new JPanel();
+		top.setLayout(new FlowLayout());
+		close = new ImageIcon("src/resources/kioskFiles/images/close.png");
+		exit = new JButton("Close",close);
+		exit.setBackground(new Color(238,238,238));
+		exit.setPreferredSize(new Dimension(100,50));
+		exit.addActionListener(this);
+		exit.setBorder(new EmptyBorder(10, 0, 0, 0));
+		
 		digiProdDetails = new JLabel("Digital Product");
-		digiProdDetails.setBorder(new EmptyBorder(10, 500, 0, 0));
+		digiProdDetails.setBorder(new EmptyBorder(10, 410, 0, 110));
 		digiProdDetails.setFont(font);
-		this.add(digiProdDetails, BorderLayout.NORTH);
+		
+		top.add(digiProdDetails);
+		top.add(exit);
+		this.add(top, BorderLayout.NORTH);
 
 		// product detail panel, inside the Edit product panel
 		digiProdDetailsPanel = new JPanel();
@@ -153,6 +168,11 @@ public class DigiProdPanel extends JPanel implements ActionListener,
 
 	public void actionPerformed(ActionEvent e) {
 
+		if(e.getSource() == exit)
+		{
+			frame.setVisible(false); 
+			frame.dispose();
+		}
 	}
 
 	public void itemStateChanged(ItemEvent e) {
@@ -162,7 +182,7 @@ public class DigiProdPanel extends JPanel implements ActionListener,
 		for (int i = 0; i < digiProdRadioBtns.length; i++) {
 			if (digiProdRadioBtns[i].isSelected()) {
 				
-				ProdDialog a = new	ProdDialog(digiPopup[i], jFrame);
+				ProdDialog a = new	ProdDialog(digiPopup[i], frame);
 
 			}
 		}

@@ -17,7 +17,7 @@ public class ElecProdPanel extends JPanel implements ActionListener,
 	private static final long serialVersionUID = 1L;
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
-	private JButton addProd, editProd, removeProd;
+	private JButton addProd, editProd, removeProd, exit;
 	private JLabel elecProdDetails;
 	private JTextField other, supplierID, currentStock, sellPrice, costPrice,
 			prodTitle, type, prodId;
@@ -27,23 +27,41 @@ public class ElecProdPanel extends JPanel implements ActionListener,
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border border = BorderFactory.createCompoundBorder(space, line);
 
+	private ImageIcon close;
+	
 	private JRadioButton phono = new JRadioButton("Headphones");
 	private JRadioButton console = new JRadioButton("Console");
 	private JRadioButton dock = new JRadioButton("Dock");
 	private JRadioButton[] elecProdRadioBtns = new JRadioButton[] { phono,console, dock };
-	private JFrame jFrame;
+	private JFrame frame;
 	
 	
-	public ElecProdPanel(JFrame jFrame) {
+	public ElecProdPanel(JFrame frame) {
 
-		this.jFrame = jFrame;
+		this.frame = frame;
 		
 		
 		this.setLayout(new BorderLayout());
+		
+		
+		JPanel top = new JPanel();
+		top.setLayout(new FlowLayout());
+		close = new ImageIcon("src/resources/kioskFiles/images/close.png");
+		exit = new JButton("Close",close);
+		exit.setBackground(new Color(238,238,238));
+		exit.setPreferredSize(new Dimension(100,50));
+		exit.addActionListener(this);
+		exit.setBorder(new EmptyBorder(10, 0, 0, 0));
+		
 		elecProdDetails = new JLabel("Electronic Product");
-		elecProdDetails.setBorder(new EmptyBorder(10, 500, 0, 0));
+		elecProdDetails.setBorder(new EmptyBorder(10, 420, 0, 70));
 		elecProdDetails.setFont(font);
-		this.add(elecProdDetails, BorderLayout.NORTH);
+		
+		top.add(elecProdDetails);
+		top.add(exit);
+		this.add(top, BorderLayout.NORTH);
+		
+		
 
 		// product detail panel, inside the Edit product panel
 		elecProdDetailsPanel = new JPanel();
@@ -151,6 +169,12 @@ public class ElecProdPanel extends JPanel implements ActionListener,
 
 	public void actionPerformed(ActionEvent e) {
 
+		
+		if(e.getSource() == exit)
+		{
+			frame.setVisible(false); 
+			frame.dispose();
+		}
 	}
 
 	public void itemStateChanged(ItemEvent e) {
@@ -160,7 +184,7 @@ public class ElecProdPanel extends JPanel implements ActionListener,
 		for (int i = 0; i < elecProdRadioBtns.length; i++) {
 			if (elecProdRadioBtns[i].isSelected()) {
 				
-				ProdDialog el = new	ProdDialog(elecPopup[i], jFrame);
+				ProdDialog el = new	ProdDialog(elecPopup[i], frame);
 
 			}
 

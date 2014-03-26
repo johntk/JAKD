@@ -19,7 +19,7 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 	private JFrame frame;
 	private static final int FRAME_WIDTH = 1148;
 	private static final int FRAME_HEIGHT = 827;
-	private JButton genReportBtn, editUserBtn, editProdBtn, financialManagBtn;
+	private JButton genReportBtn, editUserBtn, editProdBtn, financialManagBtn, test;
 	private JRadioButton elcProdRB, digiProdRB;
 
 	// Border declaration for use on east and west panels on main frame
@@ -119,7 +119,7 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 		// Generate report panel
 		genReportPanel = new JPanel();
 		genReportPanel.setBackground(Color.WHITE);
-		JButton test = new JButton("Test");
+		test = new JButton("Close");
 		test.addActionListener(this);
 		genReportPanel.add(test);
 
@@ -183,22 +183,29 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 			cards.show(cardPanel, "genReport");
 		} else if (e.getSource() == editUserBtn) {
 			cards.show(cardPanel, "editUser");
-			String nameSearch = JOptionPane.showInputDialog(null,
-					"Enter the name of person you wish to edit");
+//			String nameSearch = JOptionPane.showInputDialog(null,
+//					"Enter the name of person you wish to edit");
 
 			
 			
-		} else if (e.getSource() == editProdBtn) {
+		} 
+		else if(e.getSource() == test)
+		{
+			frame.setVisible(false); 
+			frame.dispose();
+			System.out.println("hu");
+		}
+		else if (e.getSource() == editProdBtn) {
 			prodSelect();
 			String prodSearch;
 			if (elcProdRB.isSelected()) {
 				cards.show(cardPanel, "editElec");
-				prodSearch = JOptionPane.showInputDialog(null,
-						"Enter the name of product you wish to edit");
+//				prodSearch = JOptionPane.showInputDialog(null,
+//						"Enter the name of product you wish to edit");
 			} else if (digiProdRB.isSelected()) {
 				cards.show(cardPanel, "editDigi");
-				 prodSearch = JOptionPane.showInputDialog(null,
-						"Enter the name of product you wish to edit");
+//				 prodSearch = JOptionPane.showInputDialog(null,
+//						"Enter the name of product you wish to edit");
 			} else {
 
 			}

@@ -18,7 +18,7 @@ public class UserPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
-	private JButton addUser, editUser, removeUser, next, previous;
+	private JButton addUser, editUser, removeUser, next, previous, exit;
 	private JLabel userDetails;
 	private JTextField forenameBx, surenamebx, line1Bx, line2Bx, Line3Bx,
 			staffIDBx, pinBx, PPSBx;
@@ -27,7 +27,8 @@ public class UserPanel extends JPanel implements ActionListener {
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border border = BorderFactory.createCompoundBorder(space, line);
-
+	private Frame frame;
+	private ImageIcon close;
 	private int counter = 0;
 	private EmployeeList employeeList;
 	private AdminOperations adminOperations;
@@ -36,12 +37,24 @@ public class UserPanel extends JPanel implements ActionListener {
 
 		this.employeeList = el;
 		this.adminOperations = ao;
-		
+		this.frame = frame;
 		this.setLayout(new BorderLayout());
+		
+		JPanel top = new JPanel();
+		top.setLayout(new FlowLayout());
+		close = new ImageIcon("src/resources/kioskFiles/images/close.png");
+		exit = new JButton("Close",close);
+		exit.setBackground(new Color(238,238,238));
+		exit.setPreferredSize(new Dimension(100,50));
+		exit.addActionListener(this);
+		exit.setBorder(new EmptyBorder(10, 0, 0, 0));
 		userDetails = new JLabel("User Details");
-		userDetails.setBorder(new EmptyBorder(10, 500, 0, 0));
+		userDetails.setBorder(new EmptyBorder(10, 450, 0, 110));
 		userDetails.setFont(font);
-		this.add(userDetails, BorderLayout.NORTH);
+		
+		top.add(userDetails);
+		top.add(exit);
+		this.add(top, BorderLayout.NORTH);
 
 		// user detail panel, inside the Edit user panel
 		userDetailsPanel = new JPanel();
@@ -154,14 +167,13 @@ public class UserPanel extends JPanel implements ActionListener {
 					counter--;
 					this.displayEmployee(employeeList.getEmployee(counter));
 				}
-		
-		
-		
-		
-		
-		
+
 			}
-		
+			else if(e.getSource() == exit)
+			{
+				frame.setVisible(false); 
+				frame.dispose();
+			}
 		
 	}
 }
