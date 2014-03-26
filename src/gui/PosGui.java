@@ -11,6 +11,8 @@ import java.util.Calendar;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import model.Transaction;
+
 import db.POSOperations;
 
 
@@ -34,6 +36,7 @@ public class PosGui extends JPanel implements ActionListener
 	private final DateFormat df;
 	private POSOperations po;
 	private ResultSet data;
+	private Transaction tran;
 	
 	/*private Connection conn;
 	private Statement stmt;
@@ -54,7 +57,7 @@ public class PosGui extends JPanel implements ActionListener
 		
 
 		po = new POSOperations();
-		
+		tran = new Transaction();
 
 		
 		
@@ -83,7 +86,7 @@ public class PosGui extends JPanel implements ActionListener
 		posTop.add(trans_id);
 		trans_idf = new JTextField(10);
 		
-		trans_idf.setText(po.queryTransid()); ///gets id from method
+		trans_idf.setText(tran.getTransID()); ///gets id from method
 		
 		
 		trans_idf.setEditable(false);
@@ -234,7 +237,13 @@ public class PosGui extends JPanel implements ActionListener
 		}
 		else if(e.getSource() == isVoid)
 		{
-			
+			try{
+			tran.voidProduct(enterProd.getText());
+			}
+			catch(SQLException es)
+			{
+				System.out.println("Product not on sale");
+			}
 		}
 		else if(e.getSource() == complete)
 		{
@@ -242,21 +251,28 @@ public class PosGui extends JPanel implements ActionListener
 		}
 		else if(e.getSource() == enter)
 		{
-				po.openDB();
 				
-				
-				try
+			try
+				{
+					products.setText(products.getText()+ "\n" +tran.displayProduct(enterProd.getText()));
+					totalPriceField.setText("€" + Double.toString(tran.getTotalCost()));
+				}
+				catch(SQLException sqle)
+				{
+					System.out.println(sqle);
+					System.out.println("cant display product");
+				}
+				/*try
 				{
 					data = po.queryProduct(enterProd.getText());
 					data.next();
-					System.out.println("under next///////");
 					products.setText(products.getText() + data.getString(1) + data.getString(2) + data.getString(3));
 				}
 				catch(SQLException es)
 				{
 					System.out.println(es);
 					System.out.println("ahhhhhhhhhhhhhh");
-				}
+				}*/
 
 		}
 		else 
