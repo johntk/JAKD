@@ -237,13 +237,9 @@ public class PosGui extends JPanel implements ActionListener
 		}
 		else if(e.getSource() == isVoid)
 		{
-			try{
-			tran.voidProduct(enterProd.getText());
-			}
-			catch(SQLException es)
-			{
-				System.out.println("Product not on sale");
-			}
+			tran.setTransType('R');
+			enter.setText("Void ");
+			
 		}
 		else if(e.getSource() == complete)
 		{
@@ -251,36 +247,56 @@ public class PosGui extends JPanel implements ActionListener
 		}
 		else if(e.getSource() == enter)
 		{
-				
-			try
+			if(tran.getTransType() == 'S')
+			{
+				try
+					{
+						products.setText(products.getText()+ "\n" +tran.displayProduct(enterProd.getText()));
+						totalPriceField.setText("€" + Double.toString(tran.getTotalCost()));
+					}
+					catch(SQLException sqle)
+					{
+						System.out.println(sqle);
+						System.out.println("cant display product");
+					}
+					/*try
+					{
+						data = po.queryProduct(enterProd.getText());
+						data.next();
+						products.setText(products.getText() + data.getString(1) + data.getString(2) + data.getString(3));
+					}
+					catch(SQLException es)
+					{
+						System.out.println(es);
+						System.out.println("ahhhhhhhhhhhhhh");
+					}*/
+			
+
+			}
+
+			else
+			{
+				try
 				{
-					products.setText(products.getText()+ "\n" +tran.displayProduct(enterProd.getText()));
+					enter.setText("Enter");
+					tran.voidProduct(enterProd.getText());
 					totalPriceField.setText("€" + Double.toString(tran.getTotalCost()));
-				}
-				catch(SQLException sqle)
-				{
-					System.out.println(sqle);
-					System.out.println("cant display product");
-				}
-				/*try
-				{
-					data = po.queryProduct(enterProd.getText());
-					data.next();
-					products.setText(products.getText() + data.getString(1) + data.getString(2) + data.getString(3));
+					
 				}
 				catch(SQLException es)
 				{
-					System.out.println(es);
-					System.out.println("ahhhhhhhhhhhhhh");
-				}*/
+						
+				}
+			}
+	
 
 		}
-		else 
+	
+		else
 		{
 			po.closeDB();
 			posPanel.setVisible(false);
 		}
-		
 	}
 }
 

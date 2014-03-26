@@ -81,12 +81,6 @@ public class POSOperations
 		{
 			System.out.println("in try");
 			stmt = conn.createStatement();
-			/*for(int i = 0; i < sql.length; i++)
-			{
-				rset = stmt.executeQuery(sql[i]);
-				System.out.println(i);
-				System.out.println(rset.next());
-			}*/
 			rset = stmt.executeQuery(sql);
 		}
 		
@@ -102,7 +96,6 @@ public class POSOperations
 	
 	public String queryTransid()
 	{
-		openDB();
 		int trans_id = 0;
 		
 		try
@@ -130,7 +123,7 @@ public class POSOperations
 			System.out.println("no trans_id found");
 		}
 		
-		closeDB();
+
 		return Integer.toString(trans_id);
 		
 	}
