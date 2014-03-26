@@ -37,6 +37,7 @@ public class PosGui extends JPanel implements ActionListener
 	private POSOperations po;
 	private ResultSet data;
 	private Transaction tran;
+	boolean voidd = false;
 	
 	/*private Connection conn;
 	private Statement stmt;
@@ -231,7 +232,7 @@ public class PosGui extends JPanel implements ActionListener
 	
 	public void actionPerformed(ActionEvent e) 
 	{
-		boolean voidd = false;
+
 		if(e.getSource() == isReturn)
 		{
 			if(tran.getTransType() == 'S')
@@ -268,18 +269,6 @@ public class PosGui extends JPanel implements ActionListener
 						System.out.println(sqle);
 						System.out.println("cant display product");
 					}
-					/*try
-					{
-						data = po.queryProduct(enterProd.getText());
-						data.next();
-						products.setText(products.getText() + data.getString(1) + data.getString(2) + data.getString(3));
-					}
-					catch(SQLException es)
-					{
-						System.out.println(es);
-						System.out.println("ahhhhhhhhhhhhhh");
-					}*/
-			
 
 			}
 

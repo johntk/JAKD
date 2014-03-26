@@ -113,7 +113,7 @@ public class POSOperations
 			if (rset.previous()) 
 			{
 				  trans_id = Integer.parseInt(rset.getString(1)) + 1;
-				  System.out.println("trans_id");
+
 			}
 		}
 		
