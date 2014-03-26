@@ -292,7 +292,6 @@ public class PosGui extends JPanel implements ActionListener
 	
 		else
 		{
-			po.closeDB();
 			posPanel.setVisible(false);
 		}
 	}
