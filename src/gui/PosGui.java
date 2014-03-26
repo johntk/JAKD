@@ -231,13 +231,22 @@ public class PosGui extends JPanel implements ActionListener
 	
 	public void actionPerformed(ActionEvent e) 
 	{
+		boolean voidd = false;
 		if(e.getSource() == isReturn)
 		{
+			if(tran.getTransType() == 'S')
+			{
+				
+			}
+			else
+			{
+				
+			}
 			
 		}
 		else if(e.getSource() == isVoid)
 		{
-			tran.setTransType('R');
+			voidd = true;
 			enter.setText("Void ");
 			
 		}
@@ -247,7 +256,7 @@ public class PosGui extends JPanel implements ActionListener
 		}
 		else if(e.getSource() == enter)
 		{
-			if(tran.getTransType() == 'S')
+			if(voidd == false)
 			{
 				try
 					{
