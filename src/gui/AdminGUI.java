@@ -19,7 +19,7 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 	private JFrame frame;
 	private static final int FRAME_WIDTH = 1148;
 	private static final int FRAME_HEIGHT = 827;
-	private JButton genReportBtn, editUserBtn, editProdBtn, financialManagBtn, test;
+	private JButton genReportBtn, editUserBtn, editProdBtn,  test;
 	private JRadioButton elcProdRB, digiProdRB;
 
 	// Border declaration for use on east and west panels on main frame
@@ -30,13 +30,12 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 	private JLabel logo, spacer;
 
 	private JPanel cardPanel, digiProdPanel, genReportPanel, userPanel,
-			elecProdPanel, financialPanel;
+			elecProdPanel;
 
 	private BorderLayout layout = new BorderLayout();
 	private GridBagConstraints gc = new GridBagConstraints();
 	private Color cl;
 	
-	private int counter = 0;
 	private EmployeeList employeeList;
 	private AdminOperations adminOperations;
 	
@@ -94,7 +93,7 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 				genReportBtn = new JButton("Genarate Report"),
 				editUserBtn = new JButton("Edit User"),
 				editProdBtn = new JButton("Edit Product"),
-				financialManagBtn = new JButton("Financial Managment") };
+				};
 
 		// Adding side buttons to side panel
 		for (int i = 0; i < sideButtonsArray.length; i++) {
@@ -127,12 +126,7 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 		elecProdPanel = new ElecProdPanel(frame);
 		digiProdPanel = new DigiProdPanel(frame);
 
-		// Financial panel
-		financialPanel = new JPanel();
-		financialPanel.setBackground(Color.BLUE);
-		JButton test4 = new JButton("Test4");
-		test4.addActionListener(this);
-		financialPanel.add(test4);
+		
 
 		// Main panel for displaying all the  panels on action performed
 		cards = new CardLayout();
@@ -142,7 +136,6 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 		cardPanel.add(userPanel, "editUser");
 		cardPanel.add(elecProdPanel, "editElec");
 		cardPanel.add(digiProdPanel, "editDigi");
-		cardPanel.add(financialPanel, "financial");
 		cardPanel.setBorder(border);
 		cardPanel.setPreferredSize(new Dimension(820, 10));
 		frame.add(cardPanel, BorderLayout.EAST);
@@ -150,21 +143,7 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 		frame.setVisible(true);
 
 	}
-	
-	
-	
-	private int empID;
-	private String fName;
-	private String lName;
-	private String houseNum;
-	private String street;
-	private String town;
-	private String city;
-	private String PPS;
-	private int pin;
-	private String manager;
-	
-	
+
 	
 	public void prodSelect() {
 		JPanel prodSelect = new JPanel();
@@ -182,12 +161,7 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 		if (e.getSource() == genReportBtn) {
 			cards.show(cardPanel, "genReport");
 		} else if (e.getSource() == editUserBtn) {
-			cards.show(cardPanel, "editUser");
-//			String nameSearch = JOptionPane.showInputDialog(null,
-//					"Enter the name of person you wish to edit");
-
-			
-			
+			cards.show(cardPanel, "editUser");	
 		} 
 		else if(e.getSource() == test)
 		{
@@ -197,20 +171,16 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 		}
 		else if (e.getSource() == editProdBtn) {
 			prodSelect();
-			String prodSearch;
+			
 			if (elcProdRB.isSelected()) {
 				cards.show(cardPanel, "editElec");
-//				prodSearch = JOptionPane.showInputDialog(null,
-//						"Enter the name of product you wish to edit");
+
 			} else if (digiProdRB.isSelected()) {
 				cards.show(cardPanel, "editDigi");
-//				 prodSearch = JOptionPane.showInputDialog(null,
-//						"Enter the name of product you wish to edit");
+
 			} else {
 
 			}
-		} else if (e.getSource() == financialManagBtn) {
-			cards.show(cardPanel, "financial");
 		}
 	}
 

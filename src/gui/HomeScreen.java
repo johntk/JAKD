@@ -235,7 +235,7 @@ public class HomeScreen extends JFrame implements ActionListener
 		else if(e.getSource() == admin)
 		{
 			AdminGUI ag = new AdminGUI();
-			
+			frame.setVisible(false);
 		}
 		else if(e.getSource() == kiosk)
 		{

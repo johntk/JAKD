@@ -71,8 +71,6 @@ public class AdminOperations {
 		rset.last();
 		myId = rset.getInt(1);
 		
-		System.out.println(myId);
-		
 		} catch (Exception e) {
 			System.out.println(e);
 		}
