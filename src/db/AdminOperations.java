@@ -2,7 +2,6 @@ package db;
 
 import java.sql.*;
 
-
 import model.Employee;
 import oracle.jdbc.pool.OracleDataSource;
 
@@ -61,9 +60,30 @@ public class AdminOperations {
 		return rset;
 	}
 	
+	public int getId()
+	{
+		int myId = 0;
+		try {
+		String seq_val = "Select emp_id from Employee ORDER BY emp_id";
+		pstmt = conn.prepareStatement(seq_val, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+		rset = pstmt.executeQuery();
+		
+		rset.last();
+		myId = rset.getInt(1);
+		
+		System.out.println(myId);
+		
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return myId +1;
+	}
+	
+	
 	public ResultSet getEmployee() {
 		try {
-			String queryString = "SELECT * FROM Employee";
+			String queryString = "SELECT * FROM Employee ORDER BY emp_id";
 
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(queryString);
@@ -75,20 +95,43 @@ public class AdminOperations {
 	
 	public void addEmployee(Employee e) {
 		try {
-			String sql = "INSERT INTO Employee(id, name, address,pnumber, email) "
-					+ "VALUES (id_seq.nextVal,?,?,?,?) ";
+			String sql = "INSERT INTO Employee(emp_id, f_name, l_name, house_number, street, town,"
+					+ " city, pps_num, pin_num, manager) "
+					+ "VALUES (empId_seq.nextVal,?,?,?,?,?,?,?,?,?) ";
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, e.getfName());
 			pstmt.setString(2, e.getlName());
-			pstmt.setString(3, e.getCity());
-			pstmt.setString(4, e.getHouseNum());
+			pstmt.setString(3, e.getHouseNum());
+			pstmt.setString(4, e.getStreet());
+			pstmt.setString(5, e.getTown());
+			pstmt.setString(6, e.getCity());
+			pstmt.setString(7, e.getPPS());
+			pstmt.setInt(8, e.getPin());
+			pstmt.setString(9, e.getManager());
 
 			pstmt.executeUpdate();
 		} catch (Exception se) {
 			System.out.println(se);
 		}
 	}
+	
+	public ResultSet getLastRow() {
+		String sqlStatement = "SELECT * FROM Employee ORDER BY emp_id";
+		try {
+			pstmt = conn.prepareStatement(sqlStatement,
+					ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
+			rset = pstmt.executeQuery();
+			rset.last();
+			System.out.println(rset.getInt(1)+","+rset.getString(2));
+		} catch (Exception ex) {
+			System.out.println("ERROR: " + ex.getMessage());
+		}
+		
+		return rset;
+	}
+	
 	public void closeDB() {
 		try {
 			conn.close();

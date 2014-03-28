@@ -18,11 +18,11 @@ public class UserPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
-	private JButton addUser, editUser, removeUser, next, previous, exit;
+	private JButton addUser, addNewUser, editUser, removeUser, next, previous, exit;
 	private JLabel userDetails;
 	private JTextField forenameBx, surenamebx, line1Bx, line2Bx, Line3Bx,
-			staffIDBx, pinBx, PPSBx;
-	private JPanel editUserBtnsPanel, userDetailsPanel;
+			staffIDBx, pinBx, PPSBx, manager;
+	private JPanel editUserBtnsPanel, userDetailsPanel, editNewUserBtnsPanel;
 
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
@@ -32,9 +32,9 @@ public class UserPanel extends JPanel implements ActionListener {
 	private int counter = 0;
 	private EmployeeList employeeList;
 	private AdminOperations adminOperations;
-	
+	private int countemp =1;
 	public UserPanel(Frame frame, AdminOperations ao, EmployeeList el) {
-
+		countemp++;
 		this.employeeList = el;
 		this.adminOperations = ao;
 		this.frame = frame;
@@ -67,12 +67,12 @@ public class UserPanel extends JPanel implements ActionListener {
 				surenamebx = new JTextField(), line1Bx = new JTextField(),
 				line2Bx = new JTextField(), Line3Bx = new JTextField(),
 				staffIDBx = new JTextField(), pinBx = new JTextField(),
-				PPSBx = new JTextField(), };
+				PPSBx = new JTextField(), manager = new JTextField()};
 
 		JLabel[] userDetailLb = { new JLabel(" Forename"),
 				new JLabel(" Surename"), new JLabel(" Line 1"),
 				new JLabel(" Line 2"), new JLabel(" Line 3"),
-				new JLabel(" Staff ID"), new JLabel(" Pin"), new JLabel(" PPS") };
+				new JLabel(" Staff ID"), new JLabel(" Pin"), new JLabel(" PPS"), new JLabel(" Manager") };
 		for (int i = 0; i < userDetailLb.length; i++) {
 			gc.gridx = 0;
 			gc.gridy = i;
@@ -97,6 +97,13 @@ public class UserPanel extends JPanel implements ActionListener {
 		this.add(userDetailsPanel, BorderLayout.EAST);
 
 		// button panel inside edit user panel
+		editNewUserBtnsPanel = new JPanel();
+		
+		editNewUserBtnsPanel.add(addNewUser = new JButton("Add New User"));
+		addNewUser.addActionListener(this);
+		
+		
+		
 		editUserBtnsPanel = new JPanel();
 		editUserBtnsPanel.setLayout(new GridBagLayout());
 		editUserBtnsPanel.setPreferredSize(new Dimension(250, 50));
@@ -139,8 +146,41 @@ public class UserPanel extends JPanel implements ActionListener {
 	}
 	
 	
- 
+	 public void addNew()
+	 {
+		 	staffIDBx.setText(String.valueOf(adminOperations.getId()));
+			forenameBx.setText("");
+			surenamebx.setText("");
+			line1Bx.setText("");
+			line2Bx.setText("");
+			Line3Bx.setText("");
+			line2Bx.setText("");
+			pinBx.setText("");
+			PPSBx.setText("");
+			manager.setText("");
+			editUserBtnsPanel.setVisible(false);
+			this.add(editNewUserBtnsPanel);
+			userDetails.setText("Enter new user details");
+	 }
 	
+	 public Employee newEmployee()
+	 {
+		 
+		 Employee e = new Employee(
+				 countemp,
+			forenameBx.getText(),
+			surenamebx.getText(),
+			line1Bx.getText(),
+			line2Bx.getText(),
+			Line3Bx.getText(),
+			line2Bx.getText(),
+			PPSBx.getText(),
+			Integer.parseInt(pinBx.getText()),
+			manager.getText());
+		 
+		 return e;
+	 }
+	 
 	public void displayEmployee(Employee e) {
 		staffIDBx.setText(Integer.toString(e.getEmpID()));
 		forenameBx.setText(e.getfName());
@@ -174,6 +214,18 @@ public class UserPanel extends JPanel implements ActionListener {
 				frame.setVisible(false); 
 				frame.dispose();
 			}
-		
+			if (e.getSource().equals(addUser)) {
+				
+				addNew();	
+			}
+			if(e.getSource().equals(addNewUser))
+			{
+				
+			adminOperations.addEmployee(newEmployee());
+			employeeList.addContact();
+			employeeList.refreshList();
+			editUserBtnsPanel.setVisible(true);
+			
+			}
 	}
 }
