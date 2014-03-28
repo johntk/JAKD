@@ -193,7 +193,7 @@ public class PosGui extends JPanel implements ActionListener
 		enterProd = new JTextField(10);
 		posBottom.add(enterProd);
 		
-		enter = new JButton("Enter");
+		enter = new JButton("Enter ");
 		enter.addActionListener(this);
 		posBottom.add(enter);
 		
@@ -237,7 +237,17 @@ public class PosGui extends JPanel implements ActionListener
 		{
 			if(tran.getTransType() == 'S')
 			{
+				tran.setTransType('R');
+				enter.setText("Return");
+				voidd = false; ////stops a return that is void
 				
+				try{
+				products.setText(products.getText()+ "\n" +tran.displayProduct(enterProd.getText()));
+				}
+				catch(SQLException er)
+				{
+					
+				}
 			}
 			else
 			{
@@ -248,7 +258,7 @@ public class PosGui extends JPanel implements ActionListener
 		else if(e.getSource() == isVoid)
 		{
 			voidd = true;
-			enter.setText("Void ");
+			enter.setText("Void  ");
 			
 		}
 		else if(e.getSource() == complete)
@@ -263,6 +273,7 @@ public class PosGui extends JPanel implements ActionListener
 					{
 						products.setText(products.getText()+ "\n" +tran.displayProduct(enterProd.getText()));
 						totalPriceField.setText("€" + Double.toString(tran.getTotalCost()));
+						enterProd.setText("");
 					}
 					catch(SQLException sqle)
 					{
@@ -279,6 +290,7 @@ public class PosGui extends JPanel implements ActionListener
 					enter.setText("Enter");
 					tran.voidProduct(enterProd.getText());
 					totalPriceField.setText("€" + Double.toString(tran.getTotalCost()));
+					enterProd.setText("");
 					
 				}
 				catch(SQLException es)

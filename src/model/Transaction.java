@@ -42,8 +42,12 @@ public class Transaction
 		prodID =  data.getString(1);
 		String desc =  data.getString(2);
 		double price = Double.parseDouble(data.getString(3));
-		totalCost +=  price;
-		
+		if(transType == 'S'){
+			totalCost +=  price;
+		}
+		else {
+			totalCost -= price;
+		}
 		return prodID + "\t" + desc + "\t" + price + "\t" + transType;
 		
 	}
