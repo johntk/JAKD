@@ -22,7 +22,7 @@ public class UserPanel extends JPanel implements ActionListener {
 	private JLabel userDetails;
 	private JTextField forenameBx, surenamebx, line1Bx, line2Bx, Line3Bx,
 			staffIDBx, pinBx, PPSBx, manager;
-	private JPanel editUserBtnsPanel, userDetailsPanel, editNewUserBtnsPanel;
+	private JPanel usrBtnPanel, editUserBtnsPanel, userDetailsPanel, editNewUserBtnsPanel, navUserBtnsPanel;
 
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
@@ -97,26 +97,15 @@ public class UserPanel extends JPanel implements ActionListener {
 
 		this.add(userDetailsPanel, BorderLayout.EAST);
 
-		// button panel inside edit user panel
+		
 		editNewUserBtnsPanel = new JPanel();
-		editNewUserBtnsPanel.add(addNewUser = new JButton("Add New User"));
-		editNewUserBtnsPanel.add(back = new JButton("Back"));
-		addNewUser.addActionListener(this);
-		back.addActionListener(this);
-
-		editUserBtnsPanel = new JPanel();
-		editUserBtnsPanel.setLayout(new GridBagLayout());
-		editUserBtnsPanel.setPreferredSize(new Dimension(250, 50));
-
-		// Adding buttons to the button panel inside the edit user panel
-		JButton[] editUserBtnsArray = { addUser = new JButton("Add User"),
-				removeUser = new JButton("Remove User"),
-				editUser = new JButton("Update User"), next = new JButton(">"),
-				previous = new JButton("<"),
-
-		};
-
-		for (int i = 0; i < editUserBtnsArray.length; i++) {
+		editNewUserBtnsPanel.setLayout(new GridBagLayout());
+		editNewUserBtnsPanel.setPreferredSize(new Dimension(250, 50));
+		
+		JButton[] addUserBtnsArray = { addNewUser = new JButton("Add New User"),
+				back = new JButton("Back")};
+		
+		for (int i = 0; i < addUserBtnsArray.length; i++) {
 			gc.gridx = 0;
 			gc.gridy = i;
 			gc.gridwidth = 1;
@@ -124,15 +113,72 @@ public class UserPanel extends JPanel implements ActionListener {
 			gc.weighty = 0.0;
 			gc.weightx = 0.0;
 			gc.insets = new Insets(10, 0, 0, 0);
+			addUserBtnsArray[i].setPreferredSize(new Dimension(150, 40));
+			addUserBtnsArray[i].setIcon(new ImageIcon("src/resources/blueButton.png"));
+			addUserBtnsArray[i].setFont(new Font("sansserif", Font.BOLD, 16));
+			addUserBtnsArray[i].setHorizontalTextPosition(JButton.CENTER);
+			addUserBtnsArray[i].setVerticalTextPosition(JButton.CENTER);
+			addUserBtnsArray[i].addActionListener(this);
+			editNewUserBtnsPanel.add(addUserBtnsArray[i], gc);
+			}
+		
+		
+		
+		
+		//button panels inside edit user panel
+		editUserBtnsPanel = new JPanel();
+		editUserBtnsPanel.setLayout(new GridBagLayout());
+		editUserBtnsPanel.setPreferredSize(new Dimension(250, 50));
+		
+		
+		
+		// Adding buttons to the button panel inside the edit user panel
+		JButton[] editUserBtnsArray = { addUser = new JButton("Add User"),
+				removeUser = new JButton("Remove User"),
+				editUser = new JButton("Update User"), 
+				previous = new JButton("<"),next = new JButton(">")
+
+		};
+
+		for (int i = 0; i < editUserBtnsArray.length; i++) {
+
+			if(i < 3)
+			{
+			gc.gridx = 0;
+			gc.gridy = i;
+			gc.gridwidth = 5;
+			gc.gridheight = 1;
+			gc.weighty = 0.0;
+			gc.weightx = 0.0;
+			gc.insets = new Insets(10, 0, 0, 0);
+			editUserBtnsArray[i].setPreferredSize(new Dimension(150, 40));
+			}
+			else{
+				gc.gridx = i;
+				gc.gridy = 3;
+				gc.gridwidth = 1;
+				gc.gridheight = 1;
+				gc.weighty = 0.0;
+				gc.weightx = 0.0;
+				if(i == 4)
+				{
+				gc.insets = new Insets(10, 30, 0, 0);
+				}
+				editUserBtnsArray[i].setPreferredSize(new Dimension(60, 50));
+			}
+			
 			editUserBtnsArray[i].setIcon(new ImageIcon(
 					"src/resources/blueButton.png"));
 			editUserBtnsArray[i].setFont(new Font("sansserif", Font.BOLD, 16));
-			editUserBtnsArray[i].setPreferredSize(new Dimension(180, 50));
 			editUserBtnsArray[i].setHorizontalTextPosition(JButton.CENTER);
 			editUserBtnsArray[i].setVerticalTextPosition(JButton.CENTER);
 			editUserBtnsArray[i].addActionListener(this);
 			editUserBtnsPanel.add(editUserBtnsArray[i], gc);
+
 		}
+		
+
+		
 		this.add(editUserBtnsPanel, BorderLayout.WEST);
 
 		setFirst();
@@ -205,7 +251,8 @@ public class UserPanel extends JPanel implements ActionListener {
 			frame.setVisible(false);
 			frame.dispose();
 		} else if (e.getSource().equals(addUser)) {
-			userDetails.setText("Enter new user details");
+			userDetails.setText("Enter New Details");
+			userDetails.setBorder(new EmptyBorder(10, 390, 0, 110));
 			addNew();
 		} else if (e.getSource().equals(addNewUser)) {
 			
@@ -213,11 +260,15 @@ public class UserPanel extends JPanel implements ActionListener {
 			employeeList.addContact();
 			employeeList.refreshList();
 			editUserBtnsPanel.setVisible(true);
+			
+			JOptionPane.showMessageDialog(null,"Person Saved");
 		}
 		else if(e.getSource().equals(back))
 		{
-			userDetails.setText("User details");
+			userDetails.setText("User Details");
+			userDetails.setBorder(new EmptyBorder(10, 450, 0, 110));
 			editUserBtnsPanel.setVisible(true);
+			setFirst();
 		}
 	}
 }

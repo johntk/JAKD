@@ -29,6 +29,7 @@ public class AdminOperations {
 			ods.setUser("johntk86");
 			ods.setPassword("FuckYou");
 
+			
 //			 Tallaght Database
 //			 ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
 //			 ods.setUser("x00097736");
