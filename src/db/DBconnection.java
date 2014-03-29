@@ -2,6 +2,7 @@ package db;
 
 import java.awt.*;
 import java.sql.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -63,9 +64,8 @@ public class DBconnection
 		}
 	}
 
-	public void queryAllProducts(String sTerm)
+	public void queryAllProducts(String sTerm,KioskResultsScreen krs)
 	{
-		KioskResultsScreen krs = new KioskResultsScreen(db);
 		krs.setHeading(sTerm.toUpperCase());
 		String description;
 		String productThumb;
@@ -153,10 +153,8 @@ public class DBconnection
 		krs.displayResult();
 	}
 
-	public void queryConsoles()
+	public void queryConsoles(KioskResultsScreen krs)
 	{
-		KioskResultsScreen krs = new KioskResultsScreen(db);
-		krs.setHeading("CONSOLES");
 		String description;
 		double salePrice;
 		String prodID;
@@ -180,6 +178,26 @@ public class DBconnection
 		krs.displayResult();
 	}
 
+	public ArrayList queryPlatform()
+	{
+		ArrayList<String> consoleList = new ArrayList<String>();
+		String description;
+		try {
+			stmt = conn.createStatement();
+			String sqlStatement = "select e.manufacturer||' '||e.model as description from product p, electronic e, console c where p.prod_id = e.prod_id and c.elec_id = e.elec_id";
+			rset = stmt.executeQuery(sqlStatement);
+			while (rset.next())
+			{
+				description = rset.getString("description");
+				consoleList.add(description);
+			}
+		} catch (Exception ex)
+		{
+			System.out.println("ERROR: " + ex.getMessage());
+		}
+		return consoleList;
+	}
+	
 	public void queryHeadphones()
 	{
 		KioskResultsScreen krs = new KioskResultsScreen(db);
@@ -235,17 +253,15 @@ public class DBconnection
 	}
 
 
-	public void queryGames(String platform)
+	public void queryGames(String platform,KioskResultsScreen krs)
 	{
-		KioskResultsScreen krs = new KioskResultsScreen(db);
-		krs.setHeading(platform);
 		String description;
 		double salePrice;
 		String prodID;
 		int y=0;
 		try {
 			stmt = conn.createStatement();
-			String sqlStatement = "select g.game_name as description, g.game_sale_price, p.prod_id as prodID from product p, digital_product d, game g where p.prod_id = d.prod_id and g.dig_id = d.dig_id and g.platform = '"+platform+"'";
+			String sqlStatement = "select g.game_name as description, g.game_sale_price, p.prod_id as prodID from product p, digital_product d, game g where p.prod_id = d.prod_id and g.dig_id = d.dig_id and g.platform like '%"+platform+"%'";
 			rset = stmt.executeQuery(sqlStatement);
 			while (rset.next())
 			{
@@ -257,9 +273,8 @@ public class DBconnection
 			}
 		} catch (Exception ex)
 		{
-			System.out.println("ERROR: " + ex.getMessage());
+			System.out.println("queryGames ERROR: " + ex.getMessage());
 		}
-		krs.displayResult();
 	}
 
 	public void queryProductInfo(String prodID)

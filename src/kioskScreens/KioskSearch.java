@@ -128,7 +128,8 @@ public class KioskSearch extends JFrame implements ActionListener
 				}else
 				{
 					String searchTerm = search.getText();
-					db.queryAllProducts(searchTerm);
+					KioskResultsScreen krs = new KioskResultsScreen(db);
+					db.queryAllProducts(searchTerm,krs);
 				}
 		    }
 		}
@@ -152,7 +153,8 @@ public class KioskSearch extends JFrame implements ActionListener
 			}else
 			{
 				String searchTerm = search.getText();
-				db.queryAllProducts(searchTerm);
+				KioskResultsScreen krs = new KioskResultsScreen(db);
+				db.queryAllProducts(searchTerm,krs);
 			}
 		}
 		if(e.getSource()==home)

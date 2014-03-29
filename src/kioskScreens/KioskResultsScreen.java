@@ -8,7 +8,7 @@ import javax.swing.*;
 
 import db.DBconnection;
 
-public class KioskResultsScreen extends JFrame implements ActionListener
+public class KioskResultsScreen extends JFrame implements ActionListener, ItemListener
 {
 	private JFrame frame;
 	private String srcPath;
@@ -20,6 +20,11 @@ public class KioskResultsScreen extends JFrame implements ActionListener
 	private ArrayList<Result> resultList;
 	private ArrayList<JButton> viewButtons;
 	private ArrayList<Integer> yPos;
+	private ButtonGroup bg;
+	private ArrayList<JRadioButton> consoleSelection;
+	private JRadioButton platform;
+	private JRadioButton allGames;
+	private KioskResultsScreen krs;
 	private GridBagConstraints gc;
 	private DBconnection db;
 
@@ -91,6 +96,11 @@ public class KioskResultsScreen extends JFrame implements ActionListener
 		frame.requestFocus();
 	}
 
+	public void passKioskResultsScreenObject(KioskResultsScreen krs)
+	{
+		this.krs = krs;
+	}
+
 	public void setHeading(String s)
 	{
 		resultsHeading.setText(resultsHeading.getText()+s);
@@ -102,7 +112,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener
 		Result rslt = new Result(img,desc,price,prodID);
 		resultList.add(rslt);
 		yPos.add(y);
-		
+
 		// Add a "view product details" button to each result in the arrayList
 		view = new JButton("View Product Details");
 		view.setPreferredSize(new Dimension(180,50));
@@ -126,7 +136,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener
 			gc.anchor = GridBagConstraints.WEST;
 			number.setBorder(BorderFactory.createEmptyBorder(0,4,0,0));
 			resultWindow.add(number,gc);
-			
+
 			r = resultList.get(i).getResult();
 			gc.gridx =0;
 			gc.gridy =yPos.get(i);
@@ -169,6 +179,49 @@ public class KioskResultsScreen extends JFrame implements ActionListener
 		}
 	}
 
+	public void displayGameOptions(ArrayList<String> consoleList)
+	{
+		JPanel radioButtonPanel = new JPanel();
+		Font font = new Font("Calibri",Font.PLAIN,20);
+		
+		Box vb = Box.createVerticalBox();
+		bg = new ButtonGroup();
+		
+		JLabel filter = new JLabel("Filter by Platform");
+		filter.setFont(new Font("Calibri",Font.BOLD,25));
+		filter.setForeground(new Color(20,120,230));
+		filter.setBorder(BorderFactory.createEmptyBorder(0,0,10,0));
+		vb.add(filter);
+		
+		allGames = new JRadioButton("All Games");
+		allGames.setBackground(main.getBackground());
+		allGames.setForeground(new Color(20,120,230));
+		allGames.setFont(font);
+		allGames.addItemListener(this);
+		bg.add(allGames);
+		vb.add(allGames);
+		
+		radioButtonPanel.setBackground(main.getBackground());
+		radioButtonPanel.setBorder(BorderFactory.createEmptyBorder(40,0,0,0));
+
+		consoleSelection = new ArrayList<JRadioButton>();
+
+		for(int i=0; i<consoleList.size(); i++)
+		{
+			platform = new JRadioButton(""+consoleList.get(i));
+			platform.setBackground(main.getBackground());
+			platform.setForeground(new Color(20,120,230));
+			platform.setFont(font);
+			platform.addItemListener(this);
+
+			bg.add(platform);
+			consoleSelection.add(platform);
+			vb.add(platform);
+		}
+		radioButtonPanel.add(vb);
+		main.add(radioButtonPanel, BorderLayout.WEST);
+	}
+
 	public void actionPerformed(ActionEvent e)
 	{
 		if(e.getSource()==home)
@@ -185,6 +238,37 @@ public class KioskResultsScreen extends JFrame implements ActionListener
 					db.queryProductInfo(resultList.get(i).getProdID());
 				}
 			}
+		}
+	}
+
+	public void itemStateChanged(ItemEvent e)
+	{
+		for(int i=0; i<consoleSelection.size(); i++)
+		{
+			if(consoleSelection.get(i).isSelected())
+			{
+				resultList.clear();
+				yPos.clear();
+				
+				resultWindow.removeAll();
+				
+				db.queryGames(consoleSelection.get(i).getText(),krs);
+				krs.displayResult();
+				frame.getContentPane().validate();
+				frame.getContentPane().repaint();
+			}
+		}
+		if(allGames.isSelected())
+		{
+			resultList.clear();
+			yPos.clear();
+			
+			resultWindow.removeAll();
+			
+			db.queryGames("",krs);
+			krs.displayResult();
+			frame.getContentPane().validate();
+			frame.getContentPane().repaint();
 		}
 	}
 }
