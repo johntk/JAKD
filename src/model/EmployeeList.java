@@ -74,7 +74,7 @@ public class EmployeeList {
 		for (int i = 0; i < elist.size(); i++) {
 			if (name.equals(elist.get(i).getfName())) {
 				elist.remove(i);
-//				ao.deleteContact(name);
+				ao.deleteContact(name);
 				num++;
 			}
 		}
@@ -85,6 +85,6 @@ public class EmployeeList {
 			if (elist.get(i).getfName().equals(name))
 				elist.get(i).setHouseNum(houseNum);
 		}
-		//co.updatephoneNumber(newnum,name);
+		
 	}
 }

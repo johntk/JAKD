@@ -114,6 +114,19 @@ public class AdminOperations {
 		}
 	}
 	
+	public int deleteContact(String n) {
+		int no = 0;
+		try {
+			String cmd = "DELETE FROM Employee WHERE f_name =" + "'" + n + "'";
+			stmt = conn.createStatement();
+			no = stmt.executeUpdate(cmd);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return no;
+		
+	}
+	
 	public ResultSet getLastRow() {
 		String sqlStatement = "SELECT * FROM Employee ORDER BY emp_id";
 		try {

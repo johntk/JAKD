@@ -18,7 +18,7 @@ public class UserPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
-	private JButton addUser, addNewUser, editUser, removeUser, next, previous, exit, back;
+	private JButton addUser, updateBtn, updateUser, removeUser, next, previous, exit, back, dialogButton;
 	private JLabel userDetails;
 	private JTextField forenameBx, surenamebx, line1Bx, line2Bx, Line3Bx,
 			staffIDBx, pinBx, PPSBx, manager;
@@ -32,7 +32,12 @@ public class UserPanel extends JPanel implements ActionListener {
 	private int counter = 0;
 	private EmployeeList employeeList;
 	private AdminOperations adminOperations;
-
+	private JTextField[] userDetailBx = { forenameBx = new JTextField(),
+			surenamebx = new JTextField(), line1Bx = new JTextField(),
+			line2Bx = new JTextField(), Line3Bx = new JTextField(),
+			staffIDBx = new JTextField(), pinBx = new JTextField(),
+			PPSBx = new JTextField(), manager = new JTextField() };
+	
 	public UserPanel(Frame frame, AdminOperations ao, EmployeeList el) {
 
 		this.employeeList = el;
@@ -63,11 +68,7 @@ public class UserPanel extends JPanel implements ActionListener {
 		userDetailsPanel.setBorder(border);
 
 		// Adding labels and textbox to the user details panel
-		JTextField[] userDetailBx = { forenameBx = new JTextField(),
-				surenamebx = new JTextField(), line1Bx = new JTextField(),
-				line2Bx = new JTextField(), Line3Bx = new JTextField(),
-				staffIDBx = new JTextField(), pinBx = new JTextField(),
-				PPSBx = new JTextField(), manager = new JTextField() };
+		
 
 		JLabel[] userDetailLb = { new JLabel(" Forename"),
 				new JLabel(" Surename"), new JLabel(" Line 1"),
@@ -92,6 +93,7 @@ public class UserPanel extends JPanel implements ActionListener {
 			gc.weighty = 0.2;
 			gc.weightx = 10.0;
 			userDetailBx[i].setPreferredSize(new Dimension(350, 30));
+			userDetailBx[i].setEditable(false);
 			userDetailsPanel.add(userDetailBx[i], gc);
 		}
 
@@ -102,7 +104,7 @@ public class UserPanel extends JPanel implements ActionListener {
 		editNewUserBtnsPanel.setLayout(new GridBagLayout());
 		editNewUserBtnsPanel.setPreferredSize(new Dimension(250, 50));
 		
-		JButton[] addUserBtnsArray = { addNewUser = new JButton("Add New User"),
+		JButton[] addUserBtnsArray = { updateBtn = new JButton(""),
 				back = new JButton("Back")};
 		
 		for (int i = 0; i < addUserBtnsArray.length; i++) {
@@ -135,7 +137,7 @@ public class UserPanel extends JPanel implements ActionListener {
 		// Adding buttons to the button panel inside the edit user panel
 		JButton[] editUserBtnsArray = { addUser = new JButton("Add User"),
 				removeUser = new JButton("Remove User"),
-				editUser = new JButton("Update User"), 
+				updateUser = new JButton("Update User"), 
 				previous = new JButton("<"),next = new JButton(">")
 
 		};
@@ -192,23 +194,59 @@ public class UserPanel extends JPanel implements ActionListener {
 		Employee e = employeeList.getEmployee(pos);
 		this.displayEmployee(e);
 	}
+	
+	public void setEditableOn()
+	{
+		for (int i = 0; i < userDetailBx.length; i++)
 
+			if (i != 5)
+				userDetailBx[i].setEditable(true);
+	}
+
+	public void setEditableOff()
+	{
+		for(int i = 0; i < userDetailBx.length; i++)
+		userDetailBx[i].setEditable(false);	
+	}
+	
 	public void addNew() {
-		staffIDBx.setText(String.valueOf(adminOperations.getId()));
-		forenameBx.setText("");
-		surenamebx.setText("");
-		line1Bx.setText("");
-		line2Bx.setText("");
-		Line3Bx.setText("");
-		line2Bx.setText("");
-		pinBx.setText("");
-		PPSBx.setText("");
-		manager.setText("");
+		userDetails.setText("Enter New Details");
+		userDetails.setBorder(new EmptyBorder(10, 390, 0, 110));
+		updateBtn.setText("Add New User");
+		for(int i = 0; i < userDetailBx.length; i++)
+		{
+				staffIDBx.setText(String.valueOf(adminOperations.getId()));
+				staffIDBx.setEditable(false);
+			if(i != 5)
+			{
+			userDetailBx[i].setText("");
+			userDetailBx[i].setEditable(true);
+			}
+		}
 		editUserBtnsPanel.setVisible(false);
 		this.add(editNewUserBtnsPanel);
 		
 	}
+	
+	public void updateUser()
+	{
+		updateBtn.setText("Update User");
+		userDetails.setText("Update User Details");
+		userDetails.setBorder(new EmptyBorder(10, 372, 0, 110));
+		editUserBtnsPanel.setVisible(false);
+		this.add(editNewUserBtnsPanel);
+	}
 
+	public void deleteContact() {
+
+		{
+		
+			int numberOfDeleted = employeeList.removeEmployee(forenameBx.getText());
+			JOptionPane.showMessageDialog(null, numberOfDeleted
+					+ " Record(s) deleted.");
+			setFirst();
+		}
+	}
 	public Employee newEmployee() {
 
 		Employee e = new Employee(Integer.parseInt(staffIDBx.getText()),
@@ -251,24 +289,45 @@ public class UserPanel extends JPanel implements ActionListener {
 			frame.setVisible(false);
 			frame.dispose();
 		} else if (e.getSource().equals(addUser)) {
-			userDetails.setText("Enter New Details");
-			userDetails.setBorder(new EmptyBorder(10, 390, 0, 110));
+			
 			addNew();
-		} else if (e.getSource().equals(addNewUser)) {
+		} else if (e.getSource().equals(updateBtn) && updateBtn.getText().equals("Add New User")) {
 			
 			adminOperations.addEmployee(newEmployee());
 			employeeList.addContact();
 			employeeList.refreshList();
 			editUserBtnsPanel.setVisible(true);
-			
 			JOptionPane.showMessageDialog(null,"Person Saved");
+			
+			
 		}
 		else if(e.getSource().equals(back))
 		{
 			userDetails.setText("User Details");
 			userDetails.setBorder(new EmptyBorder(10, 450, 0, 110));
 			editUserBtnsPanel.setVisible(true);
+			setEditableOff();
 			setFirst();
+			
+		}
+		else if(e.getSource().equals(updateUser))
+		{
+			setEditableOn();
+			updateUser();
+		}
+		else if(e.getSource().equals(updateBtn) && updateBtn.getText().equals("Update User")){
+			
+			System.out.println(updateBtn.getText());
+		}
+		else if(e.getSource().equals(removeUser)){
+			int dialogButton = JOptionPane.YES_NO_OPTION;
+			int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to remove\n" 
+			+ "        "+forenameBx.getText() +" from the system","Warning", dialogButton);
+			if(dialogResult == JOptionPane.YES_OPTION){
+				
+				deleteContact();
+				setFirst();
+			}
 		}
 	}
 }
