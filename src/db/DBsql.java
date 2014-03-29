@@ -251,7 +251,7 @@ public class DBsql
 		{
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate("create sequence prod_seq start with 27 increment by 1");
-			stmt.executeUpdate("create sequence empId_seq start with 5680 increment by 1");
+			stmt.executeUpdate("create sequence empId_seq start with 5679 increment by 1");
 			stmt.executeUpdate("create sequence digi_seq start with 18 increment by 1");
 			stmt.executeUpdate("create sequence elec_seq start with 10 increment by 1");
 			stmt.executeUpdate("create sequence dvd_seq start with 6 increment by 1");
