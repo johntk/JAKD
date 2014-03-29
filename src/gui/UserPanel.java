@@ -19,15 +19,14 @@ public class UserPanel extends JPanel implements ActionListener {
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
 	private JButton addUser, updateBtn, updateUser, removeUser, next, previous,
-			exit, back, dialogButton;
+			exit, back, searchUser;
 	private JLabel userDetails;
-	private JTextField forenameBx, surenamebx, line1Bx, line2Bx, Line3Bx,
+	private JTextField spacer, forenameBx, surenamebx, line1Bx, line2Bx, Line3Bx,
 			staffIDBx, pinBx, PPSBx, manager;
 	private JPanel  editUserBtnsPanel, userDetailsPanel,
-			editNewUserBtnsPanel, navUserBtnsPanel;
+			editNewUserBtnsPanel;
 
-	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,
-			10);
+	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border border = BorderFactory.createCompoundBorder(space, line);
 	private Frame frame;
@@ -36,8 +35,8 @@ public class UserPanel extends JPanel implements ActionListener {
 	private EmployeeList employeeList;
 	private AdminOperations adminOperations;
 	private JTextField[] userDetailBx = { forenameBx = new JTextField(),
-			surenamebx = new JTextField(), line1Bx = new JTextField(),
-			line2Bx = new JTextField(), Line3Bx = new JTextField(),
+			surenamebx = new JTextField(), spacer = new JTextField(), line1Bx = new JTextField(),
+			line2Bx = new JTextField(), Line3Bx = new JTextField(),spacer = new JTextField(),
 			staffIDBx = new JTextField(), pinBx = new JTextField(),
 			PPSBx = new JTextField(), manager = new JTextField() };
 
@@ -72,11 +71,11 @@ public class UserPanel extends JPanel implements ActionListener {
 
 		// Adding labels and textbox to the user details panel
 
-		JLabel[] userDetailLb = { new JLabel(" Forename"),
-				new JLabel(" Surename"), new JLabel(" Line 1"),
-				new JLabel(" Line 2"), new JLabel(" Line 3"),
-				new JLabel(" Staff ID"), new JLabel(" Pin"),
-				new JLabel(" PPS"), new JLabel(" Manager") };
+		JLabel[] userDetailLb = {  new JLabel(" Forename:"),
+				new JLabel(" Surename:"),new JLabel(" Address"), new JLabel(" House No:"),
+				new JLabel(" Town:"), new JLabel(" City:"),new JLabel(""),
+				new JLabel(" Staff ID:"), new JLabel(" Pin:"),
+				new JLabel(" PPS:"), new JLabel(" Manager:") };
 		for (int i = 0; i < userDetailLb.length; i++) {
 			gc.gridx = 0;
 			gc.gridy = i;
@@ -84,19 +83,33 @@ public class UserPanel extends JPanel implements ActionListener {
 			gc.gridheight = 1;
 			gc.weighty = 0.1;
 			gc.weightx = 10.0;
+			gc.insets = new Insets(10, 0, 0, 0);
 			gc.anchor = GridBagConstraints.WEST;
 			userDetailLb[i].setFont(font);
 			userDetailsPanel.add(userDetailLb[i], gc);
-
+			
+			if(i != 2 && i != 6)
+			{
 			gc.gridx = 1;
 			gc.gridy = i;
-			gc.gridwidth = 1;
-			gc.gridheight = 1;
-			gc.weighty = 0.2;
-			gc.weightx = 10.0;
+			gc.weighty = 0.0;
 			userDetailBx[i].setPreferredSize(new Dimension(350, 30));
 			userDetailBx[i].setEditable(false);
 			userDetailsPanel.add(userDetailBx[i], gc);
+			}
+			if (i < 6 && i > 2) {
+				gc.gridx = 0;
+				gc.gridy = i;
+				gc.anchor = GridBagConstraints.WEST;
+				userDetailLb[i].setFont(font);
+				userDetailsPanel.add(userDetailLb[i], gc);
+
+				gc.gridx = 1;
+				gc.gridy = i;
+				userDetailBx[i].setPreferredSize(new Dimension(350, 30));
+				userDetailBx[i].setEditable(false);
+				userDetailsPanel.add(userDetailBx[i], gc);
+			}
 		}
 
 		this.add(userDetailsPanel, BorderLayout.EAST);
@@ -131,19 +144,19 @@ public class UserPanel extends JPanel implements ActionListener {
 		editUserBtnsPanel.setPreferredSize(new Dimension(250, 50));
 
 		// Adding buttons to the button panel inside the edit user panel
-		JButton[] editUserBtnsArray = { addUser = new JButton("Add User"),
+		JButton[] editUserBtnsArray = { searchUser = new JButton("Search User"), addUser = new JButton("Add User"),
 				removeUser = new JButton("Remove User"),
-				updateUser = new JButton("Update User"),
+				updateUser = new JButton("Edit User"),
 				previous = new JButton("<"), next = new JButton(">")
 
 		};
 
-		for (int i = 0; i < editUserBtnsArray.length; i++) {
+		for (int i = 0; i < editUserBtnsArray.length ; i++) {
 
-			if (i < 3) {
+			if (i < editUserBtnsArray.length-2) {
 				gc.gridx = 0;
 				gc.gridy = i;
-				gc.gridwidth = 5;
+				gc.gridwidth = editUserBtnsArray.length;
 				gc.gridheight = 1;
 				gc.weighty = 0.0;
 				gc.weightx = 0.0;
@@ -151,12 +164,9 @@ public class UserPanel extends JPanel implements ActionListener {
 				editUserBtnsArray[i].setPreferredSize(new Dimension(150, 40));
 			} else {
 				gc.gridx = i;
-				gc.gridy = 3;
+				gc.gridy = editUserBtnsArray.length-2;
 				gc.gridwidth = 1;
-				gc.gridheight = 1;
-				gc.weighty = 0.0;
-				gc.weightx = 0.0;
-				if (i == 4) {
+				if (i == editUserBtnsArray.length-1) {
 					gc.insets = new Insets(10, 30, 0, 0);
 				}
 				editUserBtnsArray[i].setPreferredSize(new Dimension(60, 50));
@@ -186,7 +196,7 @@ public class UserPanel extends JPanel implements ActionListener {
 	public void setEditableOn() {
 		for (int i = 0; i < userDetailBx.length; i++)
 
-			if (i != 5)
+			if (i != 7)
 				userDetailBx[i].setEditable(true);
 	}
 
@@ -202,7 +212,7 @@ public class UserPanel extends JPanel implements ActionListener {
 		for (int i = 0; i < userDetailBx.length; i++) {
 			staffIDBx.setText(String.valueOf(adminOperations.getId()));
 			staffIDBx.setEditable(false);
-			if (i != 5) {
+			if (i != 7) {
 				userDetailBx[i].setText("");
 				userDetailBx[i].setEditable(true);
 			}

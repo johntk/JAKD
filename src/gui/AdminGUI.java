@@ -76,13 +76,8 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 		// space between logo and buttons, would rather use a "spacer" here,
 		// more research needed
 		spacer = new JLabel("");
-
-		gc.gridx = 0;
 		gc.gridy = 1;
-		gc.gridwidth = 1;
-		gc.gridheight = 1;
 		gc.weighty = 10.0;
-		gc.weightx = 0.0;
 		sideButtons.add(spacer, gc);
 
 		// side button array

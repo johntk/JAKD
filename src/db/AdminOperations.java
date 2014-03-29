@@ -130,9 +130,7 @@ public class AdminOperations {
 	
 	public void updateEmployee(Employee e) {
 		try {
-			
-			
-			
+
 			String sql = "UPDATE Employee SET f_name=?, l_name=?, house_number=?, street=?, town=?,"
 					+ " city=?, pps_num=?, pin_num=?, manager=?  WHERE emp_id ="+ "'" + e.getEmpID() + "'";
 					
@@ -149,32 +147,7 @@ public class AdminOperations {
 			pstmt.setString(9, e.getManager());
 
 			pstmt.executeUpdate();
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			/*String sql = "UPDATE Employee SET f_name=" +"'"+ e.getfName() 
-					+"'"+ " l_name=" +"'"+ e.getlName()
-					+"'"+ "WHERE emp_id ="+ "'" + e.getEmpID() + "'";
-					
-					+"'"+ "l_name=" +"'"+ e.getlName() 
-					+"'"+ "house_number=" +"'"+ e.getHouseNum() 
-					+"'"+ "street=" +"'" + e.getStreet() 
-					+"'"+ "town=" +"'"+ e.getTown() 
-					+"'"+ "city= " +"'"+ e.getCity() 
-					+"'"+ "pps_num= " +"'"+ e.getPPS() 
-					+"'"+ "pin_num= " +"'"+ e.getPin() 
-					+"'"+ "manager= " +"'"+ e.getManager()
-					+"'"+ "WHERE emp_id ="+ "'" + e.getEmpID() + "'";
 
-			stmt = conn.createStatement();
-			stmt.executeUpdate(sql);*/
 		} catch (Exception ex) {
 			System.out.println("Problemsss" + e);
 		}
@@ -188,7 +161,6 @@ public class AdminOperations {
 					ResultSet.CONCUR_READ_ONLY);
 			rset = pstmt.executeQuery();
 			rset.last();
-			System.out.println(rset.getInt(1)+","+rset.getString(2));
 		} catch (Exception ex) {
 			System.out.println("ERROR: " + ex.getMessage());
 		}

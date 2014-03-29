@@ -29,30 +29,7 @@ public class HomeScreen extends JFrame implements ActionListener
 	private Color cl;
 	private DBconnection db;
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public HomeScreen()
 	{
