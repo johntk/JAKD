@@ -12,8 +12,6 @@ import db.AdminOperations;
 
 public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 
-	
-	
 	private static final long serialVersionUID = 1L;
 	private CardLayout cards;
 	private JFrame frame;
@@ -29,8 +27,7 @@ public class AdminGUI extends JFrame implements ActionListener, ItemListener {
 	
 	private JLabel logo, spacer;
 
-	private JPanel cardPanel, digiProdPanel, genReportPanel, userPanel,
-			elecProdPanel;
+	private JPanel cardPanel, digiProdPanel, genReportPanel, userPanel, elecProdPanel;
 
 	private BorderLayout layout = new BorderLayout();
 	private GridBagConstraints gc = new GridBagConstraints();

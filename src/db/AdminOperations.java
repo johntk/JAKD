@@ -128,6 +128,58 @@ public class AdminOperations {
 		
 	}
 	
+	public void updateEmployee(Employee e) {
+		try {
+			
+			
+			
+			String sql = "UPDATE Employee SET f_name=?, l_name=?, house_number=?, street=?, town=?,"
+					+ " city=?, pps_num=?, pin_num=?, manager=?  WHERE emp_id ="+ "'" + e.getEmpID() + "'";
+					
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, e.getfName());
+			pstmt.setString(2, e.getlName());
+			pstmt.setString(3, e.getHouseNum());
+			pstmt.setString(4, e.getStreet());
+			pstmt.setString(5, e.getTown());
+			pstmt.setString(6, e.getCity());
+			pstmt.setString(7, e.getPPS());
+			pstmt.setInt(8, e.getPin());
+			pstmt.setString(9, e.getManager());
+
+			pstmt.executeUpdate();
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			/*String sql = "UPDATE Employee SET f_name=" +"'"+ e.getfName() 
+					+"'"+ " l_name=" +"'"+ e.getlName()
+					+"'"+ "WHERE emp_id ="+ "'" + e.getEmpID() + "'";
+					
+					+"'"+ "l_name=" +"'"+ e.getlName() 
+					+"'"+ "house_number=" +"'"+ e.getHouseNum() 
+					+"'"+ "street=" +"'" + e.getStreet() 
+					+"'"+ "town=" +"'"+ e.getTown() 
+					+"'"+ "city= " +"'"+ e.getCity() 
+					+"'"+ "pps_num= " +"'"+ e.getPPS() 
+					+"'"+ "pin_num= " +"'"+ e.getPin() 
+					+"'"+ "manager= " +"'"+ e.getManager()
+					+"'"+ "WHERE emp_id ="+ "'" + e.getEmpID() + "'";
+
+			stmt = conn.createStatement();
+			stmt.executeUpdate(sql);*/
+		} catch (Exception ex) {
+			System.out.println("Problemsss" + e);
+		}
+	}
+	
 	public ResultSet getLastRow() {
 		String sqlStatement = "SELECT * FROM Employee ORDER BY emp_id";
 		try {

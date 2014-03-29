@@ -18,13 +18,16 @@ public class UserPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
-	private JButton addUser, updateBtn, updateUser, removeUser, next, previous, exit, back, dialogButton;
+	private JButton addUser, updateBtn, updateUser, removeUser, next, previous,
+			exit, back, dialogButton;
 	private JLabel userDetails;
 	private JTextField forenameBx, surenamebx, line1Bx, line2Bx, Line3Bx,
 			staffIDBx, pinBx, PPSBx, manager;
-	private JPanel usrBtnPanel, editUserBtnsPanel, userDetailsPanel, editNewUserBtnsPanel, navUserBtnsPanel;
+	private JPanel  editUserBtnsPanel, userDetailsPanel,
+			editNewUserBtnsPanel, navUserBtnsPanel;
 
-	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
+	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,
+			10);
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border border = BorderFactory.createCompoundBorder(space, line);
 	private Frame frame;
@@ -37,7 +40,7 @@ public class UserPanel extends JPanel implements ActionListener {
 			line2Bx = new JTextField(), Line3Bx = new JTextField(),
 			staffIDBx = new JTextField(), pinBx = new JTextField(),
 			PPSBx = new JTextField(), manager = new JTextField() };
-	
+
 	public UserPanel(Frame frame, AdminOperations ao, EmployeeList el) {
 
 		this.employeeList = el;
@@ -68,7 +71,6 @@ public class UserPanel extends JPanel implements ActionListener {
 		userDetailsPanel.setBorder(border);
 
 		// Adding labels and textbox to the user details panel
-		
 
 		JLabel[] userDetailLb = { new JLabel(" Forename"),
 				new JLabel(" Surename"), new JLabel(" Line 1"),
@@ -99,14 +101,13 @@ public class UserPanel extends JPanel implements ActionListener {
 
 		this.add(userDetailsPanel, BorderLayout.EAST);
 
-		
 		editNewUserBtnsPanel = new JPanel();
 		editNewUserBtnsPanel.setLayout(new GridBagLayout());
 		editNewUserBtnsPanel.setPreferredSize(new Dimension(250, 50));
-		
+
 		JButton[] addUserBtnsArray = { updateBtn = new JButton(""),
-				back = new JButton("Back")};
-		
+				back = new JButton("Back") };
+
 		for (int i = 0; i < addUserBtnsArray.length; i++) {
 			gc.gridx = 0;
 			gc.gridy = i;
@@ -122,55 +123,46 @@ public class UserPanel extends JPanel implements ActionListener {
 			addUserBtnsArray[i].setVerticalTextPosition(JButton.CENTER);
 			addUserBtnsArray[i].addActionListener(this);
 			editNewUserBtnsPanel.add(addUserBtnsArray[i], gc);
-			}
-		
-		
-		
-		
-		//button panels inside edit user panel
+		}
+
+		// button panels inside edit user panel
 		editUserBtnsPanel = new JPanel();
 		editUserBtnsPanel.setLayout(new GridBagLayout());
 		editUserBtnsPanel.setPreferredSize(new Dimension(250, 50));
-		
-		
-		
+
 		// Adding buttons to the button panel inside the edit user panel
 		JButton[] editUserBtnsArray = { addUser = new JButton("Add User"),
 				removeUser = new JButton("Remove User"),
-				updateUser = new JButton("Update User"), 
-				previous = new JButton("<"),next = new JButton(">")
+				updateUser = new JButton("Update User"),
+				previous = new JButton("<"), next = new JButton(">")
 
 		};
 
 		for (int i = 0; i < editUserBtnsArray.length; i++) {
 
-			if(i < 3)
-			{
-			gc.gridx = 0;
-			gc.gridy = i;
-			gc.gridwidth = 5;
-			gc.gridheight = 1;
-			gc.weighty = 0.0;
-			gc.weightx = 0.0;
-			gc.insets = new Insets(10, 0, 0, 0);
-			editUserBtnsArray[i].setPreferredSize(new Dimension(150, 40));
-			}
-			else{
+			if (i < 3) {
+				gc.gridx = 0;
+				gc.gridy = i;
+				gc.gridwidth = 5;
+				gc.gridheight = 1;
+				gc.weighty = 0.0;
+				gc.weightx = 0.0;
+				gc.insets = new Insets(10, 0, 0, 0);
+				editUserBtnsArray[i].setPreferredSize(new Dimension(150, 40));
+			} else {
 				gc.gridx = i;
 				gc.gridy = 3;
 				gc.gridwidth = 1;
 				gc.gridheight = 1;
 				gc.weighty = 0.0;
 				gc.weightx = 0.0;
-				if(i == 4)
-				{
-				gc.insets = new Insets(10, 30, 0, 0);
+				if (i == 4) {
+					gc.insets = new Insets(10, 30, 0, 0);
 				}
 				editUserBtnsArray[i].setPreferredSize(new Dimension(60, 50));
 			}
-			
-			editUserBtnsArray[i].setIcon(new ImageIcon(
-					"src/resources/blueButton.png"));
+
+			editUserBtnsArray[i].setIcon(new ImageIcon("src/resources/blueButton.png"));
 			editUserBtnsArray[i].setFont(new Font("sansserif", Font.BOLD, 16));
 			editUserBtnsArray[i].setHorizontalTextPosition(JButton.CENTER);
 			editUserBtnsArray[i].setVerticalTextPosition(JButton.CENTER);
@@ -178,58 +170,49 @@ public class UserPanel extends JPanel implements ActionListener {
 			editUserBtnsPanel.add(editUserBtnsArray[i], gc);
 
 		}
-		
 
-		
 		this.add(editUserBtnsPanel, BorderLayout.WEST);
 
 		setFirst();
 	}
 
 	public void setFirst() {
-		int pos = 0; // set to 0 and used below to retrieve 1st element from
-						// array list
-		counter = 0; // This is the counter used for the forward and back
-						// buttons
+		int pos = 0;
+		counter = 0;
 		Employee e = employeeList.getEmployee(pos);
 		this.displayEmployee(e);
 	}
-	
-	public void setEditableOn()
-	{
+
+	public void setEditableOn() {
 		for (int i = 0; i < userDetailBx.length; i++)
 
 			if (i != 5)
 				userDetailBx[i].setEditable(true);
 	}
 
-	public void setEditableOff()
-	{
-		for(int i = 0; i < userDetailBx.length; i++)
-		userDetailBx[i].setEditable(false);	
+	public void setEditableOff() {
+		for (int i = 0; i < userDetailBx.length; i++)
+			userDetailBx[i].setEditable(false);
 	}
-	
+
 	public void addNew() {
 		userDetails.setText("Enter New Details");
 		userDetails.setBorder(new EmptyBorder(10, 390, 0, 110));
 		updateBtn.setText("Add New User");
-		for(int i = 0; i < userDetailBx.length; i++)
-		{
-				staffIDBx.setText(String.valueOf(adminOperations.getId()));
-				staffIDBx.setEditable(false);
-			if(i != 5)
-			{
-			userDetailBx[i].setText("");
-			userDetailBx[i].setEditable(true);
+		for (int i = 0; i < userDetailBx.length; i++) {
+			staffIDBx.setText(String.valueOf(adminOperations.getId()));
+			staffIDBx.setEditable(false);
+			if (i != 5) {
+				userDetailBx[i].setText("");
+				userDetailBx[i].setEditable(true);
 			}
 		}
 		editUserBtnsPanel.setVisible(false);
 		this.add(editNewUserBtnsPanel);
-		
+
 	}
-	
-	public void updateUser()
-	{
+
+	public void updateUser() {
 		updateBtn.setText("Update User");
 		userDetails.setText("Update User Details");
 		userDetails.setBorder(new EmptyBorder(10, 372, 0, 110));
@@ -238,15 +221,12 @@ public class UserPanel extends JPanel implements ActionListener {
 	}
 
 	public void deleteContact() {
-
-		{
 		
 			int numberOfDeleted = employeeList.removeEmployee(forenameBx.getText());
-			JOptionPane.showMessageDialog(null, numberOfDeleted
-					+ " Record(s) deleted.");
+			JOptionPane.showMessageDialog(null, numberOfDeleted + " Record(s) deleted.");
 			setFirst();
-		}
 	}
+
 	public Employee newEmployee() {
 
 		Employee e = new Employee(Integer.parseInt(staffIDBx.getText()),
@@ -258,6 +238,22 @@ public class UserPanel extends JPanel implements ActionListener {
 		return e;
 	}
 
+	public void updateEmployee() {
+		
+		Employee e = new Employee(Integer.parseInt(staffIDBx.getText()),
+		forenameBx.getText(),
+		surenamebx.getText(),
+		line1Bx.getText(),
+		line2Bx.getText(),
+		Line3Bx.getText(),
+		line2Bx.getText(),
+		PPSBx.getText(),
+		Integer.parseInt(pinBx.getText()),
+		manager.getText());
+		employeeList.updateEmployee(e);;
+		JOptionPane.showMessageDialog(null,  "Employee " +  forenameBx.getText() + " Updated");
+	}
+	
 	public void displayEmployee(Employee e) {
 		staffIDBx.setText(Integer.toString(e.getEmpID()));
 		forenameBx.setText(e.getfName());
@@ -289,42 +285,44 @@ public class UserPanel extends JPanel implements ActionListener {
 			frame.setVisible(false);
 			frame.dispose();
 		} else if (e.getSource().equals(addUser)) {
-			
+
 			addNew();
-		} else if (e.getSource().equals(updateBtn) && updateBtn.getText().equals("Add New User")) {
-			
+		} else if (e.getSource().equals(updateBtn)
+				&& updateBtn.getText().equals("Add New User")) {
+
 			adminOperations.addEmployee(newEmployee());
 			employeeList.addContact();
 			employeeList.refreshList();
 			editUserBtnsPanel.setVisible(true);
-			JOptionPane.showMessageDialog(null,"Person Saved");
-			//hi
-			
-		}
-		else if(e.getSource().equals(back))
-		{
+			JOptionPane
+					.showMessageDialog(null, forenameBx.getText() + " Saved");
+			editUserBtnsPanel.setVisible(true);
+			setEditableOff();
+			setFirst();
+
+		} else if (e.getSource().equals(back)) {
 			userDetails.setText("User Details");
 			userDetails.setBorder(new EmptyBorder(10, 450, 0, 110));
 			editUserBtnsPanel.setVisible(true);
 			setEditableOff();
 			setFirst();
-			
-		}
-		else if(e.getSource().equals(updateUser))
-		{
+
+		} else if (e.getSource().equals(updateUser)) {
 			setEditableOn();
 			updateUser();
-		}
-		else if(e.getSource().equals(updateBtn) && updateBtn.getText().equals("Update User")){
-			
-			System.out.println(updateBtn.getText());
-		}
-		else if(e.getSource().equals(removeUser)){
+		} else if (e.getSource().equals(updateBtn)
+				&& updateBtn.getText().equals("Update User")) {
+			updateEmployee();
+			editUserBtnsPanel.setVisible(true);
+			setEditableOff();
+		} else if (e.getSource().equals(removeUser)) {
 			int dialogButton = JOptionPane.YES_NO_OPTION;
-			int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to remove\n" 
-			+ "        "+forenameBx.getText() +" from the system","Warning", dialogButton);
-			if(dialogResult == JOptionPane.YES_OPTION){
-				
+			int dialogResult = JOptionPane.showConfirmDialog(null,
+					"Are you sure you want to remove\n" + "        "
+							+ forenameBx.getText() + " from the system",
+					"Warning", dialogButton);
+			if (dialogResult == JOptionPane.YES_OPTION) {
+
 				deleteContact();
 				setFirst();
 			}

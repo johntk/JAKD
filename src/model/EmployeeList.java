@@ -42,7 +42,7 @@ public class EmployeeList {
 			System.out.println(ex);
 		}
 	}
-	//hi
+	
 	public void addContact()
 	{
 		rset = ao.getLastRow();
@@ -52,7 +52,6 @@ public class EmployeeList {
 							rset.getString(4), rset.getString(5), rset.getString(6), 
 							rset.getString(7), rset.getString(8), rset.getInt(9), rset.getString(10));
 					elist.add(e);
-//				System.out.println(rset.getInt(1)+ rset.getString(2)+rset.getString(3)+ rset.getString(4)+ rset.getString(5));
 			}
 
 		} catch (Exception ex) {
@@ -80,10 +79,22 @@ public class EmployeeList {
 		}
 		return num;
 	}
-	public void updateEmployee(String houseNum, String name) {
+	public void updateEmployee(Employee e) {
 		for (int i = 0; i < elist.size(); i++) {
-			if (elist.get(i).getfName().equals(name))
-				elist.get(i).setHouseNum(houseNum);
+			if (elist.get(i).getEmpID() == (e.getEmpID()))
+			{
+				elist.get(i).setfName(e.getfName());
+				elist.get(i).setlName(e.getlName());
+				elist.get(i).setHouseNum(e.getHouseNum());
+				elist.get(i).setCity(e.getCity());
+				elist.get(i).setStreet(e.getStreet());
+				elist.get(i).setPin(e.getPin());
+				elist.get(i).setPPS(e.getPPS());
+				elist.get(i).setManager(e.getManager());
+				elist.get(i).setHouseNum(e.getHouseNum());
+				
+				ao.updateEmployee(elist.get(i));
+			}
 		}
 		
 	}
