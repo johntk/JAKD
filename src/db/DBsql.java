@@ -29,10 +29,8 @@ public class DBsql
 
 			conn = ods.getConnection();
 			System.out.println("Connection established.\n");
-			Thread.sleep(1000);
 		} catch (Exception e) {
 			System.out.print("Unable to load driver " + e);
-			System.exit(1);
 		}
 	}
 
@@ -228,13 +226,6 @@ public class DBsql
 		{
 			System.out.println("Product sequence ERROR");
 		}
-		try{
-			stmt.execute("DROP SEQUENCE empId_seq");
-			System.out.println("Product sequence successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Product sequence ERROR");
-		}
 	}
 
 	public void createSequence()
@@ -251,7 +242,6 @@ public class DBsql
 		{
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate("create sequence prod_seq start with 27 increment by 1");
-			stmt.executeUpdate("create sequence empId_seq start with 5680 increment by 1");
 			stmt.executeUpdate("create sequence digi_seq start with 18 increment by 1");
 			stmt.executeUpdate("create sequence elec_seq start with 10 increment by 1");
 			stmt.executeUpdate("create sequence dvd_seq start with 6 increment by 1");
@@ -517,10 +507,10 @@ public class DBsql
 			stmt.execute("insert into DVD values('D0000003',91,'Gravity','Warner Brothers',12.55,24.99,'D0000011')");
 			stmt.execute("insert into DVD values('D0000004',146,'The Hunger Games - Catching Fire','Lionsgate',13.60,25.99,'D0000012')");
 			stmt.execute("insert into DVD values('D0000005',113,'Thor - The Dark World','Walt Disney',11.59,21.99,'D0000013')");
-			stmt.execute("insert into GAME values('G0000001','UBI SOFT','PS4','Assassin''s Creed IV Black Flag',26.40,45.99,'D0000014')");
-			stmt.execute("insert into GAME values('G0000002','Activision','Xbox360','Call of Duty - Ghosts',18.20,26.99,'D0000015')");
-			stmt.execute("insert into GAME values('G0000003','Rockstar Games','Xbox360','Grand Theft Auto V',26.50,44.99,'D0000016')");
-			stmt.execute("insert into GAME values('G0000004','Konami','PS4','Metal Gear Solid V Ground Zeroes',17.60,24.99,'D0000017')");
+			stmt.execute("insert into GAME values('G0000001','UBI SOFT','Sony Playstation 4','Assassin''s Creed IV Black Flag',26.40,45.99,'D0000014')");
+			stmt.execute("insert into GAME values('G0000002','Activision','Microsoft Xbox 360','Call of Duty - Ghosts',18.20,26.99,'D0000015')");
+			stmt.execute("insert into GAME values('G0000003','Rockstar Games','Microsoft Xbox 360','Grand Theft Auto V',26.50,44.99,'D0000016')");
+			stmt.execute("insert into GAME values('G0000004','Konami','Sony Playstation 4','Metal Gear Solid V Ground Zeroes',17.60,24.99,'D0000017')");
 			stmt.execute("insert into CONSOLE values('L0000001',500,'Y',1,200,260,'E0000001')");
 			stmt.execute("insert into CONSOLE values('L0000002',4,'Y',1,120,200,'E0000002')");
 			stmt.execute("insert into CONSOLE values('L0000003',0,'N',1,90,150,'E0000009')");
