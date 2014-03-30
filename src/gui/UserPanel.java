@@ -356,7 +356,7 @@ public class UserPanel extends JPanel implements ActionListener {
 			updateEmployee();
 			editUserBtnsPanel.setVisible(true);
 			setEditableOff();
-		} 
+		}  
 		else if (e.getSource().equals(removeUser)) {
 			int dialogButton = JOptionPane.YES_NO_OPTION;
 			int dialogResult = JOptionPane.showConfirmDialog(null,
