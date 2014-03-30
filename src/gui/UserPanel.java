@@ -33,6 +33,7 @@ public class UserPanel extends JPanel implements ActionListener {
 	private int counter = 0;
 	private EmployeeList employeeList;
 	private AdminOperations adminOperations;
+	
 	private JTextField[] userDetailBx = { forenameBx = new JTextField(),
 			surenamebx = new JTextField(), spacer = new JTextField(),
 			line1Bx = new JTextField(), line2Bx = new JTextField(),
@@ -40,7 +41,15 @@ public class UserPanel extends JPanel implements ActionListener {
 			staffIDBx = new JTextField(), pinBx = new JTextField(),
 			PPSBx = new JTextField(), manager = new JTextField() };
 
-	private Color  cl2;
+	
+	private JLabel[] userDetailLb = { new JLabel(" Forename:"),
+			new JLabel(" Surename:"), new JLabel(" Address"),
+			new JLabel(" House No:"), new JLabel(" Town:"),
+			new JLabel(" City:"), new JLabel(""), new JLabel(" Staff ID:"),
+			new JLabel(" Pin:"), new JLabel(" PPS:"),
+			new JLabel(" Manager:") };
+	
+	private Color  cl2 ,cl3;
 	
 	public UserPanel(Frame frame, AdminOperations ao, EmployeeList el) {
 
@@ -50,7 +59,8 @@ public class UserPanel extends JPanel implements ActionListener {
 		this.setLayout(new BorderLayout());
 
 		cl2 = new Color(75,255,250);
-		
+		cl3 = new Color(255,230,0);
+				
 		JPanel top = new JPanel();
 		top.setLayout(new FlowLayout());
 		close = new ImageIcon("src/resources/kioskFiles/images/close.png");
@@ -74,12 +84,6 @@ public class UserPanel extends JPanel implements ActionListener {
 		userDetailsPanel.setBorder(border);
 
 		// Adding labels and textbox to the user details panel
-		JLabel[] userDetailLb = { new JLabel(" Forename:"),
-				new JLabel(" Surename:"), new JLabel(" Address"),
-				new JLabel(" House No:"), new JLabel(" Town:"),
-				new JLabel(" City:"), new JLabel(""), new JLabel(" Staff ID:"),
-				new JLabel(" Pin:"), new JLabel(" PPS:"),
-				new JLabel(" Manager:") };
 		for (int i = 0; i < userDetailLb.length; i++) {
 			gc.gridx = 0;
 			gc.gridy = i;
@@ -98,7 +102,16 @@ public class UserPanel extends JPanel implements ActionListener {
 				gc.weighty = 0.0;
 				userDetailBx[i].setPreferredSize(new Dimension(350, 30));
 				userDetailBx[i].setEditable(false);
-				userDetailBx[i].setBackground(cl2);
+				if(userDetailLb[i].getText().equals(" Staff ID:"))
+				{
+					userDetailBx[i].setBackground(cl3);
+				}
+				else
+				{
+					userDetailBx[i].setBackground(cl2);
+				}
+				
+				userDetailBx[i].getCaret().setBlinkRate(1000);
 				userDetailsPanel.add(userDetailBx[i], gc);
 			}
 			if (i < 6 && i > 2) {
@@ -112,7 +125,6 @@ public class UserPanel extends JPanel implements ActionListener {
 				gc.gridy = i;
 				userDetailBx[i].setPreferredSize(new Dimension(350, 30));
 				userDetailBx[i].setEditable(false);
-				userDetailBx[i].setBackground(cl2);
 				userDetailsPanel.add(userDetailBx[i], gc);
 			}
 		}
@@ -202,7 +214,7 @@ public class UserPanel extends JPanel implements ActionListener {
 
 	public void setEditableOn() {
 		for (int i = 0; i < userDetailBx.length; i++)
-			if (i != 7)
+			if (userDetailLb[i].getText() !=" Staff ID:")
 				userDetailBx[i].setEditable(true);
 	}
 
@@ -306,10 +318,13 @@ public class UserPanel extends JPanel implements ActionListener {
 			frame.dispose();
 		} 
 		else if (e.getSource().equals(addUser)) {
+			userDetailBx[0].requestFocus();
+			userDetailBx[0].getCaret().setBlinkRate(600);
 			addNew();
 		} 
 		else if (e.getSource().equals(updateBtn)
 				&& updateBtn.getText().equals("Add New User")) {
+			
 			adminOperations.addEmployee(newEmployee());
 			employeeList.addContact();
 			employeeList.refreshList();
@@ -328,6 +343,8 @@ public class UserPanel extends JPanel implements ActionListener {
 
 		} 
 		else if (e.getSource().equals(updateUser)) {
+			userDetailBx[0].requestFocus();
+			userDetailBx[0].getCaret().setBlinkRate(600);
 			setEditableOn();
 			updateUser();
 		} 
@@ -344,7 +361,7 @@ public class UserPanel extends JPanel implements ActionListener {
 			int dialogButton = JOptionPane.YES_NO_OPTION;
 			int dialogResult = JOptionPane.showConfirmDialog(null,
 					"Are you sure you want to remove\n" + "        "
-							+ forenameBx.getText() + " from the system",
+					+ forenameBx.getText() + " from the system",
 					"Warning", dialogButton);
 			if (dialogResult == JOptionPane.YES_OPTION) {
 				deleteContact();
