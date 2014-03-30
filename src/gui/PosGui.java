@@ -71,14 +71,14 @@ public class PosGui extends JPanel implements ActionListener
 		Border line = (Border) BorderFactory.createLineBorder(Color.black);
 		Border border = BorderFactory.createCompoundBorder(space, line);
 		
-		posPanel = new JPanel();
-		posPanel.setBorder(border);
-		posPanel.setLayout(new BorderLayout());
+		
+//		this.setBorder(border);
+		this.setLayout(new BorderLayout());
 		
 		//Top panel
 		posTop = new JPanel();
 		posTop.setLayout(new FlowLayout());
-		posPanel.add(posTop, BorderLayout.NORTH);
+		this.add(posTop, BorderLayout.NORTH);
 		
 		
 		
@@ -137,7 +137,7 @@ public class PosGui extends JPanel implements ActionListener
 		
 		//center panel
 		posMiddle = new JPanel();
-		posPanel.add(posMiddle, BorderLayout.CENTER);
+		this.add(posMiddle, BorderLayout.CENTER);
 		
 		
 		
@@ -154,7 +154,7 @@ public class PosGui extends JPanel implements ActionListener
 		posRight.setLayout(new GridBagLayout());
 		posRight.setBorder(space);
 		GridBagConstraints gc = new GridBagConstraints();
-		posPanel.add(posRight,BorderLayout.EAST);
+		this.add(posRight,BorderLayout.EAST);
 		JButton [] posButtons = {
 				isReturn = new JButton("Return"),
 				isVoid = new JButton("Void"),
@@ -184,7 +184,7 @@ public class PosGui extends JPanel implements ActionListener
 		
 		posBottom = new JPanel();
 		posBottom.setLayout(new FlowLayout());
-		posPanel.add(posBottom,BorderLayout.SOUTH);
+		this.add(posBottom,BorderLayout.SOUTH);
 
 		enterProdid = new JLabel("Enter Product ID:");
 		enterProdid.setFont(new Font("sansserif",Font.BOLD,22));
@@ -219,7 +219,7 @@ public class PosGui extends JPanel implements ActionListener
 		
 		
 		
-		posPanel.setVisible(true);
+		this.setVisible(true);
 
 		
 		
