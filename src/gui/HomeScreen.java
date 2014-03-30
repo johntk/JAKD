@@ -49,7 +49,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener {
 		// Main frame declaration
 		frame = new JFrame();
 		frame.setLayout(layout);
-		frame.setTitle("Admin Screen");
+		frame.setTitle("Home Screen");
 		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -195,10 +195,12 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(button1) && button1.getText().equals("POS")) {
+			frame.setTitle("POS Screen");
 			cards.show(cardPanel, "POSGui");
 
 		} else if (e.getSource().equals(button2)
 				&& button2.getText().equals("Admin")) {
+			frame.setTitle("Admin Screen");
 			button1.setText("Generate Report");
 			button2.setText("Edit User");
 			button3.setText("Edit Product");
@@ -238,6 +240,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener {
 			button2.setText("Admin");
 			button3.setText("Kiosk");
 			button4.setText("Close");
+			frame.setTitle("Home Screen");
 			cards.show(cardPanel, "homePanel");
 			cardPanel.repaint();
 			System.out.println("hi");
