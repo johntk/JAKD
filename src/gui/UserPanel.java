@@ -273,6 +273,7 @@ public class UserPanel extends JPanel implements ActionListener {
 		employeeList.updateEmployee(e);
 		JOptionPane.showMessageDialog(null, "Employee " + forenameBx.getText()
 				+ " Updated");
+		userDetails.setText("User Details");
 	}
 
 	public void searchEmployee() {
@@ -340,7 +341,6 @@ public class UserPanel extends JPanel implements ActionListener {
 			editUserBtnsPanel.setVisible(true);
 			setEditableOff();
 			setFirst();
-
 		} 
 		else if (e.getSource().equals(updateUser)) {
 			userDetailBx[0].requestFocus();

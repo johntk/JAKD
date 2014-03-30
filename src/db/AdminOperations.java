@@ -138,7 +138,6 @@ public class AdminOperations {
 			pstmt.setString(7, e.getPPS());
 			pstmt.setInt(8, e.getPin());
 			pstmt.setString(9, e.getManager());
-
 			pstmt.executeUpdate();
 
 		} catch (Exception ex) {
