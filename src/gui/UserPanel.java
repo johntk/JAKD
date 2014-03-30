@@ -25,8 +25,7 @@ public class UserPanel extends JPanel implements ActionListener {
 			Line3Bx, staffIDBx, pinBx, PPSBx, manager;
 	private JPanel editUserBtnsPanel, userDetailsPanel, editNewUserBtnsPanel;
 
-	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,
-			10);
+	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border border = BorderFactory.createCompoundBorder(space, line);
 	private Frame frame;
@@ -41,6 +40,8 @@ public class UserPanel extends JPanel implements ActionListener {
 			staffIDBx = new JTextField(), pinBx = new JTextField(),
 			PPSBx = new JTextField(), manager = new JTextField() };
 
+	private Color  cl2;
+	
 	public UserPanel(Frame frame, AdminOperations ao, EmployeeList el) {
 
 		this.employeeList = el;
@@ -48,6 +49,8 @@ public class UserPanel extends JPanel implements ActionListener {
 		this.frame = frame;
 		this.setLayout(new BorderLayout());
 
+		cl2 = new Color(75,255,250);
+		
 		JPanel top = new JPanel();
 		top.setLayout(new FlowLayout());
 		close = new ImageIcon("src/resources/kioskFiles/images/close.png");
@@ -95,6 +98,7 @@ public class UserPanel extends JPanel implements ActionListener {
 				gc.weighty = 0.0;
 				userDetailBx[i].setPreferredSize(new Dimension(350, 30));
 				userDetailBx[i].setEditable(false);
+				userDetailBx[i].setBackground(cl2);
 				userDetailsPanel.add(userDetailBx[i], gc);
 			}
 			if (i < 6 && i > 2) {
@@ -108,6 +112,7 @@ public class UserPanel extends JPanel implements ActionListener {
 				gc.gridy = i;
 				userDetailBx[i].setPreferredSize(new Dimension(350, 30));
 				userDetailBx[i].setEditable(false);
+				userDetailBx[i].setBackground(cl2);
 				userDetailsPanel.add(userDetailBx[i], gc);
 			}
 		}

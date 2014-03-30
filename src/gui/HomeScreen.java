@@ -2,8 +2,10 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
+
 import kioskScreens.KioskStartScreen;
 import model.EmployeeList;
 import db.AdminOperations;
@@ -24,15 +26,15 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border border = BorderFactory.createCompoundBorder(space, line);
 
-	private JLabel logo2,  welcome, logo, spacer;
+	private JLabel logo, logo2, welcome, spacer;
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 
-	private JPanel homePanel, posGUI, cardPanel, digiProdPanel, genReportPanel,
+	private JPanel homePanel, center, posGUI, cardPanel, digiProdPanel, genReportPanel,
 			userPanel, elecProdPanel;
 
 	private BorderLayout layout = new BorderLayout();
 	private GridBagConstraints gc = new GridBagConstraints();
-	private Color cl;
+	private Color cl1 , cl2;
 
 	private EmployeeList employeeList;
 	private AdminOperations adminOperations;
@@ -53,11 +55,11 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 		this.employeeList = el;
 		this.adminOperations = ao;
-		cl = new Color(240, 240, 240);
-
+		cl1 = new Color(240, 240, 240);
+		
 		// Left side buttons panel
 		JPanel sideButtons = new JPanel();
-		sideButtons.setBackground(cl);
+		sideButtons.setBackground(cl1);
 		sideButtons.setLayout(new GridBagLayout());
 		sideButtons.setBorder(border);
 		frame.add(sideButtons, BorderLayout.WEST);
@@ -115,7 +117,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		genReportPanel.add(test);
 
 	
-
+		// Home panel
 		homePanel = new JPanel();
 		homePanel.setLayout(new BorderLayout());
 		frame.add(homePanel, BorderLayout.CENTER);
@@ -125,24 +127,22 @@ public class HomeScreen extends JFrame implements ActionListener{
 		logo2 = new JLabel("");
 		logo2.setIcon(new ImageIcon("src/resources/logo.jpeg"));
 		logo2.setPreferredSize(new Dimension(400, 120));
-
 		homePanel.add(logo2);
-
-		JPanel center = new JPanel();
-		homePanel.add(center, BorderLayout.CENTER);
+		
+		
+		//Center in Home Panel
+		center = new JPanel();
 		center.setLayout(new GridBagLayout());
 		center.setBackground(new Color(0, 0, 0, 0));
-
-		// add logo and label to page center
+	
 		logo2.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 		gc.gridx = 0;
 		gc.gridy = 0;
 		center.add(logo2, gc);
-
-		welcome.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
-		gc.gridx = 0;
+		welcome.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 40));
 		gc.gridy = 1;
 		center.add(welcome, gc);
+		homePanel.add(center, BorderLayout.CENTER);
 
 		// Main panel for displaying all the panels on action performed
 		userPanel = new UserPanel(frame, adminOperations, employeeList);
@@ -152,6 +152,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		cards = new CardLayout();
 
 		cardPanel.setLayout(cards);
+		cardPanel.setBackground(cl1);
 		cardPanel.add(homePanel, "homePanel");
 		cardPanel.add(genReportPanel, "genReport");
 		cardPanel.add(posGUI, "POSGui");

@@ -142,7 +142,7 @@ public class PosGui extends JPanel implements ActionListener
 		
 		
 		
-		products = new JTextArea(30,60);
+		products = new JTextArea(30,45);
 		products.setEditable(false);
 		prodBox = new JScrollPane(products);
 		prodBox.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
