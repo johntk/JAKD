@@ -263,7 +263,20 @@ public class UserPanel extends JPanel implements ActionListener {
 		employeeList.updateEmployee(e);;
 		JOptionPane.showMessageDialog(null,  "Employee " +  forenameBx.getText() + " Updated");
 	}
-	
+	public void searchEmployee() {
+		String employeeName = JOptionPane.showInputDialog(null,
+				"Enter the name of contact you wish to update: ",
+				"Contact Manager", JOptionPane.QUESTION_MESSAGE);
+
+		int index = employeeList.findEmployee(employeeName);
+		if (index != -1) {
+			
+			displayEmployee(employeeList.getEmployee(index));
+			
+		} else {
+			JOptionPane.showMessageDialog(null, " Contact not found");
+		}
+	}
 	public void displayEmployee(Employee e) {
 		staffIDBx.setText(Integer.toString(e.getEmpID()));
 		forenameBx.setText(e.getfName());
@@ -320,7 +333,12 @@ public class UserPanel extends JPanel implements ActionListener {
 		} else if (e.getSource().equals(updateUser)) {
 			setEditableOn();
 			updateUser();
-		} else if (e.getSource().equals(updateBtn)
+		} 
+		else if (e.getSource().equals(searchUser)) {
+			searchEmployee();
+		}
+		
+		else if (e.getSource().equals(updateBtn)
 				&& updateBtn.getText().equals("Update User")) {
 			updateEmployee();
 			editUserBtnsPanel.setVisible(true);

@@ -79,6 +79,15 @@ public class EmployeeList {
 		}
 		return num;
 	}
+	public int findEmployee(String name) {
+		int index = -1;
+		for (int i = 0; i < elist.size(); i++) {
+			if (elist.get(i).getfName().equals(name)) {
+				index = i;
+			}
+		}
+		return index;
+	}
 	public void updateEmployee(Employee e) {
 		for (int i = 0; i < elist.size(); i++) {
 			if (elist.get(i).getEmpID() == (e.getEmpID()))
