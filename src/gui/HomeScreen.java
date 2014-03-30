@@ -239,6 +239,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener {
 			button3.setText("Kiosk");
 			button4.setText("Close");
 			cards.show(cardPanel, "homePanel");
+			cardPanel.repaint();
 			System.out.println("hi");
 		} else if (e.getSource().equals(button4)
 				&& button4.getText().equals("Close")) {
