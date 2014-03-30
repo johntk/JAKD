@@ -119,10 +119,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener {
 		test.addActionListener(this);
 		genReportPanel.add(test);
 
-		userPanel = new UserPanel(frame, adminOperations, employeeList);
-		elecProdPanel = new ElecProdPanel(frame);
-		digiProdPanel = new DigiProdPanel(frame);
-		posGUI = new PosGui();
+		
 //		genReportPanel = new AdminPanel(frame, adminOperations, employeeList);
 		
 
@@ -164,6 +161,11 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener {
 		
 		
 		// Main panel for displaying all the  panels on action performed
+		
+		userPanel = new UserPanel(frame, adminOperations, employeeList);
+		elecProdPanel = new ElecProdPanel(frame);
+		digiProdPanel = new DigiProdPanel(frame);
+		posGUI = new PosGui(frame);
 		cards = new CardLayout();
 
 		cardPanel.setLayout(cards);

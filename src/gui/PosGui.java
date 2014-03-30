@@ -37,6 +37,7 @@ public class PosGui extends JPanel implements ActionListener
 	private POSOperations po;
 	private ResultSet data;
 	private Transaction tran;
+	private Frame frame;
 	boolean voidd = false;
 	
 	/*private Connection conn;
@@ -53,10 +54,10 @@ public class PosGui extends JPanel implements ActionListener
 	
 	
 	
-	public PosGui()
+	public PosGui(Frame frame)
 	{
 		
-
+		this.frame = frame;
 		po = new POSOperations();
 		tran = new Transaction();
 
@@ -301,7 +302,10 @@ public class PosGui extends JPanel implements ActionListener
 	
 
 		}
-	
+		else if (e.getSource() == exit) {
+			frame.setVisible(false);
+			frame.dispose();
+		}
 		else
 		{
 			posPanel.setVisible(false);

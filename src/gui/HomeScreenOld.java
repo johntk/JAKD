@@ -200,7 +200,7 @@ public class HomeScreenOld extends JFrame implements ActionListener
 			JPanel jp = new JPanel();
 			
 			frame.setTitle("POS MODE");
-			PosGui pg = new PosGui();
+			PosGui pg = new PosGui(frame);
 			jp = pg.getPanel();
 			homePanel.setVisible(false);
 			frame.add(jp);
