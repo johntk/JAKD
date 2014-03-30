@@ -2,8 +2,6 @@ package db;
 
 import java.sql.*;
 
-import javax.swing.JOptionPane;
-
 import model.Employee;
 import oracle.jdbc.pool.OracleDataSource;
 
@@ -28,10 +26,8 @@ public class AdminOperations {
 			// Load the Oracle JDBC driver
 			OracleDataSource ods = new OracleDataSource();
 			ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
-			String loginName = JOptionPane.showInputDialog(null,"Enter your oracle user name");
-			String loginPass = JOptionPane.showInputDialog(null,"Enter your oracle password");
-			ods.setUser(loginName);
-			ods.setPassword(loginPass);
+			ods.setUser("johntk86");
+			ods.setPassword("FuckYou");
 
 			
 //			 Tallaght Database
