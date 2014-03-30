@@ -10,64 +10,62 @@ public class EmployeeList {
 	private ArrayList<Employee> elist;
 	private AdminOperations ao;
 	private ResultSet rset;
-	
-	public EmployeeList(AdminOperations ao)
-	{
-		
+
+	public EmployeeList(AdminOperations ao) {
+
 		this.ao = ao;
 		elist = new ArrayList<Employee>();
 
 	}
-	
-	public void refreshList()
-	{
+
+	public void refreshList() {
 		rset = ao.getEmployee();
-		
-		if(elist.size() > 0)
-		{
-			for(int i = elist.size()-1; i >=0; i--)
-			{
+
+		if (elist.size() > 0) {
+			for (int i = elist.size() - 1; i >= 0; i--) {
 				elist.remove(i);
 			}
 		}
-		try{
-			while(rset.next())
-			{
-				Employee e = new Employee(rset.getInt(1), rset.getString(2), rset.getString(3), 
-						rset.getString(4), rset.getString(5), rset.getString(6), 
-						rset.getString(7), rset.getString(8), rset.getInt(9), rset.getString(10));
+		try {
+			while (rset.next()) {
+				Employee e = new Employee(rset.getInt(1), rset.getString(2),
+						rset.getString(3), rset.getString(4),
+						rset.getString(5), rset.getString(6),
+						rset.getString(7), rset.getString(8), rset.getInt(9),
+						rset.getString(10));
 				elist.add(e);
 			}
-		}catch(Exception ex){
+		} catch (Exception ex) {
 			System.out.println(ex);
 		}
 	}
-	
-	public void addContact()
-	{
+
+	public void addContact() {
 		rset = ao.getLastRow();
 		try {
-			 {
-				 Employee e =  new Employee(rset.getInt(1), rset.getString(2), rset.getString(3), 
-							rset.getString(4), rset.getString(5), rset.getString(6), 
-							rset.getString(7), rset.getString(8), rset.getInt(9), rset.getString(10));
-					elist.add(e);
+			{
+				Employee e = new Employee(rset.getInt(1), rset.getString(2),
+						rset.getString(3), rset.getString(4),
+						rset.getString(5), rset.getString(6),
+						rset.getString(7), rset.getString(8), rset.getInt(9),
+						rset.getString(10));
+				elist.add(e);
 			}
 
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
 	}
-	
+
 	public Employee getEmployee(int i) {
 		refreshList();
 		return elist.get(i);
 	}
-	
+
 	public int getNumEmployee() {
 		return elist.size();
 	}
-	
+
 	public int removeEmployee(String name) {
 		int num = 0;
 		for (int i = 0; i < elist.size(); i++) {
@@ -79,6 +77,7 @@ public class EmployeeList {
 		}
 		return num;
 	}
+
 	public int findEmployee(String name) {
 		int index = -1;
 		for (int i = 0; i < elist.size(); i++) {
@@ -88,10 +87,10 @@ public class EmployeeList {
 		}
 		return index;
 	}
+
 	public void updateEmployee(Employee e) {
 		for (int i = 0; i < elist.size(); i++) {
-			if (elist.get(i).getEmpID() == (e.getEmpID()))
-			{
+			if (elist.get(i).getEmpID() == (e.getEmpID())) {
 				elist.get(i).setfName(e.getfName());
 				elist.get(i).setlName(e.getlName());
 				elist.get(i).setHouseNum(e.getHouseNum());
@@ -101,10 +100,10 @@ public class EmployeeList {
 				elist.get(i).setPPS(e.getPPS());
 				elist.get(i).setManager(e.getManager());
 				elist.get(i).setHouseNum(e.getHouseNum());
-				
+
 				ao.updateEmployee(elist.get(i));
 			}
 		}
-		
+
 	}
 }

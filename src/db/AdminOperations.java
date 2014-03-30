@@ -5,49 +5,41 @@ import java.sql.*;
 import model.Employee;
 import oracle.jdbc.pool.OracleDataSource;
 
-
 public class AdminOperations {
 
-	
 	private Statement stmt;
 	private ResultSet rset;
 	private Connection conn;
 	private PreparedStatement pstmt;
-	
+
 	public AdminOperations() {
 		conn = openDB();
 	}
-	
-	public Connection openDB()
-	{
-		
-		try
-		{
+
+	public Connection openDB() {
+
+		try {
 			// Load the Oracle JDBC driver
 			OracleDataSource ods = new OracleDataSource();
 			ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
 			ods.setUser("johntk86");
 			ods.setPassword("FuckYou");
 
-			
-//			 Tallaght Database
-//			 ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
-//			 ods.setUser("x00097736");
-//			 ods.setPassword("db02Jan86");
+			// Tallaght Database
+			// ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
+			// ods.setUser("x00097736");
+			// ods.setPassword("db02Jan86");
 
 			conn = ods.getConnection();
 			System.out.println("Connected.");
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			System.out.println("unable to find driver " + e);
 			System.exit(1);
 		}
 		return conn;
 	}
-	
-	public ResultSet queryEmployee()
-	{
+
+	public ResultSet queryEmployee() {
 		String sqlStatement = "SELECT * FROM Employee";
 		try {
 			pstmt = conn.prepareStatement(sqlStatement,
@@ -60,26 +52,27 @@ public class AdminOperations {
 
 		return rset;
 	}
-	
-	public int getId()
-	{
+
+	public int getId() {
 		int myId = 0;
 		try {
-		String seq_val = "Select emp_id from Employee ORDER BY emp_id";
-		pstmt = conn.prepareStatement(seq_val, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-		rset = pstmt.executeQuery();
-		
-		rset.last();
-		myId = rset.getInt(1);
-		
+			String seq_val = "Select emp_id from Employee ORDER BY emp_id";
+			pstmt = conn.prepareStatement(seq_val,
+					ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
+			rset = pstmt.executeQuery();
+
+			rset.last();
+			myId = rset.getInt(1);
+
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
-		return myId +1;
+
+		return myId + 1;
 	}
-	
-	//hi
+
+	// hi
 	public ResultSet getEmployee() {
 		try {
 			String queryString = "SELECT * FROM Employee ORDER BY emp_id";
@@ -91,7 +84,7 @@ public class AdminOperations {
 		}
 		return rset;
 	}
-	
+
 	public void addEmployee(Employee e) {
 		try {
 			String sql = "INSERT INTO Employee(emp_id, f_name, l_name, house_number, street, town,"
@@ -114,7 +107,7 @@ public class AdminOperations {
 			System.out.println(se);
 		}
 	}
-	
+
 	public int deleteContact(String n) {
 		int no = 0;
 		try {
@@ -125,15 +118,15 @@ public class AdminOperations {
 			System.out.println(e);
 		}
 		return no;
-		
+
 	}
-	
+
 	public void updateEmployee(Employee e) {
 		try {
 
 			String sql = "UPDATE Employee SET f_name=?, l_name=?, house_number=?, street=?, town=?,"
-					+ " city=?, pps_num=?, pin_num=?, manager=?  WHERE emp_id ="+ "'" + e.getEmpID() + "'";
-					
+					+ " city=?, pps_num=?, pin_num=?, manager=?  WHERE emp_id ="
+					+ "'" + e.getEmpID() + "'";
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, e.getfName());
@@ -152,7 +145,7 @@ public class AdminOperations {
 			System.out.println("Problemsss" + e);
 		}
 	}
-	
+
 	public ResultSet getLastRow() {
 		String sqlStatement = "SELECT * FROM Employee ORDER BY emp_id";
 		try {
@@ -164,10 +157,10 @@ public class AdminOperations {
 		} catch (Exception ex) {
 			System.out.println("ERROR: " + ex.getMessage());
 		}
-		
+
 		return rset;
 	}
-	
+
 	public void closeDB() {
 		try {
 			conn.close();
