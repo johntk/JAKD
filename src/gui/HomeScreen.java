@@ -13,7 +13,7 @@ import db.DBconnection;
 
 public class HomeScreen extends JFrame implements ActionListener{
 
-	private static final long serialVersionUID = 1L;
+
 	private CardLayout cards;
 	private JFrame frame;
 	private static final int FRAME_WIDTH = 1148;

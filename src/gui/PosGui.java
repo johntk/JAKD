@@ -6,6 +6,7 @@ import java.sql.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.swing.*;
@@ -36,6 +37,7 @@ public class PosGui extends JPanel implements ActionListener
 	private final DateFormat df;
 	private POSOperations po;
 	private ResultSet data;
+	private ArrayList <Transaction> tranList;
 	private Transaction tran;
 	private Frame frame;
 	boolean voidd = false;
@@ -59,6 +61,7 @@ public class PosGui extends JPanel implements ActionListener
 		
 		this.frame = frame;
 		po = new POSOperations();
+		tranList = new ArrayList<Transaction>();
 		tran = new Transaction();
 
 		
@@ -265,6 +268,43 @@ public class PosGui extends JPanel implements ActionListener
 		else if(e.getSource() == complete)
 		{
 			
+			JDialog jd = new JDialog();
+			jd.setTitle("Complete Sale");
+			jd.setVisible(true);
+			jd.setResizable(false);
+			jd.setLocationRelativeTo(null);
+			jd.setSize(160,130);
+			jd.setLayout(new FlowLayout());
+			
+			JLabel enterAmount = new JLabel("Enter Cash:");
+			jd.add(enterAmount);
+			JTextField enterAmountf = new JTextField(10);
+			jd.add(enterAmountf);
+			JButton enterAm = new JButton("Enter");
+			enterAm.addActionListener(this);
+			jd.add(enterAm);
+			
+			
+			
+			if(e.getSource() == enterAm)
+			{
+			try
+			{
+				double enteredAmount = Double.parseDouble(enterAmountf.getText());
+				if(enteredAmount> 0 && enteredAmount > Double.parseDouble(totalPriceField.getText()));
+				{
+					totalPrice.setText("Change: ");
+					totalPriceField.setText(Double.toString(enteredAmount - Double.parseDouble(totalPriceField.getText())));
+				}
+			}
+			catch(NumberFormatException ne)
+			{
+				
+			}
+			jd.setVisible(false);
+			
+			}
+			
 		}
 		else if(e.getSource() == enter)
 		{
@@ -275,6 +315,8 @@ public class PosGui extends JPanel implements ActionListener
 						products.setText(products.getText()+ "\n" +tran.displayProduct(enterProd.getText()));
 						totalPriceField.setText("€" + Double.toString(tran.getTotalCost()));
 						enterProd.setText("");
+						
+						//Transaction tran = new Transaction(trans_idf.getText(), dateFieldf.getText(), );
 					}
 					catch(SQLException sqle)
 					{

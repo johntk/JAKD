@@ -117,6 +117,8 @@ public class POSOperations
 			}
 		}
 		
+
+		
 		catch(SQLException e)
 		{
 			System.out.println(e);
@@ -127,6 +129,9 @@ public class POSOperations
 		return Integer.toString(trans_id);
 		
 	}
-	
+	public void insertTran()
+	{
+		//String s = "insert into TRANSACTION values(" + tranID + "," tranDate+ "," + transType + "," + totalCost+ "," + quantity + "," + empID + "," + prodID)"; 
+	}
 
 }

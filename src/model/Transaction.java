@@ -24,6 +24,7 @@ public class Transaction
 	
 	public Transaction()
 	{
+		//String date, char transType,int quantity, String empID, String prodID
 		
 		po = new POSOperations();
 		po.openDB();
