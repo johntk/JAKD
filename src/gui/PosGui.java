@@ -213,7 +213,7 @@ public class PosGui extends JPanel implements ActionListener
 		posBottom.add(enter);
 		
 		////insert space
-		blank3 = new JLabel("                                                                         ");
+		blank3 = new JLabel("                                                                    ");
 		posBottom.add(blank3);
 		
 		
@@ -303,13 +303,13 @@ public class PosGui extends JPanel implements ActionListener
 				{
 				if(enteredAmount > 0 && enteredAmount > tran.getTotalCost())
 				{
-					totalPrice.setText("Change:");
+					totalPrice.setText("Change");
 					totalPriceField.setText(Double.toString(enteredAmount - tran.getTotalCost()));
 				}
 			}
 			catch(NumberFormatException ne)
 			{
-				System.out.println("number entered into enteramount not right");
+				System.out.println("number entered into enterAmount not right");
 			}
 			jd.setVisible(false);
 			
