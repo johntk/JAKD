@@ -22,7 +22,7 @@ public class Transaction
 	private ResultSet data;
 
 	
-	public Transaction(String date)
+	public Transaction()
 	{
 		
 		
@@ -32,7 +32,7 @@ public class Transaction
 		transType = 'S';
 		transID = po.queryTransid();
 		inserts = new ArrayList<String>();
-		this.date = date;
+		
 	}
 	
 	
@@ -82,6 +82,14 @@ public class Transaction
 
 	public void setTransType(char transType) {
 		this.transType = transType;
+	}
+
+
+
+
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 

@@ -73,7 +73,7 @@ public class PosGui extends JPanel implements ActionListener
 		this.frame = frame;
 		po = new POSOperations();
 		tranList = new ArrayList<Transaction>();
-		
+		tran = new Transaction();
 
 		
 		
@@ -132,6 +132,7 @@ public class PosGui extends JPanel implements ActionListener
 		
 		dateFieldf.setEditable(false);
 		posTop.add(dateFieldf);
+		tran.setDate(dateFieldf.getText());
 		
 		/////insert space
 		blank2 = new JLabel("                              ");
@@ -332,7 +333,7 @@ public class PosGui extends JPanel implements ActionListener
 						totalPriceField.setText("€" + Double.toString(tran.getTotalCost()));
 						enterProd.setText("");
 						
-						//Transaction tran = new Transaction(dateFieldf.getText(), );
+						tranList.add(tran);
 					}
 					catch(SQLException sqle)
 					{
