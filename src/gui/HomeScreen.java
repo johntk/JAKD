@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.*;
+
 import java.awt.event.*;
 
 import javax.swing.*;
@@ -10,15 +11,14 @@ import kioskScreens.KioskStartScreen;
 import model.EmployeeList;
 import db.AdminOperations;
 import db.DBconnection;
-
 public class HomeScreen extends JFrame implements ActionListener{
 
-
+	private static final long serialVersionUID = 1L;
 	private CardLayout cards;
 	private JFrame frame;
 	private static final int FRAME_WIDTH = 1148;
 	private static final int FRAME_HEIGHT = 827;
-	private JButton button1, button2, button3, button4, digiProd, elecProd, test;
+	private JButton button1, button2, button3, button4, digiProd, elecProd, closeBtn;
 	private JRadioButton elcProdRB, digiProdRB;
 	private DBconnection db;
 	// Border declaration for use on east and west panels on main frame
@@ -32,6 +32,11 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private JPanel homePanel, ProdSelect, center, posGUI, cardPanel, digiProdPanel, genReportPanel,
 			userPanel, elecProdPanel;
 
+
+	private	JButton[] sideButtonsArray = { button1 = new JButton("POS"),
+					button2 = new JButton("Admin"), button3 = new JButton("Kiosk"),
+					button4 = new JButton("Close"), };
+	
 	private BorderLayout layout = new BorderLayout();
 	private GridBagConstraints gc = new GridBagConstraints();
 	private Color cl1;
@@ -83,10 +88,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		gc.weighty = 10.0;
 		sideButtons.add(spacer, gc);
 
-		// side button array
-		JButton[] sideButtonsArray = { button1 = new JButton("POS"),
-				button2 = new JButton("Admin"), button3 = new JButton("Kiosk"),
-				button4 = new JButton("Close"), };
+		
 
 		// Adding side buttons to side panel
 		for (int i = 0; i < sideButtonsArray.length; i++) {
@@ -112,9 +114,9 @@ public class HomeScreen extends JFrame implements ActionListener{
 		// Generate report panel
 		genReportPanel = new JPanel();
 		genReportPanel.setBackground(Color.WHITE);
-		test = new JButton("Close");
-		test.addActionListener(this);
-		genReportPanel.add(test);
+		closeBtn = new JButton("Close");
+		closeBtn.addActionListener(this);
+		genReportPanel.add(closeBtn);
 
 	
 		// Home panel
@@ -149,10 +151,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		ProdSelect.add(prodSelect[i]);
 		}
 		
-		
-		
-		
-		
+
 		//Center in Home Panel
 		center = new JPanel();
 		center.setLayout(new GridBagLayout());
@@ -203,55 +202,39 @@ public class HomeScreen extends JFrame implements ActionListener{
 				JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 				null, null);
 	}
-
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource().equals(button1) && button1.getText().equals("POS")) {
+	
+	public void buttonSelect(JButton button) {
+		
+		if (button.equals(button1) && button1.getText().equals("Generate Report")) {
+			cards.show(cardPanel, "genReport");
+		}
+		else if(button.equals(button1) && button1.getText().equals("POS"))
+		{
 			frame.setTitle("POS Screen");
 			cards.show(cardPanel, "POSGui");
-
-		} 
-		else if (e.getSource().equals(button2)
-				&& button2.getText().equals("Admin")) {
+		}
+		else if(button.equals(button2) && button2.getText().equals("Edit User"))
+		{
+			cards.show(cardPanel, "editUser");
+		}
+		else if (button.equals(button2) && button2.getText().equals("Admin"))
+		{
 			frame.setTitle("Admin Screen");
 			button1.setText("Generate Report");
 			button2.setText("Edit User");
 			button3.setText("Edit Product");
 			button4.setText("Home");
 			cards.show(cardPanel, "editUser");
-		} 
-		else if (e.getSource().equals(button3)
-				&& button3.getText().equals("Kiosk")) {
-			KioskStartScreen kss = new KioskStartScreen(db);
 		}
-
-		else if (e.getSource().equals(button1)
-				&& button1.getText().equals("Generate Report")) {
-			cards.show(cardPanel, "genReport");
-		} 
-		else if (e.getSource().equals(button2)
-				&& button2.getText().equals("Edit User")) {
-			cards.show(cardPanel, "editUser");
-		} 
-		else if (e.getSource() == test) {
-			frame.setVisible(false);
-			frame.dispose();
-			System.out.println("hu");
-		} 
-		else if (e.getSource().equals(button3)
-				&& button3.getText().equals("Edit Product")) {
+		else if(button.equals(button3) && button3.getText().equals("Edit Product"))
+		{
 			cards.show(cardPanel, "prodSelect");
 		}
-
-		else if (e.getSource().equals(elecProd)) 
+		else if(button.equals(button3) && button3.getText().equals("Kiosk"))
 		{
-			cards.show(cardPanel, "editElec");
-		} else if (e.getSource().equals(digiProd)) 
-		{
-			cards.show(cardPanel, "editDigi");
+			KioskStartScreen kss = new KioskStartScreen(db);
 		}
-
-		else if (e.getSource().equals(button4)
-				&& button4.getText().equals("Home")) {
+		else if (button.equals(button4) && button4.getText().equals("Home")) {
 			button1.setText("POS");
 			button2.setText("Admin");
 			button3.setText("Kiosk");
@@ -259,9 +242,30 @@ public class HomeScreen extends JFrame implements ActionListener{
 			frame.setTitle("Home Screen");
 			cards.show(cardPanel, "homePanel");
 			cardPanel.repaint();
+		}
+		else
+		{
+			System.exit(0);
+		}
+	}
+
+	
+	
+	public void actionPerformed(ActionEvent e) {
+		
+		for (int i = 0; i < sideButtonsArray.length; i++) {
+			if (e.getSource().equals(sideButtonsArray[i])) {
+				buttonSelect(sideButtonsArray[i]);
+			}
+		}
+
+		if (e.getSource().equals(elecProd)) {
+			cards.show(cardPanel, "editElec");
 		} 
-		else if (e.getSource().equals(button4)
-				&& button4.getText().equals("Close")) {
+		else if (e.getSource().equals(digiProd)) {
+			cards.show(cardPanel, "editDigi");
+		} 
+		else if (e.getSource() == closeBtn) {
 			System.exit(0);
 		}
 	}
