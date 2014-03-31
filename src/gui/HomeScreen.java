@@ -240,8 +240,6 @@ public class HomeScreen extends JFrame implements ActionListener{
 		}
 	}
 
-	
-	
 	public void actionPerformed(ActionEvent e) {
 		
 		for (int i = 0; i < sideButtonsArray.length; i++) {
