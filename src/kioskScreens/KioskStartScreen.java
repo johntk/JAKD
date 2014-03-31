@@ -172,11 +172,13 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		}
 		if(e.getSource()==music){
 			krs = new KioskResultsScreen(db);
+			krs.setHeading("MUSIC");
 			db.queryMusic(krs);
 		}
 		if(e.getSource()==dvds){
 			krs = new KioskResultsScreen(db);
 			db.queryDVD(krs);
+			krs.setHeading("DVD");
 		}
 		if(e.getSource()==con){
 			krs = new KioskResultsScreen(db);
@@ -185,10 +187,12 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		}
 		if(e.getSource()==headp){
 			krs = new KioskResultsScreen(db);
+			krs.setHeading("HEADPHONES");
 			db.queryHeadphones(krs);
 		}
 		if(e.getSource()==soundd){
 			krs = new KioskResultsScreen(db);
+			krs.setHeading("SOUNDDOCKS");
 			db.querySoundDocks(krs);
 		}
 		if(e.getSource()==deals){

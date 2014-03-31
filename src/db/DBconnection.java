@@ -66,7 +66,7 @@ public class DBconnection
 
 	public void queryAllProducts(String sTerm,KioskResultsScreen krs)
 	{
-		krs.setHeading(sTerm.toUpperCase());
+		
 		String description;
 		String productThumb;
 		String prodID;
@@ -99,7 +99,6 @@ public class DBconnection
 
 	public void queryMusic(KioskResultsScreen krs)
 	{
-		krs.setHeading("MUSIC");
 		String description;
 		String productThumb;
 		String prodID;
@@ -127,7 +126,6 @@ public class DBconnection
 
 	public void queryDVD(KioskResultsScreen krs)
 	{
-		krs.setHeading("DVD");
 		String description;
 		double salePrice;
 		String prodID;
@@ -198,7 +196,6 @@ public class DBconnection
 	
 	public void queryHeadphones(KioskResultsScreen krs)
 	{
-		krs.setHeading("HEADPHONES");
 		String description;
 		double salePrice;
 		String prodID;
@@ -224,7 +221,6 @@ public class DBconnection
 
 	public void querySoundDocks(KioskResultsScreen krs)
 	{
-		krs.setHeading("SOUNDDOCKS");
 		String description;
 		double salePrice;
 		String prodID;
@@ -273,9 +269,8 @@ public class DBconnection
 		}
 	}
 
-	public void queryProductInfo(String prodID)
+	public void queryProductInfo(String prodID,ProductDisplay pd)
 	{
-		ProductDisplay pd = new ProductDisplay();
 		String prodType =null;
 		try
 		{

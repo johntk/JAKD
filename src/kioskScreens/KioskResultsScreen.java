@@ -25,6 +25,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 	private JRadioButton platform;
 	private JRadioButton allGames;
 	private KioskResultsScreen krs;
+	private ProductDisplay pd;
 	private GridBagConstraints gc;
 	private DBconnection db;
 
@@ -235,7 +236,8 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 			{
 				if(((JButton)e.getSource()) == viewButtons.get(i))
 				{
-					db.queryProductInfo(resultList.get(i).getProdID());
+					pd = new ProductDisplay();
+					db.queryProductInfo(resultList.get(i).getProdID(),pd);
 				}
 			}
 		}
