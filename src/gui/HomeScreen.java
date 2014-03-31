@@ -17,7 +17,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private CardLayout cards;
 	private JFrame frame;
 	private static final int FRAME_WIDTH = 1148;
-	private static final int FRAME_HEIGHT = 827;
+	private static final int FRAME_HEIGHT = 700;
 	private JButton button1, button2, button3, button4, digiProd, elecProd, closeBtn;
 	private JRadioButton elcProdRB, digiProdRB;
 	private DBconnection db;

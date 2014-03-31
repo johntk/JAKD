@@ -42,6 +42,17 @@ public class PosGui extends JPanel implements ActionListener
 	private Frame frame;
 	boolean voidd = false;
 	
+	
+	///// cash pop up
+	private JDialog jd;
+	private JLabel enterAmount;
+	private JTextField enterAmountf;
+	private JButton enterAm;
+
+
+	
+	
+	
 	/*private Connection conn;
 	private Statement stmt;
 	private ResultSet rset;
@@ -202,7 +213,7 @@ public class PosGui extends JPanel implements ActionListener
 		posBottom.add(enter);
 		
 		////insert space
-		blank3 = new JLabel("                                                                         ");
+		blank3 = new JLabel("                                                                    ");
 		posBottom.add(blank3);
 		
 		
@@ -265,7 +276,7 @@ public class PosGui extends JPanel implements ActionListener
 		}
 		else if(e.getSource() == complete)
 		{
-			JDialog jd = new JDialog();
+			jd = new JDialog();
 			jd.setTitle("Complete Sale");
 			jd.setVisible(true);
 			jd.setResizable(false);
@@ -273,36 +284,42 @@ public class PosGui extends JPanel implements ActionListener
 			jd.setSize(160,130);
 			jd.setLayout(new FlowLayout());
 			
-			JLabel enterAmount = new JLabel("Enter Cash:");
+			enterAmount = new JLabel("Enter Cash:");
 			jd.add(enterAmount);
-			JTextField enterAmountf = new JTextField(10);
+			enterAmountf = new JTextField(10);
 			jd.add(enterAmountf);
-			JButton enterAm = new JButton("Enter");
+			enterAm = new JButton("Enter");
 			enterAm.addActionListener(this);
 			jd.add(enterAm);
 			
 			
-			try
-			{
+		}
+		else if(e.getSource() == enterAm)
+		{
+			
+			
 				double enteredAmount = Double.parseDouble(enterAmountf.getText());
-				if(enteredAmount> 0 && enteredAmount > Double.parseDouble(totalPriceField.getText()));
+				try
 				{
-					totalPrice.setText("Change: ");
-					totalPriceField.setText(Double.toString(enteredAmount - Double.parseDouble(totalPriceField.getText())));
+				if(enteredAmount > 0 && enteredAmount > tran.getTotalCost())
+				{
+					totalPrice.setText("Change");
+					totalPriceField.setText(Double.toString(enteredAmount - tran.getTotalCost()));
 				}
 			}
 			catch(NumberFormatException ne)
 			{
-				
+				System.out.println("number entered into enterAmount not right");
 			}
 			jd.setVisible(false);
 			
-			}
+		}
+		
 			
 	
 		
 		
-		
+	
 		else if(e.getSource() == enter)
 		{
 			if(voidd == false)
