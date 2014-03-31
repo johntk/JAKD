@@ -1,6 +1,8 @@
 package db;
 import java.sql.*;
 
+import javax.swing.JOptionPane;
+
 import oracle.jdbc.pool.OracleDataSource;
 
 public class POSOperations 
@@ -24,8 +26,20 @@ public class POSOperations
 			// Load the Oracle JDBC driver
 			OracleDataSource ods = new OracleDataSource();
 			ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
-			ods.setUser("project");
-			ods.setPassword("project"); ////
+			try{
+				//Add a try for your own username and password if your sick of changing this all the time like I am.
+				//Please don't change the details below.
+				ods.setUser("johntk86");
+				ods.setPassword("FuckYou");
+				conn = ods.getConnection();
+			}
+			
+			 catch (Exception e) {
+				String name = JOptionPane.showInputDialog(null, "Enter your orcale user name");
+				String pswd = JOptionPane.showInputDialog(null, "Enter your password");
+				 ods.setUser(name);
+				 ods.setPassword(pswd);
+				}
 
 //			 Tallaght Database
 //			 ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");

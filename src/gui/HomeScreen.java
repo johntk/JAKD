@@ -1,9 +1,7 @@
 package gui;
 
 import java.awt.*;
-
 import java.awt.event.*;
-
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -168,13 +166,12 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 		// Main panel for displaying all the panels on action performed
 		userPanel = new UserPanel(frame, adminOperations, employeeList);
-		elecProdPanel = new ElecProdPanel(frame);
-		digiProdPanel = new DigiProdPanel(frame);
+		elecProdPanel = new ProdPanel(frame, "elec");
+		digiProdPanel = new ProdPanel(frame, "digi");
 		posGUI = new PosGui(frame);
 		
 		
 		cards = new CardLayout();
-
 		cardPanel.setLayout(cards);
 		cardPanel.setBackground(cl1);
 		cardPanel.add(homePanel, "homePanel");
@@ -258,7 +255,6 @@ public class HomeScreen extends JFrame implements ActionListener{
 			System.exit(0);
 		}
 	}
-//hi
 
 	public static void main(String args[]) {
 		HomeScreen home = new HomeScreen();
