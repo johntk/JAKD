@@ -16,15 +16,15 @@ public class Transaction
 	//private final DateFormat df;
 	private char transType;
 	private double totalCost;
-	private String transID,empID,prodID;
+	private String transID,empID,prodID,date;
 	private ArrayList<String> inserts;
 	private POSOperations po;
 	private ResultSet data;
 
 	
-	public Transaction()
+	public Transaction(String date)
 	{
-		//String date, char transType,int quantity, String empID, String prodID
+		
 		
 		po = new POSOperations();
 		po.openDB();
@@ -32,6 +32,7 @@ public class Transaction
 		transType = 'S';
 		transID = po.queryTransid();
 		inserts = new ArrayList<String>();
+		this.date = date;
 	}
 	
 	

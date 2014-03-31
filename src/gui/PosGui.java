@@ -73,7 +73,7 @@ public class PosGui extends JPanel implements ActionListener
 		this.frame = frame;
 		po = new POSOperations();
 		tranList = new ArrayList<Transaction>();
-		tran = new Transaction();
+		
 
 		
 		
@@ -126,7 +126,7 @@ public class PosGui extends JPanel implements ActionListener
 		dateFieldf = new JTextField(8);
 		
 
-		df = new SimpleDateFormat("dd/MM/yy HH:mm");
+		df = new SimpleDateFormat("ddMMMyy HH:mm");
 		Calendar now = Calendar.getInstance();
 		dateFieldf.setText(df.format(now.getTime()));
 		
@@ -272,8 +272,10 @@ public class PosGui extends JPanel implements ActionListener
 		{
 			voidd = true;
 			enter.setText("Void  ");
-			
+
 		}
+		
+		
 		else if(e.getSource() == complete)
 		{
 			jd = new JDialog();
@@ -330,7 +332,7 @@ public class PosGui extends JPanel implements ActionListener
 						totalPriceField.setText("€" + Double.toString(tran.getTotalCost()));
 						enterProd.setText("");
 						
-						//Transaction tran = new Transaction(trans_idf.getText(), dateFieldf.getText(), );
+						//Transaction tran = new Transaction(dateFieldf.getText(), );
 					}
 					catch(SQLException sqle)
 					{
@@ -348,6 +350,7 @@ public class PosGui extends JPanel implements ActionListener
 					tran.voidProduct(enterProd.getText());
 					totalPriceField.setText("€" + Double.toString(tran.getTotalCost()));
 					enterProd.setText("");
+				
 					
 				}
 				catch(SQLException es)
