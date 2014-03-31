@@ -1,6 +1,8 @@
 package db;
 
 import java.sql.*;
+import java.awt.*;
+import javax.swing.*;
 
 import model.Employee;
 import oracle.jdbc.pool.OracleDataSource;
@@ -11,29 +13,44 @@ public class AdminOperations {
 	private ResultSet rset;
 	private Connection conn;
 	private PreparedStatement pstmt;
+	private DBconnection db;
 
 	public AdminOperations() {
 		conn = openDB();
+		
 	}
 
 	public Connection openDB() {
 
 		try {
-			// Load the Oracle JDBC driver
-			OracleDataSource ods = new OracleDataSource();
-			ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
-			ods.setUser("project");
-			ods.setPassword("project");
-
+			
 			// Tallaght Database
 			// ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
 			// ods.setUser("x00097736");
 			// ods.setPassword("db02Jan86");
+			
+			// Load the Oracle JDBC driver
+			OracleDataSource ods = new OracleDataSource();
+			ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
+			
+			try{
+				ods.setUser("johntk86e");
+				ods.setPassword("FuckYou");
+				conn = ods.getConnection();
+			}
+			
+			 catch (Exception e) {
+				String name = JOptionPane.showInputDialog(null, "Enter your orcale user name");
+				String pswd = JOptionPane.showInputDialog(null, "Enter your password");
+				 ods.setUser(name);
+				 ods.setPassword(pswd);
+				}
 
 			conn = ods.getConnection();
 			System.out.println("Connected.");
 		} catch (Exception e) {
-			System.out.println("unable to find driver " + e);
+			JOptionPane.showMessageDialog(null, "Failed to Connect", "Failed to Connect", JOptionPane.INFORMATION_MESSAGE);
+			System.out.print("Unable to load driver " + e);
 			System.exit(1);
 		}
 		return conn;

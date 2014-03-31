@@ -192,16 +192,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 	}
 
-	public void prodSelect() {
-		JPanel prodSelect = new JPanel();
-		elcProdRB = new JRadioButton("Electronic product");
-		digiProdRB = new JRadioButton("Digital Product");
-		prodSelect.add(elcProdRB);
-		prodSelect.add(digiProdRB);
-		JOptionPane.showOptionDialog(null, prodSelect, "Select Product Type",
-				JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-				null, null);
-	}
+	
 	
 	public void buttonSelect(JButton button) {
 		
