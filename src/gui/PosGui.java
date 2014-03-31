@@ -144,7 +144,7 @@ public class PosGui extends JPanel implements ActionListener
 		this.add(posMiddle, BorderLayout.CENTER);
 		
 		
-		
+		String headings[] = {"ID" , "Description", "Sale/Return", "Price"};
 		products = new JTextArea(30,45);
 		products.setEditable(false);
 		prodBox = new JScrollPane(products);
@@ -245,7 +245,8 @@ public class PosGui extends JPanel implements ActionListener
 				enter.setText("Return");
 				voidd = false; ////stops a return that is void
 				
-				try{
+				try
+				{
 				products.setText(products.getText()+ "\n" +tran.displayProduct(enterProd.getText()));
 				}
 				catch(SQLException er)
@@ -253,10 +254,7 @@ public class PosGui extends JPanel implements ActionListener
 					
 				}
 			}
-			else
-			{
-				
-			}
+
 			
 		}
 		else if(e.getSource() == isVoid)
@@ -267,7 +265,6 @@ public class PosGui extends JPanel implements ActionListener
 		}
 		else if(e.getSource() == complete)
 		{
-			
 			JDialog jd = new JDialog();
 			jd.setTitle("Complete Sale");
 			jd.setVisible(true);
@@ -285,9 +282,6 @@ public class PosGui extends JPanel implements ActionListener
 			jd.add(enterAm);
 			
 			
-			
-			if(e.getSource() == enterAm)
-			{
 			try
 			{
 				double enteredAmount = Double.parseDouble(enterAmountf.getText());
@@ -305,7 +299,10 @@ public class PosGui extends JPanel implements ActionListener
 			
 			}
 			
-		}
+	
+		
+		
+		
 		else if(e.getSource() == enter)
 		{
 			if(voidd == false)
