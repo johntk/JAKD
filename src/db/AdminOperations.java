@@ -13,11 +13,9 @@ public class AdminOperations {
 	private ResultSet rset;
 	private Connection conn;
 	private PreparedStatement pstmt;
-	private DBconnection db;
 
 	public AdminOperations() {
 		conn = openDB();
-		
 	}
 
 	public Connection openDB() {
@@ -34,7 +32,7 @@ public class AdminOperations {
 			ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
 			
 			try{
-				ods.setUser("johntk86e");
+				ods.setUser("johntk86");
 				ods.setPassword("FuckYou");
 				conn = ods.getConnection();
 			}
