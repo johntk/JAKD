@@ -9,6 +9,7 @@ import kioskScreens.KioskStartScreen;
 import model.EmployeeList;
 import db.AdminOperations;
 import db.DBconnection;
+
 public class HomeScreen extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
@@ -18,30 +19,29 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private static final int FRAME_HEIGHT = 700;
 	private JButton button1, button2, button3, button4, digiProd, elecProd, closeBtn;
 	private JRadioButton elcProdRB, digiProdRB;
-	private DBconnection db;
-	// Border declaration for use on east and west panels on main frame
-	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
-	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
-	private Border border = BorderFactory.createCompoundBorder(space, line);
-
 	private JLabel logo, logo2, welcome, spacer;
-	private Font font = new Font("Verdana", Font.PLAIN, 20);
-
-	private JPanel homePanel, ProdSelect, center, posGUI, cardPanel, digiProdPanel, genReportPanel,
-			userPanel, elecProdPanel;
-
-
+	
 	private	JButton[] sideButtonsArray = { button1 = new JButton("POS"),
 					button2 = new JButton("Admin"), button3 = new JButton("Kiosk"),
 					button4 = new JButton("Close"), };
 	
+	private JPanel homePanel, ProdSelect, center, posGUI, cardPanel, digiProdPanel, genReportPanel,
+	userPanel, elecProdPanel;
+	
+	// Border declaration for use on east and west panels on main frame
+	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
+	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
+	private Border border = BorderFactory.createCompoundBorder(space, line);
+	
 	private BorderLayout layout = new BorderLayout();
 	private GridBagConstraints gc = new GridBagConstraints();
+	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private Color cl1;
 
 	private EmployeeList employeeList;
 	private AdminOperations adminOperations;
-
+	private DBconnection db;
+	
 	public HomeScreen() {
 
 		db = new DBconnection();
@@ -96,8 +96,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 			gc.gridheight = 1;
 			gc.weighty = 0.2;
 			gc.weightx = 0.0;
-			sideButtonsArray[i].setIcon(new ImageIcon(
-					"src/resources/blueButton.png"));
+			sideButtonsArray[i].setIcon(new ImageIcon("src/resources/blueButton.png"));
 			sideButtonsArray[i].setFont(new Font("sansserif", Font.BOLD, 22));
 			sideButtonsArray[i].setPreferredSize(new Dimension(280, 100));
 			sideButtonsArray[i].setHorizontalTextPosition(JButton.CENTER);
@@ -130,9 +129,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 		homePanel.add(logo2);
 		
 		
-		JButton[] prodSelect = { elecProd = new JButton("Electric Product"),
-				digiProd = new JButton("Digital Product")
-				};
+		JButton[] prodSelect = {elecProd = new JButton("Electric Product"),
+				digiProd = new JButton("Digital Product")};
 		
 		//Product select panel	
 		ProdSelect = new JPanel();

@@ -8,8 +8,7 @@ import javax.swing.border.*;
 
 import Popups.ProdDialog;
 
-public class ProdPanel extends JPanel implements ActionListener,
-		ItemListener {
+public class ProdPanel extends JPanel implements ActionListener, ItemListener {
 
 	/**
 	 * 
@@ -17,12 +16,13 @@ public class ProdPanel extends JPanel implements ActionListener,
 	private static final long serialVersionUID = 1L;
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
-	private JButton addProd, editProd, removeProd, exit, previous, searchProd, next, updateProd;
+	private JButton addProd, editProd, removeProd, exit, previous, searchProd,
+			next, updateProd;
 	private JLabel prodDetails;
 	private JTextField other, supplierID, currentStock, sellPrice, costPrice,
 			prodTitle, type, prodId;
 	private JPanel prodBtnsPanel, prodDetailsPanel;
-	
+
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border border = BorderFactory.createCompoundBorder(space, line);
@@ -35,46 +35,43 @@ public class ProdPanel extends JPanel implements ActionListener,
 	private JRadioButton phono = new JRadioButton("Headphones");
 	private JRadioButton console = new JRadioButton("Console");
 	private JRadioButton dock = new JRadioButton("Dock");
-	private JRadioButton[] digiProdRadioBtns = new JRadioButton[] { cd, dvd, game};
+	private JRadioButton[] digiProdRadioBtns = new JRadioButton[] { cd, dvd,game };
 	private JRadioButton[] elecProdRadioBtns = new JRadioButton[] { phono,console, dock };
 	private JFrame frame;
-	
-	
+
 	public ProdPanel(JFrame frame, String prodType) {
 
-		if(prodType.equals("digi"))
-		{
+		
+		this.frame = frame;
+
+		this.setLayout(new BorderLayout());
+
+		
+		if (prodType.equals("digi")) {
 			prodDetails = new JLabel("Digital Product");
 			cd.setText("CD");
 			dvd.setText("DVD");
 			game.setText("Game");
-		}
-		else
-		{
+		} else {
 			cd.setText("Headphones");
 			dvd.setText("Console");
 			game.setText("Dock");
 			prodDetails = new JLabel("Electric Product");
 		}
-		
-		
-		this.frame = frame;
-		
-		this.setLayout(new BorderLayout());
+
 		
 		JPanel top = new JPanel();
 		top.setLayout(new FlowLayout());
 		close = new ImageIcon("src/resources/kioskFiles/images/close.png");
-		exit = new JButton("Close",close);
-		exit.setBackground(new Color(238,238,238));
-		exit.setPreferredSize(new Dimension(100,50));
+		exit = new JButton("Close", close);
+		exit.setBackground(new Color(238, 238, 238));
+		exit.setPreferredSize(new Dimension(100, 50));
 		exit.addActionListener(this);
 		exit.setBorder(new EmptyBorder(10, 0, 0, 0));
-		
-		
+
 		prodDetails.setBorder(new EmptyBorder(10, 410, 0, 110));
 		prodDetails.setFont(font);
-		
+
 		top.add(prodDetails);
 		top.add(exit);
 		this.add(top, BorderLayout.NORTH);
@@ -102,11 +99,11 @@ public class ProdPanel extends JPanel implements ActionListener,
 		digiGroup.add(cd);
 		digiGroup.add(dvd);
 		digiGroup.add(game);
-		
+
 		ButtonGroup elecGroup = new ButtonGroup();
-		digiGroup.add(phono);
-		digiGroup.add(console);
-		digiGroup.add(dock);
+		elecGroup.add(phono);
+		elecGroup.add(console);
+		elecGroup.add(dock);
 
 		for (int i = 0; i < digiProdDetailLb.length; i++) {
 			gc.gridx = 0;
@@ -131,14 +128,11 @@ public class ProdPanel extends JPanel implements ActionListener,
 						gc.gridheight = 1;
 						gc.weighty = 0.1;
 						gc.weightx = 10.0;
-						if(prodType.equals("digi"))
-						{
+						if (prodType.equals("digi")) {
 							digiProdRadioBtns[j].setFont(font);
 							prodDetailsPanel.add(digiProdRadioBtns[j], gc);
 							digiProdRadioBtns[j].addItemListener(this);
-						}
-						else
-						{
+						} else {
 							elecProdRadioBtns[j].setFont(font);
 							elecProdRadioBtns[j].addItemListener(this);
 							prodDetailsPanel.add(elecProdRadioBtns[j], gc);
@@ -165,58 +159,56 @@ public class ProdPanel extends JPanel implements ActionListener,
 		this.add(prodDetailsPanel, BorderLayout.EAST);
 
 		// button panels inside edit user panel
-			prodBtnsPanel = new JPanel();
-			prodBtnsPanel.setLayout(new GridBagLayout());
-			prodBtnsPanel.setPreferredSize(new Dimension(250, 50));
+		prodBtnsPanel = new JPanel();
+		prodBtnsPanel.setLayout(new GridBagLayout());
+		prodBtnsPanel.setPreferredSize(new Dimension(250, 50));
 
-				// Adding buttons to the button panel inside the edit user panel
-				JButton[] prodButtons = {
-						searchProd = new JButton("Search Prod"),
-						addProd = new JButton("Add Prod"),
-						removeProd = new JButton("Remove Prod"),
-						updateProd = new JButton("Edit Prod"),
-						previous = new JButton("<"), next = new JButton(">")
+		// Adding buttons to the button panel inside the edit user panel
+		JButton[] prodButtons = { searchProd = new JButton("Search Prod"),
+				addProd = new JButton("Add Prod"),
+				removeProd = new JButton("Remove Prod"),
+				updateProd = new JButton("Edit Prod"),
+				previous = new JButton("<"), next = new JButton(">")
 
-				};
+		};
 
-				for (int i = 0; i < prodButtons.length; i++) {
+		for (int i = 0; i < prodButtons.length; i++) {
 
-					if (i < prodButtons.length - 2) {
-						gc.gridx = 0;
-						gc.gridy = i;
-						gc.gridwidth = prodButtons.length;
-						gc.gridheight = 1;
-						gc.weighty = 0.0;
-						gc.weightx = 0.0;
-						gc.insets = new Insets(10, 0, 0, 0);
-						prodButtons[i].setPreferredSize(new Dimension(150, 40));
-					} else {
-						gc.gridx = i;
-						gc.gridy = prodButtons.length - 2;
-						gc.gridwidth = 1;
-						if (i == prodButtons.length - 1) {
-							gc.insets = new Insets(10, 30, 0, 0);
-						}
-						prodButtons[i].setPreferredSize(new Dimension(60, 50));
-					}
-
-					prodButtons[i].setIcon(new ImageIcon("src/resources/blueButton.png"));
-					prodButtons[i].setFont(new Font("sansserif", Font.BOLD, 16));
-					prodButtons[i].setHorizontalTextPosition(JButton.CENTER);
-					prodButtons[i].setVerticalTextPosition(JButton.CENTER);
-					prodButtons[i].addActionListener(this);
-					prodBtnsPanel.add(prodButtons[i], gc);
-
+			if (i < prodButtons.length - 2) {
+				gc.gridx = 0;
+				gc.gridy = i;
+				gc.gridwidth = prodButtons.length;
+				gc.gridheight = 1;
+				gc.weighty = 0.0;
+				gc.weightx = 0.0;
+				gc.insets = new Insets(10, 0, 0, 0);
+				prodButtons[i].setPreferredSize(new Dimension(150, 40));
+			} else {
+				gc.gridx = i;
+				gc.gridy = prodButtons.length - 2;
+				gc.gridwidth = 1;
+				if (i == prodButtons.length - 1) {
+					gc.insets = new Insets(10, 30, 0, 0);
 				}
+				prodButtons[i].setPreferredSize(new Dimension(60, 50));
+			}
 
-				this.add(prodBtnsPanel, BorderLayout.WEST);
+			prodButtons[i].setIcon(new ImageIcon("src/resources/blueButton.png"));
+			prodButtons[i].setFont(new Font("sansserif", Font.BOLD, 16));
+			prodButtons[i].setHorizontalTextPosition(JButton.CENTER);
+			prodButtons[i].setVerticalTextPosition(JButton.CENTER);
+			prodButtons[i].addActionListener(this);
+			prodBtnsPanel.add(prodButtons[i], gc);
+
+		}
+
+		this.add(prodBtnsPanel, BorderLayout.WEST);
 
 	}
 
 	public void actionPerformed(ActionEvent e) {
 
-		if(e.getSource() == exit)
-		{
+		if (e.getSource() == exit) {
 			System.exit(0);
 		}
 	}
@@ -224,15 +216,14 @@ public class ProdPanel extends JPanel implements ActionListener,
 	public void itemStateChanged(ItemEvent e) {
 
 		String[] digiPopup = { "cd", "dvd", "game" };
-		String[] elecPopup ={"phono", "console", "dock"};
+		String[] elecPopup = { "phono", "console", "dock" };
 		for (int i = 0; i < digiProdRadioBtns.length; i++) {
 			if (digiProdRadioBtns[i].isSelected()) 
 			{
-				ProdDialog a = new	ProdDialog(digiPopup[i], frame);
-			}
-			else if (elecProdRadioBtns[i].isSelected())
+				ProdDialog a = new ProdDialog(digiPopup[i], frame);
+			} else if (elecProdRadioBtns[i].isSelected()) 
 			{
-				ProdDialog a = new	ProdDialog(elecPopup[i], frame);
+				ProdDialog a = new ProdDialog(elecPopup[i], frame);
 			}
 		}
 	}
