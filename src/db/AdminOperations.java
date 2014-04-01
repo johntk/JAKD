@@ -15,7 +15,7 @@ public class AdminOperations {
 	private ResultSet rset;
 	private Connection conn;
 	private PreparedStatement pstmt;
-
+//
 	public AdminOperations() {
 		conn = openDB();
 	}
