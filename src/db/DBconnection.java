@@ -40,7 +40,7 @@ public class DBconnection
 			// Tallaght Database
 			//ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
 			//ods.setUser("");
-			//ods.setPassword("");
+			///ods.setPassword("");
 
 			name.requestFocusInWindow();
 			ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
