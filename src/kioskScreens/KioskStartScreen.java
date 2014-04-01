@@ -15,7 +15,8 @@ public class KioskStartScreen extends JFrame implements ActionListener
 	private JPanel content,header,footer,pswd;
 	private ImageIcon cn,hp,gm,mu,dvd,sd,src,dl,logo,close;
 	private JButton exit,con,headp,game,music,dvds,soundd,search,deals;
-	private JLabel logoLabel,pinLbl;
+	private JLabel logoLabel,pinLbl,msc,dv,gms,snd,srch,dls,cnsl,hdph;
+	private Font font;
 	private JPasswordField jpf;
 	private GridBagConstraints gc;
 	private KioskResultsScreen krs;
@@ -38,7 +39,8 @@ public class KioskStartScreen extends JFrame implements ActionListener
 
 		srcPath = "src/resources/kioskFiles/images/";
 		gc = new GridBagConstraints();
-
+		font = new Font("Calibri",Font.BOLD,30);
+		
 		cn = new ImageIcon(srcPath+"console.png");
 		hp = new ImageIcon(srcPath+"headphones.png");
 		gm = new ImageIcon(srcPath+"games.png");
@@ -68,8 +70,13 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		search.addActionListener(this);
 		gc.gridx = 0;
 		gc.gridy = 1;
-		search.setBorder(BorderFactory.createMatteBorder(20,20,20,20, frame.getContentPane().getBackground()));
+		search.setBorder(BorderFactory.createMatteBorder(20,20,0,20, frame.getContentPane().getBackground()));
 		content.add(search,gc);
+		srch = new JLabel("Search");
+		srch.setFont(font);
+		gc.gridx = 0;
+		gc.gridy = 2;
+		content.add(srch,gc);
 
 		music = new JButton(mu);
 		music.setBackground(Color.WHITE);
@@ -77,8 +84,13 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		music.addActionListener(this);
 		gc.gridx = 1;
 		gc.gridy = 1;
-		music.setBorder(BorderFactory.createMatteBorder(20,20,20,20, frame.getContentPane().getBackground()));
+		music.setBorder(BorderFactory.createMatteBorder(20,20,0,20, frame.getContentPane().getBackground()));
 		content.add(music,gc);
+		msc = new JLabel("Music");
+		msc.setFont(font);
+		gc.gridx = 1;
+		gc.gridy = 2;
+		content.add(msc,gc);
 
 		dvds = new JButton(dvd);
 		dvds.setBackground(Color.WHITE);
@@ -86,8 +98,13 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		dvds.addActionListener(this);
 		gc.gridx = 2;
 		gc.gridy = 1;
-		dvds.setBorder(BorderFactory.createMatteBorder(20,20,20,20, frame.getContentPane().getBackground()));
+		dvds.setBorder(BorderFactory.createMatteBorder(20,20,0,20, frame.getContentPane().getBackground()));
 		content.add(dvds,gc);
+		dv = new JLabel("DVD");
+		dv.setFont(font);
+		gc.gridx = 2;
+		gc.gridy = 2;
+		content.add(dv,gc);
 
 		con = new JButton(cn);
 		con.setBackground(Color.WHITE);
@@ -95,44 +112,69 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		con.addActionListener(this);
 		gc.gridx = 3;
 		gc.gridy = 1;
-		con.setBorder(BorderFactory.createMatteBorder(20,20,20,20, frame.getContentPane().getBackground()));
+		con.setBorder(BorderFactory.createMatteBorder(20,20,0,20, frame.getContentPane().getBackground()));
 		content.add(con,gc);
+		cnsl = new JLabel("Consoles");
+		cnsl.setFont(font);
+		gc.gridx = 3;
+		gc.gridy = 2;
+		content.add(cnsl,gc);
 
 		game = new JButton(gm);
 		game.setBackground(Color.WHITE);
 		game.setBorder(null);
 		game.addActionListener(this);
 		gc.gridx = 0;
-		gc.gridy = 2;
-		game.setBorder(BorderFactory.createMatteBorder(20,20,20,20, frame.getContentPane().getBackground()));
+		gc.gridy = 3;
+		game.setBorder(BorderFactory.createMatteBorder(20,20,0,20, frame.getContentPane().getBackground()));
 		content.add(game,gc);
+		gms = new JLabel("Games");
+		gms.setFont(font);
+		gc.gridx = 0;
+		gc.gridy = 4;
+		content.add(gms,gc);
 
 		headp = new JButton(hp);
 		headp.setBackground(Color.WHITE);
 		headp.setBorder(null);
 		headp.addActionListener(this);
 		gc.gridx = 1;
-		gc.gridy = 2;
-		headp.setBorder(BorderFactory.createMatteBorder(20,20,20,20, frame.getContentPane().getBackground()));
+		gc.gridy = 3;
+		headp.setBorder(BorderFactory.createMatteBorder(20,20,0,20, frame.getContentPane().getBackground()));
 		content.add(headp,gc);
+		hdph = new JLabel("Headphones");
+		hdph.setFont(font);
+		gc.gridx = 1;
+		gc.gridy = 4;
+		content.add(hdph,gc);
 
 		soundd = new JButton(sd);
 		soundd.setBackground(Color.WHITE);
 		soundd.setBorder(null);
 		soundd.addActionListener(this);
 		gc.gridx = 2;
-		gc.gridy = 2;
-		soundd.setBorder(BorderFactory.createMatteBorder(20,20,20,20, frame.getContentPane().getBackground()));
+		gc.gridy = 3;
+		soundd.setBorder(BorderFactory.createMatteBorder(20,20,0,20, frame.getContentPane().getBackground()));
 		content.add(soundd,gc);
+		snd = new JLabel("SoundDocks");
+		snd.setFont(font);
+		gc.gridx = 2;
+		gc.gridy = 4;
+		content.add(snd,gc);
 
 		deals = new JButton(dl);
 		deals.setBackground(Color.WHITE);
 		deals.setBorder(null);
 		deals.addActionListener(this);
 		gc.gridx = 3;
-		gc.gridy = 2;
-		deals.setBorder(BorderFactory.createMatteBorder(20,20,20,20, frame.getContentPane().getBackground()));
+		gc.gridy = 3;
+		deals.setBorder(BorderFactory.createMatteBorder(20,20,0,20, frame.getContentPane().getBackground()));
 		content.add(deals,gc);
+		dls = new JLabel("Deals");
+		dls.setFont(font);
+		gc.gridx = 3;
+		gc.gridy = 4;
+		content.add(dls,gc);
 
 		frame.add(content,BorderLayout.CENTER);
 
