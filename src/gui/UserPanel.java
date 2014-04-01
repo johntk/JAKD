@@ -324,6 +324,7 @@ public class UserPanel extends JPanel implements ActionListener {
 		else if (e.getSource().equals(addUser)) {
 			userDetailBx[0].requestFocus();
 			userDetailBx[0].getCaret().setBlinkRate(600);
+			editNewUserBtnsPanel.setVisible(true);
 			addNew();
 		} 
 		else if (e.getSource().equals(updateBtn)
@@ -332,6 +333,7 @@ public class UserPanel extends JPanel implements ActionListener {
 			adminOperations.addEmployee(newEmployee());
 			employeeList.addContact();
 			employeeList.refreshList();
+//			editNewUserBtnsPanel.setVisible(true);
 			editUserBtnsPanel.setVisible(true);
 			JOptionPane.showMessageDialog(null, forenameBx.getText() + " Saved");
 			editUserBtnsPanel.setVisible(true);
@@ -342,14 +344,15 @@ public class UserPanel extends JPanel implements ActionListener {
 			userDetails.setText("User Details");
 			userDetails.setBorder(new EmptyBorder(10, 450, 0, 110));
 			editUserBtnsPanel.setVisible(true);
-			editNewUserBtnsPanel.removeAll();
-//			editNewUserBtnsPanel.repaint();
+			editNewUserBtnsPanel.setVisible(false);
+			editNewUserBtnsPanel.repaint();
 			setEditableOff();
 			setFirst();
 		} 
 		else if (e.getSource().equals(updateUser)) {
 			userDetailBx[0].requestFocus();
 			userDetailBx[0].getCaret().setBlinkRate(600);
+			editNewUserBtnsPanel.setVisible(true);
 			setEditableOn();
 			updateUser();
 		} 
