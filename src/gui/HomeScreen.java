@@ -18,11 +18,11 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private static final int FRAME_WIDTH = 1148;
 	private static final int FRAME_HEIGHT = 700;
 	private JButton button1, button2, button3, button4, digiProd, elecProd, closeBtn;
-	private JRadioButton elcProdRB, digiProdRB;
 	private JLabel logo, logo2, welcome, spacer;
 	
 	private	JButton[] sideButtonsArray = { button1 = new JButton("POS"),
-					button2 = new JButton("Admin"), button3 = new JButton("Kiosk"),
+					button2 = new JButton("Admin"), 
+					button3 = new JButton("Kiosk"),
 					button4 = new JButton("Close"), };
 	
 	private JPanel homePanel, ProdSelect, center, posGUI, cardPanel, digiProdPanel, genReportPanel,
@@ -197,6 +197,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		else if(button.equals(button1) && button1.getText().equals("POS"))
 		{
 			frame.setTitle("POS Screen");
+			button4.setText("Home");
 			cards.show(cardPanel, "POSGui");
 		}
 		else if(button.equals(button2) && button2.getText().equals("Edit User"))

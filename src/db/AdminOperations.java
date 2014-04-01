@@ -2,6 +2,7 @@ package db;
 
 import java.sql.*;
 import java.awt.*;
+
 import javax.swing.*;
 
 import model.Employee;
@@ -68,26 +69,8 @@ public class AdminOperations {
 		return rset;
 	}
 
-	public int getId() {
-		int myId = 0;
-		try {
-			String seq_val = "Select emp_id from Employee ORDER BY emp_id";
-			pstmt = conn.prepareStatement(seq_val,
-					ResultSet.TYPE_SCROLL_INSENSITIVE,
-					ResultSet.CONCUR_READ_ONLY);
-			rset = pstmt.executeQuery();
+	
 
-			rset.last();
-			myId = rset.getInt(1);
-
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-
-		return myId + 1;
-	}
-
-	// hi
 	public ResultSet getEmployee() {
 		try {
 			String queryString = "SELECT * FROM Employee ORDER BY emp_id";
@@ -116,11 +99,40 @@ public class AdminOperations {
 			pstmt.setString(7, e.getPPS());
 			pstmt.setInt(8, e.getPin());
 			pstmt.setString(9, e.getManager());
-
+			
 			pstmt.executeUpdate();
 		} catch (Exception se) {
 			System.out.println(se);
 		}
+	}
+	public int getId() {
+		int nextVal = 0;
+		try {
+			String seq_val = "Select emp_id from Employee ORDER BY emp_id";
+			pstmt = conn.prepareStatement(seq_val,
+					ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
+			rset = pstmt.executeQuery();
+
+			rset.last();
+			nextVal = rset.getInt(1);
+
+			/*String sql2 = "Select empId_seq.nextVal from  Employee";
+			pstmt = conn.prepareStatement(sql2,
+					ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
+			 
+				rset = pstmt.executeQuery();
+				
+				if(rset.last())
+					nextVal = rset.getInt(1) +1;
+				System.out.println(nextVal);*/
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return nextVal + 1;
 	}
 
 	public int deleteContact(String n) {

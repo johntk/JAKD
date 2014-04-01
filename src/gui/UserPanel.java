@@ -33,6 +33,7 @@ public class UserPanel extends JPanel implements ActionListener {
 	private int counter = 0;
 	private EmployeeList employeeList;
 	private AdminOperations adminOperations;
+	private JPanel cardPanel;
 	
 	private JTextField[] userDetailBx = { forenameBx = new JTextField(),
 			surenamebx = new JTextField(), spacer = new JTextField(),
@@ -55,6 +56,7 @@ public class UserPanel extends JPanel implements ActionListener {
 
 		this.employeeList = el;
 		this.adminOperations = ao;
+		this.cardPanel =cardPanel;
 		this.frame = frame;
 		this.setLayout(new BorderLayout());
 
@@ -315,8 +317,9 @@ public class UserPanel extends JPanel implements ActionListener {
 			}
 		} 
 		else if (e.getSource() == exit) {
-			frame.setVisible(false);
-			frame.dispose();
+			this.setVisible(false);
+			this.repaint();
+//			this.dispose();
 		} 
 		else if (e.getSource().equals(addUser)) {
 			userDetailBx[0].requestFocus();
