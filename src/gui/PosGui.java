@@ -335,7 +335,7 @@ public class PosGui extends JPanel implements ActionListener
 						tranList.add(tran);
 						for(int i = 0; i < tranList.size(); i++)
 						{
-							System.out.println(tranList.get(i).getTransID());
+							System.out.println(tranList.get(i).getProdID());
 						}
 					}
 					catch(SQLException sqle)
