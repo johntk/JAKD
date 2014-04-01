@@ -2,7 +2,7 @@ package model;
 
 public class Product {
 
-<<<<<<< HEAD
+
 	//prod table
 	private int prod_id;
 	private String prod_type;
@@ -47,6 +47,5 @@ public class Product {
 	
 	
 	//console
-=======
->>>>>>> b3af997678da73bb333e6bc69aadc7b08edebea9
+
 }

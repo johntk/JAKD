@@ -45,8 +45,10 @@ public class POSOperations
 					}
 					
 					 catch (Exception ex) {
-						 System.out.println("Unable to find driver " + ex);
-							System.exit(1);
+						String name = JOptionPane.showInputDialog(null, "Enter your orcale user name");
+						String pswd = JOptionPane.showInputDialog(null, "Enter your password");
+						 ods.setUser(name);
+						 ods.setPassword(pswd);
 						}
 				}
 
