@@ -3,19 +3,17 @@ package db;
 
 import java.sql.*;
 import java.awt.*;
-
 import javax.swing.*;
-
 import model.Employee;
 import oracle.jdbc.pool.OracleDataSource;
-//
+
 public class AdminOperations {
 
 	private Statement stmt;
 	private ResultSet rset;
 	private Connection conn;
 	private PreparedStatement pstmt;
-//
+
 	public AdminOperations() {
 		conn = openDB();
 	}
