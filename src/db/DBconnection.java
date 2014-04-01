@@ -94,7 +94,6 @@ public class DBconnection
 		{
 			System.out.println("ERROR: " + ex.getMessage());
 		}
-		krs.displayResult();
 	}
 
 	public void queryMusic(KioskResultsScreen krs)
@@ -121,7 +120,6 @@ public class DBconnection
 		{
 			System.out.println("ERROR: " + ex.getMessage());
 		}
-		krs.displayResult();
 	}
 
 	public void queryDVD(KioskResultsScreen krs)
@@ -146,7 +144,6 @@ public class DBconnection
 		{
 			System.out.println("ERROR: " + ex.getMessage());
 		}
-		krs.displayResult();
 	}
 
 	public void queryConsoles(KioskResultsScreen krs)
@@ -171,7 +168,6 @@ public class DBconnection
 		{
 			System.out.println("ERROR: " + ex.getMessage());
 		}
-		krs.displayResult();
 	}
 
 	public ArrayList queryPlatform()
@@ -216,7 +212,6 @@ public class DBconnection
 		{
 			System.out.println("ERROR: " + ex.getMessage());
 		}
-		krs.displayResult();
 	}
 
 	public void querySoundDocks(KioskResultsScreen krs)
@@ -241,7 +236,6 @@ public class DBconnection
 		{
 			System.out.println("ERROR: " + ex.getMessage());
 		}
-		krs.displayResult();
 	}
 
 

@@ -166,7 +166,6 @@ public class KioskStartScreen extends JFrame implements ActionListener
 			ArrayList<String> consoleList = db.queryPlatform();
 			krs.displayGameOptions(consoleList);
 			db.queryGames("",krs);
-			krs.displayResult();
 			
 			krs.passKioskResultsScreenObject(krs);
 		}
@@ -174,26 +173,31 @@ public class KioskStartScreen extends JFrame implements ActionListener
 			krs = new KioskResultsScreen(db);
 			krs.setHeading("MUSIC");
 			db.queryMusic(krs);
+			krs.displayResult();
 		}
 		if(e.getSource()==dvds){
 			krs = new KioskResultsScreen(db);
 			db.queryDVD(krs);
 			krs.setHeading("DVD");
+			krs.displayResult();
 		}
 		if(e.getSource()==con){
 			krs = new KioskResultsScreen(db);
 			krs.setHeading("CONSOLES");
 			db.queryConsoles(krs);
+			krs.displayResult();
 		}
 		if(e.getSource()==headp){
 			krs = new KioskResultsScreen(db);
 			krs.setHeading("HEADPHONES");
 			db.queryHeadphones(krs);
+			krs.displayResult();
 		}
 		if(e.getSource()==soundd){
 			krs = new KioskResultsScreen(db);
 			krs.setHeading("SOUNDDOCKS");
 			db.querySoundDocks(krs);
+			krs.displayResult();
 		}
 		if(e.getSource()==deals){
 		}
