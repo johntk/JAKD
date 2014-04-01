@@ -22,7 +22,7 @@ public class KioskSearch extends JFrame implements ActionListener
 
 	public KioskSearch(KioskQueries kq)
 	{
-		kq = k;
+		k = kq;
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
 		frame.setSize(1000,600);

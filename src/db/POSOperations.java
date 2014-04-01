@@ -133,7 +133,6 @@ public class POSOperations
 			rset = stmt.executeQuery(queryTransid);
 			
 			rset.afterLast();
-			System.out.println("below print");
 			
 			if (rset.previous()) 
 			{

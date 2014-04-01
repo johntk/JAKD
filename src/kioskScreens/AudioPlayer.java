@@ -2,10 +2,7 @@ package kioskScreens;
 
 import java.io.File;
 
-import javax.media.GainControl;
-import javax.media.Manager;
-import javax.media.MediaLocator;
-import javax.media.Player;
+import javax.media.*;
 
 public class AudioPlayer
 {
