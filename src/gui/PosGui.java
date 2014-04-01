@@ -17,10 +17,7 @@ import model.Transaction;
 import db.POSOperations;
 
 
-//////test message
 
-
-@SuppressWarnings("serial")
 public class PosGui extends JPanel implements ActionListener 
 {
 	
@@ -358,6 +355,7 @@ public class PosGui extends JPanel implements ActionListener
 					///////////////////////////////////////////////////////////////////////////////
 					//there was an error bellow this comment "displayProduct" was in as "voidProduct"
 					//don't know if it affects your code but I couldn't run anything with it like that
+					
 					tran.displayProduct(enterProd.getText());
 					totalPriceField.setText("€" + Double.toString(tran.getTotalCost()));
 					
