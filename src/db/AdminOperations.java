@@ -33,8 +33,8 @@ public class AdminOperations {
 			ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
 			
 			try{
-				ods.setUser("johntk86");
-				ods.setPassword("FuckYou");
+				ods.setUser("project");
+				ods.setPassword("project");
 				conn = ods.getConnection();
 			}
 			

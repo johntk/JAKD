@@ -353,10 +353,12 @@ public class PosGui extends JPanel implements ActionListener
 			{
 				try
 				{
-					enter.setText("Enter");
+					
 					tran.voidProduct(enterProd.getText());
 					totalPriceField.setText("€" + Double.toString(tran.getTotalCost()));
+					
 					enterProd.setText("");
+					enter.setText("Enter");
 				
 					
 				}
@@ -375,6 +377,7 @@ public class PosGui extends JPanel implements ActionListener
 		else
 		{
 			posPanel.setVisible(false);
+
 		}
 	}
 }

@@ -147,23 +147,37 @@ public class POSOperations
 		
 	}
 	
-	/*public void insertTran(ArrayList<Transaction> t)
+	public void insertTran(ArrayList<Transaction> t) throws SQLException
 	{
 		String sql;
 		
 		stmt = conn.createStatement();
-		/*for(int i = 0; i < t.size();i++)
+		for(int i = 0; i < t.size();i++)
 		{
 			
 			//sql = t.get(i).getTransID() + ;
 			
 		}
 	
-		}
-		catch(SQLException sql)
+	}
+
+	public void voidProduct(String prodInput, ArrayList<Transaction> t)throws SQLException
+	{
+		for (int i = 0;i < t.size(); i++)
 		{
+			if(prodInput == t.get(i).getTransID())
+			{
+				t.remove(i);
+				//double price = Double.parseDouble(data.getString(3));
+				System.out.println(t.get(i).getTransID());
+				
+			}
+			
 			
 		}
-	}*/
+			
+
+	
+	}
 
 }

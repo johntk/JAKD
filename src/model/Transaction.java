@@ -54,14 +54,7 @@ public class Transaction
 		
 	}
 	
-	public void voidProduct(String prodInput)throws SQLException
-	{
-		data = po.queryProduct(prodInput);
-		data.next();
-		double price = Double.parseDouble(data.getString(3));
-		transType = 'R';
-		totalCost -=price;
-	}
+
 	
 	
 	
@@ -83,9 +76,6 @@ public class Transaction
 	public void setTransType(char transType) {
 		this.transType = transType;
 	}
-
-
-
 
 
 	public void setDate(String date) {
