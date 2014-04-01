@@ -165,38 +165,39 @@ public class KioskStartScreen extends JFrame implements ActionListener
 			
 			ArrayList<String> consoleList = db.queryPlatform();
 			krs.displayGameOptions(consoleList);
-			db.queryGames("",krs);
+			db.queryAllCategories("Game",krs);
+			krs.displayResult();
 			
 			krs.passKioskResultsScreenObject(krs);
 		}
 		if(e.getSource()==music){
 			krs = new KioskResultsScreen(db);
 			krs.setHeading("MUSIC");
-			db.queryMusic(krs);
+			db.queryAllCategories("CD",krs);
 			krs.displayResult();
 		}
 		if(e.getSource()==dvds){
 			krs = new KioskResultsScreen(db);
-			db.queryDVD(krs);
+			db.queryAllCategories("DVD",krs);
 			krs.setHeading("DVD");
 			krs.displayResult();
 		}
 		if(e.getSource()==con){
 			krs = new KioskResultsScreen(db);
 			krs.setHeading("CONSOLES");
-			db.queryConsoles(krs);
+			db.queryAllCategories("Console",krs);
 			krs.displayResult();
 		}
 		if(e.getSource()==headp){
 			krs = new KioskResultsScreen(db);
 			krs.setHeading("HEADPHONES");
-			db.queryHeadphones(krs);
+			db.queryAllCategories("Headphones",krs);
 			krs.displayResult();
 		}
 		if(e.getSource()==soundd){
 			krs = new KioskResultsScreen(db);
 			krs.setHeading("SOUNDDOCKS");
-			db.querySoundDocks(krs);
+			db.queryAllCategories("Sounddock",krs);
 			krs.displayResult();
 		}
 		if(e.getSource()==deals){

@@ -96,8 +96,9 @@ public class DBconnection
 		}
 	}
 
-	public void queryMusic(KioskResultsScreen krs)
+	public void queryAllCategories(String productType,KioskResultsScreen krs)
 	{
+		
 		String description;
 		String productThumb;
 		String prodID;
@@ -105,63 +106,20 @@ public class DBconnection
 		int y=0;
 		try {
 			stmt = conn.createStatement();
-			String sqlStatement = "SELECT a.artist_name||' - '||c.album_name as description, c.cd_sale_price, p.prod_id as prodID FROM product p, artist a, cd_artist ca, cd c, digital_product d WHERE p.prod_id = d.prod_id AND d.dig_id = c.dig_id AND a.artist_id = ca.artist_id AND c.cd_id = ca.cd_id";
+			String sqlStatement = "select d.dvd_name as description, d.dvd_sale_price as salePrice, p.prod_id as prodID, p.prod_type from dvd d, product p, digital_product dp where UPPER(prod_type) like UPPER('%"+productType+"%') and p.prod_id = dp.prod_id and d.dig_id = dp.dig_id "+
+					"UNION select g.game_name, g.game_sale_price, p.prod_id as prodID, p.prod_type from game g, product p, digital_product dp where UPPER(prod_type) like UPPER('%"+productType+"%') and p.prod_id = dp.prod_id and g.dig_id = dp.dig_id "+
+					"UNION select a.artist_name||' - '||c.album_name, c.cd_sale_price, p.prod_id as prodID, p.prod_type from cd c, artist a, cd_artist ca, digital_product d, product p where c.cd_id = ca.cd_id and a.artist_id = ca.artist_id and c.dig_id = d.dig_id and p.prod_id = d.prod_id and UPPER(prod_type) like UPPER('%"+productType+"%') "+
+					"UNION select e.manufacturer||' '||e.model, h.headphone_sale_price, p.prod_id as prodID, p.prod_type from electronic e, headphones h, product p where e.elec_id = h.elec_id and p.prod_id = e.prod_id and UPPER(prod_type) like UPPER('%"+productType+"%') "+
+					"UNION select e.manufacturer||' '||e.model, s.sd_sale_price, p.prod_id as prodID, p.prod_type from electronic e, sound_dock s, product p where e.elec_id = s.elec_id and p.prod_id = e.prod_id and UPPER(prod_type) like UPPER('%"+productType+"%') "+
+					"UNION select e.manufacturer||' '||e.model, c.console_sale_price, p.prod_id as prodID, p.prod_type from electronic e, console c, product p where e.elec_id = c.elec_id and p.prod_id = e.prod_id and UPPER(prod_type) like UPPER('%"+productType+"%') ";
 			rset = stmt.executeQuery(sqlStatement);
 			while (rset.next())
 			{
 				description = rset.getString("description");
-				salePrice = rset.getDouble("cd_sale_price");
+				salePrice = rset.getDouble("saleprice");
 				productThumb = rset.getString("description")+".jpg";
 				prodID = rset.getString("prodID");
 				krs.addResult(productThumb, description, y, salePrice, prodID);
-				y++;
-			}
-		} catch (Exception ex)
-		{
-			System.out.println("ERROR: " + ex.getMessage());
-		}
-	}
-
-	public void queryDVD(KioskResultsScreen krs)
-	{
-		String description;
-		double salePrice;
-		String prodID;
-		int y=0;
-		try {
-			stmt = conn.createStatement();
-			String sqlStatement = "select d.dvd_name, d.dvd_sale_price, p.prod_id as prodID from dvd d, DIGITAL_PRODUCT dp, product p where p.prod_id = dp.prod_id and dp.dig_id = d.dig_id";
-			rset = stmt.executeQuery(sqlStatement);
-			while (rset.next())
-			{
-				description = rset.getString("dvd_name");
-				salePrice = rset.getDouble("dvd_sale_price");
-				prodID = rset.getString("prodID");
-				krs.addResult(rset.getString("dvd_name")+".jpg", description, y, salePrice, prodID);
-				y++;
-			}
-		} catch (Exception ex)
-		{
-			System.out.println("ERROR: " + ex.getMessage());
-		}
-	}
-
-	public void queryConsoles(KioskResultsScreen krs)
-	{
-		String description;
-		double salePrice;
-		String prodID;
-		int y=0;
-		try {
-			stmt = conn.createStatement();
-			String sqlStatement = "select e.manufacturer||' '||e.model as description, c.console_sale_price, p.prod_id as prodID from product p, electronic e, console c where p.prod_id = e.prod_id and c.elec_id = e.elec_id";
-			rset = stmt.executeQuery(sqlStatement);
-			while (rset.next())
-			{
-				description = rset.getString("description");
-				salePrice = rset.getDouble("console_sale_price");
-				prodID = rset.getString("prodID");
-				krs.addResult(rset.getString("description")+".jpg", description, y, salePrice, prodID);
 				y++;
 			}
 		} catch (Exception ex)
@@ -189,55 +147,6 @@ public class DBconnection
 		}
 		return consoleList;
 	}
-	
-	public void queryHeadphones(KioskResultsScreen krs)
-	{
-		String description;
-		double salePrice;
-		String prodID;
-		int y=0;
-		try {
-			stmt = conn.createStatement();
-			String sqlStatement = "select e.manufacturer||' '||e.model as description, h.headphone_sale_price, p.prod_id as prodID from product p, electronic e, headphones h where p.prod_id = e.prod_id and h.elec_id = e.elec_id";
-			rset = stmt.executeQuery(sqlStatement);
-			while (rset.next())
-			{
-				description = rset.getString("description");
-				salePrice = rset.getDouble("headphone_sale_price");
-				prodID = rset.getString("prodID");
-				krs.addResult(rset.getString("description")+".jpg", description, y, salePrice, prodID);
-				y++;
-			}
-		} catch (Exception ex)
-		{
-			System.out.println("ERROR: " + ex.getMessage());
-		}
-	}
-
-	public void querySoundDocks(KioskResultsScreen krs)
-	{
-		String description;
-		double salePrice;
-		String prodID;
-		int y=0;
-		try {
-			stmt = conn.createStatement();
-			String sqlStatement = "select e.manufacturer||' '||e.model as description, s.sd_sale_price, p.prod_id as prodID from product p, electronic e, SOUND_DOCK s where p.prod_id = e.prod_id and s.elec_id = e.elec_id";
-			rset = stmt.executeQuery(sqlStatement);
-			while (rset.next())
-			{
-				description = rset.getString("description");
-				salePrice = rset.getDouble("sd_sale_price");
-				prodID = rset.getString("prodID");
-				krs.addResult(rset.getString("description")+".jpg", description, y, salePrice, prodID);
-				y++;
-			}
-		} catch (Exception ex)
-		{
-			System.out.println("ERROR: " + ex.getMessage());
-		}
-	}
-
 
 	public void queryGames(String platform,KioskResultsScreen krs)
 	{
