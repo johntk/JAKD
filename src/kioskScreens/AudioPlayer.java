@@ -18,6 +18,7 @@ public class AudioPlayer
 		try
 		{
 			player = Manager.createPlayer(new MediaLocator(f.toURI().toURL()));
+			player.realize();
 		}
 		catch(Exception ex)
 		{
