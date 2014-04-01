@@ -27,11 +27,11 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 	private KioskResultsScreen krs;
 	private ProductDisplay pd;
 	private GridBagConstraints gc;
-	private DBconnection db;
+	private KioskQueries kq;
 
-	public KioskResultsScreen(DBconnection db)
+	public KioskResultsScreen(KioskQueries kq)
 	{
-		this.db = db;
+		this.kq = kq;
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
 		frame.setSize(1200,800);
@@ -237,7 +237,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 				if(((JButton)e.getSource()) == viewButtons.get(i))
 				{
 					pd = new ProductDisplay();
-					db.queryProductInfo(resultList.get(i).getProdID(),pd);
+					kq.queryProductInfo(resultList.get(i).getProdID(),pd);
 				}
 			}
 		}
@@ -254,7 +254,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 				
 				resultWindow.removeAll();
 				
-				db.queryGames(consoleSelection.get(i).getText(),krs);
+				kq.queryGames(consoleSelection.get(i).getText(),krs);
 				krs.displayResult();
 				frame.getContentPane().validate();
 				frame.getContentPane().repaint();
@@ -267,7 +267,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 			
 			resultWindow.removeAll();
 			
-			db.queryGames("",krs);
+			kq.queryGames("",krs);
 			krs.displayResult();
 			frame.getContentPane().validate();
 			frame.getContentPane().repaint();
