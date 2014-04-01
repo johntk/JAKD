@@ -38,10 +38,18 @@ public class POSOperations
 			}
 			
 			 catch (Exception e) {
-				String name = JOptionPane.showInputDialog(null, "Enter your orcale user name");
-				String pswd = JOptionPane.showInputDialog(null, "Enter your password");
-				 ods.setUser(name);
-				 ods.setPassword(pswd);
+				 try{
+						ods.setUser("project");
+						ods.setPassword("project");
+						conn = ods.getConnection();
+					}
+					
+					 catch (Exception ex) {
+						String name = JOptionPane.showInputDialog(null, "Enter your orcale user name");
+						String pswd = JOptionPane.showInputDialog(null, "Enter your password");
+						 ods.setUser(name);
+						 ods.setPassword(pswd);
+						}
 				}
 
 //			 Tallaght Database
