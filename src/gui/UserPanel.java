@@ -333,7 +333,6 @@ public class UserPanel extends JPanel implements ActionListener {
 			adminOperations.addEmployee(newEmployee());
 			employeeList.addContact();
 			employeeList.refreshList();
-//			editNewUserBtnsPanel.setVisible(true);
 			editUserBtnsPanel.setVisible(true);
 			JOptionPane.showMessageDialog(null, forenameBx.getText() + " Saved");
 			editUserBtnsPanel.setVisible(true);

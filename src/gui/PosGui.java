@@ -353,8 +353,12 @@ public class PosGui extends JPanel implements ActionListener
 			{
 				try
 				{
-					
-					tran.voidProduct(enterProd.getText());
+					///////////////////////////////////////////////////////////////////////////////
+					///////////////////////////////////LOOK HERE///////////////////////////////////
+					///////////////////////////////////////////////////////////////////////////////
+					//there was an error bellow this comment "displayProduct" was in as "voidProduct"
+					//don't know if it affects your code but I couldn't run anything with it like that
+					tran.displayProduct(enterProd.getText());
 					totalPriceField.setText("€" + Double.toString(tran.getTotalCost()));
 					
 					enterProd.setText("");
