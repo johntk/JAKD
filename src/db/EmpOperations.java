@@ -7,17 +7,14 @@ import model.Employee;
 
 public class EmpOperations {
 
-
 	private Statement stmt;
 	private ResultSet rset;
 	private Connection conn;
 	private PreparedStatement pstmt;
 	
-	
 	public Connection setDBconnection(Connection conn) {
 		return this.conn = conn;
 	}
-	
 	
 	public ResultSet queryEmployee() {
 		String sqlStatement = "SELECT * FROM Employee";
@@ -32,8 +29,6 @@ public class EmpOperations {
 
 		return rset;
 	}
-
-	
 
 	public ResultSet getEmployee() {
 		try {
