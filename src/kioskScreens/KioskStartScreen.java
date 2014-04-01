@@ -11,6 +11,7 @@ import db.DBconnection;
 
 public class KioskStartScreen extends JFrame implements ActionListener
 {
+	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	private String srcPath;
 	private JPanel content,header,footer,pswd;

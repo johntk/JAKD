@@ -3,11 +3,9 @@ package db;
 
 import java.awt.*;
 import java.sql.*;
-import java.util.ArrayList;
 
 import javax.swing.*;
 
-import kioskScreens.*;
 import oracle.jdbc.pool.OracleDataSource;
 
 public class DBconnection
