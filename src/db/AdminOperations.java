@@ -33,16 +33,26 @@ public class AdminOperations {
 			ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
 			
 			try{
-				ods.setUser("project");
-				ods.setPassword("project");
+				//Add a try for your own username and password if your sick of changing this all the time like I am.
+				//Please don't change the details below.
+				ods.setUser("johntk86");
+				ods.setPassword("FuckYou");
 				conn = ods.getConnection();
 			}
 			
 			 catch (Exception e) {
-				String name = JOptionPane.showInputDialog(null, "Enter your orcale user name");
-				String pswd = JOptionPane.showInputDialog(null, "Enter your password");
-				 ods.setUser(name);
-				 ods.setPassword(pswd);
+				 try{
+						ods.setUser("project");
+						ods.setPassword("project");
+						conn = ods.getConnection();
+					}
+					
+					 catch (Exception ex) {
+						String name = JOptionPane.showInputDialog(null, "Enter your orcale user name");
+						String pswd = JOptionPane.showInputDialog(null, "Enter your password");
+						 ods.setUser(name);
+						 ods.setPassword(pswd);
+						}
 				}
 
 			conn = ods.getConnection();
