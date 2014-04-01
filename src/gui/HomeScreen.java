@@ -236,7 +236,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 			System.exit(0);
 		}
 	}
-
+//
 	public void actionPerformed(ActionEvent e) {
 		
 		for (int i = 0; i < sideButtonsArray.length; i++) {
