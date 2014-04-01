@@ -130,6 +130,7 @@ public class KioskSearch extends JFrame implements ActionListener
 					String searchTerm = search.getText();
 					KioskResultsScreen krs = new KioskResultsScreen(db);
 					db.queryAllProducts(searchTerm,krs);
+					krs.setHeading(searchTerm.toUpperCase());
 				}
 		    }
 		}
@@ -155,6 +156,7 @@ public class KioskSearch extends JFrame implements ActionListener
 				String searchTerm = search.getText();
 				KioskResultsScreen krs = new KioskResultsScreen(db);
 				db.queryAllProducts(searchTerm,krs);
+				krs.setHeading(searchTerm.toUpperCase());
 			}
 		}
 		if(e.getSource()==home)
