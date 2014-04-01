@@ -18,11 +18,11 @@ public class KioskSearch extends JFrame implements ActionListener
 	private Font f1;
 	private ImageIcon hm,logo;
 	private GridBagConstraints gc;
-	private DBconnection db;
+	private KioskQueries k;
 
-	public KioskSearch(DBconnection d)
+	public KioskSearch(KioskQueries kq)
 	{
-		db = d;
+		kq = k;
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout());
 		frame.setSize(1000,600);
@@ -128,8 +128,8 @@ public class KioskSearch extends JFrame implements ActionListener
 				}else
 				{
 					String searchTerm = search.getText();
-					KioskResultsScreen krs = new KioskResultsScreen(db);
-					db.queryAllProducts(searchTerm,krs);
+					KioskResultsScreen krs = new KioskResultsScreen(k);
+					k.queryAllProducts(searchTerm,krs);
 					krs.displayResult();
 					krs.setHeading(searchTerm.toUpperCase());
 				}
@@ -155,8 +155,8 @@ public class KioskSearch extends JFrame implements ActionListener
 			}else
 			{
 				String searchTerm = search.getText();
-				KioskResultsScreen krs = new KioskResultsScreen(db);
-				db.queryAllProducts(searchTerm,krs);
+				KioskResultsScreen krs = new KioskResultsScreen(k);
+				k.queryAllProducts(searchTerm,krs);
 				krs.displayResult();
 				krs.setHeading(searchTerm.toUpperCase());
 			}

@@ -1,3 +1,4 @@
+
 package kioskScreens;
 
 import java.awt.*;
@@ -22,11 +23,13 @@ public class KioskStartScreen extends JFrame implements ActionListener
 	private KioskResultsScreen krs;
 	private KioskSearch ks;
 	private DBconnection db;
+	private KioskQueries kq;
 
 	public KioskStartScreen(DBconnection db)
 	{
 		this.db = db;
-		db.openDB();
+		kq = new KioskQueries();
+		kq.setDBconnection(db.openDB());
 		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.WHITE);
@@ -187,8 +190,6 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 		frame.requestFocus();
 
-		db.setDB(db);
-
 		pswd = new JPanel(new GridLayout(1,2));
 		pinLbl = new JLabel("PIN:");
 		jpf = new JPasswordField(4);
@@ -199,47 +200,47 @@ public class KioskStartScreen extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		if(e.getSource()==search){
-			ks = new KioskSearch(db);
+			ks = new KioskSearch(kq);
 		}
 		if(e.getSource()==game){
-			krs = new KioskResultsScreen(db);
+			krs = new KioskResultsScreen(kq);
 			krs.setHeading("Games");
 			
-			ArrayList<String> consoleList = db.queryPlatform();
+			ArrayList<String> consoleList = kq.queryPlatform();
 			krs.displayGameOptions(consoleList);
-			db.queryAllCategories("Game",krs);
+			kq.queryAllCategories("Game",krs);
 			krs.displayResult();
 			
 			krs.passKioskResultsScreenObject(krs);
 		}
 		if(e.getSource()==music){
-			krs = new KioskResultsScreen(db);
+			krs = new KioskResultsScreen(kq);
 			krs.setHeading("MUSIC");
-			db.queryAllCategories("CD",krs);
+			kq.queryAllCategories("CD",krs);
 			krs.displayResult();
 		}
 		if(e.getSource()==dvds){
-			krs = new KioskResultsScreen(db);
-			db.queryAllCategories("DVD",krs);
+			krs = new KioskResultsScreen(kq);
+			kq.queryAllCategories("DVD",krs);
 			krs.setHeading("DVD");
 			krs.displayResult();
 		}
 		if(e.getSource()==con){
-			krs = new KioskResultsScreen(db);
+			krs = new KioskResultsScreen(kq);
 			krs.setHeading("CONSOLES");
-			db.queryAllCategories("Console",krs);
+			kq.queryAllCategories("Console",krs);
 			krs.displayResult();
 		}
 		if(e.getSource()==headp){
-			krs = new KioskResultsScreen(db);
+			krs = new KioskResultsScreen(kq);
 			krs.setHeading("HEADPHONES");
-			db.queryAllCategories("Headphones",krs);
+			kq.queryAllCategories("Headphones",krs);
 			krs.displayResult();
 		}
 		if(e.getSource()==soundd){
-			krs = new KioskResultsScreen(db);
+			krs = new KioskResultsScreen(kq);
 			krs.setHeading("SOUNDDOCKS");
-			db.queryAllCategories("Sounddock",krs);
+			kq.queryAllCategories("Sounddock",krs);
 			krs.displayResult();
 		}
 		if(e.getSource()==deals){
