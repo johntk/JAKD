@@ -7,7 +7,7 @@ import javax.swing.border.*;
 
 import kioskScreens.KioskStartScreen;
 import model.EmployeeList;
-import db.AdminOperations;
+import db.EmpOperations;
 import db.DBconnection;
 
 public class HomeScreen extends JFrame implements ActionListener{
@@ -39,13 +39,13 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private Color cl1;
 
 	private EmployeeList employeeList;
-	private AdminOperations adminOperations;
+	private EmpOperations adminOperations;
 	private DBconnection db;
 	
 	public HomeScreen() {
 
 		db = new DBconnection();
-		AdminOperations ao = new AdminOperations();
+		EmpOperations ao = new EmpOperations();
 		EmployeeList el = new EmployeeList(ao);
 		ao.setDBconnection(db.openDB());
 		
@@ -198,7 +198,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		else if(button.equals(button1) && button1.getText().equals("POS"))
 		{
 			frame.setTitle("POS Screen");
-			button4.setText("Home");
+			button4.setText("Logout");
 			cards.show(cardPanel, "POSGui");
 		}
 		else if(button.equals(button2) && button2.getText().equals("Edit User"))
@@ -211,7 +211,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 			button1.setText("Generate Report");
 			button2.setText("Edit User");
 			button3.setText("Edit Product");
-			button4.setText("Home");
+			button4.setText("Logout");
 			cards.show(cardPanel, "editUser");
 		}
 		else if(button.equals(button3) && button3.getText().equals("Edit Product"))
@@ -221,9 +221,9 @@ public class HomeScreen extends JFrame implements ActionListener{
 		else if(button.equals(button3) && button3.getText().equals("Kiosk"))
 		{
 			KioskStartScreen kss = new KioskStartScreen(db);
-			button4.setText("Home");
+			button4.setText("Logout");
 		}
-		else if (button.equals(button4) && button4.getText().equals("Home")) {
+		else if (button.equals(button4) && button4.getText().equals("Logout")) {
 			button1.setText("POS");
 			button2.setText("Admin");
 			button3.setText("Kiosk");

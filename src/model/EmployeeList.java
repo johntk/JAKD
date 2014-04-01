@@ -3,15 +3,15 @@ package model;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import db.AdminOperations;
+import db.EmpOperations;
 
 public class EmployeeList {
 
 	private ArrayList<Employee> elist;
-	private AdminOperations ao;
+	private EmpOperations ao;
 	private ResultSet rset;
 
-	public EmployeeList(AdminOperations ao) {
+	public EmployeeList(EmpOperations ao) {
 
 		this.ao = ao;
 		elist = new ArrayList<Employee>();

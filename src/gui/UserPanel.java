@@ -6,7 +6,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-import db.AdminOperations;
+import db.EmpOperations;
 import model.Employee;
 import model.EmployeeList;
 
@@ -32,7 +32,7 @@ public class UserPanel extends JPanel implements ActionListener {
 	private ImageIcon close;
 	private int counter = 0;
 	private EmployeeList employeeList;
-	private AdminOperations adminOperations;
+	private EmpOperations adminOperations;
 	private JPanel cardPanel;
 	
 	private JTextField[] userDetailBx = { forenameBx = new JTextField(),
@@ -52,7 +52,7 @@ public class UserPanel extends JPanel implements ActionListener {
 	
 	private Color  cl2 ,cl3;
 	
-	public UserPanel(Frame frame, AdminOperations ao, EmployeeList el) {
+	public UserPanel(Frame frame, EmpOperations ao, EmployeeList el) {
 
 		this.employeeList = el;
 		this.adminOperations = ao;
