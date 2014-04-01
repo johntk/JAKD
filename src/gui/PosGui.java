@@ -84,7 +84,7 @@ public class PosGui extends JPanel implements ActionListener
 		//Border declaration for use on east and west panels on main frame
 		Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10, 10);
 		Border line = (Border) BorderFactory.createLineBorder(Color.black);
-		Border border = BorderFactory.createCompoundBorder(space, line);
+		//Border border = BorderFactory.createCompoundBorder(space, line);
 		
 		
 //		this.setBorder(border);
@@ -156,7 +156,7 @@ public class PosGui extends JPanel implements ActionListener
 		this.add(posMiddle, BorderLayout.CENTER);
 		
 		
-		String headings[] = {"ID" , "Description", "Sale/Return", "Price"};
+		//String headings[] = {"ID" , "Description", "Sale/Return", "Price"};
 		products = new JTextArea(30,45);
 		products.setEditable(false);
 		prodBox = new JScrollPane(products);
@@ -297,6 +297,8 @@ public class PosGui extends JPanel implements ActionListener
 			
 			
 		}
+		
+		
 		else if(e.getSource() == enterAm)
 		{
 			

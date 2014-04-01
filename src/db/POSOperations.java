@@ -1,5 +1,8 @@
 package db;
 import java.sql.*;
+import java.util.ArrayList;
+
+import model.Transaction;
 
 import oracle.jdbc.pool.OracleDataSource;
 
@@ -79,7 +82,7 @@ public class POSOperations
 				"union  SELECT p.prod_id,e.manufacturer||' - '||e.model,hp.HEADPHONE_SALE_PRICE FROM product p, electronic e, headphones hp where p.PROD_ID = e.PROD_ID AND e.elec_id = hp.elec_ID AND p.prod_id = '" + prodInput + "'";
 		try 
 		{
-			System.out.println("in try");
+
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(sql);
 		}
@@ -129,9 +132,24 @@ public class POSOperations
 		return Integer.toString(trans_id);
 		
 	}
-	public void insertTran()
+	
+	/*public void insertTran(ArrayList<Transaction> t)
 	{
-		//String s = "insert into TRANSACTION values(" + tranID + "," tranDate+ "," + transType + "," + totalCost+ "," + quantity + "," + empID + "," + prodID)"; 
-	}
+		String sql;
+		
+		stmt = conn.createStatement();
+		/*for(int i = 0; i < t.size();i++)
+		{
+			
+			//sql = t.get(i).getTransID() + ;
+			
+		}
+	
+		}
+		catch(SQLException sql)
+		{
+			
+		}
+	}*/
 
 }
