@@ -19,7 +19,7 @@ public class DBconnection
 	private JPasswordField pswd;
 	private JPanel panel;
 	private DBconnection db;
-
+//
 	public DBconnection()
 	{
 		n = new JLabel("Enter your oracle user name");
