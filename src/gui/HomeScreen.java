@@ -15,7 +15,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private CardLayout cards;
 	private JFrame frame;
-	private static final int FRAME_WIDTH = 1148;
+	private static final int FRAME_WIDTH = 1248;
 	private static final int FRAME_HEIGHT = 700;
 	private JButton button1, button2, button3, button4, digiProd, elecProd, closeBtn;
 	private JLabel logo, logo2, welcome, spacer;
@@ -180,7 +180,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		cardPanel.add(elecProdPanel, "editElec");
 		cardPanel.add(digiProdPanel, "editDigi");
 		cardPanel.setBorder(border);
-		cardPanel.setPreferredSize(new Dimension(820, 10));
+		cardPanel.setPreferredSize(new Dimension(900, 10));
 		frame.add(cardPanel, BorderLayout.EAST);
 
 		frame.setVisible(true);
@@ -220,6 +220,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		else if(button.equals(button3) && button3.getText().equals("Kiosk"))
 		{
 			KioskStartScreen kss = new KioskStartScreen(db);
+			button4.setText("Home");
 		}
 		else if (button.equals(button4) && button4.getText().equals("Home")) {
 			button1.setText("POS");
