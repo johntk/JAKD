@@ -35,9 +35,10 @@ public class DBconnection
 
 	public Connection openDB()
 	{
+		
+
 		try {
 			OracleDataSource ods = new OracleDataSource();
-
 			// Tallaght Database
 			//ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
 			//ods.setUser("");
@@ -48,19 +49,36 @@ public class DBconnection
 			ods.setUser("project");
 			ods.setPassword("project");
 			conn = ods.getConnection();
-		} catch (Exception e){
-			try {
-				OracleDataSource ods = new OracleDataSource();
-				ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
-				JOptionPane.showMessageDialog(null, panel);
-				ods.setUser(name.getText());
-				ods.setPassword(pswd.getText());
-				conn = ods.getConnection();
-			}catch (Exception x)
+		} 
+		catch (Exception e)
+		{
+			try
 			{
-				JOptionPane.showMessageDialog(null, "Failed to Connect", "Failed to Connect", JOptionPane.INFORMATION_MESSAGE);
-				System.out.print("Unable to load driver " + x);
+				OracleDataSource ods = new OracleDataSource();
+				name.requestFocusInWindow();
+				ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
+				ods.setUser("johntk86");
+				ods.setPassword("FuckYou");
+				conn = ods.getConnection();
 			}
+			catch(Exception ex)
+			{
+				try 
+				{
+					OracleDataSource ods = new OracleDataSource();
+					ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
+					JOptionPane.showMessageDialog(null, panel);
+					ods.setUser(name.getText());
+					ods.setPassword(pswd.getText());
+					conn = ods.getConnection();
+				}
+				catch (Exception x)
+				{
+					JOptionPane.showMessageDialog(null, "Failed to Connect", "Failed to Connect", JOptionPane.INFORMATION_MESSAGE);
+					System.out.print("Unable to load driver " + ex);
+				}
+			}
+			
 		}
 		return conn;
 	}

@@ -47,7 +47,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 		db = new DBconnection();
 		AdminOperations ao = new AdminOperations();
 		EmployeeList el = new EmployeeList(ao);
-
+		ao.setDBconnection(db.openDB());
+		
 		// Main frame declaration
 		frame = new JFrame();
 		frame.setLayout(layout);
