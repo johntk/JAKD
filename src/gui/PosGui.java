@@ -35,7 +35,7 @@ public class PosGui extends JPanel implements ActionListener
 	private POSOperations po;
 	private ResultSet data;
 	private ArrayList <Transaction> tranList;
-	private Transaction tran;
+
 	private Frame frame;
 	boolean voidd = false;
 	
@@ -69,8 +69,9 @@ public class PosGui extends JPanel implements ActionListener
 		
 		this.frame = frame;
 		po = new POSOperations();
+		po.openDB();
 		tranList = new ArrayList<Transaction>();
-		tran = new Transaction();
+
 
 		
 		
@@ -99,7 +100,7 @@ public class PosGui extends JPanel implements ActionListener
 		posTop.add(trans_id);
 		trans_idf = new JTextField(10);
 		
-		trans_idf.setText(tran.getTransID()); ///gets id from method
+		trans_idf.setText(po.queryTransid()); ///gets id from method
 		
 		
 		trans_idf.setEditable(false);
@@ -129,7 +130,7 @@ public class PosGui extends JPanel implements ActionListener
 		
 		dateFieldf.setEditable(false);
 		posTop.add(dateFieldf);
-		tran.setDate(dateFieldf.getText());
+
 		
 		/////insert space
 		blank2 = new JLabel("                              ");
@@ -248,21 +249,6 @@ public class PosGui extends JPanel implements ActionListener
 
 		if(e.getSource() == isReturn)
 		{
-			if(tran.getTransType() == 'S')
-			{
-				tran.setTransType('R');
-				enter.setText("Return");
-				voidd = false; ////stops a return that is void
-				
-				try
-				{
-				products.setText(products.getText()+ "\n" +tran.displayProduct(enterProd.getText()));
-				}
-				catch(SQLException er)
-				{
-					
-				}
-			}
 
 			
 		}
@@ -276,6 +262,7 @@ public class PosGui extends JPanel implements ActionListener
 		
 		else if(e.getSource() == complete)
 		{
+			
 			jd = new JDialog();
 			jd.setTitle("Complete Sale");
 			jd.setVisible(true);
@@ -300,20 +287,7 @@ public class PosGui extends JPanel implements ActionListener
 		{
 			
 			
-				double enteredAmount = Double.parseDouble(enterAmountf.getText());
-				try
-				{
-				if(enteredAmount > 0 && enteredAmount > tran.getTotalCost())
-				{
-					totalPrice.setText("Change");
-					totalPriceField.setText(Double.toString(enteredAmount - tran.getTotalCost()));
-				}
-			}
-			catch(NumberFormatException ne)
-			{
-				System.out.println("number entered into enterAmount not right");
-			}
-			jd.setVisible(false);
+
 			
 		}
 		
@@ -324,13 +298,16 @@ public class PosGui extends JPanel implements ActionListener
 	
 		else if(e.getSource() == enter)
 		{
-			if(voidd == false)
-			{
+			
+
 				try
 					{
-						products.setText(products.getText()+ "\n" +tran.displayProduct(enterProd.getText()));
-						totalPriceField.setText("€" + Double.toString(tran.getTotalCost()));
+						products.setText(products.getText()+ "\n" + po.displayProduct(enterProd.getText()));
+						totalPriceField.setText("€");
 						enterProd.setText("");
+						
+						Transaction tran = new Transaction();
+						
 						
 						tranList.add(tran);
 						for(int i = 0; i < tranList.size(); i++)
@@ -346,43 +323,26 @@ public class PosGui extends JPanel implements ActionListener
 
 			}
 
-			else
-			{
-				try
-				{
-					///////////////////////////////////////////////////////////////////////////////
-					///////////////////////////////////LOOK HERE///////////////////////////////////
-					///////////////////////////////////////////////////////////////////////////////
-					//there was an error bellow this comment "displayProduct" was in as "voidProduct"
-					//don't know if it affects your code but I couldn't run anything with it like that
-					
-					tran.displayProduct(enterProd.getText());
-					totalPriceField.setText("€" + Double.toString(tran.getTotalCost()));
-					
-					enterProd.setText("");
-					enter.setText("Enter");
-				
-					
-				}
-				catch(SQLException es)
-				{
-						
-				}
-			}
+			
+
 	
 
-		}
-		else if (e.getSource() == exit) {
+		
+		else if (e.getSource() == exit) 
+		{
 			frame.setVisible(false);
 			frame.dispose();
 		}
+		
 		else
 		{
 			posPanel.setVisible(false);
 
 		}
+	
 	}
 }
+
 
 
 

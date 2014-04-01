@@ -88,14 +88,7 @@ public class POSOperations
 	{
 		System.out.println("in query product");
 
-		/*String sql[] = new String[6];
-		sql[0] = "SELECT p.prod_id,d.dvd_name,d.dvd_sale_price FROM product p, DIGITAL_PRODUCT dp, dvd d where p.PROD_ID = dp.PROD_ID AND dp.DIG_ID = d.DIG_ID AND p.prod_id = '" + prodInput + "'";
-		sql[1] = "SELECT p.prod_id,c.album_name,c.cd_sale_price FROM product p, DIGITAL_PRODUCT dp, cd c where p.PROD_ID = dp.PROD_ID AND dp.DIG_ID = c.DIG_ID AND p.prod_id = '" + prodInput + "'";
-		sql[2] = "SELECT p.prod_id,g.game_name,g.game_sale_price FROM product p, DIGITAL_PRODUCT dp, game g where p.PROD_ID = dp.PROD_ID AND dp.DIG_ID = g.DIG_ID AND p.prod_id = '" + prodInput + "'";
-		sql[3] = "SELECT p.prod_id,e.manufacturer||' - '||e.model,c.CONSOLE_SALE_PRICE FROM product p, electronic e, console c where p.PROD_ID = e.PROD_ID AND e.elec_id = c.elec_ID AND p.prod_id = '" + prodInput + "'";
-		sql[4] = "SELECT p.prod_id,e.manufacturer||' - '||e.model,sd.sd_SALE_PRICE FROM product p, electronic e, sound_dock sd where p.PROD_ID = e.PROD_ID AND e.elec_id = sd.elec_ID AND p.prod_id = '" + prodInput + "'";
-		sql[5] = "SELECT p.prod_id,e.manufacturer||' - '||e.model,hp.HEADPHONE_SALE_PRICE FROM product p, electronic e, headphones hp where p.PROD_ID = e.PROD_ID AND e.elec_id = hp.elec_ID AND p.prod_id = '" + prodInput + "'";
-		*/
+
 		String sql = "SELECT p.prod_id,d.dvd_name,d.dvd_sale_price FROM product p, DIGITAL_PRODUCT dp, dvd d where p.PROD_ID = dp.PROD_ID AND dp.DIG_ID = d.DIG_ID AND p.prod_id = '" + prodInput + "'" +
 				"union  SELECT p.prod_id,c.album_name,c.cd_sale_price FROM product p, DIGITAL_PRODUCT dp, cd c where p.PROD_ID = dp.PROD_ID AND dp.DIG_ID = c.DIG_ID AND p.prod_id = '" + prodInput + "'" +
 				"union  SELECT p.prod_id,g.game_name,g.game_sale_price FROM product p, DIGITAL_PRODUCT dp, game g where p.PROD_ID = dp.PROD_ID AND dp.DIG_ID = g.DIG_ID AND p.prod_id = '" + prodInput + "'" +
@@ -104,7 +97,7 @@ public class POSOperations
 				"union  SELECT p.prod_id,e.manufacturer||' - '||e.model,hp.HEADPHONE_SALE_PRICE FROM product p, electronic e, headphones hp where p.PROD_ID = e.PROD_ID AND e.elec_id = hp.elec_ID AND p.prod_id = '" + prodInput + "'";
 		try 
 		{
-
+			openDB();
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(sql);
 		}
@@ -155,18 +148,18 @@ public class POSOperations
 		
 	}
 	
-	public void insertTran(ArrayList<Transaction> t) throws SQLException
+	public String displayProduct(String prodInput)throws SQLException
 	{
-		String sql;
 		
-		stmt = conn.createStatement();
-		for(int i = 0; i < t.size();i++)
-		{
-			
-			//sql = t.get(i).getTransID() + ;
-			
-		}
-	
+		
+		queryProduct(prodInput);
+		rset.next();
+		String prodID =  rset.getString(1);
+		String desc =  rset.getString(2);
+		double price = Double.parseDouble(rset.getString(3));
+
+		return prodID + "\t" + desc + "\t" + price + "\t" ;
+		
 	}
 
 	public void voidProduct(String prodInput, ArrayList<Transaction> t)throws SQLException
