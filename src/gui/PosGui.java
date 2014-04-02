@@ -38,7 +38,9 @@ public class PosGui extends JPanel implements ActionListener
 	private Transaction tran;
 
 	private Frame frame;
+	
 	boolean voidd = false;
+	boolean returnn = false;
 	
 	
 	///// cash pop up
@@ -305,7 +307,10 @@ public class PosGui extends JPanel implements ActionListener
 				{
 					if(enterProd.getText().equals(tranList.get(i).getProdID()))
 					{
+						totalCost = totalCost - tranList.get(i).getTotalCost();
+						totalPriceField.setText("€" + totalCost);
 						tranList.remove(i);
+						
 						
 					}
 				
