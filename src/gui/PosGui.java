@@ -329,14 +329,56 @@ public class PosGui extends JPanel implements ActionListener
 					}
 				
 				}
+				if (tranList.size() <= 0)
+				{
+					products.setText("");
+				}
 				for(int i = 0; i < tranList.size(); i++)
 				{
+					
+					products.setText(tranList.get(i).getProdID() +" " + tranList.get(i).getTotalCost() );
+					
+					
+					
 					System.out.println(tranList.get(i).getProdID());
 				}
+				voidd = false;
+				enter.setText("Enter ");
 			}
 			else if(returnn == true)
 			{
+				try
+				{
 				
+					data = po.displayProduct(enterProd.getText());
+					data.next();
+					
+					tran.setDate(dateFieldf.getText());
+					tran.setProdID(data.getString(1));
+					String desc = data.getString(2);
+					double prodCost = Double.parseDouble(data.getString(3));
+					tran.setTransType("R");
+					tran.setTotalCost(prodCost);
+					
+					totalCost =  totalCost - prodCost;
+					
+					products.setText(products.getText() + "\n" + tran.getProdID() + desc + "€- " + prodCost );
+					totalPriceField.setText("€ " + totalCost);
+					enterProd.setText("");
+					tranList.add(tran);
+					
+					for(int i = 0; i < tranList.size(); i++)
+					{
+						System.out.println(tranList.get(i).getProdID() + " " + tranList.get(i).getTransType());
+					}
+					
+				}
+				catch(SQLException es)
+				{
+					
+				}
+				returnn = false;
+				enter.setText("Enter ");
 			}
 			
 			else
@@ -357,8 +399,8 @@ public class PosGui extends JPanel implements ActionListener
 						totalCost = prodCost + totalCost;
 						
 						
-						products.setText(products.getText() + "\n" + tran.getProdID() + desc + prodCost );
-						totalPriceField.setText("€" + totalCost);
+						products.setText(products.getText() + "\n" + tran.getProdID() + desc + "€ " + prodCost );
+						totalPriceField.setText("€ " + totalCost);
 						enterProd.setText("");
 						tranList.add(tran);
 						
@@ -366,7 +408,7 @@ public class PosGui extends JPanel implements ActionListener
 						
 						for(int i = 0; i < tranList.size(); i++)
 						{
-							System.out.println(tranList.get(i).getProdID());
+							System.out.println(tranList.get(i).getProdID() + " " + tranList.get(i).getTransType());
 						}
 					
 					}
