@@ -52,8 +52,7 @@ public class PosGui extends JPanel implements ActionListener
 	
 	
 /// brain spark
-	private ArrayList<String> prodIDList;
-	private ArrayList<String> transTypeList;
+	double totalCost = 0;
 	
 	
 	
@@ -71,7 +70,7 @@ public class PosGui extends JPanel implements ActionListener
 		po = new POSOperations();
 		po.openDB();
 		tranList = new ArrayList<Transaction>();
-		tran = new Transaction();
+
 
 		
 		
@@ -127,7 +126,7 @@ public class PosGui extends JPanel implements ActionListener
 		df = new SimpleDateFormat("ddMMMyy");
 		Calendar now = Calendar.getInstance();
 		dateFieldf.setText(df.format(now.getTime()));
-		tran.setDate(dateFieldf.getText());
+		
 		
 		dateFieldf.setEditable(false);
 		posTop.add(dateFieldf);
@@ -250,7 +249,7 @@ public class PosGui extends JPanel implements ActionListener
 
 		if(e.getSource() == isReturn)
 		{
-
+			tran.setTransType("R");
 			
 		}
 		else if(e.getSource() == isVoid)
@@ -299,24 +298,43 @@ public class PosGui extends JPanel implements ActionListener
 	
 		else if(e.getSource() == enter)
 		{
-			
-
+			if (voidd == true)
+			{
+				System.out.println("in void product");
+				for(int i = 0;i < tranList.size();i++)
+				{
+					if(enterProd.getText().equals(tranList.get(i).getProdID()))
+					{
+						tranList.remove(i);
+						
+					}
+				
+				}
+				for(int i = 0; i < tranList.size(); i++)
+				{
+					System.out.println(tranList.get(i).getProdID());
+				}
+			}
+			else
+			{
 				try
 					{
+						tran = new Transaction();
 						ResultSet data;
 						data = po.displayProduct(enterProd.getText());
 						data.next();
 						
+						tran.setDate(dateFieldf.getText());
 						tran.setProdID(data.getString(1));
 						String desc = data.getString(2);
-						tran.setTotalCost((tran.getTotalCost() + Double.parseDouble(data.getString(3))));
+						double prodCost = Double.parseDouble(data.getString(3));
+						totalCost = prodCost + totalCost;
 						
-						tranList.add(tran);
 						
-						
-						products.setText(products.getText() + "\n" + tran.getProdID() + desc + data.getString(3));
-						totalPriceField.setText("€" + tran.getTotalCost());
+						products.setText(products.getText() + "\n" + tran.getProdID() + desc + prodCost );
+						totalPriceField.setText("€" + totalCost);
 						enterProd.setText("");
+						tranList.add(tran);
 						
 						
 						
@@ -324,14 +342,15 @@ public class PosGui extends JPanel implements ActionListener
 						{
 							System.out.println(tranList.get(i).getProdID());
 						}
+					
 					}
 					catch(SQLException sqle)
 					{
 						System.out.println(sqle);
 						System.out.println("cant display product");
 					}
-
 			}
+		}
 
 			
 

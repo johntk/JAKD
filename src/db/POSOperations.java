@@ -97,7 +97,7 @@ public class POSOperations
 				"union  SELECT p.prod_id,e.manufacturer||' - '||e.model,hp.HEADPHONE_SALE_PRICE FROM product p, electronic e, headphones hp where p.PROD_ID = e.PROD_ID AND e.elec_id = hp.elec_ID AND p.prod_id = '" + prodInput + "'";
 		try 
 		{
-			openDB();
+			
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(sql);
 		}
