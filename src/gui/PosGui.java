@@ -35,6 +35,7 @@ public class PosGui extends JPanel implements ActionListener
 	private POSOperations po;
 	private ResultSet data;
 	private ArrayList <Transaction> tranList;
+	private Transaction tran;
 
 	private Frame frame;
 	boolean voidd = false;
@@ -50,10 +51,9 @@ public class PosGui extends JPanel implements ActionListener
 	
 	
 	
-	/*private Connection conn;
-	private Statement stmt;
-	private ResultSet rset;
-	private PreparedStatement pstmt;*/
+/// brain spark
+	private ArrayList<String> prodIDList;
+	private ArrayList<String> transTypeList;
 	
 	
 	
@@ -71,7 +71,7 @@ public class PosGui extends JPanel implements ActionListener
 		po = new POSOperations();
 		po.openDB();
 		tranList = new ArrayList<Transaction>();
-
+		tran = new Transaction();
 
 		
 		
@@ -127,6 +127,7 @@ public class PosGui extends JPanel implements ActionListener
 		df = new SimpleDateFormat("ddMMMyy");
 		Calendar now = Calendar.getInstance();
 		dateFieldf.setText(df.format(now.getTime()));
+		tran.setDate(dateFieldf.getText());
 		
 		dateFieldf.setEditable(false);
 		posTop.add(dateFieldf);
@@ -302,16 +303,23 @@ public class PosGui extends JPanel implements ActionListener
 
 				try
 					{
-						products.setText(products.getText()+ "\n" + po.displayProduct(enterProd.getText()));
-						totalPriceField.setText("€");
-						enterProd.setText("");
+						ResultSet data;
+						data = po.displayProduct(enterProd.getText());
+						data.next();
 						
-						Transaction tran = new Transaction();
-						tran.setDate(dateFieldf.getText());
-						
-						
+						tran.setProdID(data.getString(1));
+						String desc = data.getString(2);
+						tran.setTotalCost((tran.getTotalCost() + Double.parseDouble(data.getString(3))));
 						
 						tranList.add(tran);
+						
+						
+						products.setText(products.getText() + "\n" + tran.getProdID() + desc + data.getString(3));
+						totalPriceField.setText("€" + tran.getTotalCost());
+						enterProd.setText("");
+						
+						
+						
 						for(int i = 0; i < tranList.size(); i++)
 						{
 							System.out.println(tranList.get(i).getProdID());

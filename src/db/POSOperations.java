@@ -148,17 +148,13 @@ public class POSOperations
 		
 	}
 	
-	public String displayProduct(String prodInput)throws SQLException
+	public ResultSet displayProduct(String prodInput)throws SQLException
 	{
 		
 		
 		queryProduct(prodInput);
-		rset.next();
-		String prodID =  rset.getString(1);
-		String desc =  rset.getString(2);
-		double price = Double.parseDouble(rset.getString(3));
-
-		return prodID + "\t" + desc + "\t" + price + "\t" ;
+		//return prodID + "\t" + desc + "\t" + price + "\t" ;
+		return rset;
 		
 	}
 
