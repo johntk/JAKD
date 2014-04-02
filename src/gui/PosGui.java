@@ -302,6 +302,7 @@ public class PosGui extends JPanel implements ActionListener
 		{
 			if (voidd == true)
 			{
+				returnn = false;
 				System.out.println("in void product");
 				for(int i = 0;i < tranList.size();i++)
 				{
