@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import javax.print.attribute.standard.JobMessageFromOperator;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -36,8 +37,11 @@ public class PosGui extends JPanel implements ActionListener
 	private ResultSet data;
 	private ArrayList <Transaction> tranList;
 	private Transaction tran;
+
 	private Frame frame;
+	
 	boolean voidd = false;
+	boolean returnn = false;
 	
 	
 	///// cash pop up
@@ -50,10 +54,8 @@ public class PosGui extends JPanel implements ActionListener
 	
 	
 	
-	/*private Connection conn;
-	private Statement stmt;
-	private ResultSet rset;
-	private PreparedStatement pstmt;*/
+/// brain spark
+	double totalCost = 0;
 	
 	
 	
@@ -69,8 +71,9 @@ public class PosGui extends JPanel implements ActionListener
 		
 		this.frame = frame;
 		po = new POSOperations();
+		po.openDB();
 		tranList = new ArrayList<Transaction>();
-		tran = new Transaction();
+
 
 		
 		
@@ -99,7 +102,7 @@ public class PosGui extends JPanel implements ActionListener
 		posTop.add(trans_id);
 		trans_idf = new JTextField(10);
 		
-		trans_idf.setText(tran.getTransID()); ///gets id from method
+		trans_idf.setText(po.queryTransid()); ///gets id from method
 		
 		
 		trans_idf.setEditable(false);
@@ -123,13 +126,14 @@ public class PosGui extends JPanel implements ActionListener
 		dateFieldf = new JTextField(8);
 		
 
-		df = new SimpleDateFormat("ddMMMyy HH:mm");
+		df = new SimpleDateFormat("ddMMMyy");
 		Calendar now = Calendar.getInstance();
 		dateFieldf.setText(df.format(now.getTime()));
 		
+		
 		dateFieldf.setEditable(false);
 		posTop.add(dateFieldf);
-		tran.setDate(dateFieldf.getText());
+
 		
 		/////insert space
 		blank2 = new JLabel("                              ");
@@ -248,26 +252,15 @@ public class PosGui extends JPanel implements ActionListener
 
 		if(e.getSource() == isReturn)
 		{
-			if(tran.getTransType() == 'S')
-			{
-				tran.setTransType('R');
-				enter.setText("Return");
-				voidd = false; ////stops a return that is void
-				
-				try
-				{
-				products.setText(products.getText()+ "\n" +tran.displayProduct(enterProd.getText()));
-				}
-				catch(SQLException er)
-				{
-					
-				}
-			}
-
+			voidd = false;
+			returnn = true;
+			enter.setText("Return");
+			
 			
 		}
 		else if(e.getSource() == isVoid)
 		{
+			returnn = false;
 			voidd = true;
 			enter.setText("Void  ");
 
@@ -276,6 +269,7 @@ public class PosGui extends JPanel implements ActionListener
 		
 		else if(e.getSource() == complete)
 		{
+			
 			jd = new JDialog();
 			jd.setTitle("Complete Sale");
 			jd.setVisible(true);
@@ -300,20 +294,7 @@ public class PosGui extends JPanel implements ActionListener
 		{
 			
 			
-				double enteredAmount = Double.parseDouble(enterAmountf.getText());
-				try
-				{
-				if(enteredAmount > 0 && enteredAmount > tran.getTotalCost())
-				{
-					totalPrice.setText("Change");
-					totalPriceField.setText(Double.toString(enteredAmount - tran.getTotalCost()));
-				}
-			}
-			catch(NumberFormatException ne)
-			{
-				System.out.println("number entered into enterAmount not right");
-			}
-			jd.setVisible(false);
+
 			
 		}
 		
@@ -324,65 +305,141 @@ public class PosGui extends JPanel implements ActionListener
 	
 		else if(e.getSource() == enter)
 		{
-			if(voidd == false)
+			tran = new Transaction();
+			
+			if (voidd == true)
+			{
+				
+				System.out.println("in void product");
+				for(int i = 0;i < tranList.size();i++)
+				{
+					if(enterProd.getText().equals(tranList.get(i).getProdID()))
+					{
+						System.out.println("in if in void");
+						totalCost = totalCost - (tranList.get(i).getTotalCost());
+						
+						totalPriceField.setText("€" + totalCost);
+						tranList.remove(i);
+						
+						
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null,"Product is not in this sale!","Invalid Input",JOptionPane.WARNING_MESSAGE);
+					}
+				
+				}
+				if (tranList.size() <= 0)
+				{
+					products.setText("");
+				}
+				for(int i = 0; i < tranList.size(); i++)
+				{
+					
+					products.setText(tranList.get(i).getProdID() +" " + tranList.get(i).getTotalCost() );
+					
+					
+					
+					System.out.println(tranList.get(i).getProdID());
+				}
+				voidd = false;
+				enter.setText("Enter ");
+			}
+			else if(returnn == true)
+			{
+				try
+				{
+				
+					data = po.displayProduct(enterProd.getText());
+					data.next();
+					
+					tran.setDate(dateFieldf.getText());
+					tran.setProdID(data.getString(1));
+					String desc = data.getString(2);
+					double prodCost = Double.parseDouble(data.getString(3));
+					tran.setTransType("R");
+					tran.setTotalCost(prodCost);
+					
+					totalCost =  totalCost - prodCost;
+					
+					products.setText(products.getText() + "\n" + tran.getProdID() + desc + "€- " + prodCost );
+					totalPriceField.setText("€ " + totalCost);
+					enterProd.setText("");
+					tranList.add(tran);
+					
+					for(int i = 0; i < tranList.size(); i++)
+					{
+						System.out.println(tranList.get(i).getProdID() + " " + tranList.get(i).getTransType());
+					}
+					
+				}
+				catch(SQLException es)
+				{
+					
+				}
+				returnn = false;
+				enter.setText("Enter ");
+			}
+			
+			else
 			{
 				try
 					{
-						products.setText(products.getText()+ "\n" +tran.displayProduct(enterProd.getText()));
-						totalPriceField.setText("€" + Double.toString(tran.getTotalCost()));
-						enterProd.setText("");
 						
+						ResultSet data;
+						data = po.displayProduct(enterProd.getText());
+						data.next();
+						
+						tran.setDate(dateFieldf.getText());
+						tran.setProdID(data.getString(1));
+						String desc = data.getString(2);
+						double prodCost = Double.parseDouble(data.getString(3));
+						tran.setTotalCost(prodCost);
+						
+						totalCost = prodCost + totalCost;
+						
+						
+						products.setText(products.getText() + "\n" + tran.getProdID() + desc + "€ " + prodCost );
+						totalPriceField.setText("€ " + totalCost);
+						enterProd.setText("");
 						tranList.add(tran);
+						
+						
+						
 						for(int i = 0; i < tranList.size(); i++)
 						{
-							System.out.println(tranList.get(i).getProdID());
+							System.out.println(tranList.get(i).getProdID() + " " + tranList.get(i).getTransType());
 						}
+					
 					}
 					catch(SQLException sqle)
 					{
 						System.out.println(sqle);
 						System.out.println("cant display product");
 					}
-
 			}
+		}
 
-			else
-			{
-				try
-				{
-					///////////////////////////////////////////////////////////////////////////////
-					///////////////////////////////////LOOK HERE///////////////////////////////////
-					///////////////////////////////////////////////////////////////////////////////
-					//there was an error bellow this comment "displayProduct" was in as "voidProduct"
-					//don't know if it affects your code but I couldn't run anything with it like that
-					
-					tran.displayProduct(enterProd.getText());
-					totalPriceField.setText("€" + Double.toString(tran.getTotalCost()));
-					
-					enterProd.setText("");
-					enter.setText("Enter");
-				
-					
-				}
-				catch(SQLException es)
-				{
-						
-				}
-			}
+			
+
 	
 
-		}
-		else if (e.getSource() == exit) {
+		
+		else if (e.getSource() == exit) 
+		{
 			frame.setVisible(false);
 			frame.dispose();
 		}
+		
 		else
 		{
 			posPanel.setVisible(false);
 
 		}
+	
 	}
 }
+
 
 
 

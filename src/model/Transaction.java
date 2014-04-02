@@ -13,13 +13,11 @@ import db.POSOperations;
 public class Transaction 
 {
 	private int quantity;
-	//private final DateFormat df;
-	private char transType;
+	private String transType;
 	private double totalCost;
 	private String transID,empID,prodID,date;
-	private ArrayList<String> inserts;
 	private POSOperations po;
-	private ResultSet data;
+
 
 	
 	public Transaction()
@@ -28,35 +26,11 @@ public class Transaction
 		
 		po = new POSOperations();
 		po.openDB();
-		
-		transType = 'S';
+		transType = "S";
 		transID = po.queryTransid();
-		inserts = new ArrayList<String>();
-		
-	}
-	
-	
-	public String displayProduct(String prodInput)throws SQLException
-	{
-		
-		data = po.queryProduct(prodInput);
-		data.next();
-		prodID =  data.getString(1);
-		String desc =  data.getString(2);
-		double price = Double.parseDouble(data.getString(3));
-		if(transType == 'S'){
-			totalCost +=  price;
-		}
-		else {
-			totalCost -= price;
-		}
-		return prodID + "\t" + desc + "\t" + price + "\t" + transType;
-		
-	}
-	
 
-	
-	
+		
+	}
 	
 	public String getTransID()
 	{
@@ -66,14 +40,18 @@ public class Transaction
 	public double getTotalCost() {
 		return totalCost;
 	}
+	public void setTotalCost(double cost)
+	{
+		totalCost = cost;
+	}
 
 
-	public char getTransType() {
+	public String getTransType() {
 		return transType;
 	}
 
 
-	public void setTransType(char transType) {
+	public void setTransType(String transType) {
 		this.transType = transType;
 	}
 
@@ -85,6 +63,10 @@ public class Transaction
 	public String getProdID()
 	{
 		return prodID;
+	}
+	public void setProdID(String id)
+	{
+		prodID = id;
 	}
 
 
