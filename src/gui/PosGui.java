@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import javax.print.attribute.standard.JobMessageFromOperator;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -251,11 +252,15 @@ public class PosGui extends JPanel implements ActionListener
 
 		if(e.getSource() == isReturn)
 		{
-			tran.setTransType("R");
+			voidd = false;
+			returnn = true;
+			enter.setText("Return");
+			
 			
 		}
 		else if(e.getSource() == isVoid)
 		{
+			returnn = false;
 			voidd = true;
 			enter.setText("Void  ");
 
@@ -300,19 +305,27 @@ public class PosGui extends JPanel implements ActionListener
 	
 		else if(e.getSource() == enter)
 		{
+			tran = new Transaction();
+			
 			if (voidd == true)
 			{
-				returnn = false;
+				
 				System.out.println("in void product");
 				for(int i = 0;i < tranList.size();i++)
 				{
 					if(enterProd.getText().equals(tranList.get(i).getProdID()))
 					{
-						totalCost = totalCost - tranList.get(i).getTotalCost();
+						System.out.println("in if in void");
+						totalCost = totalCost - (tranList.get(i).getTotalCost());
+						
 						totalPriceField.setText("€" + totalCost);
 						tranList.remove(i);
 						
 						
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null,"Product is not in this sale!","Invalid Input",JOptionPane.WARNING_MESSAGE);
 					}
 				
 				}
@@ -321,11 +334,16 @@ public class PosGui extends JPanel implements ActionListener
 					System.out.println(tranList.get(i).getProdID());
 				}
 			}
+			else if(returnn == true)
+			{
+				
+			}
+			
 			else
 			{
 				try
 					{
-						tran = new Transaction();
+						
 						ResultSet data;
 						data = po.displayProduct(enterProd.getText());
 						data.next();
@@ -334,6 +352,8 @@ public class PosGui extends JPanel implements ActionListener
 						tran.setProdID(data.getString(1));
 						String desc = data.getString(2);
 						double prodCost = Double.parseDouble(data.getString(3));
+						tran.setTotalCost(prodCost);
+						
 						totalCost = prodCost + totalCost;
 						
 						
