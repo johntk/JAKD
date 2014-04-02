@@ -124,7 +124,7 @@ public class PosGui extends JPanel implements ActionListener
 		dateFieldf = new JTextField(8);
 		
 
-		df = new SimpleDateFormat("ddMMMyy HH:mm");
+		df = new SimpleDateFormat("ddMMMyy");
 		Calendar now = Calendar.getInstance();
 		dateFieldf.setText(df.format(now.getTime()));
 		
@@ -307,6 +307,8 @@ public class PosGui extends JPanel implements ActionListener
 						enterProd.setText("");
 						
 						Transaction tran = new Transaction();
+						tran.setDate(dateFieldf.getText());
+						
 						
 						
 						tranList.add(tran);
