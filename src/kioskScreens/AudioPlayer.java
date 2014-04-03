@@ -31,10 +31,10 @@ public class AudioPlayer
 		player.close();
 	}
 	public void setVolume(float x)
-    {
-        GainControl gc=player.getGainControl();
-        gc.setLevel(x);
-    }
+	{
+		GainControl gc=player.getGainControl();
+		gc.setLevel(x);
+	}
 	public File getFile()
 	{
 		return this.f;
@@ -47,5 +47,5 @@ public class AudioPlayer
 	{
 		return player.getState();
 	}
-	
+
 }

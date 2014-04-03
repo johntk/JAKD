@@ -172,7 +172,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createEmptyBorder(40,20,0,0));
-		result.setPreferredSize(new Dimension(1200,350));
+		result.setPreferredSize(new Dimension(1400,350));
 		productInfo.add(result,gc);
 	}
 	public void displayHeadphones(String manufacturer,String model,String colour,String overEar,String mic,String iPhoneCompatible,double salePrice,int currentStock)
@@ -260,7 +260,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createEmptyBorder(40,20,0,0));
-		result.setPreferredSize(new Dimension(1200,350));
+		result.setPreferredSize(new Dimension(1400,350));
 		productInfo.add(result,gc);
 	}
 	public void displaySoundDock(String manufacturer,String model,String colour,String wireless,int powerOutput,String digRadio,double salePrice,int currentStock)
@@ -340,14 +340,14 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createEmptyBorder(40,20,0,0));
-		result.setPreferredSize(new Dimension(1200,350));
+		result.setPreferredSize(new Dimension(1400,350));
 		productInfo.add(result,gc);
 	}
 	public void displayCD(String artist,String album, String genre, String recordCompany, String length, int rating, double salePrice, int currentStock, String prodID)
 	{
 		// Add product image and information
 		int y = 1;
-		
+
 		ImageIcon img = new ImageIcon(srcPath+artist+" - "+album+".jpg");
 		JLabel im = new JLabel(img);
 		gc.gridx =0;
@@ -356,7 +356,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		//im.setBorder(BorderFactory.createEmptyBorder(40,40,0,0));
-		
+
 		im.setBorder(new CompoundBorder(
 				BorderFactory.createEmptyBorder(40,40,0,0),
 				BorderFactory.createRaisedBevelBorder()));
@@ -369,7 +369,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createEmptyBorder(40,20,0,0));
-		result.setPreferredSize(new Dimension(450,350));
+		result.setPreferredSize(new Dimension(600,350));
 		productInfo.add(result,gc);
 
 		JLabel a = new JLabel(artist);
@@ -387,7 +387,6 @@ public class ProductDisplay extends JFrame implements ActionListener
 
 		JLabel c = new JLabel("• Record Company: "+recordCompany);
 		c.setFont(new Font("Calibri",Font.PLAIN,20));
-		//c.setForeground(new Color(110,110,110));
 		result.add(c);
 
 		JLabel p = new JLabel("• Length: "+length+" minutes");
@@ -450,7 +449,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weightx=1.0;
 		gc.weighty=1.0;
 		songs.add(title,gc);
-		
+
 		JLabel lgth = new JLabel("Length:");
 		lgth.setFont(new Font("Calibri",Font.BOLD,25));
 		lgth.setForeground(new Color(20,120,230));
@@ -479,8 +478,8 @@ public class ProductDisplay extends JFrame implements ActionListener
 			gc.weightx=1.0;
 			gc.weighty=1.0;
 			songs.add(songNames.get(i),gc);
-			
-			
+
+
 			JLabel l = new JLabel(songList.get(i).getLength());
 			l.setFont(new Font("Calibri",Font.PLAIN,20));
 			gc.gridx =2;
@@ -560,7 +559,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createMatteBorder(40,20,0,0,productInfo.getBackground()));
-		result.setPreferredSize(new Dimension(1200,350));
+		result.setPreferredSize(new Dimension(1400,350));
 		productInfo.add(result,gc);
 	}
 	public void displayDVD(String title,String genre,String studio,int length,int rating,double salePrice,int currentStock)
@@ -617,10 +616,10 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createMatteBorder(40,20,0,0,productInfo.getBackground()));
-		result.setPreferredSize(new Dimension(1200,350));
+		result.setPreferredSize(new Dimension(1400,350));
 		productInfo.add(result,gc);
 	}
-	
+
 	public JPanel getPanel()
 	{
 		return main;
