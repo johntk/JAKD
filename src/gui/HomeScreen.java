@@ -55,6 +55,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		frame.setTitle("Home Screen");
 		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		frame.setLocationRelativeTo(null);
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/resources/titleIcon.png"));
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		this.employeeList = el;
