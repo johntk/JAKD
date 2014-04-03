@@ -38,7 +38,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		volume.setMajorTickSpacing(25);
 		volume.setPaintTicks(true);
 		volume.setPaintLabels(true);
-		volume.setPreferredSize(new Dimension(400,50));
+		volume.setPreferredSize(new Dimension(300,50));
 		volume.setMinimumSize(new Dimension(300,50));
 		volume.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent ev){
@@ -447,7 +447,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		// Add volume controls to album preview window
 		JPanel volumeControl = new JPanel(new BorderLayout());
 		volumeControl.setBorder(new CompoundBorder(
-				BorderFactory.createEmptyBorder(530,20,0,0),
+				BorderFactory.createEmptyBorder(200,20,0,0),
 				BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY)));
 		gc.gridx =1;
 		gc.gridy =0;
