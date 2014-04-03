@@ -11,6 +11,7 @@ public class EmpOperations {
 	private ResultSet rset;
 	private Connection conn;
 	private PreparedStatement pstmt;
+
 	
 	public Connection setDBconnection(Connection conn) {
 		return this.conn = conn;
@@ -75,7 +76,7 @@ public class EmpOperations {
 
 			rset.last();
 			nextVal = rset.getInt(1);
-
+			System.out.println("e");
 			/*String sql2 = "Select empId_seq.nextVal from  Employee";
 			pstmt = conn.prepareStatement(sql2,
 					ResultSet.TYPE_SCROLL_INSENSITIVE,

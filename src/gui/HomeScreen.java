@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -9,6 +10,7 @@ import kioskScreens.KioskStartScreen;
 import model.EmployeeList;
 import db.EmpOperations;
 import db.DBconnection;
+import db.ProdOperations;
 
 public class HomeScreen extends JFrame implements ActionListener{
 
@@ -40,14 +42,17 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 	private EmployeeList employeeList;
 	private EmpOperations adminOperations;
+	private ProdOperations prodOpertaion;
 	private DBconnection db;
 	
 	public HomeScreen() {
 
 		db = new DBconnection();
 		EmpOperations ao = new EmpOperations();
+		ProdOperations po = new ProdOperations();
 		EmployeeList el = new EmployeeList(ao);
 		ao.setDBconnection(db.openDB());
+		po.setDBconnection(db.openDB());
 		
 		// Main frame declaration
 		frame = new JFrame();
@@ -60,6 +65,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 		this.employeeList = el;
 		this.adminOperations = ao;
+		this.prodOpertaion = po;
 		cl1 = new Color(240, 240, 240);
 		
 		// Left side buttons panel
@@ -254,7 +260,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 			cards.show(cardPanel, "editDigi");
 		} 
 		else if (e.getSource() == closeBtn) {
-			System.exit(0);
+		prodOpertaion.getCD();
+			//adminOperations.getId();
 		}
 	}
 
