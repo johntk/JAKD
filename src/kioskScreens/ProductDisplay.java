@@ -473,7 +473,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 				BorderFactory.createMatteBorder(40, 20, 0, 50, productInfo.getBackground()),
 				BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY)));
 		songs.setPreferredSize(new Dimension(750,650));
-		songs.setMinimumSize(new Dimension(550,600));
+		songs.setMinimumSize(new Dimension(550,650));
 		productInfo.add(songs,gc);
 
 		JLabel title = new JLabel("Title:");
