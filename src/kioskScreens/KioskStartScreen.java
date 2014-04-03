@@ -34,12 +34,14 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		kq.setDBconnection(db.openDB());
 		
 		frame = new JFrame();
+		frame.setTitle("Kiosk Mode");
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setLayout(new BorderLayout());
 		frame.setSize(1400,1000);
 		//frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		//frame.setUndecorated(true);
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/resources/titleIcon.png"));
 		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		srcPath = "src/resources/kioskFiles/images/";
