@@ -12,8 +12,9 @@ import db.DBconnection;
 public class KioskStartScreen extends JFrame implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
-	private JFrame frame;
+	private static JFrame frame;
 	private String srcPath;
+	private static JPanel main;
 	private JPanel content,header,footer,pswd;
 	private ImageIcon cn,hp,gm,mu,dvd,sd,src,dl,logo,close;
 	private JButton exit,con,headp,game,music,dvds,soundd,search,deals;
@@ -26,9 +27,9 @@ public class KioskStartScreen extends JFrame implements ActionListener
 	private DBconnection db;
 	private KioskQueries kq;
 
-	public KioskStartScreen(DBconnection db)
+	public KioskStartScreen()
 	{
-		this.db = db;
+		db = new DBconnection();
 		kq = new KioskQueries();
 		kq.setDBconnection(db.openDB());
 		
@@ -55,6 +56,10 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		dl = new ImageIcon(srcPath+"deals.png");
 		logo = new ImageIcon(srcPath+"logo3.png");
 		close = new ImageIcon(srcPath+"close.png");
+		
+		main = new JPanel(new BorderLayout());
+		main.setBackground(Color.WHITE);
+		frame.add(main);
 
 		header = new JPanel(new BorderLayout());
 		exit = new JButton("Close",close);
@@ -63,7 +68,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		exit.addActionListener(this);
 		exit.setBorder(null);
 		header.add(exit,BorderLayout.EAST);
-		frame.add(header,BorderLayout.NORTH);
+		main.add(header,BorderLayout.NORTH);
 
 		content = new JPanel(new GridBagLayout());
 		content.setBackground(new Color(0,0,0,0));
@@ -180,12 +185,12 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		gc.gridy = 4;
 		content.add(dls,gc);
 
-		frame.add(content,BorderLayout.CENTER);
+		main.add(content,BorderLayout.CENTER);
 
 		footer = new JPanel();
 		logoLabel = new JLabel(logo);
 		footer.add(logoLabel);
-		frame.add(footer,BorderLayout.SOUTH);
+		main.add(footer,BorderLayout.SOUTH);
 
 		frame.setVisible(true);
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
@@ -196,6 +201,29 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		jpf = new JPasswordField(4);
 		pswd.add(pinLbl);
 		pswd.add(jpf);
+	}
+	
+	public static void addPanel(JPanel panel)
+	{
+		frame.add(panel);
+		frame.validate();
+		frame.repaint();
+	}
+	
+	public static void switchToMainPanel(JPanel panel)
+	{
+		if(main.isVisible()==true)
+		{
+			main.setVisible(false);
+			frame.add(panel);
+		}
+		else
+		{
+			panel.setVisible(false);
+			main.setVisible(true);
+		}
+		frame.validate();
+		frame.repaint();
 	}
 
 	public void actionPerformed(ActionEvent e)
@@ -211,6 +239,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 			krs.displayGameOptions(consoleList);
 			kq.queryAllCategories("Game",krs);
 			krs.displayResult();
+			switchToMainPanel(krs.getPanel());
 			
 			krs.passKioskResultsScreenObject(krs);
 		}
@@ -219,30 +248,35 @@ public class KioskStartScreen extends JFrame implements ActionListener
 			krs.setHeading("MUSIC");
 			kq.queryAllCategories("CD",krs);
 			krs.displayResult();
+			switchToMainPanel(krs.getPanel());
 		}
 		if(e.getSource()==dvds){
 			krs = new KioskResultsScreen(kq);
 			kq.queryAllCategories("DVD",krs);
 			krs.setHeading("DVD");
 			krs.displayResult();
+			switchToMainPanel(krs.getPanel());
 		}
 		if(e.getSource()==con){
 			krs = new KioskResultsScreen(kq);
 			krs.setHeading("CONSOLES");
 			kq.queryAllCategories("Console",krs);
 			krs.displayResult();
+			switchToMainPanel(krs.getPanel());
 		}
 		if(e.getSource()==headp){
 			krs = new KioskResultsScreen(kq);
 			krs.setHeading("HEADPHONES");
 			kq.queryAllCategories("Headphones",krs);
 			krs.displayResult();
+			switchToMainPanel(krs.getPanel());
 		}
 		if(e.getSource()==soundd){
 			krs = new KioskResultsScreen(kq);
 			krs.setHeading("SOUNDDOCKS");
 			kq.queryAllCategories("Sounddock",krs);
 			krs.displayResult();
+			switchToMainPanel(krs.getPanel());
 		}
 		if(e.getSource()==deals){
 		}
@@ -262,5 +296,9 @@ public class KioskStartScreen extends JFrame implements ActionListener
 			}
 			frame.dispose();
 		}
+	}
+	public static void main(String args[])
+	{
+		KioskStartScreen kss = new KioskStartScreen();
 	}
 }
