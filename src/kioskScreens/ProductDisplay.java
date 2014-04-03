@@ -12,7 +12,6 @@ import db.DBconnection;
 
 public class ProductDisplay extends JFrame implements ActionListener
 {
-	private JFrame frame;
 	private JPanel main,center,top,centerTop,footer,productInfo;
 	private JScrollPane scrollPane;
 	private JButton home,pb;
@@ -53,15 +52,6 @@ public class ProductDisplay extends JFrame implements ActionListener
 			}
 		});
 
-		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.WHITE);
-		frame.setLayout(new BorderLayout());
-		frame.setSize(1200,800);
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
-		frame.setUndecorated(true);
-		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
 		srcPath = "src/resources/kioskFiles/productImages/";
 		hm = new ImageIcon("src/resources/kioskFiles/images/home.png");
 		logo = new ImageIcon("src/resources/kioskFiles/images/logo3.png");
@@ -70,7 +60,6 @@ public class ProductDisplay extends JFrame implements ActionListener
 		main = new JPanel(new BorderLayout());
 		main.setBackground(Color.WHITE);
 		main.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-		frame.add(main);
 
 		top = new JPanel(new BorderLayout());
 		top.setBackground(new Color(0,0,0,0));
@@ -106,11 +95,9 @@ public class ProductDisplay extends JFrame implements ActionListener
 		footer = new JPanel();
 		logoLabel = new JLabel(logo);
 		footer.add(logoLabel);
-		frame.add(footer,BorderLayout.SOUTH);
+		main.add(footer,BorderLayout.SOUTH);
 
-		frame.setVisible(true);
-		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-		frame.requestFocus();
+		main.requestFocus();
 	}
 
 	public void setHeading(String s)
@@ -634,12 +621,17 @@ public class ProductDisplay extends JFrame implements ActionListener
 		result.setPreferredSize(new Dimension(1200,350));
 		productInfo.add(result,gc);
 	}
+	
+	public JPanel getPanel()
+	{
+		return main;
+	}
 
 	public void actionPerformed(ActionEvent e)
 	{
 		if(e.getSource()==home)
 		{
-			frame.dispose();
+			KioskResultsScreen.switchToResultsPanel(getPanel());
 			try{
 				ap.stop();
 			}
