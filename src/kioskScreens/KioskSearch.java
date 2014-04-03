@@ -123,6 +123,8 @@ public class KioskSearch extends JFrame implements ActionListener
 					k.queryAllProducts(searchTerm,krs);
 					krs.displayResult();
 					krs.setHeading(searchTerm.toUpperCase());
+					main.setVisible(false);
+					KioskStartScreen.addPanel(krs.getPanel());
 				}
 		    }
 		}
@@ -164,6 +166,8 @@ public class KioskSearch extends JFrame implements ActionListener
 				k.queryAllProducts(searchTerm,krs);
 				krs.displayResult();
 				krs.setHeading(searchTerm.toUpperCase());
+				main.setVisible(false);
+				KioskStartScreen.addPanel(krs.getPanel());
 			}
 		}
 		if(e.getSource()==home)
