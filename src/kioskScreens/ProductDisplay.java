@@ -355,8 +355,6 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weightx=1.0;
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
-		//im.setBorder(BorderFactory.createEmptyBorder(40,40,0,0));
-
 		im.setBorder(new CompoundBorder(
 				BorderFactory.createEmptyBorder(40,40,0,0),
 				BorderFactory.createRaisedBevelBorder()));
