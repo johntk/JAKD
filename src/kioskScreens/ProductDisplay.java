@@ -74,7 +74,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 
 		center = new JPanel(new BorderLayout());
 		center.setBackground(new Color(0,0,0,0));
-		center.setBorder(BorderFactory.createEmptyBorder(0,180,20,180));
+		center.setBorder(BorderFactory.createEmptyBorder(0,60,20,60));
 		main.add(center,BorderLayout.CENTER);
 
 		centerTop = new JPanel(new GridBagLayout());
@@ -439,7 +439,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		songs.setBorder(new CompoundBorder(
 				BorderFactory.createMatteBorder(40, 20, 0, 50, productInfo.getBackground()),
 				BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY)));
-		songs.setPreferredSize(new Dimension(700,750));
+		songs.setPreferredSize(new Dimension(700,650));
 		productInfo.add(songs,gc);
 
 		JLabel title = new JLabel("Title:");
