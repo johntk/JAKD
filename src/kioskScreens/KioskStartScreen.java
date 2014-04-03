@@ -27,9 +27,9 @@ public class KioskStartScreen extends JFrame implements ActionListener
 	private DBconnection db;
 	private KioskQueries kq;
 
-	public KioskStartScreen()
+	public KioskStartScreen(DBconnection db)
 	{
-		db = new DBconnection();
+		this.db = db;
 		kq = new KioskQueries();
 		kq.setDBconnection(db.openDB());
 		
@@ -296,9 +296,5 @@ public class KioskStartScreen extends JFrame implements ActionListener
 			}
 			frame.dispose();
 		}
-	}
-	public static void main(String args[])
-	{
-		KioskStartScreen kss = new KioskStartScreen();
 	}
 }
