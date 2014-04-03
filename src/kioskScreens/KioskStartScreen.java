@@ -37,7 +37,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		frame.setTitle("Kiosk Mode");
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setLayout(new BorderLayout());
-		frame.setSize(1400,1000);
+		frame.setSize(1280,1024);
 		//frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		//frame.setUndecorated(true);

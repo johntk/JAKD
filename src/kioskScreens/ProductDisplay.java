@@ -659,10 +659,10 @@ public class ProductDisplay extends JFrame implements ActionListener
 						}
 						else
 						{
-							//ImageIcon ind = new ImageIcon("src/resources/kioskFiles/images/indicator.png");
+							ImageIcon ind = new ImageIcon("src/resources/kioskFiles/images/indicator.png");
 							songNames.get(j).setForeground(new Color(20,120,230));
 							songNames.get(j).setFont(new Font("Calibri",Font.BOLD,20));
-							//songNames.get(j).setIcon(ind);
+							songNames.get(j).setIcon(ind);
 							playButtons.get(j).setIcon(stop);
 						}
 					}
