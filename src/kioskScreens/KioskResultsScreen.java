@@ -10,9 +10,9 @@ import db.DBconnection;
 
 public class KioskResultsScreen extends JFrame implements ActionListener, ItemListener
 {
-	private JFrame frame;
 	private String srcPath;
-	private JPanel main,center,top,centerTop,footer,resultWindow,r;
+	private static JPanel main;
+	private JPanel center,top,centerTop,footer,resultWindow,r;
 	private JScrollPane scrollPane;
 	private JLabel resultsHeading,logoLabel;
 	private JButton home,view;
@@ -32,13 +32,6 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 	public KioskResultsScreen(KioskQueries kq)
 	{
 		this.kq = kq;
-		frame = new JFrame();
-		frame.setLayout(new BorderLayout());
-		frame.setSize(1200,800);
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		frame.setUndecorated(true);
 
 		srcPath = "src/resources/kioskFiles/images/";
 		r = new JPanel();
@@ -52,7 +45,6 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 		main = new JPanel(new BorderLayout());
 		main.setBackground(Color.WHITE);
 		main.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-		frame.add(main);
 
 		top = new JPanel(new BorderLayout());
 		top.setBackground(new Color(0,0,0,0));
@@ -90,11 +82,9 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 		footer = new JPanel();
 		logoLabel = new JLabel(logo);
 		footer.add(logoLabel);
-		frame.add(footer,BorderLayout.SOUTH);
-
-		frame.setVisible(true);
-		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-		frame.requestFocus();
+		main.add(footer,BorderLayout.SOUTH);
+		
+		main.requestFocus();
 	}
 
 	public void passKioskResultsScreenObject(KioskResultsScreen krs)
@@ -180,6 +170,22 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 		}
 	}
 
+	public JPanel getPanel()
+	{
+		return main;
+	}
+	
+	public static void switchToResultsPanel(JPanel panel)
+	{
+		if(main.isVisible()==false)
+		{
+			main.setVisible(true);
+			panel.setVisible(false);
+		}
+		main.validate();
+		main.repaint();
+	}
+	
 	public void displayGameOptions(ArrayList<String> consoleList)
 	{
 		JPanel radioButtonPanel = new JPanel();
@@ -227,7 +233,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 	{
 		if(e.getSource()==home)
 		{
-			frame.dispose();
+			KioskStartScreen.switchToMainPanel(main);
 		}
 
 		if(e.getSource() instanceof JButton)
@@ -238,6 +244,8 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 				{
 					pd = new ProductDisplay();
 					kq.queryProductInfo(resultList.get(i).getProdID(),pd);
+					main.setVisible(false);
+					KioskStartScreen.addPanel(pd.getPanel());
 				}
 			}
 		}
@@ -256,8 +264,8 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 				
 				kq.queryGames(consoleSelection.get(i).getText(),krs);
 				krs.displayResult();
-				frame.getContentPane().validate();
-				frame.getContentPane().repaint();
+				main.validate();
+				main.repaint();
 			}
 		}
 		if(allGames.isSelected())
@@ -269,8 +277,8 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 			
 			kq.queryGames("",krs);
 			krs.displayResult();
-			frame.getContentPane().validate();
-			frame.getContentPane().repaint();
+			main.validate();
+			main.repaint();
 		}
 	}
 }
