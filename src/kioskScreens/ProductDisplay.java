@@ -59,7 +59,6 @@ public class ProductDisplay extends JFrame implements ActionListener
 
 		main = new JPanel(new BorderLayout());
 		main.setBackground(Color.WHITE);
-		main.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
 		top = new JPanel(new BorderLayout());
 		top.setBackground(new Color(0,0,0,0));

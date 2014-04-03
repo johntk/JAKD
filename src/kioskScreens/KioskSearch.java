@@ -9,9 +9,9 @@ import db.DBconnection;
 
 public class KioskSearch extends JFrame implements ActionListener
 {
-	private JFrame frame;
 	private String srcPath;
-	private JPanel main,center,top;
+	private static JPanel main;
+	private JPanel center,top;
 	private JLabel logoLabel,srchText,empty1;
 	private JTextField search;
 	private JButton home,searchBtn;
@@ -23,13 +23,6 @@ public class KioskSearch extends JFrame implements ActionListener
 	public KioskSearch(KioskQueries kq)
 	{
 		k = kq;
-		frame = new JFrame();
-		frame.setLayout(new BorderLayout());
-		frame.setSize(1000,600);
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		frame.setUndecorated(true);
 		f1=new Font("Calibri",Font.PLAIN,20);
 
 		srcPath = "src/resources/kioskFiles/images/";
@@ -39,8 +32,6 @@ public class KioskSearch extends JFrame implements ActionListener
 
 		main = new JPanel(new BorderLayout());
 		main.setBackground(Color.WHITE);
-		main.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-		frame.add(main);
 
 		top = new JPanel(new BorderLayout());
 		top.setBackground(new Color(0,0,0,0));
@@ -141,11 +132,25 @@ public class KioskSearch extends JFrame implements ActionListener
 			}
 		});
 		
-		frame.setVisible(true);
-		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-		frame.requestFocus();
+		main.requestFocus();
 	}
 
+	public JPanel getPanel()
+	{
+		return main;
+	}
+	
+	public static void switchToResultsPanel(JPanel panel)
+	{
+		if(main.isVisible()==false)
+		{
+			main.setVisible(true);
+			panel.setVisible(false);
+		}
+		main.validate();
+		main.repaint();
+	}
+	
 	public void actionPerformed(ActionEvent e)
 	{
 		if(e.getSource()==searchBtn)
@@ -163,7 +168,7 @@ public class KioskSearch extends JFrame implements ActionListener
 		}
 		if(e.getSource()==home)
 		{
-			frame.dispose();
+			KioskStartScreen.switchToMainPanel(main);
 		}
 	}
 }

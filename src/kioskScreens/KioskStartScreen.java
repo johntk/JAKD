@@ -37,9 +37,9 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setLayout(new BorderLayout());
 		frame.setSize(1200,800);
-		frame.setResizable(false);
+		//frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
-		frame.setUndecorated(true);
+		//frame.setUndecorated(true);
 		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		srcPath = "src/resources/kioskFiles/images/";
@@ -230,6 +230,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 	{
 		if(e.getSource()==search){
 			ks = new KioskSearch(kq);
+			switchToMainPanel(ks.getPanel());
 		}
 		if(e.getSource()==game){
 			krs = new KioskResultsScreen(kq);
