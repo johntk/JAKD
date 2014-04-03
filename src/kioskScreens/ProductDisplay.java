@@ -74,7 +74,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 
 		center = new JPanel(new BorderLayout());
 		center.setBackground(new Color(0,0,0,0));
-		center.setBorder(BorderFactory.createEmptyBorder(0,120,0,120));
+		center.setBorder(BorderFactory.createEmptyBorder(0,180,20,180));
 		main.add(center,BorderLayout.CENTER);
 
 		centerTop = new JPanel(new GridBagLayout());
