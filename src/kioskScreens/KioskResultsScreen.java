@@ -61,7 +61,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 		//add center JPanel to main frame
 		center = new JPanel(new BorderLayout());
 		center.setBackground(new Color(0,0,0,0));
-		center.setBorder(BorderFactory.createEmptyBorder(0,60,20,60));
+		center.setBorder(BorderFactory.createEmptyBorder(0,120,20,120));
 		main.add(center,BorderLayout.CENTER);
 
 		centerTop = new JPanel(new GridBagLayout());

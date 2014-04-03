@@ -38,7 +38,8 @@ public class ProductDisplay extends JFrame implements ActionListener
 		volume.setMajorTickSpacing(25);
 		volume.setPaintTicks(true);
 		volume.setPaintLabels(true);
-		volume.setPreferredSize(new Dimension(300,50));
+		volume.setPreferredSize(new Dimension(400,50));
+		volume.setMinimumSize(new Dimension(300,50));
 		volume.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent ev){
 				try{
@@ -172,6 +173,8 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createEmptyBorder(40,20,0,0));
+		result.setPreferredSize(new Dimension(600,350));
+		result.setMinimumSize(new Dimension(400,350));
 		productInfo.add(result,gc);
 
 		// Pad out product view screen with empty JPanels
@@ -270,6 +273,8 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createEmptyBorder(40,20,0,0));
+		result.setPreferredSize(new Dimension(600,350));
+		result.setMinimumSize(new Dimension(400,350));
 		productInfo.add(result,gc);
 
 		// Pad out product view screen with empty JPanels
@@ -360,6 +365,8 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createEmptyBorder(40,20,0,0));
+		result.setPreferredSize(new Dimension(600,350));
+		result.setMinimumSize(new Dimension(400,350));
 		productInfo.add(result,gc);
 
 		// Pad out product view screen with empty JPanels
@@ -385,9 +392,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weightx=1.0;
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
-		im.setBorder(new CompoundBorder(
-				BorderFactory.createEmptyBorder(40,40,0,0),
-				BorderFactory.createRaisedBevelBorder()));
+		im.setBorder(BorderFactory.createEmptyBorder(40,40,0,0));
 		productInfo.add(im,gc);
 
 		JPanel result = new JPanel(new GridLayout(9,1));
@@ -398,6 +403,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createEmptyBorder(40,20,0,0));
 		result.setPreferredSize(new Dimension(600,350));
+		result.setMinimumSize(new Dimension(400,350));
 		productInfo.add(result,gc);
 
 		JLabel a = new JLabel(artist);
@@ -466,7 +472,8 @@ public class ProductDisplay extends JFrame implements ActionListener
 		songs.setBorder(new CompoundBorder(
 				BorderFactory.createMatteBorder(40, 20, 0, 50, productInfo.getBackground()),
 				BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY)));
-		songs.setPreferredSize(new Dimension(700,650));
+		songs.setPreferredSize(new Dimension(750,650));
+		songs.setMinimumSize(new Dimension(550,600));
 		productInfo.add(songs,gc);
 
 		JLabel title = new JLabel("Title:");
@@ -499,7 +506,6 @@ public class ProductDisplay extends JFrame implements ActionListener
 			name = new JLabel(songList.get(i).getTitle());
 			name.setFont(new Font("Calibri",Font.PLAIN,20));
 			name.setForeground(Color.GRAY);
-			//name.setBorder(BorderFactory.createEmptyBorder(0,0,0,50));
 			songNames.add(name);
 			gc.gridx =1;
 			gc.gridy =y;
@@ -516,6 +522,17 @@ public class ProductDisplay extends JFrame implements ActionListener
 			gc.weighty=1.0;
 			songs.add(l,gc);
 			y++;
+		}
+
+		// Pad out product view screen with empty JPanels
+		for(int j=0;j<8;j++)
+		{
+			JPanel empty1 = new JPanel();
+			gc.gridx =j+3;
+			gc.gridy =0;
+			gc.weightx=1.0;
+			gc.weighty=1.0;
+			productInfo.add(empty1,gc);
 		}
 	}
 
@@ -587,6 +604,8 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createMatteBorder(40,20,0,0,productInfo.getBackground()));
+		result.setPreferredSize(new Dimension(600,350));
+		result.setMinimumSize(new Dimension(400,350));
 		productInfo.add(result,gc);
 
 		// Pad out product view screen with empty JPanels
@@ -654,6 +673,8 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createMatteBorder(40,20,0,0,productInfo.getBackground()));
+		result.setPreferredSize(new Dimension(600,350));
+		result.setMinimumSize(new Dimension(400,350));
 		productInfo.add(result,gc);
 
 		// Pad out product view screen with empty JPanels
