@@ -38,7 +38,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		volume.setMajorTickSpacing(25);
 		volume.setPaintTicks(true);
 		volume.setPaintLabels(true);
-		volume.setPreferredSize(new Dimension(400,50));
+		volume.setPreferredSize(new Dimension(300,50));
 		volume.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent ev){
 				try{
@@ -89,7 +89,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		productInfo.setLayout(new GridBagLayout());
 		scrollPane = new JScrollPane(productInfo);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
-		center.add(scrollPane,BorderLayout.CENTER);
+		center.add(productInfo,BorderLayout.CENTER);
 
 		footer = new JPanel();
 		logoLabel = new JLabel(logo);
@@ -172,8 +172,18 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createEmptyBorder(40,20,0,0));
-		result.setPreferredSize(new Dimension(1400,350));
 		productInfo.add(result,gc);
+
+		// Pad out product view screen with empty JPanels
+		for(int j=0;j<20;j++)
+		{
+			JPanel empty1 = new JPanel();
+			gc.gridx =j+2;
+			gc.gridy =0;
+			gc.weightx=1.0;
+			gc.weighty=1.0;
+			productInfo.add(empty1,gc);
+		}
 	}
 	public void displayHeadphones(String manufacturer,String model,String colour,String overEar,String mic,String iPhoneCompatible,double salePrice,int currentStock)
 	{
@@ -260,8 +270,18 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createEmptyBorder(40,20,0,0));
-		result.setPreferredSize(new Dimension(1400,350));
 		productInfo.add(result,gc);
+
+		// Pad out product view screen with empty JPanels
+		for(int j=0;j<20;j++)
+		{
+			JPanel empty1 = new JPanel();
+			gc.gridx =j+2;
+			gc.gridy =0;
+			gc.weightx=1.0;
+			gc.weighty=1.0;
+			productInfo.add(empty1,gc);
+		}
 	}
 	public void displaySoundDock(String manufacturer,String model,String colour,String wireless,int powerOutput,String digRadio,double salePrice,int currentStock)
 	{
@@ -340,8 +360,18 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createEmptyBorder(40,20,0,0));
-		result.setPreferredSize(new Dimension(1400,350));
 		productInfo.add(result,gc);
+
+		// Pad out product view screen with empty JPanels
+		for(int j=0;j<20;j++)
+		{
+			JPanel empty1 = new JPanel();
+			gc.gridx =j+2;
+			gc.gridy =0;
+			gc.weightx=1.0;
+			gc.weighty=1.0;
+			productInfo.add(empty1,gc);
+		}
 	}
 	public void displayCD(String artist,String album, String genre, String recordCompany, String length, int rating, double salePrice, int currentStock, String prodID)
 	{
@@ -557,8 +587,18 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createMatteBorder(40,20,0,0,productInfo.getBackground()));
-		result.setPreferredSize(new Dimension(1400,350));
 		productInfo.add(result,gc);
+
+		// Pad out product view screen with empty JPanels
+		for(int j=0;j<20;j++)
+		{
+			JPanel empty1 = new JPanel();
+			gc.gridx =j+2;
+			gc.gridy =0;
+			gc.weightx=1.0;
+			gc.weighty=1.0;
+			productInfo.add(empty1,gc);
+		}
 	}
 	public void displayDVD(String title,String genre,String studio,int length,int rating,double salePrice,int currentStock)
 	{
@@ -614,8 +654,18 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createMatteBorder(40,20,0,0,productInfo.getBackground()));
-		result.setPreferredSize(new Dimension(1400,350));
 		productInfo.add(result,gc);
+
+		// Pad out product view screen with empty JPanels
+		for(int j=0;j<20;j++)
+		{
+			JPanel empty1 = new JPanel();
+			gc.gridx =j+2;
+			gc.gridy =0;
+			gc.weightx=1.0;
+			gc.weighty=1.0;
+			productInfo.add(empty1,gc);
+		}
 	}
 
 	public JPanel getPanel()
