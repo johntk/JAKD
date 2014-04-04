@@ -77,6 +77,14 @@ public class Transaction
 		return desc;
 	}
 
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 
 
 }

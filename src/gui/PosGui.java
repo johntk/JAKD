@@ -57,6 +57,8 @@ public class PosGui extends JPanel implements ActionListener
 /// brain spark
 	double totalCost = 0;
 	
+	boolean quantity = false;
+	int quanPoint;
 	
 	
 	
@@ -336,7 +338,7 @@ public class PosGui extends JPanel implements ActionListener
 				for(int i = 0; i < tranList.size(); i++)
 				{
 					
-					products.setText(tranList.get(i).getProdID() +" " + tranList.get(i).getTotalCost() );
+					products.setText(tranList.get(i).getProdID() +" " + tranList.get(i).getTotalCost() + "\t" +tran.getQuantity() );
 					
 					
 					
@@ -362,7 +364,7 @@ public class PosGui extends JPanel implements ActionListener
 					
 					totalCost =  totalCost - prodCost;
 					
-					products.setText(products.getText() + "\n" + tran.getProdID() + desc + "€- " + prodCost );
+					products.setText(products.getText() + "\n" + tran.getProdID() + desc + "€- " + prodCost +  "\t" +tran.getQuantity() );
 					totalPriceField.setText("€ " + totalCost);
 					enterProd.setText("");
 					tranList.add(tran);
@@ -383,49 +385,72 @@ public class PosGui extends JPanel implements ActionListener
 			
 			else
 			{
-				try
+				
+				for(int i = 0; i< tranList.size(); i++)
+				{
+					if (tranList.get(i).getProdID().equals(enterProd.getText()))
 					{
 						
-						ResultSet data;
-						data = po.displayProduct(enterProd.getText());
-						data.next();
-						
-						tran.setDate(dateFieldf.getText());
-						tran.setProdID(data.getString(1));
-						tran.setDesc(data.getString(2));
-						double prodCost = Double.parseDouble(data.getString(3));
-						tran.setTotalCost(prodCost);
-						
-						totalCost = prodCost + totalCost;
-						tranList.add(tran);
-						
-						if(tranList.size() == 1)
+						quantity = true;
+						quanPoint = i;
+					}
+				}
+				
+				if (quantity == true)
+				{
+					tranList.get(quanPoint).setQuantity(tran.getQuantity() + 1);
+					
+				}
+				else
+				{
+				
+					try
 						{
-							products.setText(tran.getProdID() + tran.getDesc() + "€ " + prodCost );
-						}
-						else
-						{
-
-								products.setText(products.getText() + "\n" +tran.getProdID() + tran.getDesc() + "€ " + tran.getTotalCost());
-
-						}
-						totalPriceField.setText("€ " + totalCost);
-						enterProd.setText("");
 						
+							
+							ResultSet data;
+							data = po.displayProduct(enterProd.getText());
+							data.next();
+							
+							tran.setDate(dateFieldf.getText());
+							tran.setProdID(data.getString(1));
+							tran.setDesc(data.getString(2));
+							double prodCost = Double.parseDouble(data.getString(3));
+							tran.setTotalCost(prodCost);
+							tran.setQuantity(1);
+							
+							totalCost = prodCost + totalCost;
+							tranList.add(tran);
+							
+							if(tranList.size() == 1)
+							{
+								products.setText(tran.getProdID() + tran.getDesc() + "€ " + prodCost + "\t" +tran.getQuantity());
+							}
+							else
+							{
+	
+									products.setText(products.getText() + "\n" +tran.getProdID() + tran.getDesc() + "€ " + tran.getTotalCost());
+	
+							}
+							totalPriceField.setText("€ " + totalCost);
+							enterProd.setText("");
+							
+							
+							
+							
+							for(int i = 0; i < tranList.size(); i++)
+							{
+								System.out.println(tranList.get(i).getProdID() + " " + tranList.get(i).getTransType());
+							}
 						
-						
-						
-						for(int i = 0; i < tranList.size(); i++)
-						{
-							System.out.println(tranList.get(i).getProdID() + " " + tranList.get(i).getTransType());
 						}
 					
-					}
-					catch(SQLException sqle)
-					{
-						System.out.println(sqle);
-						System.out.println("cant display product");
-					}
+						catch(SQLException sqle)
+						{
+							System.out.println(sqle);
+							System.out.println("cant display product");
+						}
+				}
 			}
 		}
 
