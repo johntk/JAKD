@@ -335,17 +335,21 @@ public class PosGui extends JPanel implements ActionListener
 				{
 					products.setText("");
 				}
-				for(int i = 0; i < tranList.size(); i++)
+				else
 				{
 					
-					products.setText(tranList.get(i).getProdID() +" " + tranList.get(i).getTotalCost() + "\t" +tran.getQuantity() );
-					
-					
-					
-					System.out.println(tranList.get(i).getProdID());
+					for(int i = 0; i < tranList.size(); i++)
+					{
+						
+						products.setText(tranList.get(i).getProdID() +tranList.get(i).getDesc() + tranList.get(i).getTotalCost() + "\t" +tran.getQuantity() );
+						
+						
+						
+						System.out.println(tranList.get(i).getProdID());
+					}
+					voidd = false;
+					enter.setText("Enter ");
 				}
-				voidd = false;
-				enter.setText("Enter ");
 			}
 			else if(returnn == true)
 			{
@@ -383,14 +387,14 @@ public class PosGui extends JPanel implements ActionListener
 				enter.setText("Enter ");
 			}
 			
-			else
+			else /////normal enter product
 			{
 				
 				for(int i = 0; i< tranList.size(); i++)
 				{
 					if (tranList.get(i).getProdID().equals(enterProd.getText()))
 					{
-						
+						System.out.println("ITS IN HERE ALREADY !!!!!!!");
 						quantity = true;
 						quanPoint = i;
 					}
@@ -398,7 +402,16 @@ public class PosGui extends JPanel implements ActionListener
 				
 				if (quantity == true)
 				{
-					tranList.get(quanPoint).setQuantity(tran.getQuantity() + 1);
+					int quan = tranList.get(quanPoint).getQuantity() + 1;
+					System.out.println("Quantity: " + quan);
+					tranList.get(quanPoint).setQuantity(quan);
+					
+					for(int i = 0; i < tranList.size(); i++)
+					{	
+						products.setText(tranList.get(i).getProdID() +tranList.get(i).getDesc() + tranList.get(i).getTotalCost() + "\t" +tranList.get(i).getQuantity() );
+
+					}
+					quantity = false;
 					
 				}
 				else
