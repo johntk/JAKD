@@ -392,17 +392,26 @@ public class PosGui extends JPanel implements ActionListener
 						
 						tran.setDate(dateFieldf.getText());
 						tran.setProdID(data.getString(1));
-						String desc = data.getString(2);
+						tran.setDesc(data.getString(2));
 						double prodCost = Double.parseDouble(data.getString(3));
 						tran.setTotalCost(prodCost);
 						
 						totalCost = prodCost + totalCost;
+						tranList.add(tran);
 						
-						
-						products.setText(products.getText() + "\n" + tran.getProdID() + desc + "€ " + prodCost );
+						if(tranList.size() == 1)
+						{
+							products.setText(tran.getProdID() + tran.getDesc() + "€ " + prodCost );
+						}
+						else
+						{
+
+								products.setText(products.getText() + "\n" +tran.getProdID() + tran.getDesc() + "€ " + tran.getTotalCost());
+
+						}
 						totalPriceField.setText("€ " + totalCost);
 						enterProd.setText("");
-						tranList.add(tran);
+						
 						
 						
 						
