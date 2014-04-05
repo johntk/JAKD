@@ -429,6 +429,14 @@ public class PosGui extends JPanel implements ActionListener
 					int quan = tranList.get(quanPoint).getQuantity() + 1;
 					System.out.println("Quantity: " + quan);
 					tranList.get(quanPoint).setQuantity(quan);
+					
+					double singleProdPrice = (tranList.get(quanPoint).getTotalCost()) / (tranList.get(quanPoint).getQuantity());
+					tranList.get(quanPoint).setTotalCost((tranList.get(quanPoint).getTotalCost()) + singleProdPrice);
+					totalCost = totalCost + singleProdPrice;
+					totalPriceField.setText("€ " + totalCost );
+					
+					
+					
 					products.setText("");
 					
 					for(int i = 0; i < tranList.size();i++)
