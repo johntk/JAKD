@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.sql.*;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -64,6 +65,8 @@ public class PosGui extends JPanel implements ActionListener
 	int prodCount;
 	
 	String txtarea;
+	
+	DecimalFormat decf = new DecimalFormat("€ #####.##");
 	
 	
 	
@@ -308,12 +311,13 @@ public class PosGui extends JPanel implements ActionListener
 			if( totalCost > cashEntered)
 			{
 				products.setText(products.getText() + "Cash\t\t " + cashEntered);
-				totalPriceField.setText("€ " + (totalCost - cashEntered));
+				totalPriceField.setText(decf.format((totalCost - cashEntered)));
+				
 			}
 			else
 			{
 				totalPrice.setText("Change:");
-				totalPriceField.setText("€ " + (cashEntered - totalCost));
+				totalPriceField.setText(decf.format((cashEntered - totalCost)));
 			}
 			
 
@@ -350,7 +354,7 @@ public class PosGui extends JPanel implements ActionListener
 					totalCost = totalCost - (tranList.get(prodCount).getTotalCost());
 					tranList.get(prodCount).setQuantity(-1);
 					
-					totalPriceField.setText("€" + totalCost);
+					totalPriceField.setText(decf.format(totalCost));
 					tranList.remove(prodCount);
 					if (tranList.size() <= 0)
 					{
@@ -395,7 +399,7 @@ public class PosGui extends JPanel implements ActionListener
 					totalCost =  totalCost - prodCost;
 					
 
-					totalPriceField.setText("€ " + totalCost);
+					totalPriceField.setText(decf.format(totalCost));
 					enterProd.setText("");
 					tranList.add(tran);
 					
@@ -433,7 +437,7 @@ public class PosGui extends JPanel implements ActionListener
 					double singleProdPrice = (tranList.get(quanPoint).getTotalCost()) / (tranList.get(quanPoint).getQuantity());
 					tranList.get(quanPoint).setTotalCost((tranList.get(quanPoint).getTotalCost()) + singleProdPrice);
 					totalCost = totalCost + singleProdPrice;
-					totalPriceField.setText("€ " + totalCost );
+					totalPriceField.setText(decf.format(totalCost));
 					
 					
 					
@@ -463,13 +467,15 @@ public class PosGui extends JPanel implements ActionListener
 							tran.setTotalCost(prodCost);
 							tran.setQuantity(1);
 							
+							
+							
 							totalCost = prodCost + totalCost;
 							tranList.add(tran);
 
 							products.setText(products.getText() +tran.getProdID() + tran.getDesc() + "€ " + tran.getTotalCost() + +tran.getQuantity() + "\n");
 						
 							
-							totalPriceField.setText("€ " + totalCost);
+							totalPriceField.setText(decf.format(totalCost));
 							enterProd.setText("");
 							
 							
