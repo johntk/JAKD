@@ -60,6 +60,10 @@ public class PosGui extends JPanel implements ActionListener
 	boolean quantity = false;
 	int quanPoint;
 	
+	boolean prodExists;
+	int prodCount;
+	
+	String txtarea;
 	
 	
 	
@@ -247,6 +251,12 @@ public class PosGui extends JPanel implements ActionListener
 	{
 		return posPanel;
 	}
+	
+	
+	
+
+	
+	
 		
 	
 	public void actionPerformed(ActionEvent e) 
@@ -294,7 +304,17 @@ public class PosGui extends JPanel implements ActionListener
 		
 		else if(e.getSource() == enterAm)
 		{
-			
+			double cashEntered = Double.parseDouble(enterAmountf.getText());
+			if( totalCost > cashEntered)
+			{
+				products.setText(products.getText() + "Cash\t\t " + cashEntered);
+				totalPriceField.setText("€ " + (totalCost - cashEntered));
+			}
+			else
+			{
+				totalPrice.setText("Change:");
+				totalPriceField.setText("€ " + (cashEntered - totalCost));
+			}
 			
 
 			
@@ -313,43 +333,49 @@ public class PosGui extends JPanel implements ActionListener
 			{
 				
 				System.out.println("in void product");
-				for(int i = 0;i < tranList.size();i++)
+				for(int i = 0;i < tranList.size();i++) //check if product is in sale
 				{
 					if(enterProd.getText().equals(tranList.get(i).getProdID()))
 					{
-						System.out.println("in if in void");
-						totalCost = totalCost - (tranList.get(i).getTotalCost());
-						
-						totalPriceField.setText("€" + totalCost);
-						tranList.remove(i);
+						prodExists = true;
+						prodCount = i;
 						
 						
+					}
+				}
+			
+				if(prodExists == true)
+				{
+					
+					totalCost = totalCost - (tranList.get(prodCount).getTotalCost());
+					tranList.get(prodCount).setQuantity(-1);
+					
+					totalPriceField.setText("€" + totalCost);
+					tranList.remove(prodCount);
+					if (tranList.size() <= 0)
+					{
+						products.setText("");
 					}
 					else
 					{
-						JOptionPane.showMessageDialog(null,"Product is not in this sale!","Invalid Input",JOptionPane.WARNING_MESSAGE);
+						products.setText("");
+						for(int i = 0; i < tranList.size();i++)
+						{
+							products.setText(products.getText() + tranList.get(i).getProdID() + tranList.get(i).getDesc() + "€ " + tranList.get(i).getTotalCost() + tranList.get(i).getQuantity() + "\n");
+						}
+						
+						voidd = false;
+						enter.setText("Enter ");
 					}
-				
 				}
-				if (tranList.size() <= 0)
-				{
-					products.setText("");
-				}
-				else
-				{
 					
-					for(int i = 0; i < tranList.size(); i++)
-					{
-						
-						products.setText(tranList.get(i).getProdID() +tranList.get(i).getDesc() + tranList.get(i).getTotalCost() + "\t" +tran.getQuantity() );
-						
-						
-						
-						System.out.println(tranList.get(i).getProdID());
-					}
-					voidd = false;
-					enter.setText("Enter ");
+				else //if prodExists is not true
+				{
+					JOptionPane.showMessageDialog(null,"Product is not in this sale!","Invalid Input",JOptionPane.WARNING_MESSAGE);
+
 				}
+				
+				
 			}
 			else if(returnn == true)
 			{
@@ -361,22 +387,20 @@ public class PosGui extends JPanel implements ActionListener
 					
 					tran.setDate(dateFieldf.getText());
 					tran.setProdID(data.getString(1));
-					String desc = data.getString(2);
+					tran.setDesc(data.getString(2));
 					double prodCost = Double.parseDouble(data.getString(3));
 					tran.setTransType("R");
 					tran.setTotalCost(prodCost);
 					
 					totalCost =  totalCost - prodCost;
 					
-					products.setText(products.getText() + "\n" + tran.getProdID() + desc + "€- " + prodCost +  "\t" +tran.getQuantity() );
+
 					totalPriceField.setText("€ " + totalCost);
 					enterProd.setText("");
 					tranList.add(tran);
 					
-					for(int i = 0; i < tranList.size(); i++)
-					{
-						System.out.println(tranList.get(i).getProdID() + " " + tranList.get(i).getTransType());
-					}
+					products.setText(products.getText() +tran.getProdID() + tran.getDesc() + "€ - " + tran.getTotalCost() + "\n");
+
 					
 				}
 				catch(SQLException es)
@@ -394,7 +418,7 @@ public class PosGui extends JPanel implements ActionListener
 				{
 					if (tranList.get(i).getProdID().equals(enterProd.getText()))
 					{
-						System.out.println("ITS IN HERE ALREADY !!!!!!!");
+						System.out.println("ITS IN HERE!!!!!!!");
 						quantity = true;
 						quanPoint = i;
 					}
@@ -405,11 +429,11 @@ public class PosGui extends JPanel implements ActionListener
 					int quan = tranList.get(quanPoint).getQuantity() + 1;
 					System.out.println("Quantity: " + quan);
 					tranList.get(quanPoint).setQuantity(quan);
+					products.setText("");
 					
-					for(int i = 0; i < tranList.size(); i++)
-					{	
-						products.setText(tranList.get(i).getProdID() +tranList.get(i).getDesc() + tranList.get(i).getTotalCost() + "\t" +tranList.get(i).getQuantity() );
-
+					for(int i = 0; i < tranList.size();i++)
+					{
+						products.setText(products.getText() + tranList.get(i).getProdID() + tranList.get(i).getDesc() + "€ " + tranList.get(i).getTotalCost() + tranList.get(i).getQuantity() + "\n");
 					}
 					quantity = false;
 					
@@ -419,7 +443,6 @@ public class PosGui extends JPanel implements ActionListener
 				
 					try
 						{
-						
 							
 							ResultSet data;
 							data = po.displayProduct(enterProd.getText());
@@ -434,24 +457,17 @@ public class PosGui extends JPanel implements ActionListener
 							
 							totalCost = prodCost + totalCost;
 							tranList.add(tran);
+
+							products.setText(products.getText() +tran.getProdID() + tran.getDesc() + "€ " + tran.getTotalCost() + +tran.getQuantity() + "\n");
+						
 							
-							if(tranList.size() == 1)
-							{
-								products.setText(tran.getProdID() + tran.getDesc() + "€ " + prodCost + "\t" +tran.getQuantity());
-							}
-							else
-							{
-	
-									products.setText(products.getText() + "\n" +tran.getProdID() + tran.getDesc() + "€ " + tran.getTotalCost());
-	
-							}
 							totalPriceField.setText("€ " + totalCost);
 							enterProd.setText("");
 							
 							
 							
 							
-							for(int i = 0; i < tranList.size(); i++)
+							for(int i = 0; i < tranList.size(); i++) ///test arraylist
 							{
 								System.out.println(tranList.get(i).getProdID() + " " + tranList.get(i).getTransType());
 							}
@@ -466,12 +482,7 @@ public class PosGui extends JPanel implements ActionListener
 				}
 			}
 		}
-
 			
-
-	
-
-		
 		else if (e.getSource() == exit) 
 		{
 			frame.setVisible(false);
@@ -484,8 +495,11 @@ public class PosGui extends JPanel implements ActionListener
 
 		}
 	
+	
 	}
+
 }
+
 
 
 
