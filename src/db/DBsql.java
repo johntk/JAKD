@@ -30,7 +30,6 @@ public class DBsql
 
 			conn = ods.getConnection();
 			System.out.println("Connection established.\n");
-			Thread.sleep(1000);
 		} catch (Exception e) {
 			System.out.print("Unable to load driver " + e);
 			System.exit(1);
@@ -240,13 +239,6 @@ public class DBsql
 
 	public void createSequence()
 	{
-		try
-		{
-			Thread.sleep(1000);
-		} catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
 		System.out.println("\nCreating sequences...");
 		try
 		{
@@ -264,13 +256,6 @@ public class DBsql
 			stmt.executeUpdate("create sequence sound_dock_seq start with 3 increment by 1");
 			stmt.executeUpdate("create sequence headphones_seq start with 5 increment by 1");
 			stmt.executeUpdate("create sequence transaction_seq start with 1000000 increment by 1");
-			try
-			{
-				Thread.sleep(1000);
-			} catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
 			System.out.println("Sequences created successfully.");
 		} catch (SQLException ex)
 		{
@@ -280,13 +265,6 @@ public class DBsql
 
 	public void createTables()
 	{
-		try
-		{
-			Thread.sleep(500);
-		} catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
 		System.out.println("\nCreating tables...");
 		try
 		{
@@ -305,13 +283,6 @@ public class DBsql
 			stmt.executeUpdate("Create table HEADPHONES (headphone_id VARCHAR2(50), over_ear VARCHAR2(1) CHECK(over_ear IN('Y','N')), microphone VARCHAR2(1) CHECK(microphone IN('Y','N')), iphone_compatible VARCHAR2(1) CHECK(iphone_compatible IN('Y','N')), headphone_cost_price NUMBER(6,2), headphone_sale_price NUMBER(6,2), elec_id VARCHAR2(50), PRIMARY KEY (headphone_id), FOREIGN KEY (elec_id) REFERENCES ELECTRONIC(elec_id))");
 			stmt.executeUpdate("Create table SOUND_DOCK (sd_id VARCHAR2(50), wireless VARCHAR2(1) CHECK(wireless IN('Y','N')), power_ouput NUMBER, digital_radio VARCHAR2(1) CHECK(digital_radio IN('Y','N')), sd_cost_price NUMBER(6,2), sd_sale_price NUMBER(6,2), elec_id VARCHAR2(50), PRIMARY KEY (sd_id), FOREIGN KEY (elec_id) REFERENCES ELECTRONIC(elec_id))");
 			stmt.executeUpdate("Create table CONSOLE (console_id VARCHAR2(50), storage_size NUMBER, wifi VARCHAR2(1) CHECK(wifi IN('Y','N')), num_controllers NUMBER, console_cost_price NUMBER(6,2), console_sale_price NUMBER(6,2), elec_id VARCHAR2(50), PRIMARY KEY (console_id), FOREIGN KEY (elec_id) REFERENCES ELECTRONIC(elec_id))");
-			try
-			{
-				Thread.sleep(1000);
-			} catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
 			System.out.println("Tables created successfully.");
 		} catch (SQLException ex)
 		{
@@ -321,16 +292,10 @@ public class DBsql
 
 	public void inserts()
 	{
-		try
-		{
-			Thread.sleep(500);
-		} catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
 		System.out.println("\nInserting data...");
 		try
 		{
+//			Insert values into product table
 			String productSQL = "insert into PRODUCT values(?,?,?)";
 			pstmt = conn.prepareStatement(productSQL);
 			Statement stmt = conn.createStatement();
@@ -438,7 +403,7 @@ public class DBsql
 			pstmt.setString(2,"CONSOLE");
 			pstmt.setInt(3,8);
 			pstmt.executeUpdate();
-			
+//			Insert values into digitalProduct table
 			String digiProdSQL = "insert into DIGITAL_PRODUCT values(?,?,?,?)";
 			pstmt = conn.prepareStatement(digiProdSQL);
 			pstmt.setString(1,"D0000001");
@@ -526,17 +491,65 @@ public class DBsql
 			pstmt.setInt(3,18);
 			pstmt.setString(4,"P0000017");
 			pstmt.executeUpdate();
+//			Insert values into Electronic product table
+			String electronicSQL = "insert into ELECTRONIC values(?,?,?,?,?)";
+			pstmt = conn.prepareStatement(electronicSQL);
+			pstmt.setString(1,"E0000001");
+			pstmt.setString(2,"Sony");
+			pstmt.setString(3,"Playstation 4");
+			pstmt.setString(4,"Black");
+			pstmt.setString(5,"P0000018");
+			pstmt.executeUpdate();
+			pstmt.setString(1,"E0000002");
+			pstmt.setString(2,"Microsoft");
+			pstmt.setString(3,"Xbox 360");
+			pstmt.setString(4,"Black");
+			pstmt.setString(5,"P0000019");
+			pstmt.executeUpdate();
+			pstmt.setString(1,"E0000003");
+			pstmt.setString(2,"Beats");
+			pstmt.setString(3,"Wireless Over-Ear Headphones");
+			pstmt.setString(4,"Black");
+			pstmt.setString(5,"P0000020");
+			pstmt.executeUpdate();
+			pstmt.setString(1,"E0000004");
+			pstmt.setString(2,"Bose");
+			pstmt.setString(3,"AE2");
+			pstmt.setString(4,"White");
+			pstmt.setString(5,"P0000021");
+			pstmt.executeUpdate();
+			pstmt.setString(1,"E0000005");
+			pstmt.setString(2,"Sennheiser");
+			pstmt.setString(3,"CX 300 II");
+			pstmt.setString(4,"Black");
+			pstmt.setString(5,"P0000022");
+			pstmt.executeUpdate();
+			pstmt.setString(1,"E0000006");
+			pstmt.setString(2,"Sony");
+			pstmt.setString(3,"MDREX10LP");
+			pstmt.setString(4,"Black");
+			pstmt.setString(5,"P0000023");
+			pstmt.executeUpdate();
+			pstmt.setString(1,"E0000007");
+			pstmt.setString(2,"Bose");
+			pstmt.setString(3,"SoundDock II");
+			pstmt.setString(4,"Black");
+			pstmt.setString(5,"P0000024");
+			pstmt.executeUpdate();
+			pstmt.setString(1,"E0000008");
+			pstmt.setString(2,"Samsung");
+			pstmt.setString(3,"DA-E750");
+			pstmt.setString(4,"Red");
+			pstmt.setString(5,"P0000025");
+			pstmt.executeUpdate();
+			pstmt.setString(1,"E0000009");
+			pstmt.setString(2,"Nintendo");
+			pstmt.setString(3,"Wii");
+			pstmt.setString(4,"White");
+			pstmt.setString(5,"P0000026");
+			pstmt.executeUpdate();
 			
 			
-			stmt.execute("insert into ELECTRONIC values('E0000001','Sony','Playstation 4','Black','P0000018')");
-			stmt.execute("insert into ELECTRONIC values('E0000002','Microsoft','Xbox 360','Black','P0000019')");
-			stmt.execute("insert into ELECTRONIC values('E0000003','Beats','Wireless Over-Ear Headphones','Black','P0000020')");
-			stmt.execute("insert into ELECTRONIC values('E0000004','Bose','AE2','White','P0000021')");
-			stmt.execute("insert into ELECTRONIC values('E0000005','Sennheiser','CX 300 II','Black','P0000022')");
-			stmt.execute("insert into ELECTRONIC values('E0000006','Sony','MDREX10LP','Black','P0000023')");
-			stmt.execute("insert into ELECTRONIC values('E0000007','Bose','SoundDock II','Black','P0000024')");
-			stmt.execute("insert into ELECTRONIC values('E0000008','Samsung','DA-E750','Red','P0000025')");
-			stmt.execute("insert into ELECTRONIC values('E0000009','Nintendo','Wii','White','P0000026')");
 			stmt.execute("insert into CD values('C0000001',68,'AM','Domino',9.50,16.99,'D0000001')");
 			stmt.execute("insert into CD values('C0000002',72,'Random Access Memories','Columbia',10.50,18.99,'D0000002')");
 			stmt.execute("insert into CD values('C0000003',75,'Love in the Future','Columbia',9.49,17.99,'D0000003')");
@@ -545,6 +558,8 @@ public class DBsql
 			stmt.execute("insert into CD values('C0000006',53,'Native','Interscope Records',9.60,15.99,'D0000006')");
 			stmt.execute("insert into CD values('C0000007',49,'Abbey Road','EMI',6.49,11.99,'D0000007')");
 			stmt.execute("insert into CD values('C0000008',59,'Aenima','Volcano',8.50,16.99,'D0000008')");
+			
+			
 			stmt.execute("insert into ARTIST values('A0000001','Arctic Monkeys')");
 			stmt.execute("insert into ARTIST values('A0000002','Daft Punk')");
 			stmt.execute("insert into ARTIST values('A0000003','John Legend')");
@@ -553,6 +568,8 @@ public class DBsql
 			stmt.execute("insert into ARTIST values('A0000006','One Republic')");
 			stmt.execute("insert into ARTIST values('A0000007','The Beatles')");
 			stmt.execute("insert into ARTIST values('A0000008','Tool')");
+			
+			
 			stmt.execute("insert into CD_ARTIST values('C0000001','A0000001')");
 			stmt.execute("insert into CD_ARTIST values('C0000002','A0000002')");
 			stmt.execute("insert into CD_ARTIST values('C0000003','A0000003')");
@@ -561,6 +578,8 @@ public class DBsql
 			stmt.execute("insert into CD_ARTIST values('C0000006','A0000006')");
 			stmt.execute("insert into CD_ARTIST values('C0000007','A0000007')");
 			stmt.execute("insert into CD_ARTIST values('C0000008','A0000008')");
+			
+			
 			stmt.execute("insert into SONG values('S0000001','3:12','Do I Wanna Know?','C0000001')");
 			stmt.execute("insert into SONG values('S0000002','4:12','R U Mine?','C0000001')");
 			stmt.execute("insert into SONG values('S0000003','4:02','One For The Road','C0000001')");
@@ -666,22 +685,32 @@ public class DBsql
 			stmt.execute("insert into SONG values('S0000103','3:58','Aenema','C0000008')");
 			stmt.execute("insert into SONG values('S0000104','3:45','(-) Ions','C0000008')");
 			stmt.execute("insert into SONG values('S0000105','5:01','Third Eye','C0000008')");
+			
+			
 			stmt.execute("insert into DVD values('D0000001',135,'Captain Phillips','Columbia Pictures',12.58,26.99,'D0000009')");
 			stmt.execute("insert into DVD values('D0000002',118,'Dallas Buyers Club','Focus Features',13.50,24.99,'D0000010')");
 			stmt.execute("insert into DVD values('D0000003',91,'Gravity','Warner Brothers',12.55,24.99,'D0000011')");
 			stmt.execute("insert into DVD values('D0000004',146,'The Hunger Games - Catching Fire','Lionsgate',13.60,25.99,'D0000012')");
 			stmt.execute("insert into DVD values('D0000005',113,'Thor - The Dark World','Walt Disney',11.59,21.99,'D0000013')");
+			
+			
 			stmt.execute("insert into GAME values('G0000001','UBI SOFT','Sony Playstation 4','Assassin''s Creed IV Black Flag',26.40,45.99,'D0000014')");
 			stmt.execute("insert into GAME values('G0000002','Activision','Microsoft Xbox 360','Call of Duty - Ghosts',18.20,26.99,'D0000015')");
 			stmt.execute("insert into GAME values('G0000003','Rockstar Games','Microsoft Xbox 360','Grand Theft Auto V',26.50,44.99,'D0000016')");
 			stmt.execute("insert into GAME values('G0000004','Konami','Sony Playstation 4','Metal Gear Solid V Ground Zeroes',17.60,24.99,'D0000017')");
+			
+			
 			stmt.execute("insert into CONSOLE values('L0000001',500,'Y',1,200,260,'E0000001')");
 			stmt.execute("insert into CONSOLE values('L0000002',4,'Y',1,120,200,'E0000002')");
 			stmt.execute("insert into CONSOLE values('L0000003',0,'N',1,90,150,'E0000009')");
+			
+			
 			stmt.execute("insert into HEADPHONES values('H0000001','Y','N','Y',242.69,360.95,'E0000003')");
 			stmt.execute("insert into HEADPHONES values('H0000002','Y','N','Y',88.50,119.99,'E0000004')");
 			stmt.execute("insert into HEADPHONES values('H0000003','N','N','Y',21.50,31.99,'E0000005')");
 			stmt.execute("insert into HEADPHONES values('H0000004','N','Y','Y',2.50,6.99,'E0000006')");
+			
+			
 			stmt.execute("insert into SOUND_DOCK values('SD0000001','N',60,'Y',142.50,199.99,'E0000007')");
 			stmt.execute("insert into SOUND_DOCK values('SD0000002','Y',100,'Y',425.90,589.99,'E0000008')");
 			// employee inserts
@@ -730,13 +759,7 @@ public class DBsql
 			stmt.execute("insert into transaction values(1000016, '30May2013', 'S', 18.99, 2, 1234,'P0000007')"); //23.98
 			stmt.execute("insert into transaction values(1000016, '30May2013', 'S', 18.99, 1, 1234,'P0000008')"); //16.99
 			stmt.execute("insert into transaction values(1000016, '30May2013', 'S', 18.99, 1, 1234,'P0000004')"); //19.99
-			try
-			{
-				Thread.sleep(1000);
-			} catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
+			
 			System.out.println("Data inserted successfully.");
 		} catch (SQLException ex)
 		{
@@ -750,13 +773,6 @@ public class DBsql
 		{
 			stmt.close();
 			conn.close();
-			try
-			{
-				Thread.sleep(500);
-			} catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
 			System.out.print("\nConnection closed");
 		} catch (SQLException e)
 		{
