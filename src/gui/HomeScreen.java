@@ -21,20 +21,20 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private static final int FRAME_HEIGHT = 700;
 	private JButton button1, button2, button3, button4, digiProd, elecProd, closeBtn;
 	private JLabel logo, logo2, welcome, spacer;
-	
+
 	private	JButton[] sideButtonsArray = { button1 = new JButton("POS"),
-					button2 = new JButton("Admin"), 
-					button3 = new JButton("Kiosk"),
-					button4 = new JButton("Close"), };
-	
+			button2 = new JButton("Admin"), 
+			button3 = new JButton("Kiosk"),
+			button4 = new JButton("Close"), };
+
 	private JPanel homePanel, ProdSelect, center, posGUI, cardPanel, digiProdPanel, genReportPanel,
 	userPanel, elecProdPanel;
-	
+
 	// Border declaration for use on east and west panels on main frame
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border border = BorderFactory.createCompoundBorder(space, line);
-	
+
 	private BorderLayout layout = new BorderLayout();
 	private GridBagConstraints gc = new GridBagConstraints();
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
@@ -43,17 +43,22 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private EmployeeList employeeList;
 	private EmpOperations adminOperations;
 	private ProdOperations prodOpertaion;
+	private static SystemTray tray;
+	private static TrayIcon trayIcon;
+	private static Image img;
+	private static PopupMenu popup;
 	private DBconnection db;
-	
+
 	public HomeScreen() {
 
 		db = new DBconnection();
+
 		EmpOperations ao = new EmpOperations();
 		ProdOperations po = new ProdOperations();
 		EmployeeList el = new EmployeeList(ao);
 		ao.setDBconnection(db.openDB());
 		po.setDBconnection(db.openDB());
-		
+
 		// Main frame declaration
 		frame = new JFrame();
 		frame.setLayout(layout);
@@ -67,7 +72,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		this.adminOperations = ao;
 		this.prodOpertaion = po;
 		cl1 = new Color(240, 240, 240);
-		
+
 		// Left side buttons panel
 		JPanel sideButtons = new JPanel();
 		sideButtons.setBackground(cl1);
@@ -94,7 +99,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		gc.weighty = 10.0;
 		sideButtons.add(spacer, gc);
 
-		
+
 
 		// Adding side buttons to side panel
 		for (int i = 0; i < sideButtonsArray.length; i++) {
@@ -123,7 +128,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		closeBtn.addActionListener(this);
 		genReportPanel.add(closeBtn);
 
-	
+
 		// Home panel
 		homePanel = new JPanel();
 		homePanel.setLayout(new BorderLayout());
@@ -135,32 +140,32 @@ public class HomeScreen extends JFrame implements ActionListener{
 		logo2.setIcon(new ImageIcon("src/resources/logo.jpeg"));
 		logo2.setPreferredSize(new Dimension(400, 120));
 		homePanel.add(logo2);
-		
-		
+
+
 		JButton[] prodSelect = {elecProd = new JButton("Electric Product"),
 				digiProd = new JButton("Digital Product")};
-		
+
 		//Product select panel	
 		ProdSelect = new JPanel();
 		ProdSelect.setLayout(new GridBagLayout());
-		
+
 		for(int i =0; i < prodSelect.length; i++)
 		{
-		prodSelect[i].setIcon(new ImageIcon("src/resources/blueButton.png"));
-		prodSelect[i].setFont(new Font("sansserif", Font.BOLD, 22));
-		prodSelect[i].setPreferredSize(new Dimension(280, 100));
-		prodSelect[i].setHorizontalTextPosition(JButton.CENTER);
-		prodSelect[i].setVerticalTextPosition(JButton.CENTER);
-		prodSelect[i].addActionListener(this);
-		ProdSelect.add(prodSelect[i]);
+			prodSelect[i].setIcon(new ImageIcon("src/resources/blueButton.png"));
+			prodSelect[i].setFont(new Font("sansserif", Font.BOLD, 22));
+			prodSelect[i].setPreferredSize(new Dimension(280, 100));
+			prodSelect[i].setHorizontalTextPosition(JButton.CENTER);
+			prodSelect[i].setVerticalTextPosition(JButton.CENTER);
+			prodSelect[i].addActionListener(this);
+			ProdSelect.add(prodSelect[i]);
 		}
-		
+
 
 		//Center in Home Panel
 		center = new JPanel();
 		center.setLayout(new GridBagLayout());
 		center.setBackground(new Color(0, 0, 0, 0));
-	
+
 		logo2.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 		gc.gridx = 0;
 		gc.gridy = 0;
@@ -175,8 +180,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 		elecProdPanel = new ProdPanel(frame, "elec");
 		digiProdPanel = new ProdPanel(frame, "digi");
 		posGUI = new PosGui(frame);
-		
-		
+
+
 		cards = new CardLayout();
 		cardPanel.setLayout(cards);
 		cardPanel.setBackground(cl1);
@@ -190,15 +195,36 @@ public class HomeScreen extends JFrame implements ActionListener{
 		cardPanel.setBorder(border);
 		cardPanel.setPreferredSize(new Dimension(900, 10));
 		frame.add(cardPanel, BorderLayout.EAST);
-
+		addSystemTray();
+		
 		frame.setVisible(true);
 
 	}
 
-	
-	
+	public static void addSystemTray()
+	{
+		popup = new PopupMenu();
+		if (!java.awt.SystemTray.isSupported())
+		{  
+            System.out.println("SystemTray is not supported");  
+            return;  
+        }
+		try{
+			img =Toolkit.getDefaultToolkit().getImage("src/resources/trayIcon.png");
+			trayIcon = new TrayIcon(img,"JAKD");
+			tray = SystemTray.getSystemTray();
+			tray.add(trayIcon);
+		}catch(AWTException ae)
+		{
+
+		}
+        MenuItem exitItem = new MenuItem("Exit");  
+        popup.add(exitItem);
+        trayIcon.setPopupMenu(popup); 
+	}
+
 	public void buttonSelect(JButton button) {
-		
+
 		if (button.equals(button1) && button1.getText().equals("Generate Report")) {
 			cards.show(cardPanel, "genReport");
 		}
@@ -227,7 +253,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		}
 		else if(button.equals(button3) && button3.getText().equals("Kiosk"))
 		{
-			KioskStartScreen kss = new KioskStartScreen(db);
+			new KioskStartScreen(db);
 			button4.setText("Logout");
 		}
 		else if (button.equals(button4) && button4.getText().equals("Logout")) {
@@ -244,9 +270,9 @@ public class HomeScreen extends JFrame implements ActionListener{
 			System.exit(0);
 		}
 	}
-//
+	//
 	public void actionPerformed(ActionEvent e) {
-		
+
 		for (int i = 0; i < sideButtonsArray.length; i++) {
 			if (e.getSource().equals(sideButtonsArray[i])) {
 				buttonSelect(sideButtonsArray[i]);
@@ -260,12 +286,12 @@ public class HomeScreen extends JFrame implements ActionListener{
 			cards.show(cardPanel, "editDigi");
 		} 
 		else if (e.getSource() == closeBtn) {
-		prodOpertaion.getCD();
+			prodOpertaion.getCD();
 			//adminOperations.getId();
 		}
 	}
 
 	public static void main(String args[]) {
-		HomeScreen home = new HomeScreen();
+		new HomeScreen();
 	}
 }
