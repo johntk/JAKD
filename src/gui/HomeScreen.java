@@ -48,11 +48,13 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private static TrayIcon trayIcon;
 	private static Image img;
 	private static PopupMenu popup;
+	private static ImageIcon ti;
 	private DBconnection db;
 
 	public HomeScreen() {
 
 		db = new DBconnection();
+		ti = new ImageIcon(this.getClass().getResource("/resources/trayIcon.png"));
 
 		EmpOperations ao = new EmpOperations();
 		ProdOperations po = new ProdOperations();
@@ -211,7 +213,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 		}
 		popup = new PopupMenu();
 		try{
-			img =Toolkit.getDefaultToolkit().getImage("src/resources/trayIcon.png");
+			img = ti.getImage();
+//			img =Toolkit.getDefaultToolkit().getImage("bin/resources/trayIcon.png");
 			trayIcon = new TrayIcon(img,"JAKD - Business Management System");
 			tray = SystemTray.getSystemTray();
 			tray.add(trayIcon);

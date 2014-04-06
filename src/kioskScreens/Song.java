@@ -1,23 +1,25 @@
 package kioskScreens;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 
 public class Song
 {
 	private String title;
 	private String id;
 	private String length;
-	private String filePath = "/resources/kioskFiles/songs/";
+	private String filePath;
 	private File file;
 	
 
-	public Song(String id, String name, String length, String artist, String album, int songNum)
+	public Song(String id, String name, String length, String artist, String album, int songNum) throws URISyntaxException, MalformedURLException
 	{
+		filePath = "/resources/kioskFiles/songs/";
 		title = name;
 		this.id = id;
 		this.length = length;
-		file = new File(filePath+artist+" - "+album+"/"+songNum+".wav");
+		file = new File(this.getClass().getResource(filePath+artist+" - "+album+"/"+songNum+".wav").toURI());
 	}
 	
 	public String getSongID()

@@ -63,6 +63,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 
 		top = new JPanel(new BorderLayout());
 		top.setBackground(new Color(0,0,0,0));
+		
 		home = new JButton(hm);
 		home.setBackground(Color.WHITE);
 		home.setFont(new Font("Calibri",Font.BOLD,25));
