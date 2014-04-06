@@ -19,9 +19,9 @@ public class Result extends JPanel
 		imageFile = img;
 		
 		resultPanel = new JPanel(new GridBagLayout());
-		srcPath = "src/resources/kioskFiles/productImages/thumbs/";
+		srcPath = "/resources/kioskFiles/productImages/thumbs/";
 		
-		productImage = new ImageIcon(srcPath+imageFile);
+		productImage = new ImageIcon(this.getClass().getResource(srcPath+imageFile));
 		image = new JLabel(productImage);
 		gc.gridx =0;
 		gc.gridy =0;

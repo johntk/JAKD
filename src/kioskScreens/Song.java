@@ -8,7 +8,7 @@ public class Song
 	private String title;
 	private String id;
 	private String length;
-	private String filePath = "src/resources/kioskFiles/songs/";
+	private String filePath = "/resources/kioskFiles/songs/";
 	private File file;
 	
 

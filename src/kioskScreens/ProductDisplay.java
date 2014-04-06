@@ -30,8 +30,8 @@ public class ProductDisplay extends JFrame implements ActionListener
 		playButtons = new ArrayList<JButton>();
 		songList = new ArrayList<Song>();
 		songNames = new ArrayList<JLabel>();
-		play = new ImageIcon("src/resources/kioskFiles/images/play.png");
-		stop = new ImageIcon("src/resources/kioskFiles/images/stop.png");
+		play = new ImageIcon(this.getClass().getResource("/resources/kioskFiles/images/play.png"));
+		stop = new ImageIcon(this.getClass().getResource("/resources/kioskFiles/images/stop.png"));
 		ap = new AudioPlayer();
 
 		volume = new JSlider(JSlider.HORIZONTAL,0,100,90);
@@ -53,9 +53,9 @@ public class ProductDisplay extends JFrame implements ActionListener
 			}
 		});
 
-		srcPath = "src/resources/kioskFiles/productImages/";
-		hm = new ImageIcon("src/resources/kioskFiles/images/home.png");
-		logo = new ImageIcon("src/resources/kioskFiles/images/logo3.png");
+		srcPath = "/resources/kioskFiles/productImages/";
+		hm = new ImageIcon(this.getClass().getResource("/resources/kioskFiles/images/home.png"));
+		logo = new ImageIcon(this.getClass().getResource("/resources/kioskFiles/images/logo3.png"));
 		gc = new GridBagConstraints();
 
 		main = new JPanel(new BorderLayout());
@@ -110,7 +110,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		// Add product image and information
 		JPanel result = new JPanel(new GridLayout(9,1));
 
-		ImageIcon img = new ImageIcon(srcPath+manufacturer+" "+model+".jpg");
+		ImageIcon img = new ImageIcon(this.getClass().getResource(srcPath+manufacturer+" "+model+".jpg"));
 		JLabel i = new JLabel(img);
 		gc.gridx =0;
 		gc.gridy =0;
@@ -193,7 +193,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		// Add product image and information
 		JPanel result = new JPanel(new GridLayout(9,1));
 
-		ImageIcon img = new ImageIcon(srcPath+manufacturer+" "+model+".jpg");
+		ImageIcon img = new ImageIcon(this.getClass().getResource(srcPath+manufacturer+" "+model+".jpg"));
 		JLabel i = new JLabel(img);
 		gc.gridx =0;
 		gc.gridy =0;
@@ -293,7 +293,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		// Add product image and information
 		JPanel result = new JPanel(new GridLayout(9,1));
 
-		ImageIcon img = new ImageIcon(srcPath+manufacturer+" "+model+".jpg");
+		ImageIcon img = new ImageIcon(this.getClass().getResource(srcPath+manufacturer+" "+model+".jpg"));
 		JLabel i = new JLabel(img);
 		gc.gridx =0;
 		gc.gridy =0;
@@ -385,7 +385,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		// Add product image and information
 		int y = 1;
 
-		ImageIcon img = new ImageIcon(srcPath+artist+" - "+album+".jpg");
+		ImageIcon img = new ImageIcon(this.getClass().getResource(srcPath+artist+" - "+album+".jpg"));
 		JLabel im = new JLabel(img);
 		gc.gridx =0;
 		gc.gridy =0;
@@ -553,7 +553,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 	{
 		JPanel result = new JPanel(new GridLayout(8,1));
 
-		ImageIcon img = new ImageIcon(srcPath+title+".jpg");
+		ImageIcon img = new ImageIcon(this.getClass().getResource(srcPath+title+".jpg"));
 		JLabel i = new JLabel(img);
 		gc.gridx =0;
 		gc.gridy =0;
@@ -623,7 +623,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 	{
 		JPanel result = new JPanel(new GridLayout(8,1));
 
-		ImageIcon img = new ImageIcon(srcPath+title+".jpg");
+		ImageIcon img = new ImageIcon(this.getClass().getResource(srcPath+title+".jpg"));
 		JLabel i = new JLabel(img);
 		gc.gridx =0;
 		gc.gridy =0;
@@ -730,7 +730,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 						}
 						else
 						{
-							ImageIcon ind = new ImageIcon("src/resources/kioskFiles/images/indicator.png");
+							ImageIcon ind = new ImageIcon(this.getClass().getResource("/resources/kioskFiles/images/indicator.png"));
 							songNames.get(j).setForeground(new Color(20,120,230));
 							songNames.get(j).setFont(new Font("Calibri",Font.BOLD,20));
 							songNames.get(j).setIcon(ind);

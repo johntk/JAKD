@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import db.DBconnection;
@@ -44,20 +45,20 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/resources/titleIcon.png"));
 		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-		srcPath = "src/resources/kioskFiles/images/";
+		srcPath = "/resources/kioskFiles/images/";
 		gc = new GridBagConstraints();
 		font = new Font("Calibri",Font.BOLD,30);
 		
-		cn = new ImageIcon(srcPath+"console.png");
-		hp = new ImageIcon(srcPath+"headphones.png");
-		gm = new ImageIcon(srcPath+"games.png");
-		mu = new ImageIcon(srcPath+"music.png");
-		dvd = new ImageIcon(srcPath+"dvd.png");
-		sd = new ImageIcon(srcPath+"soundDock.png");
-		src = new ImageIcon(srcPath+"search.png");
-		dl = new ImageIcon(srcPath+"deals.png");
-		logo = new ImageIcon(srcPath+"logo3.png");
-		close = new ImageIcon(srcPath+"close.png");
+		cn = new ImageIcon(this.getClass().getResource(srcPath+"console.png"));
+		hp = new ImageIcon(this.getClass().getResource(srcPath+"headphones.png"));
+		gm = new ImageIcon(this.getClass().getResource(srcPath+"games.png"));
+		mu = new ImageIcon(this.getClass().getResource(srcPath+"music.png"));
+		dvd = new ImageIcon(this.getClass().getResource(srcPath+"dvd.png"));
+		sd = new ImageIcon(this.getClass().getResource(srcPath+"soundDock.png"));
+		src = new ImageIcon(this.getClass().getResource(srcPath+"search.png"));
+		dl = new ImageIcon(this.getClass().getResource(srcPath+"deals.png"));
+		logo = new ImageIcon(this.getClass().getResource(srcPath+"logo3.png"));
+		close = new ImageIcon(this.getClass().getResource(srcPath+"close.png"));
 		
 		main = new JPanel(new BorderLayout());
 		main.setBackground(Color.WHITE);

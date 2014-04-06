@@ -16,7 +16,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private CardLayout cards;
-	private JFrame frame;
+	private static JFrame frame;
 	private static final int FRAME_WIDTH = 1248;
 	private static final int FRAME_HEIGHT = 700;
 	private JButton button1, button2, button3, button4, digiProd, elecProd, closeBtn;
@@ -43,6 +43,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private EmployeeList employeeList;
 	private EmpOperations adminOperations;
 	private ProdOperations prodOpertaion;
+
 	private static SystemTray tray;
 	private static TrayIcon trayIcon;
 	private static Image img;
@@ -196,31 +197,47 @@ public class HomeScreen extends JFrame implements ActionListener{
 		cardPanel.setPreferredSize(new Dimension(900, 10));
 		frame.add(cardPanel, BorderLayout.EAST);
 		addSystemTray();
-		
+
 		frame.setVisible(true);
 
 	}
 
 	public static void addSystemTray()
 	{
-		popup = new PopupMenu();
 		if (!java.awt.SystemTray.isSupported())
 		{  
-            System.out.println("SystemTray is not supported");  
-            return;  
-        }
+			System.out.println("SystemTray is not supported");  
+			return;  
+		}
+		popup = new PopupMenu();
 		try{
 			img =Toolkit.getDefaultToolkit().getImage("src/resources/trayIcon.png");
-			trayIcon = new TrayIcon(img,"JAKD");
+			trayIcon = new TrayIcon(img,"JAKD - Business Management System");
 			tray = SystemTray.getSystemTray();
 			tray.add(trayIcon);
-		}catch(AWTException ae)
-		{
+		}catch(AWTException ae){
 
 		}
-        MenuItem exitItem = new MenuItem("Exit");  
-        popup.add(exitItem);
-        trayIcon.setPopupMenu(popup); 
+		MenuItem exitItem = new MenuItem("Exit");
+		exitItem.addActionListener(new ActionListener()
+		{  
+			public void actionPerformed(ActionEvent e)
+			{  
+				System.exit(0); 
+			}  
+		});
+		popup.add(exitItem);
+		trayIcon.setPopupMenu(popup); 
+
+		trayIcon.addActionListener(new ActionListener()
+		{  
+			public void actionPerformed(ActionEvent e)
+			{  
+				frame.requestFocus();
+			}  
+		});
+		
+		trayIcon.displayMessage("JAKD", "Right-Click Here For Options", TrayIcon.MessageType.NONE);
 	}
 
 	public void buttonSelect(JButton button) {

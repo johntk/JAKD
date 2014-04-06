@@ -25,10 +25,10 @@ public class KioskSearch extends JFrame implements ActionListener
 		k = kq;
 		f1=new Font("Calibri",Font.PLAIN,20);
 
-		srcPath = "src/resources/kioskFiles/images/";
+		srcPath = "/resources/kioskFiles/images/";
 		gc = new GridBagConstraints();
-		hm = new ImageIcon(srcPath+"home.png");
-		logo = new ImageIcon(srcPath+"logo.png");
+		hm = new ImageIcon(this.getClass().getResource(srcPath+"home.png"));
+		logo = new ImageIcon(this.getClass().getResource(srcPath+"logo.png"));
 
 		main = new JPanel(new BorderLayout());
 		main.setBackground(Color.WHITE);

@@ -33,14 +33,14 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 	{
 		this.kq = kq;
 
-		srcPath = "src/resources/kioskFiles/images/";
+		srcPath = "/resources/kioskFiles/images/";
 		r = new JPanel();
 		viewButtons = new ArrayList<JButton>();
 		yPos = new ArrayList<Integer>();
 		resultList = new ArrayList<Result>();
 		gc = new GridBagConstraints();
-		hm = new ImageIcon(srcPath+"home.png");
-		logo = new ImageIcon(srcPath+"logo3.png");
+		hm = new ImageIcon(this.getClass().getResource(srcPath+"home.png"));
+		logo = new ImageIcon(this.getClass().getResource(srcPath+"logo3.png"));
 
 		main = new JPanel(new BorderLayout());
 		main.setBackground(Color.WHITE);
