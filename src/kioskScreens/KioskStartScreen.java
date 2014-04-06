@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import db.DBconnection;
@@ -17,7 +16,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 	private String srcPath;
 	private static JPanel main;
 	private JPanel content,header,footer,pswd;
-	private ImageIcon cn,hp,gm,mu,dvd,sd,src,dl,logo,close;
+	private ImageIcon cn,hp,gm,mu,dvd,sd,src,dl,logo,close,frameIcon;
 	private JButton exit,con,headp,game,music,dvds,soundd,search,deals;
 	private JLabel logoLabel,pinLbl,msc,dv,gms,snd,srch,dls,cnsl,hdph;
 	private Font font;
@@ -34,15 +33,18 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		kq = new KioskQueries();
 		kq.setDBconnection(db.openDB());
 		
+		frameIcon = new ImageIcon(this.getClass().getResource("/resources/titleIcon.png"));
+		Image i = frameIcon.getImage();
+		
 		frame = new JFrame();
 		frame.setTitle("Kiosk Mode");
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setLayout(new BorderLayout());
 		frame.setSize(1280,1024);
-		frame.setResizable(false);
+		//frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
-		frame.setUndecorated(true);
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/resources/titleIcon.png"));
+		//frame.setUndecorated(true);
+		frame.setIconImage(i);
 		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		srcPath = "/resources/kioskFiles/images/";

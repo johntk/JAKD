@@ -1,51 +1,47 @@
 package kioskScreens;
 
-import java.io.File;
-
-import javax.media.*;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.Line;
 
 public class AudioPlayer
 {
-	private File f;
-	private Player player;
+	private Clip clip;
+	private AudioInputStream aiStream;
 
-	public void play(File f)
+	public void play(AudioInputStream ai)
 	{
-		this.f = f;
+		aiStream = ai;
 		try
 		{
-			player = Manager.createPlayer(new MediaLocator(f.toURI().toURL()));
-
-			player.realize();
-
+			Line.Info linfo = new Line.Info(Clip.class);
+		    Line line = AudioSystem.getLine(linfo);
+		    clip = (Clip) line;
+		    clip.open(aiStream);
+		    clip.start();
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
 		}
-		player.start();
 	}
 	public void stop()
 	{
-		player.stop();
-		player.close();
+		clip.stop();
+		clip.close();
 	}
 	public void setVolume(float x)
 	{
-		GainControl gc=player.getGainControl();
-		gc.setLevel(x);
+		
 	}
-	public File getFile()
+	public AudioInputStream getFile()
 	{
-		return this.f;
+		return aiStream;
 	}
 	public void nullFile()
 	{
-		this.f =null;
-	}
-	public int getState()
-	{
-		return player.getState();
+		this.aiStream =null;
 	}
 
 }

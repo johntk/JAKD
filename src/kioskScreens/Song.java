@@ -1,25 +1,28 @@
 package kioskScreens;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
+import java.io.IOException;
+import java.net.URL;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Song
 {
 	private String title;
 	private String id;
 	private String length;
-	private String filePath;
-	private File file;
+	private URL filePath;
+	private AudioInputStream aiStream;
 	
 
-	public Song(String id, String name, String length, String artist, String album, int songNum) throws URISyntaxException, MalformedURLException
+	public Song(String id, String name, String length, String artist, String album, int songNum) throws UnsupportedAudioFileException, IOException
 	{
-		filePath = "/resources/kioskFiles/songs/";
 		title = name;
 		this.id = id;
 		this.length = length;
-		file = new File(this.getClass().getResource(filePath+artist+" - "+album+"/"+songNum+".wav").toURI());
+		filePath = getClass().getResource("/resources/kioskFiles/songs/"+artist+" - "+album+"/"+songNum+".wav");
+		aiStream = AudioSystem.getAudioInputStream(filePath);
 	}
 	
 	public String getSongID()
@@ -27,9 +30,9 @@ public class Song
 		return id;
 	}
 	
-	public File getFile()
+	public AudioInputStream getFile()
 	{
-		return file;
+		return aiStream;
 	}
 	
 	public String getTitle()

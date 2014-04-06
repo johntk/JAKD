@@ -1,5 +1,7 @@
 package kioskScreens;
 
+import gui.HomeScreen;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -63,7 +65,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 
 		top = new JPanel(new BorderLayout());
 		top.setBackground(new Color(0,0,0,0));
-		
+
 		home = new JButton(hm);
 		home.setBackground(Color.WHITE);
 		home.setFont(new Font("Calibri",Font.BOLD,25));
@@ -712,41 +714,46 @@ public class ProductDisplay extends JFrame implements ActionListener
 		{
 			for(int i=0; i<playButtons.size(); i++)
 			{
-				if(((JButton)e.getSource()) == playButtons.get(i))
-				{
-					try{
-						ap.stop();
-					}
-					catch(Exception ex){
-					}
+				try{
+					if(((JButton)e.getSource()) == playButtons.get(i))
+					{
+						try{
+							ap.stop();
+						}
+						catch(Exception ex){
+						}
 
-					for(int j=0; j<songNames.size(); j++)
-					{
-						if(songNames.get(j) != songNames.get(i))
+						for(int j=0; j<songNames.size(); j++)
 						{
-							songNames.get(j).setForeground(Color.GRAY);
-							songNames.get(j).setFont(new Font("Calibri",Font.PLAIN,20));
-							songNames.get(j).setIcon(null);
-							playButtons.get(j).setIcon(play);
+							if(songNames.get(j) != songNames.get(i))
+							{
+								songNames.get(j).setForeground(Color.GRAY);
+								songNames.get(j).setFont(new Font("Calibri",Font.PLAIN,20));
+								songNames.get(j).setIcon(null);
+								playButtons.get(j).setIcon(play);
+							}
+							else
+							{
+								ImageIcon ind = new ImageIcon(this.getClass().getResource("/resources/kioskFiles/images/indicator.png"));
+								songNames.get(j).setForeground(new Color(20,120,230));
+								songNames.get(j).setFont(new Font("Calibri",Font.BOLD,20));
+								songNames.get(j).setIcon(ind);
+								playButtons.get(j).setIcon(stop);
+							}
 						}
-						else
+						if(ap.getFile() == songList.get(i).getFile())
 						{
-							ImageIcon ind = new ImageIcon(this.getClass().getResource("/resources/kioskFiles/images/indicator.png"));
-							songNames.get(j).setForeground(new Color(20,120,230));
-							songNames.get(j).setFont(new Font("Calibri",Font.BOLD,20));
-							songNames.get(j).setIcon(ind);
-							playButtons.get(j).setIcon(stop);
+							ap.stop();
+							playButtons.get(i).setIcon(play);
+							songNames.get(i).setIcon(null);
+							ap.nullFile();
 						}
+						else ap.play(songList.get(i).getFile());
+						volume.setValue(90);
 					}
-					if(ap.getFile() == songList.get(i).getFile())
-					{
-						ap.stop();
-						playButtons.get(i).setIcon(play);
-						songNames.get(i).setIcon(null);
-						ap.nullFile();
-					}
-					else ap.play(songList.get(i).getFile());
-					volume.setValue(90);
+				}catch(Exception ex)
+				{
+					ex.getMessage();
 				}
 			}
 		}
