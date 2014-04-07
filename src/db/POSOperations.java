@@ -6,6 +6,8 @@ import model.Transaction;
 
 import javax.swing.JOptionPane;
 
+import com.sun.org.apache.bcel.internal.classfile.PMGClass;
+
 import oracle.jdbc.pool.OracleDataSource;
 
 public class POSOperations 
@@ -152,7 +154,6 @@ public class POSOperations
 		
 		
 		queryProduct(prodInput);
-		//return prodID + "\t" + desc + "\t" + price + "\t" ;
 		return rset;
 		
 	}
@@ -164,16 +165,40 @@ public class POSOperations
 			if(prodInput == t.get(i).getTransID())
 			{
 				t.remove(i);
-				//double price = Double.parseDouble(data.getString(3));
+
 				System.out.println(t.get(i).getTransID());
 				
 			}
 			
 			
 		}
-			
-
+	}
 	
+	public void insertTran(ArrayList<Transaction> t)
+	{
+		//trans_id NUMBER NOT NULL, trans_date DATE, trans_type VARCHAR2(1) CHECK(trans_type IN('S','R')), total_cost NUMBER(30,2))"
+		String insert = "INSERT INTO transaction(trans_id, trans_date, trans_type, total_cost, quantity, emp_id, prod_id) VALUES(?,?,?,?,?,?,?)"; 	
+		try
+		{
+			pstmt = conn.prepareStatement(insert);
+			
+			pstmt.setString(1, t.get(0).getTransID());
+			pstmt.setString(2, t.get(0).getDate());
+			pstmt.setString(3, t.get(0).getTransType());
+			pstmt.setDouble(4, t.get(0).getTotalCost());
+			pstmt.setInt(5, t.get(0).getQuantity());
+			pstmt.setString(6,"1234");
+			pstmt.setString(7,t.get(0).getProdID());
+			
+			pstmt.execute();
+			System.out.println("insert sucessfull :)");
+			
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			System.out.println("cant do insert");
+		}
 	}
 
 }

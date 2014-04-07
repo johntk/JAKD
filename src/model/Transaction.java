@@ -60,6 +60,11 @@ public class Transaction
 		this.date = date;
 	}
 	
+	public String getDate()
+	{
+		return date;
+	}
+	
 	public String getProdID()
 	{
 		return prodID;

@@ -312,12 +312,16 @@ public class PosGui extends JPanel implements ActionListener
 			{
 				products.setText(products.getText() + "Cash\t\t " + cashEntered);
 				totalPriceField.setText(decf.format((totalCost - cashEntered)));
+				jd.setVisible(false);
 				
 			}
 			else
 			{
 				totalPrice.setText("Change:");
 				totalPriceField.setText(decf.format((cashEntered - totalCost)));
+				jd.setVisible(false);
+				po.insertTran(tranList);
+				
 			}
 			
 
