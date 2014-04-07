@@ -89,7 +89,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 		// Logo and buttons added to left side panel
 		logo = new JLabel("");
-		logo.setIcon(new ImageIcon("src/resources/logo.jpeg"));
+		logo.setIcon(new ImageIcon(this.getClass().getResource("/resources/logo.jpeg")));
 		logo.setPreferredSize(new Dimension(295, 120));
 		gc.gridx = 0; // col
 		gc.gridy = 0; // row
@@ -116,7 +116,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 			gc.gridheight = 1;
 			gc.weighty = 0.2;
 			gc.weightx = 0.0;
-			sideButtonsArray[i].setIcon(new ImageIcon("src/resources/blueButton.png"));
+			sideButtonsArray[i].setIcon(new ImageIcon(this.getClass().getResource("/resources/blueButton.png")));
 			sideButtonsArray[i].setFont(new Font("sansserif", Font.BOLD, 22));
 			sideButtonsArray[i].setPreferredSize(new Dimension(280, 100));
 			sideButtonsArray[i].setHorizontalTextPosition(JButton.CENTER);
@@ -144,7 +144,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		welcome = new JLabel("Welcome to JAKD!");
 		welcome.setFont(font);
 		logo2 = new JLabel("");
-		logo2.setIcon(new ImageIcon("src/resources/logo.jpeg"));
+		logo2.setIcon(new ImageIcon(this.getClass().getResource("/resources/logo.jpeg")));
 		logo2.setPreferredSize(new Dimension(400, 120));
 		homePanel.add(logo2);
 
@@ -158,7 +158,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 		for(int i =0; i < prodSelect.length; i++)
 		{
-			prodSelect[i].setIcon(new ImageIcon("src/resources/blueButton.png"));
+			prodSelect[i].setIcon(new ImageIcon(this.getClass().getResource("/resources/blueButton.png")));
 			prodSelect[i].setFont(new Font("sansserif", Font.BOLD, 22));
 			prodSelect[i].setPreferredSize(new Dimension(280, 100));
 			prodSelect[i].setHorizontalTextPosition(JButton.CENTER);
@@ -218,7 +218,6 @@ public class HomeScreen extends JFrame implements ActionListener{
 		popup = new PopupMenu();
 		try{
 			img = ti.getImage();
-//			img =Toolkit.getDefaultToolkit().getImage("bin/resources/trayIcon.png");
 			trayIcon = new TrayIcon(img,"JAKD - Business Management System");
 			tray = SystemTray.getSystemTray();
 			tray.add(trayIcon);
