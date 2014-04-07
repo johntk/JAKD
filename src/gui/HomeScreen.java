@@ -44,6 +44,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private EmpOperations adminOperations;
 	private ProdOperations prodOpertaion;
 
+	private ImageIcon frameIcon;
+	
 	private static SystemTray tray;
 	public static TrayIcon trayIcon;
 	private static Image img;
@@ -55,6 +57,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 		db = new DBconnection();
 		ti = new ImageIcon(this.getClass().getResource("/resources/trayIcon.png"));
+		frameIcon = new ImageIcon(this.getClass().getResource("/resources/titleIcon.png"));
+		Image im = frameIcon.getImage();
 
 		EmpOperations ao = new EmpOperations();
 		ProdOperations po = new ProdOperations();
@@ -68,7 +72,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		frame.setTitle("Home Screen");
 		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		frame.setLocationRelativeTo(null);
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/resources/titleIcon.png"));
+		frame.setIconImage(im);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		this.employeeList = el;
