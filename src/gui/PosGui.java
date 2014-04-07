@@ -148,7 +148,7 @@ public class PosGui extends JPanel implements ActionListener
 		blank2 = new JLabel("                              ");
 		posTop.add(blank2);
 		
-		close = new ImageIcon("src/resources/kioskFiles/images/close.png");
+		close = new ImageIcon(this.getClass().getResource("/resources/kioskFiles/images/close.png"));
 		exit = new JButton("Close",close);
 		exit.setBackground(new Color(238,238,238));
 		exit.setPreferredSize(new Dimension(100,50));
