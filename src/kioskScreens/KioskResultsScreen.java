@@ -8,6 +8,7 @@ import javax.swing.*;
 
 public class KioskResultsScreen extends JFrame implements ActionListener, ItemListener
 {
+	private static final long serialVersionUID = 1L;
 	private String srcPath;
 	private static JPanel main;
 	private JPanel center,top,centerTop,footer,resultWindow,r;

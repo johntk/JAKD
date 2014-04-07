@@ -5,10 +5,9 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import db.DBconnection;
-
 public class KioskSearch extends JFrame implements ActionListener
 {
+	private static final long serialVersionUID = 1L;
 	private String srcPath;
 	private static JPanel main;
 	private JPanel center,top;

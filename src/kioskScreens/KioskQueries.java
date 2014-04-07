@@ -3,8 +3,6 @@ package kioskScreens;
 import java.sql.*;
 import java.util.ArrayList;
 
-import db.DBconnection;
-
 public class KioskQueries
 {
 	private Connection conn;

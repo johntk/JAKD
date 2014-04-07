@@ -5,6 +5,7 @@ import javax.swing.*;
 
 public class Result extends JPanel
 {
+	private static final long serialVersionUID = 1L;
 	private ImageIcon productImage;
 	private String imageFile;
 	private JLabel image,description,salePrice;
@@ -21,15 +22,26 @@ public class Result extends JPanel
 		resultPanel = new JPanel(new GridBagLayout());
 		srcPath = "/resources/kioskFiles/productImages/thumbs/";
 
-		productImage = new ImageIcon(this.getClass().getResource(srcPath+imageFile));
-
-		image = new JLabel(productImage);
-		gc.gridx =0;
-		gc.gridy =0;
-		gc.weightx=0.0;
-		gc.weighty=0.0;
-		gc.anchor = GridBagConstraints.SOUTHWEST;
-		resultPanel.add(image,gc);
+		try{
+			productImage = new ImageIcon(this.getClass().getResource(srcPath+imageFile));
+			image = new JLabel(productImage);
+			gc.gridx =0;
+			gc.gridy =0;
+			gc.weightx=0.0;
+			gc.weighty=0.0;
+			gc.anchor = GridBagConstraints.SOUTHWEST;
+			resultPanel.add(image,gc);
+		}catch(Exception e)
+		{
+			productImage = new ImageIcon(this.getClass().getResource(srcPath+"NoPhoto.jpg"));
+			image = new JLabel(productImage);
+			gc.gridx =0;
+			gc.gridy =0;
+			gc.weightx=0.0;
+			gc.weighty=0.0;
+			gc.anchor = GridBagConstraints.SOUTHWEST;
+			resultPanel.add(image,gc);
+		}
 
 		description = new JLabel("  "+desc);
 		description.setFont(new Font("Calibri",Font.PLAIN,25));

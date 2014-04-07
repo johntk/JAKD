@@ -10,9 +10,6 @@ import javax.swing.event.*;
 
 public class ProductDisplay extends JFrame implements ActionListener
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel main,center,top,centerTop,footer,productInfo;
 	private JScrollPane scrollPane;
