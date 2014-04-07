@@ -398,6 +398,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		im.setBorder(BorderFactory.createEmptyBorder(40,40,0,0));
 		productInfo.add(im,gc);
 
+
 		JPanel result = new JPanel(new GridLayout(9,1));
 		gc.gridx =1;
 		gc.gridy =0;
