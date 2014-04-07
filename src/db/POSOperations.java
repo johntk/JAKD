@@ -182,17 +182,19 @@ public class POSOperations
 		{
 			pstmt = conn.prepareStatement(insert);
 			
-			pstmt.setString(1, t.get(0).getTransID());
-			pstmt.setString(2, t.get(0).getDate());
-			pstmt.setString(3, t.get(0).getTransType());
-			pstmt.setDouble(4, t.get(0).getTotalCost());
-			pstmt.setInt(5, t.get(0).getQuantity());
-			pstmt.setString(6,"1234");
-			pstmt.setString(7,t.get(0).getProdID());
-			
-			pstmt.execute();
-			System.out.println("insert sucessfull :)");
-			
+			for(int i = 0; i< t.size();i++)
+			{
+				pstmt.setString(1, t.get(i).getTransID());
+				pstmt.setString(2, t.get(i).getDate());
+				pstmt.setString(3, t.get(i).getTransType());
+				pstmt.setDouble(4, t.get(i).getTotalCost());
+				pstmt.setInt(5, t.get(i).getQuantity());
+				pstmt.setString(6,"1234");
+				pstmt.setString(7,t.get(i).getProdID());
+				
+				pstmt.execute();
+				System.out.println("insert" + (i+1) +" sucessfull :)");
+			}
 		}
 		catch(SQLException e)
 		{

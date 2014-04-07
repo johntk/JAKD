@@ -284,23 +284,25 @@ public class PosGui extends JPanel implements ActionListener
 		
 		else if(e.getSource() == complete)
 		{
+			if(tranList.size() > 0)
+			{
 			
-			jd = new JDialog();
-			jd.setTitle("Complete Sale");
-			jd.setVisible(true);
-			jd.setResizable(false);
-			jd.setLocationRelativeTo(null);
-			jd.setSize(160,130);
-			jd.setLayout(new FlowLayout());
-			
-			enterAmount = new JLabel("Enter Cash:");
-			jd.add(enterAmount);
-			enterAmountf = new JTextField(10);
-			jd.add(enterAmountf);
-			enterAm = new JButton("Enter");
-			enterAm.addActionListener(this);
-			jd.add(enterAm);
-			
+				jd = new JDialog();
+				jd.setTitle("Complete Sale");
+				jd.setVisible(true);
+				jd.setResizable(false);
+				jd.setLocationRelativeTo(null);
+				jd.setSize(160,130);
+				jd.setLayout(new FlowLayout());
+				
+				enterAmount = new JLabel("Enter Cash:");
+				jd.add(enterAmount);
+				enterAmountf = new JTextField(10);
+				jd.add(enterAmountf);
+				enterAm = new JButton("Enter");
+				enterAm.addActionListener(this);
+				jd.add(enterAm);
+			}
 			
 		}
 		
