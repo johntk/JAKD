@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import db.DBconnection;
-
 public class KioskResultsScreen extends JFrame implements ActionListener, ItemListener
 {
 	private String srcPath;
