@@ -1,7 +1,5 @@
 package kioskScreens;
 
-import gui.HomeScreen;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -10,10 +8,12 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 
-import db.DBconnection;
-
 public class ProductDisplay extends JFrame implements ActionListener
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel main,center,top,centerTop,footer,productInfo;
 	private JScrollPane scrollPane;
 	private JButton home,pb;
@@ -45,9 +45,9 @@ public class ProductDisplay extends JFrame implements ActionListener
 		volume.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent ev){
 				try{
-					float x = (float)volume.getValue();
-					float volLevel = x/200;
-					ap.setVolume(volLevel);
+					double gain = (float)volume.getValue()/100;
+					float db = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
+					ap.setVolume(db);
 				}catch(Exception e)
 				{
 					e.printStackTrace();
