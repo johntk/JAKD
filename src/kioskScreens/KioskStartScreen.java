@@ -5,10 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
 import java.util.ArrayList;
-
 import javax.swing.*;
-
-import db.DBconnection;
 
 public class KioskStartScreen extends JFrame implements ActionListener
 {
@@ -25,7 +22,6 @@ public class KioskStartScreen extends JFrame implements ActionListener
 	private GridBagConstraints gc;
 	private KioskResultsScreen krs;
 	private KioskSearch ks;
-	//private DBconnection db;
 	private Connection conn;
 	private KioskQueries kq;
 

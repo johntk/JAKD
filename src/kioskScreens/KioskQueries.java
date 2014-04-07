@@ -75,7 +75,7 @@ public class KioskQueries
 		}
 	}
 
-	public ArrayList queryPlatform()
+	public ArrayList<String> queryPlatform()
 	{
 		ArrayList<String> consoleList = new ArrayList<String>();
 		String description;
