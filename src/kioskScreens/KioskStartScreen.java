@@ -3,6 +3,7 @@ package kioskScreens;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -24,14 +25,15 @@ public class KioskStartScreen extends JFrame implements ActionListener
 	private GridBagConstraints gc;
 	private KioskResultsScreen krs;
 	private KioskSearch ks;
-	private DBconnection db;
+	//private DBconnection db;
+	private Connection conn;
 	private KioskQueries kq;
 
-	public KioskStartScreen(DBconnection db)
+	public KioskStartScreen(Connection c)
 	{
-		this.db = db;
+		conn = c;
 		kq = new KioskQueries();
-		kq.setDBconnection(db.openDB());
+		kq.setDBconnection(conn);
 		
 		frameIcon = new ImageIcon(this.getClass().getResource("/resources/titleIcon.png"));
 		Image i = frameIcon.getImage();
@@ -295,7 +297,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 			}*/
 			try
 			{
-				db.closeDB();
+				//db.closeDB();
 			} catch (Exception se){
 				System.out.println("Could not close connection");
 				se.printStackTrace();

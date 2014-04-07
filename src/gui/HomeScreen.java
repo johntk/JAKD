@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -52,10 +53,12 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private static PopupMenu popup;
 	private static ImageIcon ti;
 	private DBconnection db;
+	private Connection conn;
 
 	public HomeScreen() {
 
 		db = new DBconnection();
+		conn = db.openDB();
 		ti = new ImageIcon(this.getClass().getResource("/resources/trayIcon.png"));
 		frameIcon = new ImageIcon(this.getClass().getResource("/resources/titleIcon.png"));
 		Image im = frameIcon.getImage();
@@ -63,8 +66,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 		EmpOperations ao = new EmpOperations();
 		ProdOperations po = new ProdOperations();
 		EmployeeList el = new EmployeeList(ao);
-		ao.setDBconnection(db.openDB());
-		po.setDBconnection(db.openDB());
+		ao.setDBconnection(conn);
+		po.setDBconnection(conn);
 
 		// Main frame declaration
 		frame = new JFrame();
@@ -276,7 +279,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		}
 		else if(button.equals(button3) && button3.getText().equals("Kiosk"))
 		{
-			new KioskStartScreen(db);
+			new KioskStartScreen(conn);
 			button4.setText("Logout");
 		}
 		else if (button.equals(button4) && button4.getText().equals("Logout")) {
@@ -290,6 +293,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		}
 		else
 		{
+			db.closeDB();
 			System.exit(0);
 		}
 	}
