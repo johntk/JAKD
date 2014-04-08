@@ -17,7 +17,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private CardLayout cards;
-	private static JFrame frame;
+	private JFrame frame;
 	private static final int FRAME_WIDTH = 1248;
 	private static final int FRAME_HEIGHT = 700;
 	private JButton button1, button2, button3, button4, digiProd, elecProd, closeBtn;
@@ -212,7 +212,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 	}
 
-	public static void addSystemTray()
+	public void addSystemTray()
 	{
 		if (!java.awt.SystemTray.isSupported())
 		{  
