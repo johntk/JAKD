@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import javax.print.attribute.standard.JobMessageFromOperator;
+
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -323,6 +323,7 @@ public class PosGui extends JPanel implements ActionListener
 				totalPriceField.setText(decf.format((cashEntered - totalCost)));
 				jd.setVisible(false);
 				po.insertTran(tranList);
+				po.updateCurrentStock(tranList);
 				
 			}
 			
