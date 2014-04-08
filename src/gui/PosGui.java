@@ -325,6 +325,8 @@ public class PosGui extends JPanel implements ActionListener
 				jd.setVisible(false);
 				po.insertTran(tranList);
 				po.updateCurrentStock(tranList);
+				HomeScreen h = new HomeScreen();
+				h.completeSale();
 				
 			}
 			
