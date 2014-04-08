@@ -47,11 +47,11 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 	private ImageIcon frameIcon;
 	
-	private static SystemTray tray;
+	private SystemTray tray;
 	public static TrayIcon trayIcon;
-	private static Image img;
-	private static PopupMenu popup;
-	private static ImageIcon ti;
+	private Image img;
+	private PopupMenu popup;
+	private ImageIcon ti;
 	private DBconnection db;
 	private Connection conn;
 
