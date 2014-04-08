@@ -42,7 +42,7 @@ public class DBconnection
 			name.requestFocusInWindow();
 			ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
 			ods.setUser("project");
-			ods.setPassword("projec");
+			ods.setPassword("project");
 			conn = ods.getConnection();
 			HomeScreen.trayIcon.displayMessage("JAKD", "Database Connected", TrayIcon.MessageType.INFO);
 		} 
