@@ -56,13 +56,15 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private Connection conn;
 
 	public HomeScreen() {
-
-		db = new DBconnection();
-		conn = db.openDB();
 		ti = new ImageIcon(this.getClass().getResource("/resources/trayIcon.png"));
 		frameIcon = new ImageIcon(this.getClass().getResource("/resources/titleIcon.png"));
 		Image im = frameIcon.getImage();
+		
+		addSystemTray();
 
+		db = new DBconnection();
+		conn = db.openDB();
+		
 		EmpOperations ao = new EmpOperations();
 		ProdOperations po = new ProdOperations();
 		EmployeeList el = new EmployeeList(ao);
@@ -205,7 +207,6 @@ public class HomeScreen extends JFrame implements ActionListener{
 		cardPanel.setBorder(border);
 		cardPanel.setPreferredSize(new Dimension(900, 10));
 		frame.add(cardPanel, BorderLayout.EAST);
-		addSystemTray();
 
 		frame.setVisible(true);
 
@@ -232,7 +233,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		{  
 			public void actionPerformed(ActionEvent e)
 			{  
-				System.exit(0); 
+				System.exit(0);
 			}  
 		});
 		popup.add(exitItem);
@@ -243,10 +244,10 @@ public class HomeScreen extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent e)
 			{  
 				frame.requestFocus();
-			}  
+			}
 		});
 		
-		trayIcon.displayMessage("JAKD", "Right-Click Here For Options", TrayIcon.MessageType.NONE);
+//		trayIcon.displayMessage("JAKD", "Right-Click Here For Options", TrayIcon.MessageType.NONE);
 	}
 
 	public void buttonSelect(JButton button) {

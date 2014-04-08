@@ -1,6 +1,8 @@
 
 package db;
 
+import gui.HomeScreen;
+
 import java.awt.*;
 import java.sql.*;
 
@@ -33,8 +35,6 @@ public class DBconnection
 
 	public Connection openDB()
 	{
-
-
 		try {
 			OracleDataSource ods = new OracleDataSource();
 
@@ -43,6 +43,7 @@ public class DBconnection
 			ods.setUser("project");
 			ods.setPassword("project");
 			conn = ods.getConnection();
+			HomeScreen.trayIcon.displayMessage("JAKD", "Database Connected", TrayIcon.MessageType.INFO);
 		} 
 		catch (Exception e)
 		{
@@ -54,6 +55,7 @@ public class DBconnection
 				ods.setUser("johntk86");
 				ods.setPassword("FuckYou");
 				conn = ods.getConnection();
+				HomeScreen.trayIcon.displayMessage("JAKD", "Database Connected", TrayIcon.MessageType.INFO);
 			}
 			catch(Exception ex)
 			{
@@ -65,6 +67,7 @@ public class DBconnection
 					ods.setUser(name.getText());
 					ods.setPassword(pswd.getText());
 					conn = ods.getConnection();
+					HomeScreen.trayIcon.displayMessage("JAKD", "Database Connected", TrayIcon.MessageType.INFO);
 				}
 				catch (Exception x)
 				{
@@ -76,15 +79,15 @@ public class DBconnection
 						ods.setUser(name.getText());
 						ods.setPassword(pswd.getText());
 						conn = ods.getConnection();
+						HomeScreen.trayIcon.displayMessage("JAKD", "Database Connected", TrayIcon.MessageType.INFO);
 
 					}catch (Exception exc)
 					{
-						JOptionPane.showMessageDialog(null, "Failed to Connect", "Failed to Connect", JOptionPane.WARNING_MESSAGE);
 						System.out.print("Unable to load driver " + exc);
+						System.exit(0);
 					}
 				}
 			}
-
 		}
 		return conn;
 	}
