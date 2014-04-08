@@ -32,7 +32,6 @@ public class Song
 	
 	public AudioInputStream getAudioStream() throws UnsupportedAudioFileException, IOException
 	{
-
 		aiStream = AudioSystem.getAudioInputStream(filePath);
 		return aiStream;
 	}

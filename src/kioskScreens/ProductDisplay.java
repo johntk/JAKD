@@ -69,6 +69,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		home.setVerticalTextPosition(SwingConstants.BOTTOM );
 		home.setHorizontalTextPosition(SwingConstants.CENTER);
 		home.setBorder(null);
+		home.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 		home.addActionListener(this);
 		top.add(home, BorderLayout.WEST);
 		main.add(top,BorderLayout.NORTH);

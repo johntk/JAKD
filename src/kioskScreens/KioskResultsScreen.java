@@ -52,6 +52,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 		home.setVerticalTextPosition(SwingConstants.BOTTOM );
 		home.setHorizontalTextPosition(SwingConstants.CENTER);
 		home.setBorder(null);
+		home.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 		home.addActionListener(this);
 		top.add(home, BorderLayout.WEST);
 
@@ -207,7 +208,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 		vb.add(allGames);
 		
 		radioButtonPanel.setBackground(main.getBackground());
-		radioButtonPanel.setBorder(BorderFactory.createEmptyBorder(40,0,0,0));
+		radioButtonPanel.setBorder(BorderFactory.createEmptyBorder(40,10,10,10));
 
 		consoleSelection = new ArrayList<JRadioButton>();
 
