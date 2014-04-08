@@ -19,6 +19,7 @@ public class DBconnection
 	private JTextField name;
 	private JPasswordField pswd;
 	private JPanel panel;
+	private String pass;
 
 	public DBconnection()
 	{
@@ -41,7 +42,7 @@ public class DBconnection
 			name.requestFocusInWindow();
 			ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
 			ods.setUser("project");
-			ods.setPassword("project");
+			ods.setPassword("projec");
 			conn = ods.getConnection();
 			HomeScreen.trayIcon.displayMessage("JAKD", "Database Connected", TrayIcon.MessageType.INFO);
 		} 
@@ -65,7 +66,8 @@ public class DBconnection
 					ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
 					JOptionPane.showMessageDialog(null, panel, "Local DB", JOptionPane.INFORMATION_MESSAGE);
 					ods.setUser(name.getText());
-					ods.setPassword(pswd.getText());
+					pass = new String(pswd.getPassword());
+					ods.setPassword(pass);
 					conn = ods.getConnection();
 					HomeScreen.trayIcon.displayMessage("JAKD", "Database Connected", TrayIcon.MessageType.INFO);
 				}
@@ -77,7 +79,8 @@ public class DBconnection
 						ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
 						JOptionPane.showMessageDialog(null, panel, "Tallght DB", JOptionPane.INFORMATION_MESSAGE);
 						ods.setUser(name.getText());
-						ods.setPassword(pswd.getText());
+						pass = new String(pswd.getPassword());
+						ods.setPassword(pass);
 						conn = ods.getConnection();
 						HomeScreen.trayIcon.displayMessage("JAKD", "Database Connected", TrayIcon.MessageType.INFO);
 
