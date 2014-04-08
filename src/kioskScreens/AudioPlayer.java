@@ -44,7 +44,7 @@ public class AudioPlayer
 	}
 	public void nullFile()
 	{
-		this.aiStream =null;
+		aiStream =null;
 	}
 
 }

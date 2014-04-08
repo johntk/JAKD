@@ -12,17 +12,17 @@ public class Song
 	private String title;
 	private String id;
 	private String length;
+	
 	private URL filePath;
 	private AudioInputStream aiStream;
 	
 
-	public Song(String id, String name, String length, String artist, String album, int songNum) throws UnsupportedAudioFileException, IOException
+	public Song(String id, String name, String length, String artist, String album, int songNum)
 	{
 		title = name;
 		this.id = id;
 		this.length = length;
 		filePath = getClass().getResource("/resources/kioskFiles/songs/"+artist+" - "+album+"/"+songNum+".wav");
-		aiStream = AudioSystem.getAudioInputStream(filePath);
 	}
 	
 	public String getSongID()
@@ -30,8 +30,10 @@ public class Song
 		return id;
 	}
 	
-	public AudioInputStream getFile()
+	public AudioInputStream getAudioStream() throws UnsupportedAudioFileException, IOException
 	{
+
+		aiStream = AudioSystem.getAudioInputStream(filePath);
 		return aiStream;
 	}
 	
