@@ -318,6 +318,18 @@ public class HomeScreen extends JFrame implements ActionListener{
 			//adminOperations.getId();
 		}
 	}
+	
+	//////////pos gui function ///////////////
+	
+	public void completeSale() 
+	{
+		posGUI = new JPanel();
+		frame.setTitle("POS Screen");
+		button4.setText("Logout");
+		cards.show(cardPanel, "POSGui");
+		cardPanel.repaint();
+	}
+	
 
 	public static void main(String args[]) {
 		new HomeScreen();
