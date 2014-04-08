@@ -342,6 +342,7 @@ public class PosGui extends JPanel implements ActionListener
 	
 		else if(e.getSource() == enter)
 		{
+			
 			tran = new Transaction();
 			
 			if (voidd == true)
