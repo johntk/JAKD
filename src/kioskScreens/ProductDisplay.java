@@ -15,7 +15,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 	private JScrollPane scrollPane;
 	private JButton home,pb;
 	private JLabel resultsHeading,logoLabel,name;
-	private ImageIcon hm,logo,play,stop;
+	private ImageIcon hm,logo,play,stop,img;
 	private GridBagConstraints gc;
 	private String srcPath;
 	private ArrayList<Song> songList;
@@ -111,7 +111,12 @@ public class ProductDisplay extends JFrame implements ActionListener
 		// Add product image and information
 		JPanel result = new JPanel(new GridLayout(9,1));
 
-		ImageIcon img = new ImageIcon(this.getClass().getResource(srcPath+manufacturer+" "+model+".jpg"));
+		try{
+			img = new ImageIcon(this.getClass().getResource(srcPath+manufacturer+" "+model+".jpg"));
+		}catch(Exception e)
+		{
+			img = new ImageIcon(this.getClass().getResource(srcPath+"NoPhoto.jpg"));
+		}
 		JLabel i = new JLabel(img);
 		gc.gridx =0;
 		gc.gridy =0;
@@ -194,7 +199,12 @@ public class ProductDisplay extends JFrame implements ActionListener
 		// Add product image and information
 		JPanel result = new JPanel(new GridLayout(9,1));
 
-		ImageIcon img = new ImageIcon(this.getClass().getResource(srcPath+manufacturer+" "+model+".jpg"));
+		try{
+			img = new ImageIcon(this.getClass().getResource(srcPath+manufacturer+" "+model+".jpg"));
+		}catch(Exception e)
+		{
+			img = new ImageIcon(this.getClass().getResource(srcPath+"NoPhoto.jpg"));
+		}
 		JLabel i = new JLabel(img);
 		gc.gridx =0;
 		gc.gridy =0;
@@ -294,7 +304,12 @@ public class ProductDisplay extends JFrame implements ActionListener
 		// Add product image and information
 		JPanel result = new JPanel(new GridLayout(9,1));
 
-		ImageIcon img = new ImageIcon(this.getClass().getResource(srcPath+manufacturer+" "+model+".jpg"));
+		try{
+			img = new ImageIcon(this.getClass().getResource(srcPath+manufacturer+" "+model+".jpg"));
+		}catch(Exception e)
+		{
+			img = new ImageIcon(this.getClass().getResource(srcPath+"NoPhoto.jpg"));
+		}
 		JLabel i = new JLabel(img);
 		gc.gridx =0;
 		gc.gridy =0;
@@ -386,7 +401,12 @@ public class ProductDisplay extends JFrame implements ActionListener
 		// Add product image and information
 		int y = 1;
 
-		ImageIcon img = new ImageIcon(this.getClass().getResource(srcPath+artist+" - "+album+".jpg"));
+		try{
+			img = new ImageIcon(this.getClass().getResource(srcPath+artist+" - "+album+".jpg"));
+		}catch(Exception e)
+		{
+			img = new ImageIcon(this.getClass().getResource(srcPath+"NoPhoto.jpg"));
+		}
 		JLabel im = new JLabel(img);
 		gc.gridx =0;
 		gc.gridy =0;
@@ -555,7 +575,12 @@ public class ProductDisplay extends JFrame implements ActionListener
 	{
 		JPanel result = new JPanel(new GridLayout(8,1));
 
-		ImageIcon img = new ImageIcon(this.getClass().getResource(srcPath+title+".jpg"));
+		try{
+			img = new ImageIcon(this.getClass().getResource(srcPath+title+".jpg"));
+		}catch(Exception e)
+		{
+			img = new ImageIcon(this.getClass().getResource(srcPath+"NoPhoto.jpg"));
+		}
 		JLabel i = new JLabel(img);
 		gc.gridx =0;
 		gc.gridy =0;
@@ -625,7 +650,12 @@ public class ProductDisplay extends JFrame implements ActionListener
 	{
 		JPanel result = new JPanel(new GridLayout(8,1));
 
-		ImageIcon img = new ImageIcon(this.getClass().getResource(srcPath+title+".jpg"));
+		try{
+			img = new ImageIcon(this.getClass().getResource(srcPath+title+".jpg"));
+		}catch(Exception e)
+		{
+			img = new ImageIcon(this.getClass().getResource(srcPath+"NoPhoto.jpg"));
+		}
 		JLabel i = new JLabel(img);
 		gc.gridx =0;
 		gc.gridy =0;
@@ -740,7 +770,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 								playButtons.get(j).setIcon(stop);
 							}
 						}
-						
+
 						if(ap.getFilePath() == songList.get(i).getFilePath())
 						{
 							ap.stop();
