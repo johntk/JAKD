@@ -362,10 +362,10 @@ public class PosGui extends JPanel implements ActionListener
 			
 			tran = new Transaction();
 			
-			///////////////////// cant have return and sale of same product in same tran
+			///////////////////// can't have return and sale of same product in same tran
 			for(int i = 0;i < tranList.size();i++) //check if product is in sale
 			{
-				if(returnn == false)
+				if(returnn == false && enterProd.getText().equals(tranList.get(i).getProdID()))
 				{
 					if(tranList.get(i).getTransType().equals("R"))
 					{
@@ -374,7 +374,7 @@ public class PosGui extends JPanel implements ActionListener
 					}
 						
 				}
-				else if(returnn == true)
+				else if(returnn == true && enterProd.getText().equals(tranList.get(i).getProdID()))
 				{
 					if(tranList.get(i).getTransType().equals("S"))
 					{
@@ -533,6 +533,7 @@ public class PosGui extends JPanel implements ActionListener
 					}
 				}
 			}
+			continueWithTran = true;
 				
 		}
 			
