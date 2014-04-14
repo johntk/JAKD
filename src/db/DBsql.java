@@ -325,6 +325,8 @@ public class DBsql
 			stmt.execute("insert into PRODUCT values('P0000027','CONSOLE',50)");
 			stmt.execute("insert into PRODUCT values('P0000028','GAME',10)");
 			stmt.execute("insert into PRODUCT values('P0000029','GAME',10)");
+			stmt.execute("insert into PRODUCT values('P0000030','GAME',5)");
+			stmt.execute("insert into PRODUCT values('P0000031','GAME',8)");
 			
 			
 			stmt.execute("insert into DIGITAL_PRODUCT values('D0000001','Rock',12,'P0000001')");
@@ -346,6 +348,8 @@ public class DBsql
 			stmt.execute("insert into DIGITAL_PRODUCT values('D0000017','Action',18,'P0000017')");
 			stmt.execute("insert into DIGITAL_PRODUCT values('D0000018','Action',18,'P0000028')");
 			stmt.execute("insert into DIGITAL_PRODUCT values('D0000019','Action',18,'P0000029')");
+			stmt.execute("insert into DIGITAL_PRODUCT values('D0000020','Adventure',0,'P0000030')");
+			stmt.execute("insert into DIGITAL_PRODUCT values('D0000021','Adventure',0,'P0000031')");
 			
 			
 			stmt.execute("insert into ELECTRONIC values('E0000001','Sony','Playstation 4','Black','P0000018')");
@@ -356,7 +360,7 @@ public class DBsql
 			stmt.execute("insert into ELECTRONIC values('E0000006','Sony','MDREX10LP','Black','P0000023')");
 			stmt.execute("insert into ELECTRONIC values('E0000007','Bose','SoundDock II','Black','P0000024')");
 			stmt.execute("insert into ELECTRONIC values('E0000008','Samsung','DA-E750','Red','P0000025')");
-			stmt.execute("insert into ELECTRONIC values('E0000009','Nintendo','Wii','White','P0000026')");
+			stmt.execute("insert into ELECTRONIC values('E0000009','Nintendo','Wii U','Black','P0000026')");
 			stmt.execute("insert into ELECTRONIC values('E0000010','Microsoft','Xbox One','Black','P0000027')");
 			
 			
@@ -508,14 +512,15 @@ public class DBsql
 			stmt.execute("insert into GAME values('G0000002','Activision','Microsoft Xbox 360','Call of Duty - Ghosts',18.20,26.99,'D0000015')");
 			stmt.execute("insert into GAME values('G0000003','Rockstar Games','Microsoft Xbox 360','Grand Theft Auto V',26.50,44.99,'D0000016')");
 			stmt.execute("insert into GAME values('G0000004','Konami','Sony Playstation 4','Metal Gear Solid V Ground Zeroes',17.60,24.99,'D0000017')");
-			
 			stmt.execute("insert into GAME values('G0000005','Capcom','Microsoft Xbox One','Dead Rising 3',26.50,44.99,'D0000018')");
 			stmt.execute("insert into GAME values('G0000006','EA Games','Microsoft Xbox One','Titanfall',25.40,43.99,'D0000019')");
+			stmt.execute("insert into GAME values('G0000007','Ubisoft','Nintendo Wii U','Rayman Legends',10.20,16.99,'D0000020')");
+			stmt.execute("insert into GAME values('G0000008','Nintendo','Nintendo Wii U','Super Mario Bros.U',23.40,31.99,'D0000021')");
 			
 			
 			stmt.execute("insert into CONSOLE values('L0000001',500,'Y',1,200,260,'E0000001')");
 			stmt.execute("insert into CONSOLE values('L0000002',4,'Y',1,120,200,'E0000002')");
-			stmt.execute("insert into CONSOLE values('L0000003',0,'N',1,90,150,'E0000009')");
+			stmt.execute("insert into CONSOLE values('L0000003',32,'Y',1,160,250,'E0000009')");
 			stmt.execute("insert into CONSOLE values('L0000004',500,'Y',2,320,399.99,'E0000010')");
 			
 			
