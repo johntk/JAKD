@@ -10,7 +10,6 @@ public class DBsql
 {
 	private Connection conn;
 	private Statement stmt;
-	private PreparedStatement pstmt;
 
 	public void openDB()
 	{
@@ -323,6 +322,7 @@ public class DBsql
 			stmt.execute("insert into PRODUCT values('P0000024','SOUNDDOCK',3)");
 			stmt.execute("insert into PRODUCT values('P0000025','SOUNDDOCK',5)");
 			stmt.execute("insert into PRODUCT values('P0000026','CONSOLE',8)");
+			stmt.execute("insert into PRODUCT values('P0000027','CONSOLE',50)");
 			stmt.execute("insert into DIGITAL_PRODUCT values('D0000001','Rock',12,'P0000001')");
 			stmt.execute("insert into DIGITAL_PRODUCT values('D0000002','Electronica',0,'P0000002')");
 			stmt.execute("insert into DIGITAL_PRODUCT values('D0000003','Soul',0,'P0000003')");
@@ -349,6 +349,7 @@ public class DBsql
 			stmt.execute("insert into ELECTRONIC values('E0000007','Bose','SoundDock II','Black','P0000024')");
 			stmt.execute("insert into ELECTRONIC values('E0000008','Samsung','DA-E750','Red','P0000025')");
 			stmt.execute("insert into ELECTRONIC values('E0000009','Nintendo','Wii','White','P0000026')");
+			stmt.execute("insert into ELECTRONIC values('E0000010','Microsoft','Xbox One','Black','P0000027')");
 			
 			
 			stmt.execute("insert into CD values('C0000001',68,'AM','Domino',9.50,16.99,'D0000001')");
@@ -504,6 +505,7 @@ public class DBsql
 			stmt.execute("insert into CONSOLE values('L0000001',500,'Y',1,200,260,'E0000001')");
 			stmt.execute("insert into CONSOLE values('L0000002',4,'Y',1,120,200,'E0000002')");
 			stmt.execute("insert into CONSOLE values('L0000003',0,'N',1,90,150,'E0000009')");
+			stmt.execute("insert into CONSOLE values('L0000004',500,'Y',2,320,399.99,'E0000010')");
 			
 			
 			stmt.execute("insert into HEADPHONES values('H0000001','Y','N','Y',242.69,360.95,'E0000003')");
