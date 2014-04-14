@@ -741,14 +741,14 @@ public class ProductDisplay extends JFrame implements ActionListener
 							}
 						}
 						
-						if(ap.getFile() == songList.get(i).getAudioStream())
+						if(ap.getFilePath() == songList.get(i).getFilePath())
 						{
 							ap.stop();
 							playButtons.get(i).setIcon(play);
 							songNames.get(i).setIcon(null);
 							ap.nullFile();
 						}
-						else ap.play(songList.get(i).getAudioStream());
+						else ap.play(songList.get(i).getFilePath());
 						volume.setValue(90);
 					}
 				}catch(Exception ex)

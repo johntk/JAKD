@@ -1,20 +1,27 @@
 package kioskScreens;
 
+import java.io.IOException;
+import java.net.URL;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.Line;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class AudioPlayer
 {
 	private Clip clip;
 	private AudioInputStream aiStream;
 	private FloatControl volume;
+	private URL filePath;
 
-	public void play(AudioInputStream ai)
+	public void play(URL fp) throws UnsupportedAudioFileException, IOException
 	{
-		aiStream = ai;
+		filePath = fp;
+		aiStream = AudioSystem.getAudioInputStream(filePath);
+		
 		try
 		{
 			Line.Info linfo = new Line.Info(Clip.class);
@@ -38,13 +45,17 @@ public class AudioPlayer
 	{
 		volume.setValue(x);
 	}
-	public AudioInputStream getFile()
+	public AudioInputStream getAudioStream()
 	{
 		return aiStream;
 	}
 	public void nullFile()
 	{
-		aiStream =null;
+		filePath =null;
+	}
+	public URL getFilePath()
+	{
+		return filePath;
 	}
 
 }
