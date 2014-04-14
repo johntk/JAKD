@@ -191,7 +191,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		userPanel = new UserPanel(frame, adminOperations, employeeList);
 		elecProdPanel = new ProdPanel(frame, "elec");
 		digiProdPanel = new ProdPanel(frame, "digi");
-		posGUI = new PosGui(frame);
+		posGUI = new PosGui();
 
 
 		cards = new CardLayout();

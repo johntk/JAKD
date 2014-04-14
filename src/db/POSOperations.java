@@ -220,11 +220,11 @@ public class POSOperations
 				//if return +1 , if sale -1
 				if(t.get(i).getTransType().equals("R"))
 				{
-					stock += 1;
+					stock += t.get(i).getQuantity();
 				}
 				else
 				{
-					stock -= 1;
+					stock -= t.get(i).getQuantity();
 				}
 				
 				
