@@ -283,6 +283,11 @@ public class KioskStartScreen extends JFrame implements ActionListener
 			switchToMainPanel(krs.getPanel());
 		}
 		if(e.getSource()==deals){
+			krs = new KioskResultsScreen(kq);
+			krs.setHeading("SPECIAL OFFERS");
+			kq.queryDeals(20,krs);
+			krs.displayResult();
+			switchToMainPanel(krs.getPanel());
 		}
 		if(e.getSource()==exit)
 		{
@@ -291,13 +296,6 @@ public class KioskStartScreen extends JFrame implements ActionListener
 			{
 				System.exit(0);
 			}*/
-			try
-			{
-				//db.closeDB();
-			} catch (Exception se){
-				System.out.println("Could not close connection");
-				se.printStackTrace();
-			}
 			frame.dispose();
 		}
 	}

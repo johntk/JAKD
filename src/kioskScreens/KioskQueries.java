@@ -384,6 +384,38 @@ public class KioskQueries
 		}
 	}
 	
+	public void queryDeals(int priceThreshold,KioskResultsScreen krs)
+	{
+		
+		String description;
+		String productThumb;
+		String prodID;
+		double salePrice;
+		int y=0;
+		try {
+			stmt = conn.createStatement();
+			String sqlStatement = "select d.dvd_name as description, d.dvd_sale_price as salePrice, p.prod_id as prodID, p.prod_type from dvd d, product p, digital_product dp where p.prod_id = dp.prod_id and d.dig_id = dp.dig_id and d.dvd_sale_price < "+priceThreshold+
+					"UNION select g.game_name, g.game_sale_price, p.prod_id as prodID, p.prod_type from game g, product p, digital_product dp where p.prod_id = dp.prod_id and g.dig_id = dp.dig_id and g.game_sale_price < "+priceThreshold+
+					"UNION select a.artist_name||' - '||c.album_name, c.cd_sale_price, p.prod_id as prodID, p.prod_type from cd c, artist a, cd_artist ca, digital_product d, product p where c.cd_id = ca.cd_id and a.artist_id = ca.artist_id and c.dig_id = d.dig_id and p.prod_id = d.prod_id and c.cd_sale_price < "+priceThreshold+
+					"UNION select e.manufacturer||' '||e.model, h.headphone_sale_price, p.prod_id as prodID, p.prod_type from electronic e, headphones h, product p where e.elec_id = h.elec_id and p.prod_id = e.prod_id and h.headphone_sale_price < "+priceThreshold+
+					"UNION select e.manufacturer||' '||e.model, s.sd_sale_price, p.prod_id as prodID, p.prod_type from electronic e, sound_dock s, product p where e.elec_id = s.elec_id and p.prod_id = e.prod_id and s.sd_sale_price < "+priceThreshold+
+					"UNION select e.manufacturer||' '||e.model, c.console_sale_price, p.prod_id as prodID, p.prod_type from electronic e, console c, product p where e.elec_id = c.elec_id and p.prod_id = e.prod_id and c.console_sale_price < "+priceThreshold;
+			rset = stmt.executeQuery(sqlStatement);
+			while (rset.next())
+			{
+				description = rset.getString("description");
+				salePrice = rset.getDouble("saleprice");
+				productThumb = rset.getString("description")+".jpg";
+				prodID = rset.getString("prodID");
+				krs.addResult(productThumb, description, y, salePrice, prodID);
+				y++;
+			}
+		} catch (Exception ex)
+		{
+			System.out.println("ERROR: " + ex.getMessage());
+		}
+	}
+	
 	public void setDBconnection(Connection conn)
 	{
 		this.conn = conn;
