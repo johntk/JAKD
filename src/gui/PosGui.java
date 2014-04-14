@@ -51,21 +51,12 @@ public class PosGui extends JPanel implements ActionListener
 	private JTextField enterAmountf;
 	private JButton enterAm;
 
-
-	
-	
-	
-/// brain spark
+	/// brain spark
 	double totalCost = 0;
-	
 	boolean quantity = false;
 	int quanPoint;
-	
 	boolean prodExists;
 	int prodCount;
-	
-	String txtarea;
-	
 	DecimalFormat decf = new DecimalFormat("€ #####.##");
 	
 	
