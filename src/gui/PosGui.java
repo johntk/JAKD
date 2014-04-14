@@ -36,6 +36,7 @@ public class PosGui extends JPanel implements ActionListener
 	private JTextField totalPriceField;
 	private ImageIcon close;
 	private final DateFormat df;
+	private Calendar now;
 	private POSOperations po;
 	private ResultSet data;
 	private ArrayList <Transaction> tranList;
@@ -128,7 +129,7 @@ public class PosGui extends JPanel implements ActionListener
 		
 
 		df = new SimpleDateFormat("ddMMMyy");
-		Calendar now = Calendar.getInstance();
+		now = Calendar.getInstance();
 		dateFieldf.setText(df.format(now.getTime()));
 		
 		
@@ -341,8 +342,20 @@ public class PosGui extends JPanel implements ActionListener
 				po.insertTran(tranList);
 				po.updateCurrentStock(tranList);
 				
-				HomeScreen h = new HomeScreen();
-				h.completeSale();
+				//HomeScreen h = new HomeScreen();
+				//h.completeSale();
+				
+
+				/*try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e1) {
+					
+					e1.printStackTrace();
+				}*/
+				
+				newTran();
+				
+				
 				
 
 				
@@ -509,7 +522,7 @@ public class PosGui extends JPanel implements ActionListener
 								
 								
 								displayProducts();
-								products.setText(products.getText() +tran.getProdID() + "\t\t" + tran.getDesc() + "\t\t" + "€ " + tran.getTotalCost()+  "\t\t" + tran.getQuantity() + "\n");
+
 								
 								
 								totalPriceField.setText(decf.format(totalCost));
@@ -537,11 +550,7 @@ public class PosGui extends JPanel implements ActionListener
 				
 		}
 			
-			else
-			{
-				posPanel.setVisible(false);
-	
-			}
+
 		
 	
 	
@@ -603,10 +612,6 @@ public class PosGui extends JPanel implements ActionListener
 				
 				displayProducts();
 				
-				
-				
-	
-				
 			}
 			else
 			{
@@ -633,6 +638,28 @@ public class PosGui extends JPanel implements ActionListener
 		{
 			return false;
 		}
+	}
+	
+	public void newTran()
+	{
+		JOptionPane.showMessageDialog(null,"New Sale","Invalid Input",JOptionPane.WARNING_MESSAGE);
+
+		trans_idf.setText(po.queryTransid());
+		dateFieldf.setText(df.format(now.getTime()));
+		totalCost = 0;
+		totalPriceField.setText("");
+		
+		
+		for(int i = 0; i < dtm.getRowCount();i++)
+		{
+			dtm.setValueAt("", i, 0);
+			dtm.setValueAt("", i, 1);
+			dtm.setValueAt("", i, 2);
+			dtm.setValueAt("", i, 3);
+			dtm.setValueAt("", i, 4);
+		}
+		
+		
 	}
 	
 
