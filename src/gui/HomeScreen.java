@@ -11,6 +11,7 @@ import kioskScreens.KioskStartScreen;
 import model.EmployeeList;
 import db.EmpOperations;
 import db.DBconnection;
+import db.HomeScreenOperations;
 import db.ProdOperations;
 
 public class HomeScreen extends JFrame implements ActionListener{
@@ -54,6 +55,18 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private ImageIcon ti;
 	private DBconnection db;
 	private Connection conn;
+	
+	
+	
+	////////////////     log in variables //////////////////////////////////
+	JDialog logIn; 
+	JLabel enterPassword;
+	JPasswordField jpf;
+	JButton enterPButton;
+	String pin;
+	HomeScreenOperations ho;
+	
+	
 
 	public HomeScreen() {
 		ti = new ImageIcon(this.getClass().getResource("/resources/trayIcon.png"));
@@ -255,11 +268,12 @@ public class HomeScreen extends JFrame implements ActionListener{
 		if (button.equals(button1) && button1.getText().equals("Generate Report")) {
 			cards.show(cardPanel, "genReport");
 		}
-		else if(button.equals(button1) && button1.getText().equals("POS"))
+		else if(button.equals(button1) && button1.getText().equals("POS")) ///////////////////////////////// pos //////////////////////
 		{
-			frame.setTitle("POS Screen");
-			button4.setText("Logout");
-			cards.show(cardPanel, "POSGui");
+			logIn();
+
+
+
 		}
 		else if(button.equals(button2) && button2.getText().equals("Edit User"))
 		{
@@ -317,17 +331,55 @@ public class HomeScreen extends JFrame implements ActionListener{
 			prodOpertaion.getCD();
 			//adminOperations.getId();
 		}
+		else if (e.getSource() == enterPButton)
+		{
+			if(ho.getStaffPin(pin)==true)
+			{
+				frame.setTitle("POS Screen");
+				button4.setText("Logout");
+				cards.show(cardPanel, "POSGui");
+				
+			}
+			else 
+			{
+				
+				JOptionPane.showMessageDialog(null,"Pin Incorrect","Invalid User",JOptionPane.WARNING_MESSAGE);
+				
+			}
+		}
 	}
 	
-	//////////pos gui function ///////////////
+
 	
-	public void completeSale() 
+
+	
+	public void logIn()
 	{
-		posGUI = new JPanel();
-		frame.setTitle("POS Screen");
-		button4.setText("Logout");
-		cards.show(cardPanel, "POSGui");
-		cardPanel.repaint();
+		
+		ho = new HomeScreenOperations();
+		
+		logIn = new JDialog();
+		logIn.setTitle("Log In");
+		logIn.setVisible(true);
+		logIn.setResizable(false);
+		logIn.setLocationRelativeTo(null);
+		logIn.setSize(160,130);
+		logIn.setLayout(new FlowLayout());
+		
+		enterPassword = new JLabel("Enter Password:");
+		logIn.add(enterPassword);
+		jpf = new JPasswordField(10);
+		logIn.add(jpf);
+		enterPButton = new JButton("Log In");
+		enterPButton.addActionListener(this);
+		logIn.add(enterPButton);
+		pin = new String(jpf.getPassword());
+		
+
+		pin = new String(jpf.getPassword());
+
+
+	
 	}
 	
 

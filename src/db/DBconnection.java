@@ -109,4 +109,8 @@ public class DBconnection
 			e.printStackTrace();
 		}
 	}
+	public Connection getCon()
+	{
+		return conn;
+	}
 }
