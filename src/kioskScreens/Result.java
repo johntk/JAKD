@@ -1,6 +1,8 @@
 package kioskScreens;
 
 import java.awt.*;
+import java.text.DecimalFormat;
+
 import javax.swing.*;
 
 public class Result extends JPanel
@@ -12,11 +14,13 @@ public class Result extends JPanel
 	private JPanel resultPanel;
 	private String srcPath, prodID;
 	private GridBagConstraints gc;
+	private DecimalFormat d;
 
 	public Result(String img,String desc,double price,String prodID)
 	{
 		this.prodID = prodID;
 		gc = new GridBagConstraints();
+		d = new DecimalFormat(" € #####.##");
 		imageFile = img;
 
 		resultPanel = new JPanel(new GridBagLayout());
@@ -52,7 +56,7 @@ public class Result extends JPanel
 		gc.anchor = GridBagConstraints.WEST;
 		resultPanel.add(description,gc);
 
-		salePrice = new JLabel("  €"+price);
+		salePrice = new JLabel(d.format(price));
 		salePrice.setFont(new Font("Calibri",Font.BOLD|Font.ITALIC,20));
 		salePrice.setForeground(new Color(20,120,230));
 		gc.gridx =1;

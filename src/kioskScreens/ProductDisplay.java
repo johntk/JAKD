@@ -2,6 +2,7 @@ package kioskScreens;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -23,6 +24,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 	private ArrayList<JLabel> songNames;
 	private AudioPlayer ap;
 	private JSlider volume;
+	private DecimalFormat d;
 
 	public ProductDisplay()
 	{
@@ -56,6 +58,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		hm = new ImageIcon(this.getClass().getResource("/resources/kioskFiles/images/home.png"));
 		logo = new ImageIcon(this.getClass().getResource("/resources/kioskFiles/images/logo3.png"));
 		gc = new GridBagConstraints();
+		d = new DecimalFormat(" € #####.##");
 
 		main = new JPanel(new BorderLayout());
 		main.setBackground(Color.WHITE);
@@ -168,7 +171,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		cs.setFont(new Font("Calibri",Font.PLAIN,20));
 		result.add(cs);
 
-		JLabel sp = new JLabel("Price: €"+salePrice);
+		JLabel sp = new JLabel("Price: "+d.format(salePrice));
 		sp.setFont(new Font("Calibri",Font.BOLD,25));
 		sp.setForeground(new Color(20,120,230));
 		result.add(sp);
@@ -273,7 +276,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		cs.setFont(new Font("Calibri",Font.PLAIN,20));
 		result.add(cs);
 
-		JLabel sp = new JLabel("Price: €"+salePrice);
+		JLabel sp = new JLabel("Price: "+d.format(salePrice));
 		sp.setFont(new Font("Calibri",Font.BOLD,25));
 		sp.setForeground(new Color(20,120,230));
 		result.add(sp);
@@ -370,7 +373,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		cs.setFont(new Font("Calibri",Font.PLAIN,20));
 		result.add(cs);
 
-		JLabel sp = new JLabel("Price: €"+salePrice);
+		JLabel sp = new JLabel("Price: "+d.format(salePrice));
 		sp.setFont(new Font("Calibri",Font.BOLD,25));
 		sp.setForeground(new Color(20,120,230));
 		result.add(sp);
@@ -461,7 +464,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		cs.setFont(new Font("Calibri",Font.PLAIN,20));
 		result.add(cs);
 
-		JLabel sp = new JLabel("Price: €"+salePrice);
+		JLabel sp = new JLabel("Price: "+d.format(salePrice));
 		sp.setFont(new Font("Calibri",Font.BOLD,25));
 		sp.setForeground(new Color(20,120,230));
 		result.add(sp);
@@ -620,7 +623,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		result.add(cs);
 
 
-		JLabel sp = new JLabel("Price: €"+salePrice);
+		JLabel sp = new JLabel("Price: "+d.format(salePrice));
 		sp.setFont(new Font("Calibri",Font.BOLD,25));
 		sp.setForeground(new Color(20,120,230));
 		result.add(sp);
@@ -694,7 +697,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		result.add(cs);
 
 
-		JLabel sp = new JLabel("Price: €"+salePrice);
+		JLabel sp = new JLabel("Price: "+d.format(salePrice));
 		sp.setFont(new Font("Calibri",Font.BOLD,25));
 		sp.setForeground(new Color(20,120,230));
 		result.add(sp);

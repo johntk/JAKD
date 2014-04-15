@@ -268,7 +268,7 @@ public class DBsql
 		try
 		{
 			Statement stmt = conn.createStatement();
-			stmt.executeUpdate("Create table EMPLOYEE (emp_id NUMBER NOT NULL, f_name VARCHAR2(30), l_name VARCHAR2(30), house_number VARCHAR2(5), street VARCHAR2(30), town VARCHAR2(30), city VARCHAR2(30), pps_num VARCHAR2(30), pin_num NUMBER, manager VARCHAR2(1) CHECK(manager in ('Y', 'N')), PRIMARY KEY (emp_id))");
+			stmt.executeUpdate("Create table EMPLOYEE (emp_id NUMBER NOT NULL, f_name VARCHAR2(30), l_name VARCHAR2(30), house_number VARCHAR2(5), street VARCHAR2(30), town VARCHAR2(30), city VARCHAR2(30), pps_num VARCHAR2(30), pin_num VARCHAR2(30), manager VARCHAR2(1) CHECK(manager in ('Y', 'N')), PRIMARY KEY (emp_id))");
 			stmt.executeUpdate("Create table PRODUCT (prod_id VARCHAR2(50), prod_type VARCHAR2(20), current_stock NUMBER, PRIMARY KEY (prod_id))");
 			stmt.executeUpdate("Create table TRANSACTION (trans_id NUMBER NOT NULL, trans_date DATE, trans_type VARCHAR2(1) CHECK(trans_type IN('S','R')), total_cost NUMBER(30,2), quantity NUMBER, emp_id number, prod_id VARCHAR2(50), PRIMARY KEY (trans_id, prod_id), FOREIGN KEY (emp_id) REFERENCES EMPLOYEE(emp_id), FOREIGN KEY (prod_id) REFERENCES PRODUCT(prod_id))");
 			stmt.executeUpdate("Create table DIGITAL_PRODUCT (dig_id VARCHAR2(50), genre	VARCHAR2(30), age_rating NUMBER, prod_id	VARCHAR2(50), PRIMARY KEY (dig_id), FOREIGN KEY (prod_id) REFERENCES PRODUCT(prod_id))");
@@ -521,7 +521,7 @@ public class DBsql
 			stmt.execute("insert into CONSOLE values('L0000001',500,'Y',1,200,260,'E0000001')");
 			stmt.execute("insert into CONSOLE values('L0000002',4,'Y',1,120,200,'E0000002')");
 			stmt.execute("insert into CONSOLE values('L0000003',32,'Y',1,160,250,'E0000009')");
-			stmt.execute("insert into CONSOLE values('L0000004',500,'Y',2,320,399.99,'E0000010')");
+			stmt.execute("insert into CONSOLE values('L0000004',500,'Y',2,420,499.99,'E0000010')");
 			
 			
 			stmt.execute("insert into HEADPHONES values('H0000001','Y','N','Y',242.69,360.95,'E0000003')");

@@ -416,6 +416,28 @@ public class KioskQueries
 		}
 	}
 	
+	public Boolean getStaffPin(String pin)
+	{
+		Boolean authenticate = false;
+		try {
+			stmt = conn.createStatement();
+			String sqlStatement = "SELECT pin_num FROM EMPLOYEE";
+			rset = stmt.executeQuery(sqlStatement);
+			
+			while(rset.next())
+			{
+				if(pin.equals(rset.getString("pin_num")))
+				{
+					authenticate = true;
+				}
+			}
+		} catch (Exception ex)
+		{
+			System.out.println("ERROR: " + ex.getMessage());
+		}
+		return authenticate;
+	}
+	
 	public void setDBconnection(Connection conn)
 	{
 		this.conn = conn;

@@ -5,13 +5,14 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
 import java.util.ArrayList;
+
 import javax.swing.*;
 
 public class KioskStartScreen extends JFrame implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
 	private static JFrame frame;
-	private String srcPath;
+	private String srcPath,input;
 	private static JPanel main;
 	private JPanel content,header,footer,pswd;
 	private ImageIcon cn,hp,gm,mu,dvd,sd,src,dl,logo,close,frameIcon;
@@ -30,10 +31,10 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		conn = c;
 		kq = new KioskQueries();
 		kq.setDBconnection(conn);
-		
+
 		frameIcon = new ImageIcon(this.getClass().getResource("/resources/titleIcon.png"));
 		Image i = frameIcon.getImage();
-		
+
 		frame = new JFrame();
 		frame.setTitle("Kiosk Mode");
 		frame.getContentPane().setBackground(Color.WHITE);
@@ -48,7 +49,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		srcPath = "/resources/kioskFiles/images/";
 		gc = new GridBagConstraints();
 		font = new Font("Calibri",Font.BOLD,30);
-		
+
 		cn = new ImageIcon(this.getClass().getResource(srcPath+"console.png"));
 		hp = new ImageIcon(this.getClass().getResource(srcPath+"headphones.png"));
 		gm = new ImageIcon(this.getClass().getResource(srcPath+"games.png"));
@@ -59,7 +60,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		dl = new ImageIcon(this.getClass().getResource(srcPath+"deals.png"));
 		logo = new ImageIcon(this.getClass().getResource(srcPath+"logo3.png"));
 		close = new ImageIcon(this.getClass().getResource(srcPath+"close.png"));
-		
+
 		main = new JPanel(new BorderLayout());
 		main.setBackground(Color.WHITE);
 		frame.add(main);
@@ -199,20 +200,15 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 		frame.requestFocus();
 
-		pswd = new JPanel(new GridLayout(1,2));
-		pinLbl = new JLabel("PIN:");
-		jpf = new JPasswordField(4);
-		pswd.add(pinLbl);
-		pswd.add(jpf);
 	}
-	
+
 	public static void addPanel(JPanel panel)
 	{
 		frame.add(panel);
 		frame.validate();
 		frame.repaint();
 	}
-	
+
 	public static void switchToMainPanel(JPanel panel)
 	{
 		if(main.isVisible()==true)
@@ -238,13 +234,13 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		if(e.getSource()==game){
 			krs = new KioskResultsScreen(kq);
 			krs.setHeading("Games");
-			
+
 			ArrayList<String> consoleList = kq.queryPlatform();
 			krs.displayGameOptions(consoleList);
 			kq.queryAllCategories("Game",krs);
 			krs.displayResult();
 			switchToMainPanel(krs.getPanel());
-			
+
 			krs.passKioskResultsScreenObject(krs);
 		}
 		if(e.getSource()==music){
@@ -291,12 +287,22 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		}
 		if(e.getSource()==exit)
 		{
-			/*int input = JOptionPane.showConfirmDialog(frame, pswd, "Enter your PIN:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-			if(input == 0000)
+			pswd = new JPanel(new GridBagLayout());
+			pinLbl = new JLabel("Enter your STAFF PIN Number:");
+			gc.gridx = 0;
+			gc.gridy = 0;
+			pswd.add(pinLbl,gc);
+			jpf = new JPasswordField(10);
+			gc.gridx = 0;
+			gc.gridy = 1;
+			pswd.add(jpf,gc);
+
+			JOptionPane.showConfirmDialog(frame, pswd, "Enter PIN:", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			input = new String(jpf.getPassword());
+			if(kq.getStaffPin(input)==true)
 			{
-				System.exit(0);
-			}*/
-			frame.dispose();
+				frame.dispose();
+			}
 		}
 	}
 }
