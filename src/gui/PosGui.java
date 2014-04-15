@@ -238,6 +238,17 @@ public class PosGui extends JPanel implements ActionListener
 		enter = new JButton("Enter ");
 		enter.addActionListener(this);
 		posBottom.add(enter);
+
+		/////// allows enter key press "enter" in gui
+		enter.registerKeyboardAction(enter.getActionForKeyStroke(
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
+                JComponent.WHEN_IN_FOCUSED_WINDOW);
+		
+        enter.registerKeyboardAction(enter.getActionForKeyStroke(
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
+                JComponent.WHEN_FOCUSED);
 		
 		////insert space
 		blank3 = new JLabel("                                                                    ");
