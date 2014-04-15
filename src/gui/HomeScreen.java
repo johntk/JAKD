@@ -333,11 +333,13 @@ public class HomeScreen extends JFrame implements ActionListener{
 		}
 		else if (e.getSource() == enterPButton)
 		{
+			pin = new String(jpf.getPassword());
 			if(ho.getStaffPin(pin)==true)
 			{
 				frame.setTitle("POS Screen");
 				button4.setText("Logout");
 				cards.show(cardPanel, "POSGui");
+				logIn.setVisible(false);
 				
 			}
 			else 
@@ -366,17 +368,15 @@ public class HomeScreen extends JFrame implements ActionListener{
 		logIn.setSize(160,130);
 		logIn.setLayout(new FlowLayout());
 		
-		enterPassword = new JLabel("Enter Password:");
+		enterPassword = new JLabel("Enter Pin:");
 		logIn.add(enterPassword);
 		jpf = new JPasswordField(10);
 		logIn.add(jpf);
 		enterPButton = new JButton("Log In");
 		enterPButton.addActionListener(this);
 		logIn.add(enterPButton);
-		pin = new String(jpf.getPassword());
 		
 
-		pin = new String(jpf.getPassword());
 
 
 	
