@@ -1,244 +1,193 @@
 package db;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 import oracle.jdbc.pool.OracleDataSource;
 
-public class DBsql
+public class DBsql extends JFrame implements ActionListener
 {
+	private static final long serialVersionUID = 1L;
+	private JFrame frame;
+	private JPanel top,bottom;
+	private JScrollPane js;
+	private JTextArea ta;
+	
+	private String passw,tallaghtDB,localDB;
+	private JButton connect;
+	private JLabel selection,urlText,uName,pass,empty;
+	private JTextField username,url;
+	private JPasswordField pswd;
+	private JComboBox<String> jcb;
+	private GridBagConstraints gc;
+	
 	private Connection conn;
 	private Statement stmt;
-
-	public void openDB()
+	
+	public DBsql()
 	{
-		try {
-			OracleDataSource ods = new OracleDataSource();
-
-			// Tallaght Database
-			//ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
-			//ods.setUser("");
-			//ods.setPassword("");
-
-			ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
-			String loginName = JOptionPane.showInputDialog(null,"Enter your oracle user name");
-			String loginPass = JOptionPane.showInputDialog(null,"Enter your oracle password");
-			ods.setUser(loginName);
-			ods.setPassword(loginPass);
-
-			conn = ods.getConnection();
-			System.out.println("Connection established.\n");
-		} catch (Exception e) {
-			System.out.print("Unable to load driver " + e);
-			System.exit(1);
-		}
+		frame = new JFrame();
+		frame.setLayout(new GridLayout(2,1));
+		frame.setTitle("Database Script");
+		frame.setSize(550,600);
+		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		gc = new GridBagConstraints();
+		tallaghtDB = "jdbc:oracle:thin:@//10.10.2.7:1521/global1";
+		localDB = "jdbc:oracle:thin:HR/@localhost:1521:XE";
+		
+		
+		
+		top = new JPanel(new GridBagLayout());
+		top.setBorder(BorderFactory.createEmptyBorder(40,40,40,40));
+		String[] options = {"Tallaght Database","Local Database"};
+		
+		selection = new JLabel("Select a Database Connection:");
+		gc.gridx =0;
+		gc.gridy =0;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		top.add(selection,gc);
+		
+		jcb = new JComboBox<>(options);
+		jcb.addActionListener(this);
+		gc.gridx =0;
+		gc.gridy =1;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		top.add(jcb,gc);
+		
+		urlText = new JLabel("URL:");
+		gc.gridx =0;
+		gc.gridy =2;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		top.add(urlText,gc);
+		
+		url = new JTextField(25);
+		url.setEditable(false);
+		url.setText(tallaghtDB);
+		gc.gridx =1;
+		gc.gridy =2;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		top.add(url,gc);
+		
+		empty = new JLabel("               ");
+		gc.gridx =0;
+		gc.gridy =3;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		top.add(empty,gc);
+		
+		uName = new JLabel("Username: ");
+		gc.gridx =0;
+		gc.gridy =4;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		top.add(uName,gc);
+		
+		username = new JTextField(25);
+		gc.gridx =1;
+		gc.gridy =4;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		top.add(username,gc);
+		
+		pass = new JLabel("Password: ");
+		gc.gridx =0;
+		gc.gridy =5;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		top.add(pass,gc);
+		
+		pswd = new JPasswordField(25);
+		gc.gridx =1;
+		gc.gridy =5;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		top.add(pswd,gc);
+		
+		connect = new JButton("Connect");
+		connect.addActionListener(this);
+		gc.gridx =0;
+		gc.gridy =6;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		top.add(connect,gc);
+		
+		frame.add(top);
+		
+		
+		
+		bottom = new JPanel();
+		js = new JScrollPane();
+		js.setPreferredSize(new Dimension(400,250));
+		ta = new JTextArea(15,40);
+		js.add(ta);
+		bottom.add(ta);
+		frame.add(bottom);
+		
+		frame.setVisible(true);
 	}
 
 	public void dropTables()
 	{
-		System.out.println("Checking for existing tables.\n");
+		ta.append("Checking for existing tables.\n");
 		try
 		{
 			stmt = conn.createStatement();
-		}catch (SQLException ex)
-		{
-
-		}
-		try {
 			stmt.execute("DROP TABLE console");
-			System.out.println("Console table successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Console table ERROR");
-		}
-		try{
 			stmt.execute("DROP TABLE sound_dock");
-			System.out.println("Sound Dock table successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Sound Dock table ERROR");
-		}
-		try{
+
 			stmt.execute("DROP TABLE headphones");
-			System.out.println("Headphones table successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Headphones table ERROR");
-		}
-		try{
 			stmt.execute("DROP TABLE cd_artist");
-			System.out.println("CD Artist table successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("CD Artist table ERROR");
-		}
-		try{
 			stmt.execute("DROP TABLE song");
-			System.out.println("Song table successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Song table ERROR");
-		}
-		try{
 			stmt.execute("DROP TABLE artist");
-			System.out.println("Artist table successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Artist table ERROR");
-		}
-		try{
 			stmt.execute("DROP TABLE game");
-			System.out.println("Game table successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Game table ERROR");
-		}
-		try{
 			stmt.execute("DROP TABLE cd");
-			System.out.println("CD table successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("CD table ERROR");
-		}
-		try{
 			stmt.execute("DROP TABLE dvd");
-			System.out.println("DVD table successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("DVD table ERROR");
-		}
-		try{
 			stmt.execute("DROP TABLE electronic");
-			System.out.println("Electronic table successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Electronic table ERROR");
-		}
-		try{
 			stmt.execute("DROP TABLE digital_product");
-			System.out.println("Digital Product table successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Digital Product table ERROR");
-		}
-		try{
 			stmt.execute("DROP TABLE transaction");
-			System.out.println("Transaction table successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Transaction table ERROR");
-		}
-		try{
 			stmt.execute("DROP TABLE product");
-			System.out.println("Product table successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Product table ERROR");
-		}
-		try{
 			stmt.execute("DROP TABLE employee");
-			System.out.println("Employee table successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Employee table ERROR");	
-		}
-		try{
 			stmt.execute("DROP SEQUENCE transaction_seq");
-			System.out.println("Transaction sequence successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Transaction sequence ERROR");
-		}
-		try{
 			stmt.execute("DROP SEQUENCE headphones_seq");
-			System.out.println("Headphone sequence successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Headphone sequence ERROR");
-		}
-		try{
 			stmt.execute("DROP SEQUENCE sound_dock_seq");
-			System.out.println("Sound Dock sequence successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Sound Dock sequence ERROR");
-		}
-		try{
 			stmt.execute("DROP SEQUENCE console_seq");
-			System.out.println("Console sequence successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Console sequence ERROR");
-		}
-		try{
 			stmt.execute("DROP SEQUENCE artist_seq");
-			System.out.println("Artist sequence successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Artist sequence ERROR");
-		}
-		try{
 			stmt.execute("DROP SEQUENCE song_seq");
-			System.out.println("Song sequence successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Song sequence ERROR");
-		}
-		try{
 			stmt.execute("DROP SEQUENCE cd_seq");
-			System.out.println("CD sequence successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("CD sequence ERROR");
-		}
-		try{
 			stmt.execute("DROP SEQUENCE game_seq");
-			System.out.println("Game sequence successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Game sequence ERROR");
-		}
-		try{
 			stmt.execute("DROP SEQUENCE dvd_seq");
-			System.out.println("DVD sequence successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("DVD sequence ERROR");
-		}
-		try{
 			stmt.execute("DROP SEQUENCE elec_seq");
-			System.out.println("Electronic sequence successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Electronic sequence ERROR");
-		}
-		try{
 			stmt.execute("DROP SEQUENCE digi_seq");
-			System.out.println("Digital sequence successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Digital sequence ERROR");
-		}
-		try{
 			stmt.execute("DROP SEQUENCE prod_seq");
-			System.out.println("Product sequence successfully dropped.");
-		} catch (SQLException ex)
-		{
-			System.out.println("Product sequence ERROR");
-		}
-		try{
 			stmt.execute("DROP SEQUENCE empId_seq");
-			System.out.println("EmployeeID sequence successfully dropped.");
+			ta.append("All tables successfully dropped.\n");
 		} catch (SQLException ex)
 		{
-			System.out.println("Product sequence ERROR");
+			ta.append("ERROR");
 		}
 	}
 
 	public void createSequence()
 	{
-		System.out.println("\nCreating sequences...");
+		ta.append("\nCreating sequences...");
 		try
 		{
 			Statement stmt = conn.createStatement();
@@ -255,16 +204,16 @@ public class DBsql
 			stmt.executeUpdate("create sequence sound_dock_seq start with 3 increment by 1");
 			stmt.executeUpdate("create sequence headphones_seq start with 5 increment by 1");
 			stmt.executeUpdate("create sequence transaction_seq start with 1000000 increment by 1");
-			System.out.println("Sequences created successfully.");
+			ta.append("Sequences created successfully.");
 		} catch (SQLException ex)
 		{
-			System.out.println("ERROR: " + ex.getMessage());
+			ta.append("ERROR: " + ex.getMessage());
 		}
 	}
 
 	public void createTables()
 	{
-		System.out.println("\nCreating tables...");
+		ta.append("\nCreating tables...");
 		try
 		{
 			Statement stmt = conn.createStatement();
@@ -282,16 +231,16 @@ public class DBsql
 			stmt.executeUpdate("Create table HEADPHONES (headphone_id VARCHAR2(50), over_ear VARCHAR2(1) CHECK(over_ear IN('Y','N')), microphone VARCHAR2(1) CHECK(microphone IN('Y','N')), iphone_compatible VARCHAR2(1) CHECK(iphone_compatible IN('Y','N')), headphone_cost_price NUMBER(6,2), headphone_sale_price NUMBER(6,2), elec_id VARCHAR2(50), PRIMARY KEY (headphone_id), FOREIGN KEY (elec_id) REFERENCES ELECTRONIC(elec_id))");
 			stmt.executeUpdate("Create table SOUND_DOCK (sd_id VARCHAR2(50), wireless VARCHAR2(1) CHECK(wireless IN('Y','N')), power_ouput NUMBER, digital_radio VARCHAR2(1) CHECK(digital_radio IN('Y','N')), sd_cost_price NUMBER(6,2), sd_sale_price NUMBER(6,2), elec_id VARCHAR2(50), PRIMARY KEY (sd_id), FOREIGN KEY (elec_id) REFERENCES ELECTRONIC(elec_id))");
 			stmt.executeUpdate("Create table CONSOLE (console_id VARCHAR2(50), storage_size NUMBER, wifi VARCHAR2(1) CHECK(wifi IN('Y','N')), num_controllers NUMBER, console_cost_price NUMBER(6,2), console_sale_price NUMBER(6,2), elec_id VARCHAR2(50), PRIMARY KEY (console_id), FOREIGN KEY (elec_id) REFERENCES ELECTRONIC(elec_id))");
-			System.out.println("Tables created successfully.");
+			ta.append("Tables created successfully.");
 		} catch (SQLException ex)
 		{
-			System.out.println("ERROR: " + ex.getMessage());
+			ta.append("ERROR: " + ex.getMessage());
 		}
 	}
 
 	public void inserts()
 	{
-		System.out.println("\nInserting data...");
+		ta.append("\nInserting data...");
 		try
 		{
 //			Insert values into product table
@@ -579,10 +528,10 @@ public class DBsql
 			stmt.execute("insert into transaction values(1000016, '30May2013', 'S', 18.99, 1, 1234,'P0000008')"); //16.99
 			stmt.execute("insert into transaction values(1000016, '30May2013', 'S', 18.99, 1, 1234,'P0000004')"); //19.99
 			
-			System.out.println("Data inserted successfully.");
+			ta.append("Data inserted successfully.");
 		} catch (SQLException ex)
 		{
-			System.out.println("ERROR: " + ex.getMessage());
+			ta.append("ERROR: " + ex.getMessage());
 		}
 	}
 
@@ -592,22 +541,51 @@ public class DBsql
 		{
 			stmt.close();
 			conn.close();
-			System.out.print("\nConnection closed");
+			ta.append("\nConnection closed");
 		} catch (SQLException e)
 		{
-			System.out.print("\nCould not close connection ");
+			ta.append("\nCould not close connection ");
 			e.printStackTrace();
 		}
 	}
 
 	public static void main(String[] args)
 	{
-		DBsql db = new DBsql();
-		db.openDB();
-		db.dropTables();
-		db.createSequence();
-		db.createTables();
-		db.inserts();
-		db.closeDB();
+		new DBsql();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		if(jcb.getSelectedItem().toString().equals("Tallaght Database"))
+		{
+			url.setText(tallaghtDB);
+		}
+		else if(jcb.getSelectedItem().toString().equals("Local Database"))
+		{
+			url.setText(localDB);
+		}
+		
+		if(e.getSource()==connect)
+		{
+			try {
+				OracleDataSource ods = new OracleDataSource();
+
+				passw = new String(pswd.getPassword());
+				ods.setURL(url.getText());
+				ods.setUser(username.getText());
+				ods.setPassword(passw);
+				conn = ods.getConnection();
+				ta.append("Connection established.\n");
+				
+				dropTables();
+				createSequence();
+				createTables();
+				inserts();
+				closeDB();
+			} catch (Exception ex) {
+				ta.append("Unable to load driver ");
+			}
+		}
 	}
 }
