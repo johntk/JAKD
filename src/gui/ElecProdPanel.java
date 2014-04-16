@@ -23,9 +23,11 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 	private GridBagConstraints gc = new GridBagConstraints();
 	private JButton addProd, editProd, removeProd, exit, previous, searchProd,
 			next, updateProd;
-	private JLabel prodDetails, manufLB, detailsLB, titleLB, typeLB, idLB, cPriceLB,  sPriceLB, stockLB,  ratingLB, genreLB, pubLB, lengthLB;
-	private JTextField ageRating, manuf, type, genre, currentStock, sellPrice, costPrice,
-			prodTitle, prodId, publisher, length, details;
+	private JLabel prodDetails,  detailsLB, titleLB, typeLB, idLB, cPriceLB,  sPriceLB, stockLB, colour, 
+	manufLB, label1, label2, label3;
+	
+	private JTextField bx1, manuf, type, bx2, currentStock, sellPrice, costPrice,
+			prodTitle, prodId, bx3, colourbx, details;
 	private JPanel prodBtnsPanel, prodDetailsPanel;
 
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
@@ -49,16 +51,16 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 	JTextField[] elecProdDetailBx = { prodTitle = new JTextField(),
 			type = new JTextField(), prodId = new JTextField(),
 			costPrice = new JTextField(), sellPrice = new JTextField(),
-			currentStock = new JTextField(),ageRating = new JTextField(), manuf = new JTextField(),
-			genre = new JTextField(), publisher = new JTextField(), length = new JTextField()
+			currentStock = new JTextField(),bx1 = new JTextField(), manuf = new JTextField(),
+			bx2 = new JTextField(), bx3 = new JTextField(), colourbx = new JTextField()
 			 };
 	//Remove label name when finished
 	JLabel[] elecProdDetailLb = { titleLB = new JLabel(" Product title"),
 			typeLB = new JLabel(" Type"),  idLB = new JLabel(" Product ID"),
 			cPriceLB = new JLabel(" Cost price"), sPriceLB = new JLabel(" Selling price"),
-			stockLB = new JLabel(" Current stock"), ratingLB = new JLabel(" Over Ear"),
+			stockLB = new JLabel(" Current stock"), label1 = new JLabel(" Over Ear"),
 			manufLB = new JLabel(" Manufacturer"),
-			genreLB = new JLabel(" Mic"), pubLB = new JLabel(" iPhone Ready"), lengthLB = new JLabel(" Colour") };
+			label2 = new JLabel(" Mic"), label3 = new JLabel(" iPhone Ready"), colour = new JLabel(" Colour") };
 	
 	private ProdOperations prodOpertaion;
 	private ElecProdList  elecProductList;
@@ -267,20 +269,11 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 
 	public void itemStateChanged(ItemEvent e) {
 
-		String[] digiPopup = { "cd", "dvd", "game" };
-		String[] elecPopup = { "phono", "console", "dock" };
+		
 		for (int i = 0; i < elecProdRadioBtns.length; i++) {
 			if (elecProdCheck[i].isSelected()) {
 
-				if (digiPopup[i].equals("game")) {
-					elecProdDetailBx[9].setText("N/A");
-					elecProdDetailBx[9].setEditable(false);
-				} else {
-					elecProdDetailBx[9].setText("");
-					elecProdDetailBx[9].setEditable(true);
-				}
-				ProdDialog a = new ProdDialog(digiPopup[i], frame, elecProductList.getProduct(counter));
-			} else if (elecProdRadioBtns[i].isSelected()) {
+				
 				
 			}
 		}

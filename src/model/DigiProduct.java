@@ -1,6 +1,5 @@
 package model;
 
-
 public class DigiProduct {
 
 	
@@ -11,7 +10,7 @@ public class DigiProduct {
 	private double costPrice;
 	private double sellPrice;
 
-	//digi prod
+	//Digi prod
 	private String genre;
 	private String age_rating;
 	private double length;
@@ -21,7 +20,6 @@ public class DigiProduct {
 	private String publisher;
 	private CD album;
 
-	
 	//DVD
 	private String dvd_name;
 	private String studio;

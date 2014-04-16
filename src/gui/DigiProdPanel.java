@@ -20,10 +20,12 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
 	private JButton addProd, editProd, removeProd, exit, previous, searchProd,
-			next, updateProd;
-	private JLabel prodDetails, detailsLB, titleLB, typeLB, idLB, cPriceLB,  sPriceLB, stockLB,  ratingLB, genreLB, pubLB, lengthLB;
-	private JTextField ageRating, type, genre, currentStock, sellPrice, costPrice,
-			prodTitle, prodId, publisher, length, details;
+	next, updateProd;
+	private JLabel prodDetails, detailsLB, titleLB, typeLB, idLB, cPriceLB,  sPriceLB, 
+	stockLB,  label1, label2, label3, label4;
+	private JTextField  details,  prodTitle, type, prodId,  sellPrice, costPrice,
+	currentStock, bx1, bx2, bx3, bx4;
+	
 	private JPanel prodBtnsPanel, prodDetailsPanel;
 
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
@@ -32,7 +34,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 
 	private ImageIcon close;
 	private String prodType;
-	private JCheckBox cdCB, dvdCB, gameCB, phonoCB, consoleCB, dockCB;
+	private JCheckBox cdCB, dvdCB, gameCB;
 	private JRadioButton cd = new JRadioButton("CD");
 	private JRadioButton dvd = new JRadioButton("DVD");
 	private JRadioButton game = new JRadioButton("Game");
@@ -44,20 +46,20 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	private int counter = 0;
 	
 	JCheckBox[] digiProdCheck = { cdCB = new JCheckBox(), dvdCB = new JCheckBox(), gameCB = new JCheckBox()};
-	JCheckBox[] elecProdCheck = { phonoCB = new JCheckBox(), consoleCB = new JCheckBox(), dockCB = new JCheckBox()};
+
 	
 	JTextField[] digiProdDetailBx = { prodTitle = new JTextField(),
 			type = new JTextField(), details = new JTextField(),prodId = new JTextField(),
 			costPrice = new JTextField(), sellPrice = new JTextField(),
-			currentStock = new JTextField(),ageRating = new JTextField(), 
-			genre = new JTextField(), publisher = new JTextField(), length = new JTextField()
+			currentStock = new JTextField(),bx3 = new JTextField(), 
+			bx4 = new JTextField(), bx1 = new JTextField(), bx2 = new JTextField()
 			 };
 	//Remove label name when finished
 	JLabel[] digiProdDetailLb = { titleLB = new JLabel(" Product title"),
 			typeLB = new JLabel(" Type"), detailsLB = new JLabel(" Songs"), idLB = new JLabel(" Product ID"),
 			cPriceLB = new JLabel(" Cost price"), sPriceLB = new JLabel(" Selling price"),
-			stockLB = new JLabel(" Current stock"), ratingLB = new JLabel(" Age Rating"),
-			genreLB = new JLabel(" Genre"), pubLB = new JLabel(" Publisher"), lengthLB = new JLabel(" length") };
+			stockLB = new JLabel(" Current stock"), label1 = new JLabel(" Age Rating"),
+			label2 = new JLabel(" Genre"), label3 = new JLabel(" Publisher"), label4 = new JLabel(" length") };
 	
 	private ProdOperations prodOpertaion;
 	private DigiProductList  productList;
@@ -71,21 +73,10 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		this.productList = pl;
 		this.prodOpertaion = po;
 		
-		if (prodType.equals("digi")) {
-			prodDetails = new JLabel("Digital Product");
-			cd.setText("CD");
-			dvd.setText("DVD");
-			game.setText("Game");
-		} else {
-			cd.setText("Headphones");
-			dvd.setText("Console");
-			game.setText("Dock");
-			prodDetails = new JLabel("Electric Product");
-		}
+		
+		prodDetails = new JLabel("Electric Product");
+		
 
-		
-		
-		
 		JPanel top = new JPanel();
 		top.setLayout(new FlowLayout());
 		close = new ImageIcon("src/resources/kioskFiles/images/close.png");
@@ -107,8 +98,6 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		prodDetailsPanel.setLayout(new GridBagLayout());
 		prodDetailsPanel.setPreferredSize(new Dimension(550, 600));
 		prodDetailsPanel.setBorder(border);
-
-
 		
 		
 		ButtonGroup digiGroup = new ButtonGroup();
@@ -164,11 +153,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 							digiProdCheck[j].setFont(font);
 							prodDetailsPanel.add(digiProdCheck[j], gc);
 							digiProdCheck[j].addItemListener(this);
-						} else {
-							elecProdCheck[j].setFont(font);
-							elecProdCheck[j].addItemListener(this);
-							prodDetailsPanel.add(elecProdCheck[j], gc);
-						}
+						} 
 						count++;
 					}
 				}
@@ -258,12 +243,13 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		costPrice.setText(Double.toString(p.getCostPrice()));
 		sellPrice.setText(Double.toString(p.getSellPrice()));
 		currentStock.setText(Integer.toString(p.getCurrent_stock()));
-		ageRating.setText(p.getAge_rating());
-		genre.setText(p.getGenre());
-		publisher.setText(p.getPublisher());
-		length.setText(Double.toString(p.getLength()));	
+		bx3.setText(p.getAge_rating());
+		bx4.setText(p.getGenre());
+		bx1.setText(p.getPublisher());
+		bx2.setText(Double.toString(p.getLength()));	
 		cd.setSelected(true);
 		cdCB.setVisible(true);
+		detailsLB.setText(" Songs");
 		}
 		else if(p.getProd_type().equals("GAME"))
 		{
@@ -272,12 +258,13 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 			costPrice.setText(Double.toString(p.getCostPrice()));
 			sellPrice.setText(Double.toString(p.getSellPrice()));
 			currentStock.setText(Integer.toString(p.getCurrent_stock()));
-			ageRating.setText(p.getAge_rating());
-			genre.setText(p.getGenre());
-			publisher.setText(p.getStudio());
-			length.setText(p.getPlatform());	
+			bx3.setText(p.getAge_rating());
+			bx4.setText(p.getGenre());
+			bx1.setText(p.getStudio());
+			bx2.setText(p.getPlatform());	
 			game.setSelected(true);
 			cdCB.setVisible(false);
+			detailsLB.setText("");
 		}
 		else if(p.getProd_type().equals("DVD"))
 		{
@@ -286,12 +273,13 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 			costPrice.setText(Double.toString(p.getCostPrice()));
 			sellPrice.setText(Double.toString(p.getSellPrice()));
 			currentStock.setText(Integer.toString(p.getCurrent_stock()));
-			ageRating.setText(p.getAge_rating());
-			genre.setText(p.getGenre());
-			publisher.setText(p.getStudio());
-			length.setText(Double.toString(p.getLength()));	
+			bx3.setText(p.getAge_rating());
+			bx4.setText(p.getGenre());
+			bx1.setText(p.getStudio());
+			bx2.setText(Double.toString(p.getLength()));	
 			dvd.setSelected(true);
 			cdCB.setVisible(false);
+			detailsLB.setText("");
 		}
 		else if(p.getProd_type().equals("CONSOLE"))
 		{
@@ -333,19 +321,16 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	public void itemStateChanged(ItemEvent e) {
 
 		String[] digiPopup = { "cd", "dvd", "game" };
-		String[] elecPopup = { "phono", "console", "dock" };
 		for (int i = 0; i < digiProdRadioBtns.length; i++) {
 			if (digiProdCheck[i].isSelected()) {
 
-				if (digiPopup[i].equals("game")) {
-					digiProdDetailBx[9].setText("N/A");
-					digiProdDetailBx[9].setEditable(false);
-				} else {
-					digiProdDetailBx[9].setText("");
-					digiProdDetailBx[9].setEditable(true);
-				}
 				ProdDialog a = new ProdDialog(digiPopup[i], frame, productList.getProduct(counter));
 			} 
+			
+			if(cd.isSelected())
+			{
+				
+			}
 		}
 	}
 }
