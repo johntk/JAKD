@@ -657,7 +657,7 @@ public class PosGui extends JPanel implements ActionListener
 	
 	public void newTran()
 	{
-		JOptionPane.showMessageDialog(null,"New Sale","Invalid Input",JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showMessageDialog(null,"Click Ok For New Sale","New Sale",JOptionPane.WARNING_MESSAGE);
 
 		trans_idf.setText(po.queryTransid());
 		dateFieldf.setText(df.format(now.getTime()));
