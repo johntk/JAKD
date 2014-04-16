@@ -72,14 +72,13 @@ public class PosGui extends JPanel implements ActionListener
 	
 	boolean continueWithTran = true;
 	
-	private String eid;
+
 	
 	
 	
-	public PosGui(String id)
+	public PosGui()
 	{
 		
-		eid = id;
 		po = new POSOperations();
 		po.openDB();
 		tranList = new ArrayList<Transaction>();
@@ -524,8 +523,8 @@ public class PosGui extends JPanel implements ActionListener
 								data.next();
 								
 								tran.setDate(dateFieldf.getText());
-								System.out.println("emp id: " + eid);
-								tran.setEmpID(eid);
+								//System.out.println("emp id: " + eid);
+								//tran.setEmpID(eid);
 								tran.setProdID(data.getString(1));
 								tran.setDesc(data.getString(2));
 								double prodCost = Double.parseDouble(data.getString(3));

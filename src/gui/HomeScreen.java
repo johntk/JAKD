@@ -12,6 +12,7 @@ import kioskScreens.KioskStartScreen;
 import model.EmployeeList;
 import db.EmpOperations;
 import db.DBconnection;
+import db.POSOperations;
 import model.ProductList;
 import db.HomeScreenOperations;
 import db.ProdOperations;
@@ -48,6 +49,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private EmpOperations adminOperations;
 	private ProdOperations prodOpertaion;
 	private ProductList  productList;
+	private POSOperations po;
 
 	private ImageIcon frameIcon;
 	
@@ -209,7 +211,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 		userPanel = new UserPanel(frame, adminOperations, employeeList);
 		elecProdPanel = new ProdPanel(frame, "elec", prodOpertaion, productList);
 		digiProdPanel = new ProdPanel(frame, "digi", prodOpertaion, productList);
-		posGUI = new PosGui(pin);
+		posGUI = new PosGui();
+		
 
 
 		cards = new CardLayout();
@@ -342,7 +345,6 @@ public class HomeScreen extends JFrame implements ActionListener{
 			if(ho.getStaffPin(pin)==true)
 			{
 				
-				posGUI = new PosGui(pin); 
 				frame.setTitle("POS Screen");
 				button4.setText("Logout");
 				cards.show(cardPanel, "POSGui");
