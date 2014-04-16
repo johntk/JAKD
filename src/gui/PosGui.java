@@ -9,7 +9,6 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 
 import javax.swing.*;
@@ -27,14 +26,19 @@ public class PosGui extends JPanel implements ActionListener
 	
 	////////////////// pos panel variables //////////////////////////////////
 	
+
+
+	private static final long serialVersionUID = 1L;
+	
+	
 	private JPanel posPanel,posTop, posMiddle,posRight, posBottom;
 	private JLabel trans_id, dateField, totalPrice, enterProdid,blank,blank2,blank3;
 	private JTextArea products;
-	private JButton complete, isReturn,isVoid,enter,blankb;
+	private JButton complete, isReturn,isVoid,enter;
 	private JScrollPane prodBox;
 	private JTextField trans_idf,dateFieldf, enterProd;
 	private JTextField totalPriceField;
-	private ImageIcon close;
+	//private ImageIcon close;
 	private final DateFormat df;
 	private Calendar now;
 	private POSOperations po;
@@ -63,19 +67,18 @@ public class PosGui extends JPanel implements ActionListener
 	DecimalFormat decf = new DecimalFormat(" € #####.##");
 	
 	private DefaultTableModel dtm ;
-	String colNames[] = {"ID" , "Description", "Sale/Return","Quantity", "Price"};
-	JTable table;
+	private String colNames[] = {"ID" , "Description", "Sale/Return","Quantity", "Price"};
+	private JTable table;
 	
 	boolean continueWithTran = true;
 	
-	
+
 	
 	
 	
 	public PosGui()
 	{
 		
-
 		po = new POSOperations();
 		po.openDB();
 		tranList = new ArrayList<Transaction>();
@@ -520,6 +523,8 @@ public class PosGui extends JPanel implements ActionListener
 								data.next();
 								
 								tran.setDate(dateFieldf.getText());
+								//System.out.println("emp id: " + eid);
+								//tran.setEmpID(eid);
 								tran.setProdID(data.getString(1));
 								tran.setDesc(data.getString(2));
 								double prodCost = Double.parseDouble(data.getString(3));
@@ -653,12 +658,13 @@ public class PosGui extends JPanel implements ActionListener
 	
 	public void newTran()
 	{
-		JOptionPane.showMessageDialog(null,"New Sale","Invalid Input",JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showMessageDialog(null,"Click Ok For New Sale","New Sale",JOptionPane.WARNING_MESSAGE);
 
 		trans_idf.setText(po.queryTransid());
 		dateFieldf.setText(df.format(now.getTime()));
 		totalCost = 0;
 		totalPriceField.setText("");
+		tranList.clear();
 		
 		
 		for(int i = 0; i < dtm.getRowCount();i++)

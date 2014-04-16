@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 061b66bba9e2c75596b48f85bbefeff11bb4cfa9
 
 package kioskScreens;
 
@@ -445,4 +448,7 @@ public class KioskQueries
 		this.conn = conn;
 	}
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 061b66bba9e2c75596b48f85bbefeff11bb4cfa9
