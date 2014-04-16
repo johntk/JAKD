@@ -13,7 +13,7 @@ import db.POSOperations;
 public class Transaction 
 {
 	private int quantity;
-	private String transType;
+	private String transType, desc;
 	private double totalCost;
 	private String transID,empID,prodID,date;
 	private POSOperations po;
@@ -60,6 +60,11 @@ public class Transaction
 		this.date = date;
 	}
 	
+	public String getDate()
+	{
+		return date;
+	}
+	
 	public String getProdID()
 	{
 		return prodID;
@@ -67,6 +72,22 @@ public class Transaction
 	public void setProdID(String id)
 	{
 		prodID = id;
+	}
+	public void setDesc(String desc)
+	{
+		this.desc = desc;
+	}
+	public String getDesc()
+	{
+		return desc;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 

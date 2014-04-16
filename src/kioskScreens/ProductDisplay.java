@@ -2,21 +2,21 @@ package kioskScreens;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 
-import db.DBconnection;
-
 public class ProductDisplay extends JFrame implements ActionListener
 {
+	private static final long serialVersionUID = 1L;
 	private JPanel main,center,top,centerTop,footer,productInfo;
 	private JScrollPane scrollPane;
 	private JButton home,pb;
 	private JLabel resultsHeading,logoLabel,name;
-	private ImageIcon hm,logo,play,stop;
+	private ImageIcon hm,logo,play,stop,img;
 	private GridBagConstraints gc;
 	private String srcPath;
 	private ArrayList<Song> songList;
@@ -24,27 +24,29 @@ public class ProductDisplay extends JFrame implements ActionListener
 	private ArrayList<JLabel> songNames;
 	private AudioPlayer ap;
 	private JSlider volume;
+	private DecimalFormat d;
 
 	public ProductDisplay()
 	{
 		playButtons = new ArrayList<JButton>();
 		songList = new ArrayList<Song>();
 		songNames = new ArrayList<JLabel>();
-		play = new ImageIcon("src/resources/kioskFiles/images/play.png");
-		stop = new ImageIcon("src/resources/kioskFiles/images/stop.png");
+		play = new ImageIcon(this.getClass().getResource("/resources/kioskFiles/images/play.png"));
+		stop = new ImageIcon(this.getClass().getResource("/resources/kioskFiles/images/stop.png"));
 		ap = new AudioPlayer();
 
 		volume = new JSlider(JSlider.HORIZONTAL,0,100,90);
 		volume.setMajorTickSpacing(25);
 		volume.setPaintTicks(true);
 		volume.setPaintLabels(true);
-		volume.setPreferredSize(new Dimension(400,50));
+		volume.setPreferredSize(new Dimension(300,50));
+		volume.setMinimumSize(new Dimension(300,50));
 		volume.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent ev){
 				try{
-					float x = (float)volume.getValue();
-					float volLevel = x/200;
-					ap.setVolume(volLevel);
+					double gain = (float)volume.getValue()/100;
+					float db = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
+					ap.setVolume(db);
 				}catch(Exception e)
 				{
 					e.printStackTrace();
@@ -52,22 +54,25 @@ public class ProductDisplay extends JFrame implements ActionListener
 			}
 		});
 
-		srcPath = "src/resources/kioskFiles/productImages/";
-		hm = new ImageIcon("src/resources/kioskFiles/images/home.png");
-		logo = new ImageIcon("src/resources/kioskFiles/images/logo3.png");
+		srcPath = "/resources/kioskFiles/productImages/";
+		hm = new ImageIcon(this.getClass().getResource("/resources/kioskFiles/images/home.png"));
+		logo = new ImageIcon(this.getClass().getResource("/resources/kioskFiles/images/logo3.png"));
 		gc = new GridBagConstraints();
+		d = new DecimalFormat(" € #####.##");
 
 		main = new JPanel(new BorderLayout());
 		main.setBackground(Color.WHITE);
 
 		top = new JPanel(new BorderLayout());
 		top.setBackground(new Color(0,0,0,0));
+
 		home = new JButton(hm);
 		home.setBackground(Color.WHITE);
 		home.setFont(new Font("Calibri",Font.BOLD,25));
 		home.setVerticalTextPosition(SwingConstants.BOTTOM );
 		home.setHorizontalTextPosition(SwingConstants.CENTER);
 		home.setBorder(null);
+		home.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 		home.addActionListener(this);
 		top.add(home, BorderLayout.WEST);
 		main.add(top,BorderLayout.NORTH);
@@ -89,7 +94,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		productInfo.setLayout(new GridBagLayout());
 		scrollPane = new JScrollPane(productInfo);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
-		center.add(scrollPane,BorderLayout.CENTER);
+		center.add(productInfo,BorderLayout.CENTER);
 
 		footer = new JPanel();
 		logoLabel = new JLabel(logo);
@@ -109,7 +114,12 @@ public class ProductDisplay extends JFrame implements ActionListener
 		// Add product image and information
 		JPanel result = new JPanel(new GridLayout(9,1));
 
-		ImageIcon img = new ImageIcon(srcPath+manufacturer+" "+model+".jpg");
+		try{
+			img = new ImageIcon(this.getClass().getResource(srcPath+manufacturer+" "+model+".jpg"));
+		}catch(Exception e)
+		{
+			img = new ImageIcon(this.getClass().getResource(srcPath+"NoPhoto.jpg"));
+		}
 		JLabel i = new JLabel(img);
 		gc.gridx =0;
 		gc.gridy =0;
@@ -161,7 +171,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		cs.setFont(new Font("Calibri",Font.PLAIN,20));
 		result.add(cs);
 
-		JLabel sp = new JLabel("Price: €"+salePrice);
+		JLabel sp = new JLabel("Price: "+d.format(salePrice));
 		sp.setFont(new Font("Calibri",Font.BOLD,25));
 		sp.setForeground(new Color(20,120,230));
 		result.add(sp);
@@ -172,15 +182,32 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createEmptyBorder(40,20,0,0));
-		result.setPreferredSize(new Dimension(1200,350));
+		result.setPreferredSize(new Dimension(600,350));
+		result.setMinimumSize(new Dimension(400,350));
 		productInfo.add(result,gc);
+
+		// Pad out product view screen with empty JPanels
+		for(int j=0;j<20;j++)
+		{
+			JPanel empty1 = new JPanel();
+			gc.gridx =j+2;
+			gc.gridy =0;
+			gc.weightx=1.0;
+			gc.weighty=1.0;
+			productInfo.add(empty1,gc);
+		}
 	}
 	public void displayHeadphones(String manufacturer,String model,String colour,String overEar,String mic,String iPhoneCompatible,double salePrice,int currentStock)
 	{
 		// Add product image and information
 		JPanel result = new JPanel(new GridLayout(9,1));
 
-		ImageIcon img = new ImageIcon(srcPath+manufacturer+" "+model+".jpg");
+		try{
+			img = new ImageIcon(this.getClass().getResource(srcPath+manufacturer+" "+model+".jpg"));
+		}catch(Exception e)
+		{
+			img = new ImageIcon(this.getClass().getResource(srcPath+"NoPhoto.jpg"));
+		}
 		JLabel i = new JLabel(img);
 		gc.gridx =0;
 		gc.gridy =0;
@@ -249,7 +276,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		cs.setFont(new Font("Calibri",Font.PLAIN,20));
 		result.add(cs);
 
-		JLabel sp = new JLabel("Price: €"+salePrice);
+		JLabel sp = new JLabel("Price: "+d.format(salePrice));
 		sp.setFont(new Font("Calibri",Font.BOLD,25));
 		sp.setForeground(new Color(20,120,230));
 		result.add(sp);
@@ -260,15 +287,32 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createEmptyBorder(40,20,0,0));
-		result.setPreferredSize(new Dimension(1200,350));
+		result.setPreferredSize(new Dimension(600,350));
+		result.setMinimumSize(new Dimension(400,350));
 		productInfo.add(result,gc);
+
+		// Pad out product view screen with empty JPanels
+		for(int j=0;j<20;j++)
+		{
+			JPanel empty1 = new JPanel();
+			gc.gridx =j+2;
+			gc.gridy =0;
+			gc.weightx=1.0;
+			gc.weighty=1.0;
+			productInfo.add(empty1,gc);
+		}
 	}
 	public void displaySoundDock(String manufacturer,String model,String colour,String wireless,int powerOutput,String digRadio,double salePrice,int currentStock)
 	{
 		// Add product image and information
 		JPanel result = new JPanel(new GridLayout(9,1));
 
-		ImageIcon img = new ImageIcon(srcPath+manufacturer+" "+model+".jpg");
+		try{
+			img = new ImageIcon(this.getClass().getResource(srcPath+manufacturer+" "+model+".jpg"));
+		}catch(Exception e)
+		{
+			img = new ImageIcon(this.getClass().getResource(srcPath+"NoPhoto.jpg"));
+		}
 		JLabel i = new JLabel(img);
 		gc.gridx =0;
 		gc.gridy =0;
@@ -329,7 +373,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		cs.setFont(new Font("Calibri",Font.PLAIN,20));
 		result.add(cs);
 
-		JLabel sp = new JLabel("Price: €"+salePrice);
+		JLabel sp = new JLabel("Price: "+d.format(salePrice));
 		sp.setFont(new Font("Calibri",Font.BOLD,25));
 		sp.setForeground(new Color(20,120,230));
 		result.add(sp);
@@ -340,27 +384,41 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createEmptyBorder(40,20,0,0));
-		result.setPreferredSize(new Dimension(1200,350));
+		result.setPreferredSize(new Dimension(600,350));
+		result.setMinimumSize(new Dimension(400,350));
 		productInfo.add(result,gc);
+
+		// Pad out product view screen with empty JPanels
+		for(int j=0;j<20;j++)
+		{
+			JPanel empty1 = new JPanel();
+			gc.gridx =j+2;
+			gc.gridy =0;
+			gc.weightx=1.0;
+			gc.weighty=1.0;
+			productInfo.add(empty1,gc);
+		}
 	}
 	public void displayCD(String artist,String album, String genre, String recordCompany, String length, int rating, double salePrice, int currentStock, String prodID)
 	{
 		// Add product image and information
 		int y = 1;
-		
-		ImageIcon img = new ImageIcon(srcPath+artist+" - "+album+".jpg");
+
+		try{
+			img = new ImageIcon(this.getClass().getResource(srcPath+artist+" - "+album+".jpg"));
+		}catch(Exception e)
+		{
+			img = new ImageIcon(this.getClass().getResource(srcPath+"NoPhoto.jpg"));
+		}
 		JLabel im = new JLabel(img);
 		gc.gridx =0;
 		gc.gridy =0;
 		gc.weightx=1.0;
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
-		//im.setBorder(BorderFactory.createEmptyBorder(40,40,0,0));
-		
-		im.setBorder(new CompoundBorder(
-				BorderFactory.createEmptyBorder(40,40,0,0),
-				BorderFactory.createRaisedBevelBorder()));
+		im.setBorder(BorderFactory.createEmptyBorder(40,40,0,0));
 		productInfo.add(im,gc);
+
 
 		JPanel result = new JPanel(new GridLayout(9,1));
 		gc.gridx =1;
@@ -369,7 +427,8 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createEmptyBorder(40,20,0,0));
-		result.setPreferredSize(new Dimension(450,350));
+		result.setPreferredSize(new Dimension(600,350));
+		result.setMinimumSize(new Dimension(400,350));
 		productInfo.add(result,gc);
 
 		JLabel a = new JLabel(artist);
@@ -387,7 +446,6 @@ public class ProductDisplay extends JFrame implements ActionListener
 
 		JLabel c = new JLabel("• Record Company: "+recordCompany);
 		c.setFont(new Font("Calibri",Font.PLAIN,20));
-		//c.setForeground(new Color(110,110,110));
 		result.add(c);
 
 		JLabel p = new JLabel("• Length: "+length+" minutes");
@@ -406,7 +464,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		cs.setFont(new Font("Calibri",Font.PLAIN,20));
 		result.add(cs);
 
-		JLabel sp = new JLabel("Price: €"+salePrice);
+		JLabel sp = new JLabel("Price: "+d.format(salePrice));
 		sp.setFont(new Font("Calibri",Font.BOLD,25));
 		sp.setForeground(new Color(20,120,230));
 		result.add(sp);
@@ -414,7 +472,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		// Add volume controls to album preview window
 		JPanel volumeControl = new JPanel(new BorderLayout());
 		volumeControl.setBorder(new CompoundBorder(
-				BorderFactory.createEmptyBorder(530,20,0,0),
+				BorderFactory.createEmptyBorder(200,20,0,0),
 				BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY)));
 		gc.gridx =1;
 		gc.gridy =0;
@@ -439,7 +497,8 @@ public class ProductDisplay extends JFrame implements ActionListener
 		songs.setBorder(new CompoundBorder(
 				BorderFactory.createMatteBorder(40, 20, 0, 50, productInfo.getBackground()),
 				BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY)));
-		songs.setPreferredSize(new Dimension(700,650));
+		songs.setPreferredSize(new Dimension(750,650));
+		songs.setMinimumSize(new Dimension(550,650));
 		productInfo.add(songs,gc);
 
 		JLabel title = new JLabel("Title:");
@@ -450,7 +509,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weightx=1.0;
 		gc.weighty=1.0;
 		songs.add(title,gc);
-		
+
 		JLabel lgth = new JLabel("Length:");
 		lgth.setFont(new Font("Calibri",Font.BOLD,25));
 		lgth.setForeground(new Color(20,120,230));
@@ -472,15 +531,14 @@ public class ProductDisplay extends JFrame implements ActionListener
 			name = new JLabel(songList.get(i).getTitle());
 			name.setFont(new Font("Calibri",Font.PLAIN,20));
 			name.setForeground(Color.GRAY);
-			//name.setBorder(BorderFactory.createEmptyBorder(0,0,0,50));
 			songNames.add(name);
 			gc.gridx =1;
 			gc.gridy =y;
 			gc.weightx=1.0;
 			gc.weighty=1.0;
 			songs.add(songNames.get(i),gc);
-			
-			
+
+
 			JLabel l = new JLabel(songList.get(i).getLength());
 			l.setFont(new Font("Calibri",Font.PLAIN,20));
 			gc.gridx =2;
@@ -489,6 +547,17 @@ public class ProductDisplay extends JFrame implements ActionListener
 			gc.weighty=1.0;
 			songs.add(l,gc);
 			y++;
+		}
+
+		// Pad out product view screen with empty JPanels
+		for(int j=0;j<8;j++)
+		{
+			JPanel empty1 = new JPanel();
+			gc.gridx =j+3;
+			gc.gridy =0;
+			gc.weightx=1.0;
+			gc.weighty=1.0;
+			productInfo.add(empty1,gc);
 		}
 	}
 
@@ -509,7 +578,12 @@ public class ProductDisplay extends JFrame implements ActionListener
 	{
 		JPanel result = new JPanel(new GridLayout(8,1));
 
-		ImageIcon img = new ImageIcon(srcPath+title+".jpg");
+		try{
+			img = new ImageIcon(this.getClass().getResource(srcPath+title+".jpg"));
+		}catch(Exception e)
+		{
+			img = new ImageIcon(this.getClass().getResource(srcPath+"NoPhoto.jpg"));
+		}
 		JLabel i = new JLabel(img);
 		gc.gridx =0;
 		gc.gridy =0;
@@ -549,7 +623,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		result.add(cs);
 
 
-		JLabel sp = new JLabel("Price: €"+salePrice);
+		JLabel sp = new JLabel("Price: "+d.format(salePrice));
 		sp.setFont(new Font("Calibri",Font.BOLD,25));
 		sp.setForeground(new Color(20,120,230));
 		result.add(sp);
@@ -560,14 +634,31 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createMatteBorder(40,20,0,0,productInfo.getBackground()));
-		result.setPreferredSize(new Dimension(1200,350));
+		result.setPreferredSize(new Dimension(600,350));
+		result.setMinimumSize(new Dimension(400,350));
 		productInfo.add(result,gc);
+
+		// Pad out product view screen with empty JPanels
+		for(int j=0;j<20;j++)
+		{
+			JPanel empty1 = new JPanel();
+			gc.gridx =j+2;
+			gc.gridy =0;
+			gc.weightx=1.0;
+			gc.weighty=1.0;
+			productInfo.add(empty1,gc);
+		}
 	}
 	public void displayDVD(String title,String genre,String studio,int length,int rating,double salePrice,int currentStock)
 	{
 		JPanel result = new JPanel(new GridLayout(8,1));
 
-		ImageIcon img = new ImageIcon(srcPath+title+".jpg");
+		try{
+			img = new ImageIcon(this.getClass().getResource(srcPath+title+".jpg"));
+		}catch(Exception e)
+		{
+			img = new ImageIcon(this.getClass().getResource(srcPath+"NoPhoto.jpg"));
+		}
 		JLabel i = new JLabel(img);
 		gc.gridx =0;
 		gc.gridy =0;
@@ -606,7 +697,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		result.add(cs);
 
 
-		JLabel sp = new JLabel("Price: €"+salePrice);
+		JLabel sp = new JLabel("Price: "+d.format(salePrice));
 		sp.setFont(new Font("Calibri",Font.BOLD,25));
 		sp.setForeground(new Color(20,120,230));
 		result.add(sp);
@@ -617,10 +708,22 @@ public class ProductDisplay extends JFrame implements ActionListener
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		result.setBorder(BorderFactory.createMatteBorder(40,20,0,0,productInfo.getBackground()));
-		result.setPreferredSize(new Dimension(1200,350));
+		result.setPreferredSize(new Dimension(600,350));
+		result.setMinimumSize(new Dimension(400,350));
 		productInfo.add(result,gc);
+
+		// Pad out product view screen with empty JPanels
+		for(int j=0;j<20;j++)
+		{
+			JPanel empty1 = new JPanel();
+			gc.gridx =j+2;
+			gc.gridy =0;
+			gc.weightx=1.0;
+			gc.weighty=1.0;
+			productInfo.add(empty1,gc);
+		}
 	}
-	
+
 	public JPanel getPanel()
 	{
 		return main;
@@ -643,41 +746,47 @@ public class ProductDisplay extends JFrame implements ActionListener
 		{
 			for(int i=0; i<playButtons.size(); i++)
 			{
-				if(((JButton)e.getSource()) == playButtons.get(i))
-				{
-					try{
-						ap.stop();
-					}
-					catch(Exception ex){
-					}
+				try{
+					if(((JButton)e.getSource()) == playButtons.get(i))
+					{
+						try{
+							ap.stop();
+						}
+						catch(Exception ex){
+						}
 
-					for(int j=0; j<songNames.size(); j++)
-					{
-						if(songNames.get(j) != songNames.get(i))
+						for(int j=0; j<songNames.size(); j++)
 						{
-							songNames.get(j).setForeground(Color.GRAY);
-							songNames.get(j).setFont(new Font("Calibri",Font.PLAIN,20));
-							songNames.get(j).setIcon(null);
-							playButtons.get(j).setIcon(play);
+							if(songNames.get(j) != songNames.get(i))
+							{
+								songNames.get(j).setForeground(Color.GRAY);
+								songNames.get(j).setFont(new Font("Calibri",Font.PLAIN,20));
+								songNames.get(j).setIcon(null);
+								playButtons.get(j).setIcon(play);
+							}
+							else
+							{
+								ImageIcon ind = new ImageIcon(this.getClass().getResource("/resources/kioskFiles/images/indicator.png"));
+								songNames.get(j).setForeground(new Color(20,120,230));
+								songNames.get(j).setFont(new Font("Calibri",Font.BOLD,20));
+								songNames.get(j).setIcon(ind);
+								playButtons.get(j).setIcon(stop);
+							}
 						}
-						else
+
+						if(ap.getFilePath() == songList.get(i).getFilePath())
 						{
-							//ImageIcon ind = new ImageIcon("src/resources/kioskFiles/images/indicator.png");
-							songNames.get(j).setForeground(new Color(20,120,230));
-							songNames.get(j).setFont(new Font("Calibri",Font.BOLD,20));
-							//songNames.get(j).setIcon(ind);
-							playButtons.get(j).setIcon(stop);
+							ap.stop();
+							playButtons.get(i).setIcon(play);
+							songNames.get(i).setIcon(null);
+							ap.nullFile();
 						}
+						else ap.play(songList.get(i).getFilePath());
+						volume.setValue(90);
 					}
-					if(ap.getFile() == songList.get(i).getFile())
-					{
-						ap.stop();
-						playButtons.get(i).setIcon(play);
-						songNames.get(i).setIcon(null);
-						ap.nullFile();
-					}
-					else ap.play(songList.get(i).getFile());
-					volume.setValue(90);
+				}catch(Exception ex)
+				{
+					ex.getMessage();
 				}
 			}
 		}

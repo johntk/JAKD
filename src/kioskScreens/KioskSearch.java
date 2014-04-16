@@ -5,10 +5,9 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import db.DBconnection;
-
 public class KioskSearch extends JFrame implements ActionListener
 {
+	private static final long serialVersionUID = 1L;
 	private String srcPath;
 	private static JPanel main;
 	private JPanel center,top;
@@ -25,10 +24,10 @@ public class KioskSearch extends JFrame implements ActionListener
 		k = kq;
 		f1=new Font("Calibri",Font.PLAIN,20);
 
-		srcPath = "src/resources/kioskFiles/images/";
+		srcPath = "/resources/kioskFiles/images/";
 		gc = new GridBagConstraints();
-		hm = new ImageIcon(srcPath+"home.png");
-		logo = new ImageIcon(srcPath+"logo.png");
+		hm = new ImageIcon(this.getClass().getResource(srcPath+"home.png"));
+		logo = new ImageIcon(this.getClass().getResource(srcPath+"logo.png"));
 
 		main = new JPanel(new BorderLayout());
 		main.setBackground(Color.WHITE);
@@ -41,6 +40,7 @@ public class KioskSearch extends JFrame implements ActionListener
 		home.setVerticalTextPosition(SwingConstants.BOTTOM );
 		home.setHorizontalTextPosition(SwingConstants.CENTER);
 		home.setBorder(null);
+		home.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 		home.addActionListener(this);
 		top.add(home, BorderLayout.WEST);
 		main.add(top,BorderLayout.NORTH);

@@ -6,6 +6,8 @@ import model.Transaction;
 
 import javax.swing.JOptionPane;
 
+import com.sun.org.apache.bcel.internal.classfile.PMGClass;
+
 import oracle.jdbc.pool.OracleDataSource;
 
 public class POSOperations 
@@ -152,7 +154,6 @@ public class POSOperations
 		
 		
 		queryProduct(prodInput);
-		//return prodID + "\t" + desc + "\t" + price + "\t" ;
 		return rset;
 		
 	}
@@ -164,16 +165,82 @@ public class POSOperations
 			if(prodInput == t.get(i).getTransID())
 			{
 				t.remove(i);
-				//double price = Double.parseDouble(data.getString(3));
+
 				System.out.println(t.get(i).getTransID());
 				
 			}
 			
 			
 		}
-			
-
+	}
 	
+	public void insertTran(ArrayList<Transaction> t)
+	{
+		//trans_id NUMBER NOT NULL, trans_date DATE, trans_type VARCHAR2(1) CHECK(trans_type IN('S','R')), total_cost NUMBER(30,2))"
+		String insert = "INSERT INTO transaction(trans_id, trans_date, trans_type, total_cost, quantity, emp_id, prod_id) VALUES(?,?,?,?,?,?,?)"; 	
+		try
+		{
+			pstmt = conn.prepareStatement(insert);
+			
+			for(int i = 0; i< t.size();i++)
+			{
+				pstmt.setString(1, t.get(i).getTransID());
+				pstmt.setString(2, t.get(i).getDate());
+				pstmt.setString(3, t.get(i).getTransType());
+				pstmt.setDouble(4, t.get(i).getTotalCost());
+				pstmt.setInt(5, t.get(i).getQuantity());
+				pstmt.setString(6,"1234");
+				pstmt.setString(7,t.get(i).getProdID());
+				
+				pstmt.execute();
+				System.out.println("insert" + (i+1) +" sucessfull :)");
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			System.out.println("cant do insert");
+		}
+	}
+	
+	public void updateCurrentStock(ArrayList<Transaction> t)
+	{
+		for(int i = 0; i < t.size(); i++)
+		{
+			String s = "SELECT prod_id, current_stock FROM  product WHERE prod_id = '" + t.get(i).getProdID() + "'";	
+		
+
+			try
+			{
+				pstmt = conn.prepareStatement(s,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+				rset = pstmt.executeQuery();
+				rset.next();
+				int stock = rset.getInt(2);
+				
+				//if return +1 , if sale -1
+				if(t.get(i).getTransType().equals("R"))
+				{
+					stock += t.get(i).getQuantity();
+				}
+				else
+				{
+					stock -= t.get(i).getQuantity();
+				}
+				
+				
+			
+				rset.updateInt(2,stock);
+				rset.updateRow();
+		
+				System.out.println("updated current stock ");
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+				System.out.println(e);
+				System.out.println("error with updating stock");
+			}
+		}
 	}
 
 }

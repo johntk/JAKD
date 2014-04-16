@@ -5,13 +5,16 @@ import java.awt.event.*;
 import java.sql.*;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
-import javax.print.attribute.standard.JobMessageFromOperator;
+
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.table.DefaultTableModel;
 
 import model.Transaction;
 
@@ -27,18 +30,19 @@ public class PosGui extends JPanel implements ActionListener
 	private JPanel posPanel,posTop, posMiddle,posRight, posBottom;
 	private JLabel trans_id, dateField, totalPrice, enterProdid,blank,blank2,blank3;
 	private JTextArea products;
-	private JButton complete, isReturn,exit,isVoid,enter;
+	private JButton complete, isReturn,isVoid,enter,blankb;
 	private JScrollPane prodBox;
 	private JTextField trans_idf,dateFieldf, enterProd;
 	private JTextField totalPriceField;
 	private ImageIcon close;
 	private final DateFormat df;
+	private Calendar now;
 	private POSOperations po;
 	private ResultSet data;
 	private ArrayList <Transaction> tranList;
 	private Transaction tran;
 
-	private Frame frame;
+
 	
 	boolean voidd = false;
 	boolean returnn = false;
@@ -50,36 +54,34 @@ public class PosGui extends JPanel implements ActionListener
 	private JTextField enterAmountf;
 	private JButton enterAm;
 
-
-	
-	
-	
-/// brain spark
+	/// brain spark
 	double totalCost = 0;
+	boolean quantity = false;
+	int quanPoint;
+	boolean prodExists;
+	int prodCount;
+	DecimalFormat decf = new DecimalFormat(" € #####.##");
+	
+	private DefaultTableModel dtm ;
+	String colNames[] = {"ID" , "Description", "Sale/Return","Quantity", "Price"};
+	JTable table;
+	
+	boolean continueWithTran = true;
 	
 	
 	
 	
 	
-	
-	
-	
-	
-	
-	public PosGui(Frame frame)
+	public PosGui()
 	{
 		
-		this.frame = frame;
+
 		po = new POSOperations();
 		po.openDB();
 		tranList = new ArrayList<Transaction>();
 
 
-		
-		
-		///////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////     POS Panel     /////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////
+	
 		
 		//Border declaration for use on east and west panels on main frame
 		Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10, 10);
@@ -127,7 +129,7 @@ public class PosGui extends JPanel implements ActionListener
 		
 
 		df = new SimpleDateFormat("ddMMMyy");
-		Calendar now = Calendar.getInstance();
+		now = Calendar.getInstance();
 		dateFieldf.setText(df.format(now.getTime()));
 		
 		
@@ -139,30 +141,48 @@ public class PosGui extends JPanel implements ActionListener
 		blank2 = new JLabel("                              ");
 		posTop.add(blank2);
 		
-		close = new ImageIcon("src/resources/kioskFiles/images/close.png");
-		exit = new JButton("Close",close);
-		exit.setBackground(new Color(238,238,238));
-		exit.setPreferredSize(new Dimension(100,50));
-		exit.addActionListener(this);
-		exit.setBorder(null);
-		posTop.add(exit);
+
 		
 		
 		
 		
 		
-		
-		//center panel
+		/////////////////////////////////center panel//////////////////////
 		posMiddle = new JPanel();
+		posMiddle.setLayout(new BorderLayout());
 		this.add(posMiddle, BorderLayout.CENTER);
 		
 		
-		//String headings[] = {"ID" , "Description", "Sale/Return", "Price"};
+		
+		dtm= new DefaultTableModel(colNames,40); 
+	    table = new JTable(dtm);
+	    table.setShowGrid(false);
+	    table.setShowVerticalLines(true);
 		products = new JTextArea(30,45);
 		products.setEditable(false);
-		prodBox = new JScrollPane(products);
+		prodBox = new JScrollPane(table);
+		table.setBackground(Color.white);
 		prodBox.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		posMiddle.add(prodBox);
+		posMiddle.add(prodBox,BorderLayout.CENTER);
+		
+		
+		JPanel headings = new JPanel();
+		headings.setLayout(new GridLayout(1,4));
+		posMiddle.add(headings,BorderLayout.NORTH);
+		
+		JLabel prodid = new JLabel("Product ID");
+		JLabel desc = new JLabel("Description");
+		JLabel price = new JLabel("Price");
+		JLabel qty = new JLabel("Quantity");
+		prodid.setBorder(line);
+		desc.setBorder(line);
+		price.setBorder(line);
+		qty.setBorder(line);
+		
+		//headings.add(prodid);
+	   // headings.add(desc);
+		//headings.add(price);
+		//headings.add(qty);
 		
 		
 		//right panel
@@ -176,15 +196,20 @@ public class PosGui extends JPanel implements ActionListener
 				isReturn = new JButton("Return"),
 				isVoid = new JButton("Void"),
 				complete = new JButton("Complete Sale")
+	
 			};
-		
+
+		JLabel spacer = new JLabel("");
+		gc.gridy = 1;
+		gc.weighty = 5.0;
+		posRight.add(spacer, gc);
 		for(int i = 0; i < posButtons.length; i++)
         {
 			gc.gridx = 0; 
 			gc.gridy = i + 2; 
 			gc.gridwidth = 1; 
 			gc.gridheight = 1; 
-			gc.weighty = 0.001; 
+			gc.weighty = 0.2; 
 			gc.weightx = 0.0;
 			posButtons[i].setIcon(new ImageIcon("src/resources/blueButton.png"));
 			posButtons[i].setFont(new Font("sansserif",Font.BOLD,22));
@@ -213,6 +238,17 @@ public class PosGui extends JPanel implements ActionListener
 		enter = new JButton("Enter ");
 		enter.addActionListener(this);
 		posBottom.add(enter);
+
+		/////// allows enter key press "enter" in gui
+		enter.registerKeyboardAction(enter.getActionForKeyStroke(
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
+                JComponent.WHEN_IN_FOCUSED_WINDOW);
+		
+        enter.registerKeyboardAction(enter.getActionForKeyStroke(
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
+                JComponent.WHEN_FOCUSED);
 		
 		////insert space
 		blank3 = new JLabel("                                                                    ");
@@ -245,6 +281,13 @@ public class PosGui extends JPanel implements ActionListener
 	{
 		return posPanel;
 	}
+	
+	
+	
+
+	///////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////               action performed       ////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////
 		
 	
 	public void actionPerformed(ActionEvent e) 
@@ -269,30 +312,65 @@ public class PosGui extends JPanel implements ActionListener
 		
 		else if(e.getSource() == complete)
 		{
+			if(tranList.size() > 0)
+			{
 			
-			jd = new JDialog();
-			jd.setTitle("Complete Sale");
-			jd.setVisible(true);
-			jd.setResizable(false);
-			jd.setLocationRelativeTo(null);
-			jd.setSize(160,130);
-			jd.setLayout(new FlowLayout());
-			
-			enterAmount = new JLabel("Enter Cash:");
-			jd.add(enterAmount);
-			enterAmountf = new JTextField(10);
-			jd.add(enterAmountf);
-			enterAm = new JButton("Enter");
-			enterAm.addActionListener(this);
-			jd.add(enterAm);
-			
+				jd = new JDialog();
+				jd.setTitle("Complete Sale");
+				jd.setVisible(true);
+				jd.setResizable(false);
+				jd.setLocationRelativeTo(null);
+				jd.setSize(160,130);
+				jd.setLayout(new FlowLayout());
+				
+				enterAmount = new JLabel("Enter Cash:");
+				jd.add(enterAmount);
+				enterAmountf = new JTextField(10);
+				jd.add(enterAmountf);
+				enterAm = new JButton("Enter");
+				enterAm.addActionListener(this);
+				jd.add(enterAm);
+			}
 			
 		}
 		
 		
 		else if(e.getSource() == enterAm)
 		{
-			
+			double cashEntered = Double.parseDouble(enterAmountf.getText());
+			if( totalCost > cashEntered)
+			{
+				products.setText(products.getText() + "Cash\t\t " + cashEntered);
+				totalPriceField.setText(decf.format((totalCost - cashEntered)));
+				jd.setVisible(false);
+				
+			}
+			else
+			{
+				totalPrice.setText("Change:");
+				totalPriceField.setText(decf.format((cashEntered - totalCost)));
+				jd.setVisible(false);
+				po.insertTran(tranList);
+				po.updateCurrentStock(tranList);
+				
+				//HomeScreen h = new HomeScreen();
+				//h.completeSale();
+				
+
+				/*try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e1) {
+					
+					e1.printStackTrace();
+				}*/
+				
+				newTran();
+				
+				
+				
+
+				
+			}
 			
 
 			
@@ -305,140 +383,299 @@ public class PosGui extends JPanel implements ActionListener
 	
 		else if(e.getSource() == enter)
 		{
+			
 			tran = new Transaction();
 			
-			if (voidd == true)
+			///////////////////// can't have return and sale of same product in same tran
+			for(int i = 0;i < tranList.size();i++) //check if product is in sale
 			{
-				
-				System.out.println("in void product");
-				for(int i = 0;i < tranList.size();i++)
+				if(returnn == false && enterProd.getText().equals(tranList.get(i).getProdID()))
 				{
-					if(enterProd.getText().equals(tranList.get(i).getProdID()))
+					if(tranList.get(i).getTransType().equals("R"))
 					{
-						System.out.println("in if in void");
-						totalCost = totalCost - (tranList.get(i).getTotalCost());
-						
-						totalPriceField.setText("€" + totalCost);
-						tranList.remove(i);
-						
-						
+						JOptionPane.showMessageDialog(null,"Can't buy whats already returned","Invalid Input",JOptionPane.WARNING_MESSAGE);
+						continueWithTran = false;
 					}
-					else
+						
+				}
+				else if(returnn == true && enterProd.getText().equals(tranList.get(i).getProdID()))
+				{
+					if(tranList.get(i).getTransType().equals("S"))
+					{
+						JOptionPane.showMessageDialog(null,"Can't return whats already a sale","Invalid Input",JOptionPane.WARNING_MESSAGE);
+						continueWithTran = false;
+					}
+				}
+
+			}
+			
+			
+			if(continueWithTran == true)
+			{
+				if (voidd == true)
+				{
+					
+					System.out.println("in void product");
+					for(int i = 0;i < tranList.size();i++) //check if product is in sale
+					{
+						if(enterProd.getText().equals(tranList.get(i).getProdID()))
+						{
+							prodExists = true;
+							prodCount = i;
+							
+							
+						}
+					}
+				
+					if(prodExists == true)
+					{
+	
+						
+						if(tranList.get(prodCount).getQuantity() == 1) // void if there is a qty more than 1 in sale
+						{
+							
+							totalCost -=  tranList.get(prodCount).getTotalCost();
+							totalPriceField.setText(decf.format(totalCost));
+							tranList.remove(prodCount);
+							
+							
+						}
+						else
+						{
+							tranList.get(prodCount).setTotalCost(tranList.get(prodCount).getTotalCost() - (tranList.get(prodCount).getTotalCost()/tranList.get(prodCount).getQuantity()));
+							tranList.get(prodCount).setQuantity(tranList.get(prodCount).getQuantity() - 1);
+							
+							totalCost -= tranList.get(prodCount).getTotalCost()/tranList.get(prodCount).getQuantity() ;
+							totalPriceField.setText(decf.format(totalCost));
+	
+						}
+	
+					displayProducts();
+					voidd = false;
+					prodExists = false;
+					enter.setText("Enter ");
+							
+	
+					}
+						
+					else //if prodExists is not true
 					{
 						JOptionPane.showMessageDialog(null,"Product is not in this sale!","Invalid Input",JOptionPane.WARNING_MESSAGE);
-					}
-				
-				}
-				if (tranList.size() <= 0)
-				{
-					products.setText("");
-				}
-				for(int i = 0; i < tranList.size(); i++)
-				{
-					
-					products.setText(tranList.get(i).getProdID() +" " + tranList.get(i).getTotalCost() );
-					
-					
-					
-					System.out.println(tranList.get(i).getProdID());
-				}
-				voidd = false;
-				enter.setText("Enter ");
-			}
-			else if(returnn == true)
-			{
-				try
-				{
-				
-					data = po.displayProduct(enterProd.getText());
-					data.next();
-					
-					tran.setDate(dateFieldf.getText());
-					tran.setProdID(data.getString(1));
-					String desc = data.getString(2);
-					double prodCost = Double.parseDouble(data.getString(3));
-					tran.setTransType("R");
-					tran.setTotalCost(prodCost);
-					
-					totalCost =  totalCost - prodCost;
-					
-					products.setText(products.getText() + "\n" + tran.getProdID() + desc + "€- " + prodCost );
-					totalPriceField.setText("€ " + totalCost);
-					enterProd.setText("");
-					tranList.add(tran);
-					
-					for(int i = 0; i < tranList.size(); i++)
-					{
-						System.out.println(tranList.get(i).getProdID() + " " + tranList.get(i).getTransType());
-					}
-					
-				}
-				catch(SQLException es)
-				{
-					
-				}
-				returnn = false;
-				enter.setText("Enter ");
-			}
-			
-			else
-			{
-				try
-					{
-						
-						ResultSet data;
-						data = po.displayProduct(enterProd.getText());
-						data.next();
-						
-						tran.setDate(dateFieldf.getText());
-						tran.setProdID(data.getString(1));
-						String desc = data.getString(2);
-						double prodCost = Double.parseDouble(data.getString(3));
-						tran.setTotalCost(prodCost);
-						
-						totalCost = prodCost + totalCost;
-						
-						
-						products.setText(products.getText() + "\n" + tran.getProdID() + desc + "€ " + prodCost );
-						totalPriceField.setText("€ " + totalCost);
-						enterProd.setText("");
-						tranList.add(tran);
-						
-						
-						
-						for(int i = 0; i < tranList.size(); i++)
-						{
-							System.out.println(tranList.get(i).getProdID() + " " + tranList.get(i).getTransType());
-						}
-					
-					}
-					catch(SQLException sqle)
-					{
-						System.out.println(sqle);
-						System.out.println("cant display product");
-					}
-			}
-		}
-
-			
-
 	
+					}
+					voidd = false;
+					prodExists = false;
+					enter.setText("Enter ");
+					
+				}
+				else if(returnn == true)
+				{
+					if(checkQty() == false)
+					{
+						try
+						{
+						
+							data = po.displayProduct(enterProd.getText());
+							data.next();
+							
+							tran.setDate(dateFieldf.getText());
+							tran.setProdID(data.getString(1));
+							tran.setDesc(data.getString(2));
+							double prodCost = Double.parseDouble(data.getString(3));
+							tran.setTransType("R");
+							tran.setQuantity(1);
+							tran.setTotalCost(prodCost);
+							
+							totalCost =  totalCost - prodCost;
+							
+		
+							totalPriceField.setText(decf.format(totalCost));
+							enterProd.setText("");
+							tranList.add(tran);
+		
+							displayProducts();
+				
+							
+						}
+						catch(SQLException es)
+						{
+							
+						}
+					}
+					returnn = false;
+					enter.setText("Enter ");
+				}
+				
+				else /////normal enter product
+				{
+					
+					if(checkQty()== false)
+					{
+						
+						try
+							{
+								
+								ResultSet data;
+								data = po.displayProduct(enterProd.getText());
+								data.next();
+								
+								tran.setDate(dateFieldf.getText());
+								tran.setProdID(data.getString(1));
+								tran.setDesc(data.getString(2));
+								double prodCost = Double.parseDouble(data.getString(3));
+								tran.setTotalCost(prodCost);
+								tran.setQuantity(1);
+								
+								
+								
+								totalCost = prodCost + totalCost;
+								tranList.add(tran);
+								
+								
+								displayProducts();
+
+								
+								
+								totalPriceField.setText(decf.format(totalCost));
+								enterProd.setText("");
+								
+								
+								
+								
+								for(int i = 0; i < tranList.size(); i++) ///test arraylist
+								{
+									System.out.println(tranList.get(i).getProdID() + " " + tranList.get(i).getTransType());
+								}
+							
+							}
+						
+							catch(SQLException sqle)
+							{
+								System.out.println(sqle);
+								System.out.println("cant display product");
+							}
+					}
+				}
+			}
+			continueWithTran = true;
+				
+		}
+			
 
 		
-		else if (e.getSource() == exit) 
-		{
-			frame.setVisible(false);
-			frame.dispose();
-		}
-		
-		else
-		{
-			posPanel.setVisible(false);
-
-		}
+	
 	
 	}
+	
+	public void displayProducts() // prints out all products in sale/return to gui
+	{
+		for(int i = 0; i < (tranList.size() + 1);i++)
+		{
+			dtm.setValueAt("", i, 0);
+			dtm.setValueAt("", i, 1);
+			dtm.setValueAt("", i, 2);
+			dtm.setValueAt("", i, 3);
+			dtm.setValueAt("", i, 4);
+		}
+		
+		for(int i = 0; i < tranList.size();i++)
+		{
+	
+				dtm.setValueAt(tranList.get(i).getProdID(), i, 0);
+				dtm.setValueAt(tranList.get(i).getDesc(), i, 1);
+				dtm.setValueAt(tranList.get(i).getTransType(), i, 2);
+				dtm.setValueAt(tranList.get(i).getQuantity(), i, 3);
+				dtm.setValueAt(decf.format(tranList.get(i).getTotalCost()), i, 4);
+
+		}
+		
+	}
+	
+	public boolean checkQty() // checks if the product is in the sale and adds quantity
+	{
+		for(int i = 0; i< tranList.size(); i++)
+		{
+			if (tranList.get(i).getProdID().equals(enterProd.getText()))
+			{
+				System.out.println("check qty method!!!!!!!");
+				quantity = true;
+				quanPoint = i;
+			}
+		}
+		
+		if (quantity == true)
+		{
+			int quan;
+			
+			
+			
+			if(tranList.get(quanPoint).getTransType().equals("S"))
+			{
+			
+
+				
+				double singleProdPrice = (tranList.get(quanPoint).getTotalCost()) / (tranList.get(quanPoint).getQuantity());
+				tranList.get(quanPoint).setTotalCost((tranList.get(quanPoint).getTotalCost()) + singleProdPrice);
+				totalCost = totalCost + singleProdPrice;
+				totalPriceField.setText(decf.format(totalCost));
+				
+
+				
+				displayProducts();
+				
+			}
+			else
+			{
+				double singleProdPrice = (tranList.get(quanPoint).getTotalCost()) / (tranList.get(quanPoint).getQuantity());
+				tranList.get(quanPoint).setTotalCost((tranList.get(quanPoint).getTotalCost()) + singleProdPrice);
+				totalCost = totalCost - singleProdPrice;
+				totalPriceField.setText(decf.format(totalCost));
+				
+				quan = tranList.get(quanPoint).getQuantity() + 1;
+				System.out.println("Quantity: " + quan);
+				tranList.get(quanPoint).setQuantity(quan);
+				displayProducts();
+				
+				
+			}
+		quantity = false;	
+		return true;
+			
+			
+			
+			
+		}
+		else 
+		{
+			return false;
+		}
+	}
+	
+	public void newTran()
+	{
+		JOptionPane.showMessageDialog(null,"New Sale","Invalid Input",JOptionPane.WARNING_MESSAGE);
+
+		trans_idf.setText(po.queryTransid());
+		dateFieldf.setText(df.format(now.getTime()));
+		totalCost = 0;
+		totalPriceField.setText("");
+		
+		
+		for(int i = 0; i < dtm.getRowCount();i++)
+		{
+			dtm.setValueAt("", i, 0);
+			dtm.setValueAt("", i, 1);
+			dtm.setValueAt("", i, 2);
+			dtm.setValueAt("", i, 3);
+			dtm.setValueAt("", i, 4);
+		}
+		
+		
+	}
+	
+
 }
+
 
 
 

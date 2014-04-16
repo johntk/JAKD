@@ -2,14 +2,14 @@ package kioskScreens;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
-import db.DBconnection;
-
 public class KioskResultsScreen extends JFrame implements ActionListener, ItemListener
 {
+	private static final long serialVersionUID = 1L;
 	private String srcPath;
 	private static JPanel main;
 	private JPanel center,top,centerTop,footer,resultWindow,r;
@@ -33,14 +33,14 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 	{
 		this.kq = kq;
 
-		srcPath = "src/resources/kioskFiles/images/";
+		srcPath = "/resources/kioskFiles/images/";
 		r = new JPanel();
 		viewButtons = new ArrayList<JButton>();
 		yPos = new ArrayList<Integer>();
 		resultList = new ArrayList<Result>();
 		gc = new GridBagConstraints();
-		hm = new ImageIcon(srcPath+"home.png");
-		logo = new ImageIcon(srcPath+"logo3.png");
+		hm = new ImageIcon(this.getClass().getResource(srcPath+"home.png"));
+		logo = new ImageIcon(this.getClass().getResource(srcPath+"logo3.png"));
 
 		main = new JPanel(new BorderLayout());
 		main.setBackground(Color.WHITE);
@@ -53,6 +53,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 		home.setVerticalTextPosition(SwingConstants.BOTTOM );
 		home.setHorizontalTextPosition(SwingConstants.CENTER);
 		home.setBorder(null);
+		home.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 		home.addActionListener(this);
 		top.add(home, BorderLayout.WEST);
 
@@ -61,7 +62,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 		//add center JPanel to main frame
 		center = new JPanel(new BorderLayout());
 		center.setBackground(new Color(0,0,0,0));
-		center.setBorder(BorderFactory.createEmptyBorder(0,60,20,60));
+		center.setBorder(BorderFactory.createEmptyBorder(0,120,20,120));
 		main.add(center,BorderLayout.CENTER);
 
 		centerTop = new JPanel(new GridBagLayout());
@@ -208,7 +209,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 		vb.add(allGames);
 		
 		radioButtonPanel.setBackground(main.getBackground());
-		radioButtonPanel.setBorder(BorderFactory.createEmptyBorder(40,0,0,0));
+		radioButtonPanel.setBorder(BorderFactory.createEmptyBorder(40,10,10,10));
 
 		consoleSelection = new ArrayList<JRadioButton>();
 
