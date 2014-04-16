@@ -25,7 +25,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	stockLB, label1, label2, label3, label4;
 	private JTextField details, prodTitle, type, prodId, sellPrice, costPrice,
 	currentStock, bx1, bx2, bx3, bx4;
-	
+	//
 	private JPanel prodBtnsPanel, prodDetailsPanel;
 
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
