@@ -6,8 +6,6 @@ import model.Transaction;
 
 import javax.swing.JOptionPane;
 
-import com.sun.org.apache.bcel.internal.classfile.PMGClass;
-
 import oracle.jdbc.pool.OracleDataSource;
 
 public class POSOperations 
@@ -189,7 +187,7 @@ public class POSOperations
 				pstmt.setString(3, t.get(i).getTransType());
 				pstmt.setDouble(4, t.get(i).getTotalCost());
 				pstmt.setInt(5, t.get(i).getQuantity());
-				pstmt.setString(6,"1234");
+				pstmt.setString(6,t.get(i).getEmpID());
 				pstmt.setString(7,t.get(i).getProdID());
 				
 				pstmt.execute();
