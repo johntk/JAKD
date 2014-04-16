@@ -9,7 +9,6 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 
 import javax.swing.*;
@@ -27,14 +26,19 @@ public class PosGui extends JPanel implements ActionListener
 	
 	////////////////// pos panel variables //////////////////////////////////
 	
+
+
+	private static final long serialVersionUID = 1L;
+	
+	
 	private JPanel posPanel,posTop, posMiddle,posRight, posBottom;
 	private JLabel trans_id, dateField, totalPrice, enterProdid,blank,blank2,blank3;
 	private JTextArea products;
-	private JButton complete, isReturn,isVoid,enter,blankb;
+	private JButton complete, isReturn,isVoid,enter;
 	private JScrollPane prodBox;
 	private JTextField trans_idf,dateFieldf, enterProd;
 	private JTextField totalPriceField;
-	private ImageIcon close;
+	//private ImageIcon close;
 	private final DateFormat df;
 	private Calendar now;
 	private POSOperations po;
