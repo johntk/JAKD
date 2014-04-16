@@ -1,7 +1,7 @@
 package db;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,7 +16,7 @@ public class HomeScreenOperations
 	private Statement stmt;
 	private ResultSet rset;
 	private Connection conn;
-	private PreparedStatement pstmt;
+
 	
 
 	
