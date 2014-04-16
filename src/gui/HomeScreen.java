@@ -62,12 +62,12 @@ public class HomeScreen extends JFrame implements ActionListener{
 	
 	
 	////////////////     log in variables //////////////////////////////////
-	JDialog logIn; 
-	JLabel enterPassword;
-	JPasswordField jpf;
-	JButton enterPButton;
-	String pin;
-	HomeScreenOperations ho;
+	private  JDialog logIn; 
+	private JLabel enterPassword;
+	private JPasswordField jpf;
+	private JButton enterPButton;
+	private String pin;
+	private HomeScreenOperations ho;
 	
 	
 
@@ -209,7 +209,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		userPanel = new UserPanel(frame, adminOperations, employeeList);
 		elecProdPanel = new ProdPanel(frame, "elec", prodOpertaion, productList);
 		digiProdPanel = new ProdPanel(frame, "digi", prodOpertaion, productList);
-		posGUI = new PosGui();
+		posGUI = new PosGui(pin);
 
 
 		cards = new CardLayout();
@@ -341,6 +341,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 			pin = new String(jpf.getPassword());
 			if(ho.getStaffPin(pin)==true)
 			{
+				
+				posGUI = new PosGui(pin); 
 				frame.setTitle("POS Screen");
 				button4.setText("Logout");
 				cards.show(cardPanel, "POSGui");
@@ -386,6 +388,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 	
 	}
+
 	
 
 	public static void main(String args[]) {

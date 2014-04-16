@@ -1,12 +1,6 @@
 package model;
 
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
+
 
 import db.POSOperations;
 
@@ -27,6 +21,7 @@ public class Transaction
 		po = new POSOperations();
 		po.openDB();
 		transType = "S";
+		//empID = pin;
 		transID = po.queryTransid();
 
 		
@@ -88,6 +83,14 @@ public class Transaction
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public String getEmpID() {
+		return empID;
+	}
+
+	public void setEmpID(String empID) {
+		this.empID = empID;
 	}
 
 

@@ -67,19 +67,19 @@ public class PosGui extends JPanel implements ActionListener
 	DecimalFormat decf = new DecimalFormat(" € #####.##");
 	
 	private DefaultTableModel dtm ;
-	String colNames[] = {"ID" , "Description", "Sale/Return","Quantity", "Price"};
-	JTable table;
+	private String colNames[] = {"ID" , "Description", "Sale/Return","Quantity", "Price"};
+	private JTable table;
 	
 	boolean continueWithTran = true;
 	
+	private String eid;
 	
 	
 	
-	
-	public PosGui()
+	public PosGui(String id)
 	{
 		
-
+		eid = id;
 		po = new POSOperations();
 		po.openDB();
 		tranList = new ArrayList<Transaction>();
@@ -524,6 +524,8 @@ public class PosGui extends JPanel implements ActionListener
 								data.next();
 								
 								tran.setDate(dateFieldf.getText());
+								System.out.println("emp id: " + eid);
+								tran.setEmpID(eid);
 								tran.setProdID(data.getString(1));
 								tran.setDesc(data.getString(2));
 								double prodCost = Double.parseDouble(data.getString(3));
@@ -663,6 +665,7 @@ public class PosGui extends JPanel implements ActionListener
 		dateFieldf.setText(df.format(now.getTime()));
 		totalCost = 0;
 		totalPriceField.setText("");
+		tranList.clear();
 		
 		
 		for(int i = 0; i < dtm.getRowCount();i++)
