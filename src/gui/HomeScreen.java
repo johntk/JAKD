@@ -212,7 +212,6 @@ public class HomeScreen extends JFrame implements ActionListener{
 		userPanel = new UserPanel(frame, adminOperations, employeeList);
 		elecProdPanel = new ElecProdPanel(frame, "elec", prodOpertaion, elecProductList);
 		digiProdPanel = new DigiProdPanel(frame, "digi", prodOpertaion, digiProductList);
-		posGUI = new PosGui();
 
 
 		cards = new CardLayout();
@@ -221,7 +220,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		cardPanel.add(homePanel, "homePanel");
 		cardPanel.add(ProdSelect, "prodSelect");
 		cardPanel.add(genReportPanel, "genReport");
-		cardPanel.add(posGUI, "POSGui");
+		
 		cardPanel.add(userPanel, "editUser");
 		cardPanel.add(elecProdPanel, "editElec");
 		cardPanel.add(digiProdPanel, "editDigi");
@@ -344,6 +343,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 			pin = new String(jpf.getPassword());
 			if(ho.getStaffPin(pin)==true)
 			{
+				posGUI = new PosGui(pin);
+				cardPanel.add(posGUI, "POSGui");
 				frame.setTitle("POS Screen");
 				button4.setText("Logout");
 				cards.show(cardPanel, "POSGui");
