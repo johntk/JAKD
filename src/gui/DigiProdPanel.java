@@ -21,9 +21,9 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	private GridBagConstraints gc = new GridBagConstraints();
 	private JButton addProd, editProd, removeProd, exit, previous, searchProd,
 	next, updateProd;
-	private JLabel prodDetails, detailsLB, titleLB, typeLB, idLB, cPriceLB,  sPriceLB, 
-	stockLB,  label1, label2, label3, label4;
-	private JTextField  details,  prodTitle, type, prodId,  sellPrice, costPrice,
+	private JLabel prodDetails, detailsLB, titleLB, typeLB, idLB, cPriceLB, sPriceLB, 
+	stockLB, label1, label2, label3, label4;
+	private JTextField details, prodTitle, type, prodId, sellPrice, costPrice,
 	currentStock, bx1, bx2, bx3, bx4;
 	
 	private JPanel prodBtnsPanel, prodDetailsPanel;
@@ -249,6 +249,9 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		bx2.setText(Double.toString(p.getLength()));	
 		cd.setSelected(true);
 		cdCB.setVisible(true);
+		dvd.setEnabled(false);
+		cd.setEnabled(true);
+		game.setEnabled(false);
 		detailsLB.setText(" Songs");
 		}
 		else if(p.getProd_type().equals("GAME"))
@@ -264,6 +267,9 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 			bx2.setText(p.getPlatform());	
 			game.setSelected(true);
 			cdCB.setVisible(false);
+			dvd.setEnabled(false);
+			game.setEnabled(true);
+			cd.setEnabled(false);
 			detailsLB.setText("");
 		}
 		else if(p.getProd_type().equals("DVD"))
@@ -280,6 +286,9 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 			dvd.setSelected(true);
 			cdCB.setVisible(false);
 			detailsLB.setText("");
+			dvd.setEnabled(true);
+			game.setEnabled(false);
+			cd.setEnabled(false);
 		}
 		else if(p.getProd_type().equals("CONSOLE"))
 		{

@@ -98,11 +98,29 @@ public class ProdOperations {
 	
 	
 	
-//	String sqlStatement = "select p.current_stock, dp.genre, dp.age_rating, g.company, g.platform, g.game_name, g.game_sale_price "+
-//			"from product p, digital_product dp, game g "+
-//			"where dp.prod_id = p.prod_id "+
-//			"and dp.dig_id = g.dig_id "+
-//			"and p.prod_id = '"+prodID+"'";
+	public ResultSet getProductHeadphone() {
+		try {
+			
+			String sqlStatement = "SELECT p.prod_id, p.prod_type, e.model,  hp.headphone_cost_price, hp.headphone_sale_price, "
+					+ " p.current_stock, hp.microphone, hp.over_ear, hp.iphone_compatible, e.manufacturer,  e.colour    "
+					+"from product p, electronic e, headphones hp "
+					+"where e.prod_id = p.prod_id  "
+					+"and e.elec_id = hp.elec_id ";
+
+			
+//			String sqlStatement = "select p.current_stock, e.manufacturer, e.model, e.colour, hp.over_ear, hp.microphone, hp.iphone_compatible, hp.headphone_sale_price "+
+//					"from product p, electronic e, headphones hp "+
+//					"where e.prod_id = p.prod_id "+
+//					"and e.elec_id = hp.elec_id "+
+			
+
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sqlStatement);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return rset;
+	}
 	
 	
 	

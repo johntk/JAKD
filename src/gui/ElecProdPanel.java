@@ -6,11 +6,10 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-
 import db.ProdOperations;
 import model.ElecProdList;
-
 import model.DigiProduct;
+import model.ElecProduct;
 import Popups.ProdDialog;
 
 public class ElecProdPanel extends JPanel implements ActionListener, ItemListener {
@@ -22,12 +21,12 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
 	private JButton addProd, editProd, removeProd, exit, previous, searchProd,
-			next, updateProd;
-	private JLabel prodDetails,  detailsLB, titleLB, typeLB, idLB, cPriceLB,  sPriceLB, stockLB, colour, 
-	manufLB, label1, label2, label3;
+	next, updateProd;
+	private JLabel prodDetails, detailsLB, titleLB, typeLB, idLB, cPriceLB, sPriceLB, stockLB,  
+	manufLB, label1, label2, label3, colour;
+	private JTextField details, prodTitle, type, prodId, sellPrice, costPrice, currentStock,
+	manuf,  bx1, bx2, bx3, colourbx ;
 	
-	private JTextField bx1, manuf, type, bx2, currentStock, sellPrice, costPrice,
-			prodTitle, prodId, bx3, colourbx, details;
 	private JPanel prodBtnsPanel, prodDetailsPanel;
 
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
@@ -36,7 +35,7 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 
 	private ImageIcon close;
 	private String prodType;
-	private JCheckBox  phonoCB, consoleCB, dockCB;
+
 	private JRadioButton phono = new JRadioButton("Headphones");
 	private JRadioButton console = new JRadioButton("Console");
 	private JRadioButton dock = new JRadioButton("Dock");
@@ -45,8 +44,6 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 	private JFrame frame;
 	private int counter = 0;
 	
-//	
-	JCheckBox[] elecProdCheck = { phonoCB = new JCheckBox(), consoleCB = new JCheckBox(), dockCB = new JCheckBox()};
 	
 	JTextField[] elecProdDetailBx = { prodTitle = new JTextField(),
 			type = new JTextField(), prodId = new JTextField(),
@@ -63,7 +60,7 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 			label2 = new JLabel(" Mic"), label3 = new JLabel(" iPhone Ready"), colour = new JLabel(" Colour") };
 	
 	private ProdOperations prodOpertaion;
-	private ElecProdList  elecProductList;
+	private ElecProdList  elecProdList;
 	
 	public ElecProdPanel(JFrame frame, String prodType, ProdOperations po, ElecProdList pl) {
 
@@ -71,7 +68,7 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 		this.frame = frame;
 
 		this.setLayout(new BorderLayout());
-		this.elecProductList = pl;
+		this.elecProdList = pl;
 		this.prodOpertaion = po;
 			
 		prodDetails = new JLabel("Electric Product");
@@ -207,36 +204,39 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 		}
 
 		this.add(prodBtnsPanel, BorderLayout.WEST);
-//		setFirst();
+		setFirst();
 	}
 	
 	public void setFirst() {
 		int pos = 0;
 		counter = 0;
-		DigiProduct p = elecProductList.getProduct(pos);
+		ElecProduct p = elecProdList.getProduct(pos);
 		this.displayProduct(p);
 	}
 	
-	public DigiProduct displayProduct(DigiProduct p) {
+	public ElecProduct displayProduct(ElecProduct p) {
 		
 		
 		if(p.getProd_type().equals("CONSOLE"))
 		{
-//			prodId.setText(p.getProd_id());
-//			prodTitle.setText(p.getAlbumName());
-//			costPrice.setText(Double.toString(p.getCostPrice()));
-//			sellPrice.setText(Double.toString(p.getSellPrice()));
-//			currentStock.setText(Integer.toString(p.getCurrent_stock()));
-//			ageRating.setText(p.getAge_rating());
-//			genre.setText(p.getGenre());
-//			publisher.setText(p.getPublisher());
-//			length.setText(Double.toString(p.getLength()));	
-//			cd.setSelected(true);
-//			cdCB.setVisible(true);
+
 		}
 		else if(p.getProd_type().equals("HEADPHONES"))
 		{
-			
+			prodId.setText(p.getProd_id());
+			prodTitle.setText(p.getModel());
+			costPrice.setText(Double.toString(p.getCostPrice()));
+			sellPrice.setText(Double.toString(p.getSellPrice()));
+			currentStock.setText(Integer.toString(p.getCurrent_stock()));
+			manuf.setText(p.getManufacturer());
+			bx1.setText(p.getIphoneComp());
+			bx2.setText(p.getMic());
+			bx3.setText(p.getOverEar());
+			colourbx.setText(p.getColour());
+			phono.setSelected(true);
+			dock.setEnabled(false);
+			phono.setEnabled(true);
+			console.setEnabled(false);
 		}
 		else if(p.getProd_type().equals("SOUNDDOCK"))
 		{
@@ -247,7 +247,7 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 
 	public void actionPerformed(ActionEvent e) {
 
-		int totalContacts = elecProductList.getNumProduct();
+		int totalContacts = elecProdList.getNumProduct();
 		
 		if (e.getSource() == exit) {
 			System.exit(0);
@@ -256,13 +256,13 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 		else if (e.getSource().equals(next)) {
 			if ((counter + 1) < totalContacts) {
 				counter++;
-				this.displayProduct(elecProductList.getProduct(counter));
+				this.displayProduct(elecProdList.getProduct(counter));
 			}
 		} 
 		else if (e.getSource().equals(previous)) {
 			if ((counter - 1) >= 0) {
 				counter--;
-				this.displayProduct(elecProductList.getProduct(counter));
+				this.displayProduct(elecProdList.getProduct(counter));
 			}
 		}
 	}
@@ -271,11 +271,7 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 
 		
 		for (int i = 0; i < elecProdRadioBtns.length; i++) {
-			if (elecProdCheck[i].isSelected()) {
-
-				
-				
-			}
+			
 		}
 	}
 }

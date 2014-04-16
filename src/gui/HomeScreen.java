@@ -86,7 +86,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 		
 		EmpOperations ao = new EmpOperations();
 		ProdOperations po = new ProdOperations();
-		DigiProductList pl = new DigiProductList(po);
+		DigiProductList dpl = new DigiProductList(po);
+		ElecProdList epl = new ElecProdList(po);
 		EmployeeList el = new EmployeeList(ao);
 		ao.setDBconnection(conn);
 		po.setDBconnection(conn);
@@ -102,7 +103,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 		this.employeeList = el;
 		this.adminOperations = ao;
-		this.digiProductList = pl;
+		this.digiProductList = dpl;
+		this.elecProductList = epl;
 		this.prodOpertaion = po;
 		cl1 = new Color(240, 240, 240);
 
