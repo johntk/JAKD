@@ -179,10 +179,10 @@ public class CDPopup extends JPanel implements ActionListener {
 	public void displayAlbum()
 	{
 		System.out.println(p.getAlbum().getSongList().size());
-		for(int i = 0; i < digiProdDetailBx.length; i++)
+		for(int i = 0; i < 8; i++)
 		{
 			digiProdDetailBx[i].setText(p.getAlbum().getSongList().get(i).getSong_name());
-			System.out.println(p.getAlbum().getSongList().get(i).getSong_name());
+			digiProdDetailBx2[i].setText(p.getAlbum().getSongList().get(i).getSong_length());
 		}
 		
 	}

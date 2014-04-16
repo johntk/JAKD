@@ -273,6 +273,9 @@ public class ProdPanel extends JPanel implements ActionListener, ItemListener {
 	}
 	
 	public Product displayProduct(Product p) {
+		
+		if(p.getProd_type().equals("CD"))
+		{
 		prodId.setText(p.getProd_id());
 		prodTitle.setText(p.getAlbumName());
 		costPrice.setText(Double.toString(p.getCostPrice()));
@@ -281,9 +284,40 @@ public class ProdPanel extends JPanel implements ActionListener, ItemListener {
 		ageRating.setText(p.getAge_rating());
 		genre.setText(p.getGenre());
 		publisher.setText(p.getPublisher());
-		length.setText(Double.toString(p.getLength()));
-		
-		
+		length.setText(Double.toString(p.getLength()));	
+		cd.setSelected(true);
+		cdCB.setVisible(true);
+		}
+		else if(p.getProd_type().equals("GAME"))
+		{
+			
+		}
+		else if(p.getProd_type().equals("DVD"))
+		{
+			prodId.setText(p.getProd_id());
+			prodTitle.setText(p.getDvd_name());
+			costPrice.setText(Double.toString(p.getCostPrice()));
+			sellPrice.setText(Double.toString(p.getSellPrice()));
+			currentStock.setText(Integer.toString(p.getCurrent_stock()));
+			ageRating.setText(p.getAge_rating());
+			genre.setText(p.getGenre());
+			publisher.setText(p.getStudio());
+			length.setText(Double.toString(p.getLength()));	
+			dvd.setSelected(true);
+			cdCB.setVisible(false);
+		}
+		else if(p.getProd_type().equals("CONSOLE"))
+		{
+			
+		}
+		else if(p.getProd_type().equals("HEADPHONES"))
+		{
+			
+		}
+		else if(p.getProd_type().equals("SOUNDDOCK"))
+		{
+			
+		}
 		return p;
 	}
 
@@ -325,7 +359,7 @@ public class ProdPanel extends JPanel implements ActionListener, ItemListener {
 				}
 				ProdDialog a = new ProdDialog(digiPopup[i], frame, productList.getProduct(counter));
 			} else if (elecProdRadioBtns[i].isSelected()) {
-				ProdDialog a = new ProdDialog(elecPopup[i], frame,  productList.getProduct(counter));
+				
 			}
 		}
 	}

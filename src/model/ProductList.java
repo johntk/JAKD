@@ -16,26 +16,34 @@ public class ProductList {
 	private ProdOperations po;
 	private ResultSet rset;
 	private ResultSet rset2;
+	private int count =0;
 	
 	public ProductList(ProdOperations po)
 	{
 		this.po = po;
 		plist = new ArrayList<Product>();
 		slist = new ArrayList<Song>();
-		
 	}
 	
 	
-
-	public void refreshList() {
-		songs();
-		rset = po.getProduct();
-		
-		if (plist.size() > 0) {
-			for (int i = plist.size() - 1; i >= 0; i--) {
-				plist.remove(i);
+	public void refreshList()
+	{
+		if(count == 0)
+			{
+			if (plist.size() > 0) {
+				for (int i = plist.size() - 1; i >= 0; i--) {
+					plist.remove(i);
+				}
 			}
-		}
+				refreshListCD();
+				refreshListDVD();
+			}
+	}
+	
+	public void refreshListCD() {
+		
+		songs();
+		rset = po.getProductCD();
 		
 		try {
 			while (rset.next()) {
@@ -47,8 +55,6 @@ public class ProductList {
 					alist.add(slist.get(i));
 				}	
 			}
-			System.out.println(alist.size());
-			
 			CD c = new CD(alist);
 			
 				Product p = new Product(rset.getString(1), 
@@ -62,15 +68,17 @@ public class ProductList {
 						rset.getString(9), 
 						rset.getDouble(10), c);
 				plist.add(p);
+				
 			}
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
 	}
 	
-	
 	public void songs()
 	{
+		if(count == 0)
+		{
 		rset2 = po.getSongs();
 		try {
 			while (rset2.next())
@@ -80,12 +88,45 @@ public class ProductList {
 						rset2.getString(3));
 				slist.add(s);
 			}
-			System.out.println(slist.size());
 		} 
 		catch (Exception ea) {
 			System.out.println(ea);
 		}
+		}
+		count++;
 	}
+	
+	
+	public void refreshListDVD()
+	{
+		rset = po.getProductDVD();
+
+		try {
+			while (rset.next()) {
+
+				Product p = new Product(rset.getString(1), 
+						rset.getString(2),
+						rset.getString(3), 
+						rset.getDouble(4), 
+						rset.getDouble(5), 
+						rset.getInt(6),
+						rset.getString(7),
+						rset.getString(8),
+						rset.getString(9), 
+						rset.getDouble(10));
+				plist.add(p);
+				
+			}
+		} catch (Exception ex) {
+			System.out.println(ex);
+		}
+		
+		System.out.println(plist.size());
+		}
+	
+		
+		
+		
 	
 
 //	

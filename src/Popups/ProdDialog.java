@@ -9,7 +9,7 @@ import model.Product;
 
 public class ProdDialog extends JDialog {
 
-	private JPanel cardPanel, cd, dvd, game, phono, dock, console;
+	private JPanel cd;
 	private JDialog cdDialog;
 	private Product p;
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
@@ -20,10 +20,7 @@ public class ProdDialog extends JDialog {
 
 		this.p = p;
 		
-		JPanel popupPanels[] = new JPanel[] { cd = new CDPopup(p),
-				dvd = new DVDPopup(), game = new GamePopup(),
-				phono = new HeadphonePopup(), dock = new DockPopup(),
-				console = new ConsolePopup("console") };
+		JPanel popupPanels[] = new JPanel[] { cd = new CDPopup(p)};
 
 		cdDialog = new JDialog(jFrame, true);
 		cdDialog.setLocationRelativeTo(null);
@@ -34,8 +31,6 @@ public class ProdDialog extends JDialog {
 				cdDialog.setSize(popupPanels[i].getSize());
 			}
 		}
-
 		cdDialog.setVisible(true);
-
 	}
 }

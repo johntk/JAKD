@@ -23,12 +23,13 @@ public class Product {
 	private CD album;
 
 	
+	//DVD
+	private String dvd_name;
+	private String studio;
+	
 	public CD getAlbum() {
 		return album;
 	}
-
-
-
 
 	public void setAlbum(CD album) {
 		this.album = album;
@@ -54,8 +55,37 @@ public class Product {
 		this.album = album;
 	}
 
+	public Product(String prod_id,  String prod_type, String dvd_Name, double costPrice, double sellPrice, 
+			int current_stock, String age_rating, String genre, String studio, double length)
+	{
+		this.prod_id = prod_id;
+		this.prod_type = prod_type;
+		this.dvd_name = dvd_Name;
+		this.costPrice = costPrice;
+		this.sellPrice = sellPrice;
+		this.current_stock = current_stock;
+		this.age_rating = age_rating;
+		this.genre = genre;
+		this.studio = studio;
+		this.length = length;
+	}
 
 
+	public String getDvd_name() {
+		return dvd_name;
+	}
+
+	public void setDvd_name(String dvd_name) {
+		this.dvd_name = dvd_name;
+	}
+
+	public String getStudio() {
+		return studio;
+	}
+
+	public void setStudio(String studio) {
+		this.studio = studio;
+	}
 
 	public String getPublisher() {
 		return publisher;

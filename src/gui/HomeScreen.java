@@ -333,7 +333,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 			cards.show(cardPanel, "editDigi");
 		} 
 		else if (e.getSource() == closeBtn) {
-			prodOpertaion.getCD();
+			productList.refreshListCD();
 			//adminOperations.getId();
 		}
 		else if (e.getSource() == enterPButton)
