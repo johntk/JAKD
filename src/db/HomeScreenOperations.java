@@ -95,12 +95,13 @@ public class HomeScreenOperations
 			String sqlStatement = "SELECT pin_num FROM EMPLOYEE";
 			rset = stmt.executeQuery(sqlStatement);
 			
-			rset.next();
-			
-			if(pin.equals(rset.getString(1)))
+			while (rset.next())
 			{
-				authenticate = true;
-				System.out.println("true pin ");
+				if(pin.equals(rset.getString(1)))
+				{
+					authenticate = true;
+					System.out.println("true pin ");
+				}
 			}
 			
 			
