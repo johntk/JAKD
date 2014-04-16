@@ -6,6 +6,12 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import db.EmpOperations;
+import db.ProdOperations;
+import model.Employee;
+import model.EmployeeList;
+import model.Product;
+import model.ProductList;
 import Popups.ProdDialog;
 
 public class ProdPanel extends JPanel implements ActionListener, ItemListener {
@@ -18,9 +24,9 @@ public class ProdPanel extends JPanel implements ActionListener, ItemListener {
 	private GridBagConstraints gc = new GridBagConstraints();
 	private JButton addProd, editProd, removeProd, exit, previous, searchProd,
 			next, updateProd;
-	private JLabel prodDetails;
-	private JTextField other, supplierID, currentStock, sellPrice, costPrice,
-			prodTitle, type, prodId;
+	private JLabel prodDetails, detailsLB, titleLB, typeLB, idLB, cPriceLB,  sPriceLB, stockLB,  ratingLB, genreLB, pubLB, lengthLB;
+	private JTextField ageRating, type, genre, currentStock, sellPrice, costPrice,
+			prodTitle, prodId, publisher, length, details;
 	private JPanel prodBtnsPanel, prodDetailsPanel;
 
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
@@ -29,6 +35,7 @@ public class ProdPanel extends JPanel implements ActionListener, ItemListener {
 
 	private ImageIcon close;
 	private String prodType;
+	private JCheckBox cdCB, dvdCB, gameCB;
 	private JRadioButton cd = new JRadioButton("CD");
 	private JRadioButton dvd = new JRadioButton("DVD");
 	private JRadioButton game = new JRadioButton("Game");
@@ -37,15 +44,39 @@ public class ProdPanel extends JPanel implements ActionListener, ItemListener {
 	private JRadioButton dock = new JRadioButton("Dock");
 	private JRadioButton[] digiProdRadioBtns = new JRadioButton[] { cd, dvd,game };
 	private JRadioButton[] elecProdRadioBtns = new JRadioButton[] { phono,console, dock };
+	
 	private JFrame frame;
-
-	public ProdPanel(JFrame frame, String prodType) {
+	private int counter = 0;
+	
+	JCheckBox[] digiProdCheck = { cdCB = new JCheckBox(),
+	dvdCB = new JCheckBox(), gameCB = new JCheckBox()
+	};
+	
+	
+	JTextField[] digiProdDetailBx = { prodTitle = new JTextField(),
+			type = new JTextField(), details = new JTextField(),prodId = new JTextField(),
+			costPrice = new JTextField(), sellPrice = new JTextField(),
+			currentStock = new JTextField(),ageRating = new JTextField(), 
+			genre = new JTextField(), publisher = new JTextField(), length = new JTextField()
+			 };
+	//Remove label name when finished
+	JLabel[] digiProdDetailLb = { titleLB = new JLabel(" Product title"),
+			typeLB = new JLabel(" Type"), detailsLB = new JLabel(" Details"), idLB = new JLabel(" Product ID"),
+			cPriceLB = new JLabel(" Cost price"), sPriceLB = new JLabel(" Selling price"),
+			stockLB = new JLabel(" Current stock"), ratingLB = new JLabel(" Age Rating"),
+			genreLB = new JLabel(" Genre"), pubLB = new JLabel(" Publisher"), lengthLB = new JLabel(" length") };
+	
+	private ProdOperations prodOpertaion;
+	private ProductList  productList;
+	
+	public ProdPanel(JFrame frame, String prodType, ProdOperations po, ProductList pl) {
 
 		
 		this.frame = frame;
 
 		this.setLayout(new BorderLayout());
-
+		this.productList = pl;
+		this.prodOpertaion = po;
 		
 		if (prodType.equals("digi")) {
 			prodDetails = new JLabel("Digital Product");
@@ -59,6 +90,8 @@ public class ProdPanel extends JPanel implements ActionListener, ItemListener {
 			prodDetails = new JLabel("Electric Product");
 		}
 
+		
+		
 		
 		JPanel top = new JPanel();
 		top.setLayout(new FlowLayout());
@@ -83,18 +116,16 @@ public class ProdPanel extends JPanel implements ActionListener, ItemListener {
 		prodDetailsPanel.setBorder(border);
 
 		// Adding labels and textbox to the product details panel
-		JTextField[] digiProdDetailBx = { prodTitle = new JTextField(),
-				type = new JTextField(), prodId = new JTextField(),
-				costPrice = new JTextField(), sellPrice = new JTextField(),
-				currentStock = new JTextField(), supplierID = new JTextField(),
-				other = new JTextField(), };
+		
 
-		JLabel[] digiProdDetailLb = { new JLabel(" Product title"),
-				new JLabel(" Type"), new JLabel(" Product ID"),
-				new JLabel(" Cost price"), new JLabel(" Selling price"),
-				new JLabel(" Current stock"), new JLabel(" Supplier ID"),
-				new JLabel(" Other") };
-
+		
+//		JLabel[] digiProdDetailLb = { new JLabel(" Product title"),
+//				new JLabel(" Type"), new JLabel(" Product ID"),
+//				new JLabel(" Cost price"), new JLabel(" Selling price"),
+//				new JLabel(" Current stock"), new JLabel(" Age Rating"),
+//				new JLabel(" Genre"), new JLabel(" Publisher"), new JLabel(" length") };
+		
+		
 		ButtonGroup digiGroup = new ButtonGroup();
 		digiGroup.add(cd);
 		digiGroup.add(dvd);
@@ -120,7 +151,7 @@ public class ProdPanel extends JPanel implements ActionListener, ItemListener {
 			if (i == 1) {
 				int count = 0;
 				while (count < 3) {
-
+					
 					for (int j = 0; j < digiProdRadioBtns.length; j++) {
 						gc.gridx = j + 1;
 						gc.gridy = 1;
@@ -141,9 +172,35 @@ public class ProdPanel extends JPanel implements ActionListener, ItemListener {
 					}
 				}
 			}
-			if (i == 1) {
+			if (i == 2 ) {
+				int count = 0;
+				while (count < 1) {
+					
+					for (int j = 0; j < 1; j++) {
+						gc.gridx = j + 1;
+						gc.gridy = 2;
+						gc.gridwidth = 1;
+						gc.gridheight = 1;
+						gc.weighty = 0.1;
+						gc.weightx = 10.0;
+						if (prodType.equals("digi")) {
+							digiProdCheck[j].setFont(font);
+							prodDetailsPanel.add(digiProdCheck[j], gc);
+							digiProdCheck[j].addItemListener(this);
+						} else {
+							elecProdRadioBtns[j].setFont(font);
+							elecProdRadioBtns[j].addItemListener(this);
+							prodDetailsPanel.add(elecProdRadioBtns[j], gc);
+						}
+						count++;
+					}
+				}
+			}
+			if (i == 1 || i == 2) {
 
-			} else {
+			} 
+			
+			else {
 				gc.gridx = 1;
 				gc.gridy = i;
 				gc.gridwidth = 1;
@@ -154,6 +211,8 @@ public class ProdPanel extends JPanel implements ActionListener, ItemListener {
 				digiProdDetailBx[i].setPreferredSize(new Dimension(300, 30));
 				prodDetailsPanel.add(digiProdDetailBx[i], gc);
 			}
+			
+			
 		}
 
 		this.add(prodDetailsPanel, BorderLayout.EAST);
@@ -203,13 +262,50 @@ public class ProdPanel extends JPanel implements ActionListener, ItemListener {
 		}
 
 		this.add(prodBtnsPanel, BorderLayout.WEST);
-
+		setFirst();
+	}
+	
+	public void setFirst() {
+		int pos = 0;
+		counter = 0;
+		Product p = productList.getProduct(pos);
+		this.displayProduct(p);
+	}
+	
+	public Product displayProduct(Product p) {
+		prodId.setText(p.getProd_id());
+		prodTitle.setText(p.getAlbumName());
+		costPrice.setText(Double.toString(p.getCostPrice()));
+		sellPrice.setText(Double.toString(p.getSellPrice()));
+		currentStock.setText(Integer.toString(p.getCurrent_stock()));
+		ageRating.setText(p.getAge_rating());
+		genre.setText(p.getGenre());
+		publisher.setText(p.getPublisher());
+		length.setText(Double.toString(p.getLength()));
+		
+		
+		return p;
 	}
 
 	public void actionPerformed(ActionEvent e) {
 
+		int totalContacts = productList.getNumProduct();
+		
 		if (e.getSource() == exit) {
 			System.exit(0);
+		}
+		
+		else if (e.getSource().equals(next)) {
+			if ((counter + 1) < totalContacts) {
+				counter++;
+				this.displayProduct(productList.getProduct(counter));
+			}
+		} 
+		else if (e.getSource().equals(previous)) {
+			if ((counter - 1) >= 0) {
+				counter--;
+				this.displayProduct(productList.getProduct(counter));
+			}
 		}
 	}
 
@@ -218,12 +314,18 @@ public class ProdPanel extends JPanel implements ActionListener, ItemListener {
 		String[] digiPopup = { "cd", "dvd", "game" };
 		String[] elecPopup = { "phono", "console", "dock" };
 		for (int i = 0; i < digiProdRadioBtns.length; i++) {
-			if (digiProdRadioBtns[i].isSelected()) 
-			{
-				ProdDialog a = new ProdDialog(digiPopup[i], frame);
-			} else if (elecProdRadioBtns[i].isSelected()) 
-			{
-				ProdDialog a = new ProdDialog(elecPopup[i], frame);
+			if (digiProdCheck[i].isSelected()) {
+
+				if (digiPopup[i].equals("game")) {
+					digiProdDetailBx[9].setText("N/A");
+					digiProdDetailBx[9].setEditable(false);
+				} else {
+					digiProdDetailBx[9].setText("");
+					digiProdDetailBx[9].setEditable(true);
+				}
+				ProdDialog a = new ProdDialog(digiPopup[i], frame, productList.getProduct(counter));
+			} else if (elecProdRadioBtns[i].isSelected()) {
+				ProdDialog a = new ProdDialog(elecPopup[i], frame,  productList.getProduct(counter));
 			}
 		}
 	}

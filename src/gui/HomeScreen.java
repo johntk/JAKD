@@ -8,6 +8,7 @@ import javax.swing.border.*;
 
 import kioskScreens.KioskStartScreen;
 import model.EmployeeList;
+import model.ProductList;
 import db.EmpOperations;
 import db.DBconnection;
 import db.ProdOperations;
@@ -43,6 +44,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private EmployeeList employeeList;
 	private EmpOperations adminOperations;
 	private ProdOperations prodOpertaion;
+	private ProductList  productList;
 	private DBconnection db;
 	
 	public HomeScreen() {
@@ -50,6 +52,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		db = new DBconnection();
 		EmpOperations ao = new EmpOperations();
 		ProdOperations po = new ProdOperations();
+		ProductList pl = new ProductList(po);
 		EmployeeList el = new EmployeeList(ao);
 		ao.setDBconnection(db.openDB());
 		po.setDBconnection(db.openDB());
@@ -65,6 +68,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 		this.employeeList = el;
 		this.adminOperations = ao;
+		this.productList = pl;
 		this.prodOpertaion = po;
 		cl1 = new Color(240, 240, 240);
 		
@@ -172,8 +176,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 		// Main panel for displaying all the panels on action performed
 		userPanel = new UserPanel(frame, adminOperations, employeeList);
-		elecProdPanel = new ProdPanel(frame, "elec");
-		digiProdPanel = new ProdPanel(frame, "digi");
+		elecProdPanel = new ProdPanel(frame, "elec", prodOpertaion, productList);
+		digiProdPanel = new ProdPanel(frame, "digi", prodOpertaion, productList);
 		posGUI = new PosGui(frame);
 		
 		
@@ -260,7 +264,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 			cards.show(cardPanel, "editDigi");
 		} 
 		else if (e.getSource() == closeBtn) {
-		prodOpertaion.getCD();
+		prodOpertaion.getSongs();
 			//adminOperations.getId();
 		}
 	}
