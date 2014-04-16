@@ -19,13 +19,12 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	private static final long serialVersionUID = 1L;
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
-	private JButton addProd, editProd, removeProd, exit, previous, searchProd,
-	next, updateProd;
+	private JButton addProd, editProd, removeProd, exit, previous, searchProd, next, updateProd;
 	private JLabel prodDetails, detailsLB, titleLB, typeLB, idLB, cPriceLB, sPriceLB, 
 	stockLB, label1, label2, label3, label4;
 	private JTextField details, prodTitle, type, prodId, sellPrice, costPrice,
 	currentStock, bx1, bx2, bx3, bx4;
-	//
+
 	private JPanel prodBtnsPanel, prodDetailsPanel;
 
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
@@ -33,6 +32,8 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	private Border border = BorderFactory.createCompoundBorder(space, line);
 
 	private ImageIcon close;
+	private Color  cl2;
+	
 	private String prodType;
 	private JCheckBox cdCB, dvdCB, gameCB;
 	private JRadioButton cd = new JRadioButton("CD");
@@ -72,7 +73,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		this.setLayout(new BorderLayout());
 		this.productList = pl;
 		this.prodOpertaion = po;
-		
+		cl2 = new Color(75,255,250);
 		
 		prodDetails = new JLabel("Electric Product");
 		
@@ -171,6 +172,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 				gc.weightx = 10.0;
 				gc.gridwidth = 3;
 				digiProdDetailBx[i].setPreferredSize(new Dimension(300, 30));
+				digiProdDetailBx[i].setBackground(cl2);
 				prodDetailsPanel.add(digiProdDetailBx[i], gc);
 			}
 			
@@ -233,8 +235,21 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		DigiProduct p = productList.getProduct(pos);
 		this.displayProduct(p);
 	}
+
 	
+	public void setEditableOn() {
+		for (int i = 0; i < digiProdDetailBx.length; i++)
+			if (digiProdDetailLb[i].getText() !=" Product ID")
+				digiProdDetailBx[i].setEditable(true);
+	}
+
+	public void setEditableOff() {
+		for (int i = 0; i < digiProdDetailBx.length; i++)
+			digiProdDetailBx[i].setEditable(false);
+	}
 	public DigiProduct displayProduct(DigiProduct p) {
+		
+		setEditableOff();
 		
 		if(p.getProd_type().equals("CD"))
 		{

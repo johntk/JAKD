@@ -1,7 +1,6 @@
 package model;
 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -20,18 +19,24 @@ public class ElecProdList {
 		plist = new ArrayList<ElecProduct>();
 	}
 	
+	
 	public void refreshList()
+	{
+		if (plist.size() > 0) {
+			for (int i = plist.size() - 1; i >= 0; i--) {
+				plist.remove(i);
+			}
+		}
+		refreshListPhono();
+		refreshListConsole();
+		refreshListDock();
+	}
+	
+	
+	public void refreshListPhono()
 	{
 		rset = po.getProductHeadphone();
 		
-		
-			if (plist.size() > 0) {
-				for (int i = plist.size() - 1; i >= 0; i--) {
-					plist.remove(i);
-				}
-			}
-			
-			
 			try {
 				while (rset.next()) {
 	
@@ -53,9 +58,65 @@ public class ElecProdList {
 			} catch (SQLException e) {
 				e.printStackTrace();
 				
+			}	
+	}
+	
+	
+	public void refreshListConsole()
+	{
+		rset = po.getProductConsole();
+		
+		try {
+			while (rset.next()) {
+
+			ElecProduct	p = new ElecProduct(rset.getString(1), 
+					rset.getString(2),
+					rset.getString(3), 
+					rset.getDouble(4), 
+					rset.getDouble(5), 
+					rset.getInt(6),
+					rset.getInt(7),
+					rset.getString(8),
+					rset.getInt(9), 
+					rset.getString(10),
+					rset.getString(11));
+			plist.add(p);
+			
 			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
 			
+		}	
+	}
+	
+	
+	public void refreshListDock()
+	{
+		rset = po.getProductDock();
+		
+		try {
+			while (rset.next()) {
+
+			ElecProduct	p = new ElecProduct(rset.getString(1), 
+					rset.getString(2),
+					rset.getString(3), 
+					rset.getDouble(4), 
+					rset.getDouble(5), 
+					rset.getInt(6),
+					rset.getString(7),
+					rset.getString(8),
+					rset.getInt(9), 
+					rset.getString(10),
+					rset.getString(11));
+			plist.add(p);
 			
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}	
 	}
 	
 	

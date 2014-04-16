@@ -8,9 +8,8 @@ import javax.swing.border.*;
 
 import db.ProdOperations;
 import model.ElecProdList;
-import model.DigiProduct;
 import model.ElecProduct;
-import Popups.ProdDialog;
+
 
 public class ElecProdPanel extends JPanel implements ActionListener, ItemListener {
 
@@ -20,11 +19,11 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 	private static final long serialVersionUID = 1L;
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
-	private JButton addProd, editProd, removeProd, exit, previous, searchProd,
-	next, updateProd;
+	private JButton addProd, editProd, removeProd, exit, previous, searchProd, next, updateProd;
+	
 	private JLabel prodDetails, detailsLB, titleLB, typeLB, idLB, cPriceLB, sPriceLB, stockLB,  
 	manufLB, label1, label2, label3, colour;
-	private JTextField details, prodTitle, type, prodId, sellPrice, costPrice, currentStock,
+	private JTextField  prodTitle, type, prodId, sellPrice, costPrice, currentStock,
 	manuf,  bx1, bx2, bx3, colourbx ;
 	
 	private JPanel prodBtnsPanel, prodDetailsPanel;
@@ -34,7 +33,7 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 	private Border border = BorderFactory.createCompoundBorder(space, line);
 
 	private ImageIcon close;
-	private String prodType;
+	private Color  cl2;
 
 	private JRadioButton phono = new JRadioButton("Headphones");
 	private JRadioButton console = new JRadioButton("Console");
@@ -51,7 +50,7 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 			currentStock = new JTextField(),bx1 = new JTextField(), manuf = new JTextField(),
 			bx2 = new JTextField(), bx3 = new JTextField(), colourbx = new JTextField()
 			 };
-	//Remove label name when finished
+	
 	JLabel[] elecProdDetailLb = { titleLB = new JLabel(" Product title"),
 			typeLB = new JLabel(" Type"),  idLB = new JLabel(" Product ID"),
 			cPriceLB = new JLabel(" Cost price"), sPriceLB = new JLabel(" Selling price"),
@@ -66,11 +65,10 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 
 		
 		this.frame = frame;
-
 		this.setLayout(new BorderLayout());
 		this.elecProdList = pl;
 		this.prodOpertaion = po;
-			
+		cl2 = new Color(75,255,250);
 		prodDetails = new JLabel("Electric Product");
 		
 
@@ -151,10 +149,9 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 				gc.weightx = 10.0;
 				gc.gridwidth = 3;
 				elecProdDetailBx[i].setPreferredSize(new Dimension(300, 30));
+				elecProdDetailBx[i].setBackground(cl2);
 				prodDetailsPanel.add(elecProdDetailBx[i], gc);
-			}
-			
-			
+			}	
 		}
 
 		this.add(prodDetailsPanel, BorderLayout.EAST);
@@ -214,15 +211,48 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 		this.displayProduct(p);
 	}
 	
+	
+	
+	public void setEditableOn() {
+		for (int i = 0; i < elecProdDetailBx.length; i++)
+			if (elecProdDetailLb[i].getText() !=" Product ID")
+				elecProdDetailBx[i].setEditable(true);
+	}
+
+	public void setEditableOff() {
+		for (int i = 0; i < elecProdDetailBx.length; i++)
+			elecProdDetailBx[i].setEditable(false);
+	}
+	
 	public ElecProduct displayProduct(ElecProduct p) {
-		
+		setEditableOff();
 		
 		if(p.getProd_type().equals("CONSOLE"))
 		{
-
+			
+			label1.setText(" Storage Size");
+			label2.setText(" Controllers");
+			label3.setText(" Wifi");
+			prodId.setText(p.getProd_id());
+			prodTitle.setText(p.getModel());
+			costPrice.setText(Double.toString(p.getCostPrice()));
+			sellPrice.setText(Double.toString(p.getSellPrice()));
+			currentStock.setText(Integer.toString(p.getCurrent_stock()));
+			manuf.setText(p.getManufacturer());
+			bx1.setText(Integer.toString(p.getStorageSize()));
+			bx2.setText(Integer.toString(p.getNumPad()));
+			bx3.setText(p.getWifi());
+			colourbx.setText(p.getColour());
+			console.setSelected(true);
+			dock.setEnabled(false);
+			phono.setEnabled(false);
+			console.setEnabled(true);
 		}
 		else if(p.getProd_type().equals("HEADPHONES"))
 		{
+			label1.setText(" iPhone Comp");
+			label2.setText(" Mic");
+			label3.setText(" Over Ear");
 			prodId.setText(p.getProd_id());
 			prodTitle.setText(p.getModel());
 			costPrice.setText(Double.toString(p.getCostPrice()));
@@ -240,7 +270,23 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 		}
 		else if(p.getProd_type().equals("SOUNDDOCK"))
 		{
-			
+			label1.setText(" Digi Radio");
+			label2.setText(" Wireless");
+			label3.setText(" Pwr Output");
+			prodId.setText(p.getProd_id());
+			prodTitle.setText(p.getModel());
+			costPrice.setText(Double.toString(p.getCostPrice()));
+			sellPrice.setText(Double.toString(p.getSellPrice()));
+			currentStock.setText(Integer.toString(p.getCurrent_stock()));
+			manuf.setText(p.getManufacturer());
+			bx1.setText(Integer.toString(p.getPwrOut()));
+			bx2.setText(p.getDigiRadio());
+			bx3.setText(p.getWireless());
+			colourbx.setText(p.getColour());
+			dock.setSelected(true);
+			dock.setEnabled(true);
+			phono.setEnabled(false);
+			console.setEnabled(false);
 		}
 		return p;
 	}

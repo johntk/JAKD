@@ -13,11 +13,7 @@ public class ProdOperations {
 	public Connection setDBconnection(Connection conn) {
 		return this.conn = conn;
 	}
-	
-	
-	
 
-	
 	public ResultSet getProductCD() {
 		try {
 			
@@ -28,7 +24,6 @@ public class ProdOperations {
 					+"AND dp.dig_id = c.dig_id "
 					+"AND a.artist_id = ca.artist_id "
 					+"AND c.cd_id = ca.cd_id ";
-
 
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(queryString);
@@ -68,7 +63,6 @@ public class ProdOperations {
 					+"where dp.prod_id = p.prod_id "
 					+"and dp.dig_id = d.dig_id ";
 
-
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(sqlStatement);
 		} catch (Exception e) {
@@ -86,7 +80,6 @@ public class ProdOperations {
 					+"from product p, digital_product dp, game g "
 					+"where dp.prod_id = p.prod_id "
 					+"and dp.dig_id = g.dig_id ";
-
 
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(sqlStatement);
@@ -107,13 +100,6 @@ public class ProdOperations {
 					+"where e.prod_id = p.prod_id  "
 					+"and e.elec_id = hp.elec_id ";
 
-			
-//			String sqlStatement = "select p.current_stock, e.manufacturer, e.model, e.colour, hp.over_ear, hp.microphone, hp.iphone_compatible, hp.headphone_sale_price "+
-//					"from product p, electronic e, headphones hp "+
-//					"where e.prod_id = p.prod_id "+
-//					"and e.elec_id = hp.elec_id "+
-			
-
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(sqlStatement);
 		} catch (Exception e) {
@@ -124,12 +110,40 @@ public class ProdOperations {
 	
 	
 	
+	public ResultSet getProductConsole() {
+		try {
+			
+			String sqlStatement = "SELECT p.prod_id, p.prod_type, e.model,  c.console_cost_price, c.console_sale_price, "
+					+ " p.current_stock, c.storage_size, c.wifi, c.num_controllers, e.manufacturer,  e.colour    "
+					+"from product p, electronic e, console c "
+					+"where e.prod_id = p.prod_id  "
+					+"and e.elec_id = c.elec_id ";
+
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sqlStatement);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return rset;
+	}
 	
 	
-	
-	
-	
-	
+	public ResultSet getProductDock() {
+		try {
+			
+			String sqlStatement = "SELECT p.prod_id, p.prod_type, e.model,  sd.sd_cost_price, sd.sd_sale_price, "
+					+ " p.current_stock, sd.digital_radio, sd.wireless, sd.power_ouput,  e.manufacturer,  e.colour    "
+					+"from product p, electronic e, sound_dock sd "
+					+"where e.prod_id = p.prod_id  "
+					+"and e.elec_id = sd.elec_id ";
+
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sqlStatement);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return rset;
+	}
 	
 	
 	public ResultSet getLastRow() {
