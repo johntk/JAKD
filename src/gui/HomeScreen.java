@@ -10,10 +10,11 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import kioskScreens.KioskStartScreen;
+import model.ElecProdList;
 import model.EmployeeList;
 import db.EmpOperations;
 import db.DBconnection;
-import model.ProductList;
+import model.DigiProductList;
 import db.HomeScreenOperations;
 import db.ProdOperations;
 
@@ -48,7 +49,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private EmployeeList employeeList;
 	private EmpOperations adminOperations;
 	private ProdOperations prodOpertaion;
-	private ProductList  productList;
+	private DigiProductList  digiProductList;
+	private ElecProdList  elecProductList;
 
 	private ImageIcon frameIcon;
 	
@@ -84,7 +86,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		
 		EmpOperations ao = new EmpOperations();
 		ProdOperations po = new ProdOperations();
-		ProductList pl = new ProductList(po);
+		DigiProductList pl = new DigiProductList(po);
 		EmployeeList el = new EmployeeList(ao);
 		ao.setDBconnection(conn);
 		po.setDBconnection(conn);
@@ -100,7 +102,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 		this.employeeList = el;
 		this.adminOperations = ao;
-		this.productList = pl;
+		this.digiProductList = pl;
 		this.prodOpertaion = po;
 		cl1 = new Color(240, 240, 240);
 
@@ -208,8 +210,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 		// Main panel for displaying all the panels on action performed
 		userPanel = new UserPanel(frame, adminOperations, employeeList);
-		elecProdPanel = new ProdPanel(frame, "elec", prodOpertaion, productList);
-		digiProdPanel = new ProdPanel(frame, "digi", prodOpertaion, productList);
+		elecProdPanel = new ElecProdPanel(frame, "elec", prodOpertaion, elecProductList);
+		digiProdPanel = new DigiProdPanel(frame, "digi", prodOpertaion, digiProductList);
 		posGUI = new PosGui();
 
 
@@ -318,7 +320,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 			System.exit(0);
 		}
 	}
-	//
+
 	public void actionPerformed(ActionEvent e) {
 
 		for (int i = 0; i < sideButtonsArray.length; i++) {
@@ -334,7 +336,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 			cards.show(cardPanel, "editDigi");
 		} 
 		else if (e.getSource() == closeBtn) {
-			productList.refreshListCD();
+			digiProductList.refreshListCD();
 			//adminOperations.getId();
 		}
 		else if (e.getSource() == enterPButton)
@@ -381,11 +383,6 @@ public class HomeScreen extends JFrame implements ActionListener{
 		enterPButton = new JButton("Log In");
 		enterPButton.addActionListener(this);
 		logIn.add(enterPButton);
-		
-
-
-
-	
 	}
 	
 

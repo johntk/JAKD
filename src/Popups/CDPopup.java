@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.*;
 
-import model.Product;
+import model.DigiProduct;
 
 public class CDPopup extends JPanel implements ActionListener {
 
@@ -16,7 +16,7 @@ public class CDPopup extends JPanel implements ActionListener {
 	private JTextField artistTBox, ratingTBox, lengthTBox, labelTBox,
 			genreTBox;
 	private JButton add;
-	private Product p;
+	private DigiProduct p;
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border border = BorderFactory.createCompoundBorder(space, line);
@@ -50,7 +50,7 @@ public class CDPopup extends JPanel implements ActionListener {
 			new JLabel(" 9"), new JLabel(" 10"), new JLabel(" 11"), 
 			new JLabel(" 12"), new JLabel(" 13") };
 
-	public CDPopup(Product p) {
+	public CDPopup(DigiProduct p) {
 
 		this.setName("cd");
 		this.p = p;

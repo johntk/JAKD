@@ -78,11 +78,31 @@ public class ProdOperations {
 	}
 	
 	
+	public ResultSet getProductGame() {
+		try {
+			
+			String sqlStatement = "SELECT p.prod_id, p.prod_type, g.game_name, g.game_sale_price, g.game_cost_price, "
+					+ "p.current_stock, dp.age_rating, dp.genre, g.company, g.platform "
+					+"from product p, digital_product dp, game g "
+					+"where dp.prod_id = p.prod_id "
+					+"and dp.dig_id = g.dig_id ";
+
+
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sqlStatement);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return rset;
+	}
 	
 	
 	
-	
-	
+//	String sqlStatement = "select p.current_stock, dp.genre, dp.age_rating, g.company, g.platform, g.game_name, g.game_sale_price "+
+//			"from product p, digital_product dp, game g "+
+//			"where dp.prod_id = p.prod_id "+
+//			"and dp.dig_id = g.dig_id "+
+//			"and p.prod_id = '"+prodID+"'";
 	
 	
 	

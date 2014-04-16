@@ -5,18 +5,18 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-import model.Product;
+import model.DigiProduct;
 
 public class ProdDialog extends JDialog {
 
 	private JPanel cd;
 	private JDialog cdDialog;
-	private Product p;
+	private DigiProduct p;
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border border = BorderFactory.createCompoundBorder(space, line);
 
-	public ProdDialog(String popUp, JFrame jFrame, Product p) {
+	public ProdDialog(String popUp, JFrame jFrame, DigiProduct p) {
 
 		this.p = p;
 		
