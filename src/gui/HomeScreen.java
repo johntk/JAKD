@@ -345,8 +345,10 @@ public class HomeScreen extends JFrame implements ActionListener{
 			pin = new String(jpf.getPassword());
 			if(ho.getStaffPin(pin)==true)
 			{
+				// if moved empid will not save in database, no other way of doing it!!
 				posGUI = new PosGui(pin);
 				cardPanel.add(posGUI, "POSGui");
+				
 				frame.setTitle("POS Screen");
 				button4.setText("Logout");
 				cards.show(cardPanel, "POSGui");
