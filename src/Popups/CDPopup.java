@@ -11,105 +11,86 @@ import model.DigiProduct;
 
 public class CDPopup extends JPanel implements ActionListener {
 
-	private JLabel artist, genre, rating, length, label, songName, songLength,
-			cd, songNumber;
-	private JTextField artistTBox, ratingTBox, lengthTBox, labelTBox,
-			genreTBox;
+	private JLabel artist, songName, songLength, songNumber;
+	private JTextField artistTBox;
 	private JButton add;
 	private DigiProduct p;
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border border = BorderFactory.createCompoundBorder(space, line);
 
-	private JTextField song9, song10, song11, song12, song13, song8, song7, song6, song5, song4, song1, song2, song3,
-			length9, length10, length11, length12, length13, length8, length7, length6, length5, length4, length1, length2,
-			length3;
-
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
-
-	JTextField[] digiProdDetailBx = { song1 = new JTextField(),
-			song2 = new JTextField(), song3 = new JTextField(),
-			song4 = new JTextField(), song5 = new JTextField(),
-			song6 = new JTextField(), song7 = new JTextField(),
-			song8 = new JTextField(), song9 = new JTextField(),
-			song10 = new JTextField(), song11 = new JTextField(),
-			song12 = new JTextField(), song13 = new JTextField()};
-
-	JTextField[] digiProdDetailBx2 = { length1 = new JTextField(),
-			length2 = new JTextField(), length3 = new JTextField(),
-			length4 = new JTextField(), length5 = new JTextField(),
-			length6 = new JTextField(), length7 = new JTextField(),
-			length8 = new JTextField(), length9 = new JTextField(),
-			length10 = new JTextField(), length11 = new JTextField(),
-			length12 = new JTextField(), length13 = new JTextField()};
-
-	JLabel[] digiProdDetailLb = { new JLabel(" 1"), new JLabel(" 2"),
-			new JLabel(" 3"), new JLabel(" 4"), new JLabel(" 5"),
-			new JLabel(" 6"), new JLabel(" 7"), new JLabel(" 8"), 
-			new JLabel(" 9"), new JLabel(" 10"), new JLabel(" 11"), 
-			new JLabel(" 12"), new JLabel(" 13") };
-
+	
+	private JTextField[] digiProdDetailBx;
+	private JTextField[] digiProdDetailBx2;
+	private JLabel[] digiProdDetailLb;
+	
+	
 	public CDPopup(DigiProduct p) {
-
+		
 		this.setName("cd");
 		this.p = p;
 		this.setLayout(new BorderLayout());
-		this.setSize(540, 500);
+		if(p.getAlbum().getSongList().size() >= 15)
+		{
+			this.setSize(690, 600);
+		}
+		else if(p.getAlbum().getSongList().size() < 11)
+		{
+			this.setSize(690, 410);
+		}
+		else
+		{
+			this.setSize(690, 490);
+		}
 		JPanel top = new JPanel(new GridBagLayout());
 		this.setBorder(new TitledBorder("CD"));
-		// cd = new JLabel("CD");
-		// top.add(cd);
-		// this.add(top, BorderLayout.NORTH);
+
 
 		JPanel detailsPanel = new JPanel(new BorderLayout());
-		detailsPanel.setPreferredSize(new Dimension(200, 80));
+		detailsPanel.setPreferredSize(new Dimension(240, 80));
 		this.add(detailsPanel, BorderLayout.WEST);
 
-		JPanel details = new JPanel(new GridLayout(0, 2));
+		JPanel details = new JPanel(new GridBagLayout());
 		details.setBorder(border);
-		details.setPreferredSize(new Dimension(200, 130));
+		details.setPreferredSize(new Dimension(150, 130));
 		detailsPanel.add(details, BorderLayout.NORTH);
 
 		JPanel spacer = new JPanel();
 		spacer.setPreferredSize(new Dimension(200, 100));
 		detailsPanel.add(spacer, BorderLayout.SOUTH);
 
+		
+		gc.gridx = 0;
+		gc.gridy = 0;
 		artist = new JLabel(" Artist");
-		details.add(artist);
-		artistTBox = new JTextField();
-		details.add(artistTBox);
+		details.add(artist, gc);
+		
+		gc.gridx = 0;
+		gc.gridy = 1;
+		artistTBox = new JTextField(10);
+		
+		details.add(artistTBox, gc);
 
-		rating = new JLabel(" Rating");
-		details.add(rating);
-		ratingTBox = new JTextField();
-		details.add(ratingTBox);
-
-		genre = new JLabel(" Genre");
-		details.add(genre);
-		genreTBox = new JTextField();
-		details.add(genreTBox);
-
-		length = new JLabel(" Length");
-		details.add(length);
-		lengthTBox = new JTextField();
-		details.add(lengthTBox);
-
-		label = new JLabel(" Label");
-		details.add(label);
-		labelTBox = new JTextField();
-		details.add(labelTBox);
-
+		
 		JPanel songs = new JPanel(new GridBagLayout());
-		songs.setPreferredSize(new Dimension(300, 200));
+		songs.setPreferredSize(new Dimension(380, 200));
 		songs.setBorder(border);
 
 		songNumber = new JLabel(" No.");
 		songName = new JLabel("Song");
 		songLength = new JLabel("Length");
+		
+		JTextField[] digiProdDetailBx = new JTextField[p.getAlbum().getSongList().size()];
+		JTextField[] digiProdDetailBx2 = new JTextField[p.getAlbum().getSongList().size()];
+		JLabel[] digiProdDetailLb = new JLabel[p.getAlbum().getSongList().size()];
+		
 
-		for (int i = 0; i < digiProdDetailLb.length; i++) {
+		for (int i = 0; i < p.getAlbum().getSongList().size(); i++) {
 
+			int num = i +1;
+			
 			if (i == 0) {
 				gc.gridx = 0;
 				gc.gridy = 0;
@@ -124,6 +105,7 @@ public class CDPopup extends JPanel implements ActionListener {
 			gc.weighty = 0.0;
 			gc.weightx = 2.0;
 			gc.anchor = GridBagConstraints.WEST;
+			digiProdDetailLb[i] = new JLabel(" " + num);
 			digiProdDetailLb[i].setFont(font);
 			songs.add(digiProdDetailLb[i], gc);
 
@@ -139,7 +121,8 @@ public class CDPopup extends JPanel implements ActionListener {
 			gc.weighty = 0.0;
 			gc.weightx = 2.0;
 			gc.gridwidth = 2;
-			digiProdDetailBx[i].setPreferredSize(new Dimension(100, 20));
+			digiProdDetailBx[i] = new JTextField(p.getAlbum().getSongList().get(i).getSong_name());
+			digiProdDetailBx[i].setPreferredSize(new Dimension(250, 20));
 			songs.add(digiProdDetailBx[i], gc);
 
 			if (i == 0) {
@@ -154,6 +137,7 @@ public class CDPopup extends JPanel implements ActionListener {
 			gc.weighty = 0.0;
 			gc.weightx = 2.0;
 			gc.gridwidth = 2;
+			digiProdDetailBx2[i] = new JTextField(p.getAlbum().getSongList().get(i).getSong_length());
 			digiProdDetailBx2[i].setPreferredSize(new Dimension(50, 20));
 			songs.add(digiProdDetailBx2[i], gc);
 
@@ -169,24 +153,10 @@ public class CDPopup extends JPanel implements ActionListener {
 		add.setPreferredSize(new Dimension(60, 30));
 		bottom.add(add);
 
-		
-		displayAlbum();
 		this.setVisible(true);
 		
 	}
 
-	
-	public void displayAlbum()
-	{
-		System.out.println(p.getAlbum().getSongList().size());
-		for(int i = 0; i < 8; i++)
-		{
-			digiProdDetailBx[i].setText(p.getAlbum().getSongList().get(i).getSong_name());
-			digiProdDetailBx2[i].setText(p.getAlbum().getSongList().get(i).getSong_length());
-		}
-		
-	}
-	
 	public void actionPerformed(ActionEvent arg0) {
 		
 		
