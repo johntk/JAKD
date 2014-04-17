@@ -287,7 +287,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		}
 		if(e.getSource()==exit)
 		{
-			pswd = new JPanel(new GridBagLayout()); ////make jdialog instead of jpanel
+			pswd = new JPanel(new GridBagLayout()); ////make jdialog instead of jpanel - Why????
 			pinLbl = new JLabel("Enter your STAFF PIN Number:");
 			gc.gridx = 0;
 			gc.gridy = 0;
