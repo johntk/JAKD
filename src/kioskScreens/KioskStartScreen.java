@@ -288,6 +288,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 		if(e.getSource()==exit)
 		{
 			pswd = new JPanel(new GridBagLayout()); ////make jdialog instead of jpanel - Why???? // Just what Pat told us to use, its stops all other processes untill the pop up is dealt with
+			// I'm not using the JPanel itself as the pop up. It gets passed into a JOptionPane (see below) Is that not more or less the same thing but with less code to write??
 			pinLbl = new JLabel("Enter your STAFF PIN Number:");
 			gc.gridx = 0;
 			gc.gridy = 0;
