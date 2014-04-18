@@ -14,26 +14,35 @@ public class DigiProduct {
 	private String genre;
 	private String age_rating;
 	private double length;
+	private String digi_id;
+
 	
 	//CD
 	private String albumName;
 	private String publisher;
 	private CD album;
+	private String artist;
+	private String cd_id;
+	
+	private String artist_id;
+
 
 	//DVD
 	private String dvd_name;
 	private String studio;
+	private String dvd_id;
 	
 	//Game
 	private String game_name;
 	private String platform;
+	private String game_id;
 
 
 
 
 	//CD product
-	public DigiProduct(String prod_id,  String prod_type, String albumName, double costPrice, double sellPrice, 
-			int current_stock, String age_rating, String genre, String publisher, double length, CD album)
+	public DigiProduct(String prod_id, String digi_id, String cd_id,  String artist_id, String prod_type, String albumName, double costPrice, double sellPrice, 
+			int current_stock, String age_rating, String genre, String publisher, double length, String artist, CD album)
 	{
 		this.prod_id = prod_id;
 		this.prod_type = prod_type;
@@ -46,6 +55,59 @@ public class DigiProduct {
 		this.publisher = publisher;
 		this.length = length;
 		this.album = album;
+		this.digi_id = digi_id;
+		this.cd_id = cd_id;
+		this.artist_id = artist_id;
+		this.artist = artist;
+	}
+
+	public String getDigi_id() {
+		return digi_id;
+	}
+
+	public void setDigi_id(String digi_id) {
+		this.digi_id = digi_id;
+	}
+
+	public String getArtist() {
+		return artist;
+	}
+
+	public void setArtist(String artist) {
+		this.artist = artist;
+	}
+
+	public String getCd_id() {
+		return cd_id;
+	}
+
+	public void setCd_id(String cd_id) {
+		this.cd_id = cd_id;
+	}
+
+
+	public String getArtist_id() {
+		return artist_id;
+	}
+
+	public void setArtist_id(String artist_id) {
+		this.artist_id = artist_id;
+	}
+
+	public String getDvd_id() {
+		return dvd_id;
+	}
+
+	public void setDvd_id(String dvd_id) {
+		this.dvd_id = dvd_id;
+	}
+
+	public String getGame_id() {
+		return game_id;
+	}
+
+	public void setGame_id(String game_id) {
+		this.game_id = game_id;
 	}
 
 	//DVD

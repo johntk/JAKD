@@ -2,6 +2,10 @@ package db;
 
 import java.sql.*;
 
+import model.CD;
+import model.DigiProduct;
+import model.Employee;
+
 
 public class ProdOperations {
 
@@ -17,8 +21,9 @@ public class ProdOperations {
 	public ResultSet getProductCD() {
 		try {
 			
-			String queryString = "SELECT p.prod_id, p.prod_type, c.album_name, c.cd_cost_price, c.cd_sale_price, "
-					+ "p.current_stock, dp.age_rating, dp.genre, c.record_company, c.album_length "
+			String queryString = "SELECT p.prod_id, dp.dig_id, c.cd_id, a.artist_id, p.prod_type, c.album_name, "
+					+ "c.cd_cost_price, c.cd_sale_price, "
+					+ "p.current_stock, dp.age_rating, dp.genre, c.record_company, c.album_length, a.artist_name "
 					+"FROM product p, digital_product dp, cd c, artist a, cd_artist ca "
 					+"WHERE dp.prod_id = p.prod_id "
 					+"AND dp.dig_id = c.dig_id "
@@ -36,7 +41,7 @@ public class ProdOperations {
 	public ResultSet getSongs() {
 		try {
 			
-			String sqlStatement = "select p.prod_id, s.song_name, s.song_length "+
+			String sqlStatement = "select p.prod_id, s.song_id, s.song_name, s.song_length "+
 					"from product p, digital_product dp, cd c, song s "+
 					"where p.prod_id = dp.prod_id "+
 					"and dp.dig_id = c.dig_id "+
@@ -49,10 +54,6 @@ public class ProdOperations {
 		}
 		return rset;
 	}
-	
-	
-	
-	
 	
 	public ResultSet getProductDVD() {
 		try {
@@ -167,4 +168,119 @@ public class ProdOperations {
 		return rset;
 	}
 
+	public String getId() {
+		String nextVal = "";
+		try {
+			String seq_val = "Select prod_id from Product ORDER BY prod_id";
+			pstmt = conn.prepareStatement(seq_val,
+					ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
+			rset = pstmt.executeQuery();
+
+			rset.last();
+			nextVal = rset.getString(1);
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		String newID = "";
+		String numZeros ="" ;
+		int idLength = nextVal.length() - 1;
+		int id = Integer.parseInt(nextVal.replaceAll("\\D", ""));
+		id += 1;
+		int zeros = idLength - String.valueOf(id).length();
+		for(int i = 0; i < zeros; i++)
+		{
+			numZeros += "0";
+		}
+		newID = ("P"+ numZeros + id);
+		
+		return newID;
+	}
+	
+
+	public void updateProdCD(DigiProduct p)
+	{
+		 
+			try {
+				System.out.println(p.getAlbumName());
+				String queryString1 = "UPDATE Product SET prod_id=?, prod_type=?, "
+						+" current_stock=? "
+						+"WHERE prod_id ="+ "'" + p.getProd_id() + "'";
+				
+				pstmt = conn.prepareStatement(queryString1);
+				pstmt.setString(1, p.getProd_id() );
+				pstmt.setString(2, p.getProd_type());
+				pstmt.setInt(3, p.getCurrent_stock());
+				pstmt.executeUpdate();
+				
+//				System.out.println(p.getCd_id());
+				
+				String queryString2 = "UPDATE CD SET  album_name=?, cd_cost_price=?, cd_sale_price=?, "
+						+" record_company=?, album_length=? "
+						+"WHERE cd_id ="+ "'" + p.getCd_id() + "'";
+				
+				pstmt = conn.prepareStatement(queryString2);
+				pstmt.setString(1, p.getAlbumName());
+				pstmt.setDouble(2, p.getCostPrice());
+				pstmt.setDouble(3, p.getSellPrice());
+				pstmt.setString(4, p.getPublisher());
+				pstmt.setDouble(5, p.getLength());
+				pstmt.executeUpdate();
+				
+				
+				String queryString3 = "UPDATE digital_product SET age_rating=?, genre=? "
+						+"WHERE dig_id ="+ "'" + p.getDigi_id() + "'";
+
+				pstmt = conn.prepareStatement(queryString3);
+				pstmt.setString(1, p.getAge_rating());
+				pstmt.setString(2, p.getGenre());
+				pstmt.executeUpdate();
+				
+				
+			updateAlbum(p);
+				
+				}catch (Exception ex) 
+					{
+					System.out.println(ex);
+			}
+		}
+	
+	public void updateAlbum(DigiProduct p)
+	{
+		
+		for(int i =0; i < p.getAlbum().getSongList().size(); i++)
+		{
+		String queryString = "UPDATE Song SET song_length=?, song_name=? WHERE song_id ="+ "'" 
+								+ p.getAlbum().getSongList().get(i).getProd_id() + "'";
+		
+		try
+		{
+		pstmt = conn.prepareStatement(queryString);
+
+			pstmt.setString(1, p.getAlbum().getSongList().get(i).getSong_length());
+			pstmt.setString(2, p.getAlbum().getSongList().get(i).getSong_name());
+			pstmt.executeUpdate();
+		}
+		catch(Exception ex)
+		{
+			System.out.println("Problemsss" + p);
+		}
+		
+		}
+		
+	}
+	
+	public int deleteProd(String n) {
+		int no = 0;
+		try {
+			String cmd = "DELETE FROM Product WHERE prod_id =" + "'" + n + "'";
+			stmt = conn.createStatement();
+			no = stmt.executeUpdate(cmd);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return no;
+
+	}
 }

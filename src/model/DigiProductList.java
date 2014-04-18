@@ -61,13 +61,18 @@ public class DigiProductList {
 				DigiProduct p = new DigiProduct(rset.getString(1), 
 						rset.getString(2),
 						rset.getString(3), 
-						rset.getDouble(4), 
-						rset.getDouble(5), 
-						rset.getInt(6),
-						rset.getString(7),
-						rset.getString(8),
-						rset.getString(9), 
-						rset.getDouble(10), c);
+						rset.getString(4),
+						rset.getString(5), 
+						rset.getString(6),
+						rset.getDouble(7), 
+						rset.getDouble(8), 
+						rset.getInt(9),
+						rset.getString(10),
+						rset.getString(11),
+						rset.getString(12), 
+						rset.getDouble(13),
+						rset.getString(14), 
+						c);
 				plist.add(p);
 				
 			}
@@ -85,8 +90,9 @@ public class DigiProductList {
 			while (rset2.next())
 			{
 				Song s = new Song(rset2.getString(1),
-						rset2.getString(2), 
-						rset2.getString(3));
+						rset2.getString(2),
+						rset2.getString(3), 
+						rset2.getString(4));
 				slist.add(s);
 			}
 		} 
@@ -122,7 +128,7 @@ public class DigiProductList {
 			System.out.println(ex);
 		}
 		
-		System.out.println(plist.size());
+//		System.out.println(plist.size());
 		}
 	
 		
@@ -150,11 +156,36 @@ public class DigiProductList {
 			System.out.println(ex);
 		}
 		
-		System.out.println(plist.size());
+//		System.out.println(plist.size());
 		}
 		
-	
+	public int findProd(String id) {
+		int index = -1;
+		for (int i = 0; i < plist.size(); i++) {
+			if (plist.get(i).getProd_id().equals(id)) {
+				index = i;
+			}
+		}
+		return index;
+	}
 
+	public DigiProduct getProd(int i) {
+		refreshList();
+		return plist.get(i);
+	}
+	
+	
+	public int removeProd(String id) {
+		int num = 0;
+		for (int i = 0; i < plist.size(); i++) {
+			if (id.equals(plist.get(i).getProd_id())) {
+				plist.remove(i);
+				po.deleteProd(id);
+				num++;
+			}
+		}
+		return num;
+	}
 //	
 //	public void addProduct() {
 //		rset = po.getLastRow();
@@ -179,6 +210,37 @@ public class DigiProductList {
 //		
 //		
 //	}
+	
+	
+	
+	
+	public void updateEmployee(DigiProduct p) {
+		
+		for (int i = 0; i < plist.size(); i++) {
+			
+			
+			
+			if (plist.get(i).getProd_id().equals(p.getProd_id())) {
+				plist.get(i).setAlbumName(p.getAlbumName());;
+				plist.get(i).setProd_id(p.getProd_id());
+				plist.get(i).setDigi_id(p.getDigi_id());
+				plist.get(i).setCd_id(p.getCd_id());
+				plist.get(i).setArtist_id(p.getArtist_id());
+				plist.get(i).setCostPrice(p.getCostPrice());;
+				plist.get(i).setSellPrice(p.getSellPrice());;
+				plist.get(i).setCurrent_stock(p.getCurrent_stock());;
+				plist.get(i).setAge_rating(p.getAge_rating());;
+				plist.get(i).setGenre(p.getGenre());;
+				plist.get(i).setPublisher(p.getPublisher());;
+				plist.get(i).setLength(p.getLength());;
+				plist.get(i).setArtist(p.getArtist());
+				plist.get(i).setAlbum(p.getAlbum());;
+
+				po.updateProdCD(plist.get(i));
+			}
+		}
+
+	}
 	
 	public int getNumProduct() {
 		return plist.size();

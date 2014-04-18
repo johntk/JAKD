@@ -7,8 +7,11 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import db.ProdOperations;
+import model.CD;
 import model.DigiProduct;
 import model.DigiProductList;
+import model.Employee;
+import model.Song;
 import Popups.ProdDialog;
 
 public class DigiProdPanel extends JPanel implements ActionListener, ItemListener {
@@ -19,13 +22,14 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	private static final long serialVersionUID = 1L;
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
-	private JButton addProd, editProd, removeProd, exit, previous, searchProd, next, updateProd;
+	private JButton addProd, editProd, removeProd, exit, previous, searchProd, next, updateProd, updateBtn, back;
 	private JLabel prodDetails, detailsLB, titleLB, typeLB, idLB, cPriceLB, sPriceLB, 
 	stockLB, label1, label2, label3, label4;
 	private JTextField details, prodTitle, type, prodId, sellPrice, costPrice,
 	currentStock, bx1, bx2, bx3, bx4;
-
-	private JPanel prodBtnsPanel, prodDetailsPanel;
+	private ProdDialog a;
+	
+	private JPanel prodBtnsPanel, prodDetailsPanel, newProdBtnsPanel;
 
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
@@ -63,7 +67,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 			label2 = new JLabel(" Genre"), label3 = new JLabel(" Publisher"), label4 = new JLabel(" length") };
 	
 	private ProdOperations prodOpertaion;
-	private DigiProductList  productList;
+	private DigiProductList  digiProductList;
 	
 	public DigiProdPanel(JFrame frame, String prodType, ProdOperations po, DigiProductList pl) {
 
@@ -71,11 +75,11 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		this.frame = frame;
 
 		this.setLayout(new BorderLayout());
-		this.productList = pl;
+		this.digiProductList = pl;
 		this.prodOpertaion = po;
 		cl2 = new Color(75,255,250);
 		
-		prodDetails = new JLabel("Electric Product");
+		prodDetails = new JLabel("Digital Product");
 		
 
 		JPanel top = new JPanel();
@@ -106,7 +110,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		digiGroup.add(dvd);
 		digiGroup.add(game);
 
-
+		
 		for (int i = 0; i < digiProdDetailLb.length; i++) {
 			gc.gridx = 0;
 			gc.gridy = i;
@@ -226,13 +230,39 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		}
 
 		this.add(prodBtnsPanel, BorderLayout.WEST);
+		
+		newProdBtnsPanel = new JPanel();
+		newProdBtnsPanel.setLayout(new GridBagLayout());
+		newProdBtnsPanel.setPreferredSize(new Dimension(250, 50));
+
+		JButton[] addUserBtnsArray = { updateBtn = new JButton(""),
+				back = new JButton("Back") };
+
+		for (int i = 0; i < addUserBtnsArray.length; i++) {
+			gc.gridx = 0;
+			gc.gridy = i;
+			gc.gridwidth = 1;
+			gc.gridheight = 1;
+			gc.weighty = 0.0;
+			gc.weightx = 0.0;
+			gc.insets = new Insets(10, 0, 0, 0);
+			addUserBtnsArray[i].setPreferredSize(new Dimension(150, 40));
+			addUserBtnsArray[i].setIcon(new ImageIcon("src/resources/blueButton.png"));
+			addUserBtnsArray[i].setFont(new Font("sansserif", Font.BOLD, 16));
+			addUserBtnsArray[i].setHorizontalTextPosition(JButton.CENTER);
+			addUserBtnsArray[i].setVerticalTextPosition(JButton.CENTER);
+			addUserBtnsArray[i].addActionListener(this);
+			newProdBtnsPanel.add(addUserBtnsArray[i], gc);
+		}
+
+		
 		setFirst();
 	}
 	
 	public void setFirst() {
 		int pos = 0;
 		counter = 0;
-		DigiProduct p = productList.getProduct(pos);
+		DigiProduct p = digiProductList.getProduct(pos);
 		this.displayProduct(p);
 	}
 
@@ -247,6 +277,94 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		for (int i = 0; i < digiProdDetailBx.length; i++)
 			digiProdDetailBx[i].setEditable(false);
 	}
+	
+	
+	public void addNew() {
+		prodDetails.setText("Enter New Details");
+		prodDetails.setBorder(new EmptyBorder(10, 390, 0, 110));
+		updateBtn.setText("Add New Product");
+		for (int i = 0; i < digiProdDetailBx.length; i++) {
+			prodId.setText(String.valueOf(prodOpertaion.getId()));
+			prodId.setEditable(false);
+			if (i != 3) {
+				digiProdDetailBx[i].setText("");
+				digiProdDetailBx[i].setEditable(true);
+			}
+		}
+		prodBtnsPanel.setVisible(false);
+		this.add(newProdBtnsPanel);
+	}
+
+	public void updateUser() {
+		updateBtn.setText("Update Product");
+		prodDetails.setText("Update Product Details");
+		prodDetails.setBorder(new EmptyBorder(10, 372, 0, 110));
+		prodBtnsPanel.setVisible(false);
+		this.add(newProdBtnsPanel);
+	}
+	
+//	 JTextField details, prodTitle, type, prodId, sellPrice, costPrice,
+//	currentStock, bx1, bx2, bx3, bx4;
+	
+//	public DigiProduct(String prod_id,  String prod_type, String albumName, double costPrice, double sellPrice, 
+//			int current_stock, String age_rating, String genre, String publisher, double length, CD album)
+	
+	public void updateEmployee() {
+		
+		if(cd.isSelected())
+		{
+		
+		CD c = digiProductList.getProduct(counter).getAlbum();		
+		DigiProduct p = new DigiProduct(prodId.getText(),
+		digiProductList.getProduct(counter).getDigi_id(),
+		digiProductList.getProduct(counter).getCd_id(),
+		digiProductList.getProduct(counter).getArtist_id(),
+		"CD",
+		prodTitle.getText(),
+		Double.parseDouble(costPrice.getText()),
+		Double.parseDouble(sellPrice.getText()),
+		Integer.parseInt(currentStock.getText()),
+		bx3.getText(),
+		bx4.getText(),
+		bx1.getText(),
+		Double.parseDouble(bx2.getText()),
+		digiProductList.getProduct(counter).getArtist(),
+		c
+		);
+		
+		digiProductList.updateEmployee(p);
+		JOptionPane.showMessageDialog(null, "CD " + prodTitle.getText()
+				+ " Updated");
+		prodDetails.setText("Product Details");
+		}
+		else if(dvd.isSelected())
+		{
+			
+		}
+		else
+		{
+			
+		}
+	}
+	
+	public void searchProd() {
+		String prodID = JOptionPane.showInputDialog(null,
+				"Enter the Product ID: ",
+				"", JOptionPane.QUESTION_MESSAGE);
+		int index = digiProductList.findProd(prodID);
+		if (index != -1) 
+			displayProduct(digiProductList.getProd(index));
+		 else 
+			JOptionPane.showMessageDialog(null, " Product not found");
+	}
+	
+	public void deleteProd() {
+		int numberOfDeleted = digiProductList.removeProd(prodId.getText());
+		JOptionPane.showMessageDialog(null, numberOfDeleted
+				+ " Record(s) deleted.");
+		setFirst();
+	}
+	
 	public DigiProduct displayProduct(DigiProduct p) {
 		
 		setEditableOff();
@@ -305,24 +423,13 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 			game.setEnabled(false);
 			cd.setEnabled(false);
 		}
-		else if(p.getProd_type().equals("CONSOLE"))
-		{
-			
-		}
-		else if(p.getProd_type().equals("HEADPHONES"))
-		{
-			
-		}
-		else if(p.getProd_type().equals("SOUNDDOCK"))
-		{
-			
-		}
+		
 		return p;
 	}
 
 	public void actionPerformed(ActionEvent e) {
 
-		int totalContacts = productList.getNumProduct();
+		int totalContacts = digiProductList.getNumProduct();
 		
 		if (e.getSource() == exit) {
 			System.exit(0);
@@ -331,13 +438,57 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		else if (e.getSource().equals(next)) {
 			if ((counter + 1) < totalContacts) {
 				counter++;
-				this.displayProduct(productList.getProduct(counter));
+				this.displayProduct(digiProductList.getProduct(counter));
 			}
 		} 
 		else if (e.getSource().equals(previous)) {
 			if ((counter - 1) >= 0) {
 				counter--;
-				this.displayProduct(productList.getProduct(counter));
+				this.displayProduct(digiProductList.getProduct(counter));
+			}
+		}
+		else if (e.getSource().equals(addProd)) {
+			digiProdDetailBx[0].requestFocus();
+			digiProdDetailBx[0].getCaret().setBlinkRate(600);
+			newProdBtnsPanel.setVisible(true);
+			addNew();
+		} 
+		else if (e.getSource().equals(back)) {
+			prodDetails.setText("User Details");
+			prodDetails.setBorder(new EmptyBorder(10, 450, 0, 110));
+			prodBtnsPanel.setVisible(true);
+			newProdBtnsPanel.setVisible(false);
+			newProdBtnsPanel.repaint();
+			setEditableOff();
+			setFirst();
+		} 
+		else if (e.getSource().equals(updateProd)) {
+			digiProdDetailBx[0].requestFocus();
+			digiProdDetailBx[0].getCaret().setBlinkRate(600);
+			newProdBtnsPanel.setVisible(true);
+			setEditableOn();
+			updateUser();
+		} 
+		else if (e.getSource().equals(updateBtn)
+				&& updateBtn.getText().equals("Update Product")) {
+			updateEmployee();
+			prodBtnsPanel.setVisible(true);
+			newProdBtnsPanel.setVisible(false);
+			prodBtnsPanel.repaint();
+			setEditableOff();
+		}  
+		else if (e.getSource().equals(searchProd)) {
+			searchProd();
+		}
+		else if (e.getSource().equals(removeProd)) {
+			int dialogButton = JOptionPane.YES_NO_OPTION;
+			int dialogResult = JOptionPane.showConfirmDialog(null,
+					"Are you sure you want to remove\n" + "        "
+					+ prodTitle.getText() + " from the system",
+					"Warning", dialogButton);
+			if (dialogResult == JOptionPane.YES_OPTION) {
+				deleteProd();
+				setFirst();
 			}
 		}
 	}
@@ -348,7 +499,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		for (int i = 0; i < digiProdRadioBtns.length; i++) {
 			if (digiProdCheck[i].isSelected()) {
 
-				ProdDialog a = new ProdDialog(digiPopup[i], frame, productList.getProduct(counter));
+				ProdDialog a = new ProdDialog(digiPopup[i], frame, digiProductList.getProduct(counter), digiProductList);
 			} 
 			
 			if(cd.isSelected())
