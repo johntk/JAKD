@@ -13,9 +13,11 @@ public class DigiProductList {
 	private ArrayList<DigiProduct> plist;
 	private ArrayList<Song> slist;
 	private ArrayList<Song> alist;
+	private ArrayList<Song> nlist = new ArrayList<Song>();;
 	private ProdOperations po;
 	private ResultSet rset;
 	private ResultSet rset2;
+	private ResultSet rset3;
 	private int count =0;
 	
 	public DigiProductList(ProdOperations po)
@@ -114,13 +116,15 @@ public class DigiProductList {
 				DigiProduct p = new DigiProduct(rset.getString(1), 
 						rset.getString(2),
 						rset.getString(3), 
-						rset.getDouble(4), 
-						rset.getDouble(5), 
-						rset.getInt(6),
-						rset.getString(7),
-						rset.getString(8),
-						rset.getString(9), 
-						rset.getDouble(10));
+						rset.getString(4),
+						rset.getString(5), 
+						rset.getDouble(6), 
+						rset.getDouble(7), 
+						rset.getInt(8),
+						rset.getString(9),
+						rset.getString(10),
+						rset.getString(11), 
+						rset.getDouble(12));
 				plist.add(p);
 				
 			}
@@ -189,13 +193,14 @@ public class DigiProductList {
 
 	
 	
-	public void addContact() {
+	public void addProduct() {
 		rset = po.getLastRow();
 		rset2 = po.getLastRow();
 		
 		
 		
 		try{
+//			System.out.println(rset2.getString(1));
 		addSongs(rset2.getString(1));
 		}
 		catch(Exception ex)
@@ -203,8 +208,9 @@ public class DigiProductList {
 			System.out.println(ex);
 		}
 		
-		CD c = new CD(alist);
-		
+		CD c = new CD(nlist);
+//		System.out.println(c.getSongList().get(0).getSong_name() + "cd");
+//		System.out.println(slist.get(0).getSong_name() + "slist");
 		try {
 			
 				
@@ -235,21 +241,22 @@ public class DigiProductList {
 	public void addSongs(String id)
 	{
 		
-		rset2 = po.getLastRowAlbum(id);
+		rset3 = po.getLastRowAlbum(id);
 		try {
-			while (rset2.next())
+			while (rset3.next())
 			{
-				Song s = new Song(rset2.getString(1),
-						rset2.getString(2),
-						rset2.getString(3), 
-						rset2.getString(4));
-				slist.add(s);
+				System.out.println(rset3.getString(3));
+				Song s = new Song(rset3.getString(1),
+						rset3.getString(2),
+						rset3.getString(3), 
+						rset3.getString(4));
+				nlist.add(s);
 			}
 		} 
 		catch (Exception ea) {
 			System.out.println(ea);
 		}
-	
+//		System.out.println(nlist.get(0).getSong_name());
 	}
 	
 	public void updateEmployee(DigiProduct p) {
@@ -283,6 +290,7 @@ public class DigiProductList {
 	}
 	
 	public DigiProduct getProduct(int i) {
+		
 		refreshList();
 		return plist.get(i);
 	}

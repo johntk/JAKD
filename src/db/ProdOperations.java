@@ -58,7 +58,7 @@ public class ProdOperations {
 	public ResultSet getProductDVD() {
 		try {
 			
-			String sqlStatement = "SELECT p.prod_id, p.prod_type, d.dvd_name, d.dvd_sale_price, d.dvd_cost_price, "
+			String sqlStatement = "SELECT p.prod_id, dp.dig_id, d.dvd_id, p.prod_type, d.dvd_name, d.dvd_sale_price, d.dvd_cost_price, "
 					+ "p.current_stock, dp.age_rating, dp.genre, d.studio, d.dvd_length "
 					+"from product p, digital_product dp, dvd d "
 					+"where dp.prod_id = p.prod_id "
@@ -254,10 +254,10 @@ public class ProdOperations {
 		
 	}
 	
-	public void addEmployee(DigiProduct p) {
+	public void addNewProd(DigiProduct p) {
 		try {
 			
-			System.out.println(p.getProd_type());
+//			System.out.println(p.getProd_type());
 			
 			String queryString1 = "INSERT INTO Product (prod_id, prod_type, current_stock) "
 					+ "VALUES ('P'||to_char(prod_seq.nextVal,'FM0000000'),?,?) ";
@@ -319,7 +319,7 @@ public class ProdOperations {
 		
 		for(int i =0; i < p.getAlbum().getSongList().size(); i++)
 		{
-			System.out.println(p.getAlbum().getSongList().get(i).getSong_name());
+//			System.out.println(p.getAlbum().getSongList().get(i).getSong_name());
 			
 			String queryString = "INSERT INTO Song (song_id, cd_id, song_length, song_name) "
 					+ "VALUES ('S'||to_char(song_seq.nextVal,'FM0000000'),'C'||to_char(cd_seq.currVal,'FM0000000'),?,?) ";
@@ -400,15 +400,19 @@ public class ProdOperations {
 		
 		try {
 			
-			String sqlStatement = "select p.prod_id, s.song_id, s.song_name, s.song_length "
+			String queryString = "select p.prod_id, s.song_id, s.song_name, s.song_length "
 					+"from product p, digital_product dp, cd c, song s "
 					+"where p.prod_id = dp.prod_id "
 					+"and dp.dig_id = c.dig_id "
 					+"and s.cd_id = c.cd_id "
 					+"AND p.prod_id = "+ "'" + id + "'";
 			
-					stmt = conn.createStatement();
-					rset = stmt.executeQuery(sqlStatement); 
+
+			pstmt = conn.prepareStatement(queryString,
+					ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
+					rset = pstmt.executeQuery(); 
+
 		}catch (Exception e) {
 			System.out.println(e);
 		}

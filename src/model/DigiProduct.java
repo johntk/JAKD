@@ -60,57 +60,9 @@ public class DigiProduct {
 		this.artist = artist;
 	}
 
-	public String getDigi_id() {
-		return digi_id;
-	}
-
-	public void setDigi_id(String digi_id) {
-		this.digi_id = digi_id;
-	}
-
-	public String getArtist() {
-		return artist;
-	}
-
-	public void setArtist(String artist) {
-		this.artist = artist;
-	}
-
-	public String getCd_id() {
-		return cd_id;
-	}
-
-	public void setCd_id(String cd_id) {
-		this.cd_id = cd_id;
-	}
-
-
-	public String getArtist_id() {
-		return artist_id;
-	}
-
-	public void setArtist_id(String artist_id) {
-		this.artist_id = artist_id;
-	}
-
-	public String getDvd_id() {
-		return dvd_id;
-	}
-
-	public void setDvd_id(String dvd_id) {
-		this.dvd_id = dvd_id;
-	}
-
-	public String getGame_id() {
-		return game_id;
-	}
-
-	public void setGame_id(String game_id) {
-		this.game_id = game_id;
-	}
-
+	
 	//DVD
-	public DigiProduct(String prod_id,  String prod_type, String dvd_Name, double costPrice, double sellPrice, 
+	public DigiProduct(String prod_id, String digi_id, String dvd_id,  String prod_type, String dvd_Name, double costPrice, double sellPrice, 
 			int current_stock, String age_rating, String genre, String studio, double length)
 	{
 		this.prod_id = prod_id;
@@ -123,6 +75,8 @@ public class DigiProduct {
 		this.genre = genre;
 		this.studio = studio;
 		this.length = length;
+		this.digi_id = digi_id;
+		this.dvd_id = dvd_id;
 	}
 
 	//Game
@@ -260,6 +214,55 @@ public class DigiProduct {
 	public void setAlbum(CD album) {
 		this.album = album;
 	}
+	public String getDigi_id() {
+		return digi_id;
+	}
+
+	public void setDigi_id(String digi_id) {
+		this.digi_id = digi_id;
+	}
+
+	public String getArtist() {
+		return artist;
+	}
+
+	public void setArtist(String artist) {
+		this.artist = artist;
+	}
+
+	public String getCd_id() {
+		return cd_id;
+	}
+
+	public void setCd_id(String cd_id) {
+		this.cd_id = cd_id;
+	}
+
+
+	public String getArtist_id() {
+		return artist_id;
+	}
+
+	public void setArtist_id(String artist_id) {
+		this.artist_id = artist_id;
+	}
+
+	public String getDvd_id() {
+		return dvd_id;
+	}
+
+	public void setDvd_id(String dvd_id) {
+		this.dvd_id = dvd_id;
+	}
+
+	public String getGame_id() {
+		return game_id;
+	}
+
+	public void setGame_id(String game_id) {
+		this.game_id = game_id;
+	}
+
 }
 	
 	

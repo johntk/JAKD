@@ -25,11 +25,10 @@ public class ProdDialog extends JDialog {
 	private JTextField[] getDigiProdDetailBx2;
 	private int size;
 	
-	
 	private DigiProductList digiProductList;
 	private DigiProdPanel digiPanel;
 
-	public ProdDialog(String popUp, JFrame jFrame, DigiProduct p, DigiProductList digiProductList, DigiProdPanel digiPanel, int size) {
+	public ProdDialog(JFrame jFrame, DigiProduct p, DigiProductList digiProductList, DigiProdPanel digiPanel, int size) {
 
 		this.digiPanel = digiPanel;
 		this.digiProductList = digiProductList;
@@ -37,11 +36,12 @@ public class ProdDialog extends JDialog {
 		this.jframe = jFrame;
 		this.size =size;
 		
-		JPanel popupPanels[] = new JPanel[] { cd = new CDPopup(p, digiProductList, this, size)};
-
+		cd = new CDPopup(p, digiProductList, this, size);
 		cdDialog = new JDialog(jFrame, true);
 		cdDialog.setLocationRelativeTo(null);
-		
+		cdDialog.add(cd);
+		cdDialog.setSize(cd.getSize());
+		cdDialog.setVisible(true);
 		
 		
 		for (Component c : cdDialog.getContentPane().getComponents()) {
@@ -51,15 +51,7 @@ public class ProdDialog extends JDialog {
 		    	getDigiProdDetailBx2 = ((CDPopup) c).getDigiProdDetailBx2();
 		    }
 		}
-		
-		
-		for (int i = 0; i < popupPanels.length; i++) {
-			if (popUp.equals(popupPanels[i].getName())) {
-				cdDialog.add(popupPanels[i]);
-				cdDialog.setSize(popupPanels[i].getSize());
-			}
-		}
-		cdDialog.setVisible(true);
+			
 	}
 	
 	public void addSongs(ArrayList<Song> slist)
