@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -28,6 +29,8 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	private JTextField details, prodTitle, type, prodId, sellPrice, costPrice,
 	currentStock, bx1, bx2, bx3, bx4;
 	private ProdDialog a;
+	private boolean newProd = false;
+	private ArrayList<Song> slist = new ArrayList<Song>();
 	
 	private JPanel prodBtnsPanel, prodDetailsPanel, newProdBtnsPanel;
 
@@ -68,12 +71,13 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	
 	private ProdOperations prodOpertaion;
 	private DigiProductList  digiProductList;
+	private DigiProdPanel  digiPanel;
 	
 	public DigiProdPanel(JFrame frame, String prodType, ProdOperations po, DigiProductList pl) {
 
 		
 		this.frame = frame;
-
+		
 		this.setLayout(new BorderLayout());
 		this.digiProductList = pl;
 		this.prodOpertaion = po;
@@ -270,7 +274,10 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	public void setEditableOn() {
 		for (int i = 0; i < digiProdDetailBx.length; i++)
 			if (digiProdDetailLb[i].getText() !=" Product ID")
+			{
 				digiProdDetailBx[i].setEditable(true);
+			}
+		
 	}
 
 	public void setEditableOff() {
@@ -291,10 +298,54 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 				digiProdDetailBx[i].setEditable(true);
 			}
 		}
+		cd.setVisible(true);
+		dvd.setEnabled(true);
+		game.setEnabled(true);
 		prodBtnsPanel.setVisible(false);
 		this.add(newProdBtnsPanel);
 	}
 
+	public DigiProduct newEmployee() {
+		
+		DigiProduct p =null;
+		if(cd.isSelected())
+		{
+			
+			CD c = new CD(slist);		
+			p = new DigiProduct(prodId.getText(),
+			"",
+			"",
+			"",
+			"CD",
+			prodTitle.getText(),
+			Double.parseDouble(costPrice.getText()),
+			Double.parseDouble(sellPrice.getText()),
+			Integer.parseInt(currentStock.getText()),
+			bx3.getText(),
+			bx4.getText(),
+			bx1.getText(),
+			Double.parseDouble(bx2.getText()),
+			"p",
+			c
+			);
+		}
+		else if(dvd.isSelected())
+		{
+			
+		}
+		else
+		{
+			
+		}
+		return p;
+	}
+	
+	
+	public void newAlbum(ArrayList<Song> slist)
+	{
+		this.slist = slist;
+	}
+	
 	public void updateUser() {
 		updateBtn.setText("Update Product");
 		prodDetails.setText("Update Product Details");
@@ -303,11 +354,6 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		this.add(newProdBtnsPanel);
 	}
 	
-//	 JTextField details, prodTitle, type, prodId, sellPrice, costPrice,
-//	currentStock, bx1, bx2, bx3, bx4;
-	
-//	public DigiProduct(String prod_id,  String prod_type, String albumName, double costPrice, double sellPrice, 
-//			int current_stock, String age_rating, String genre, String publisher, double length, CD album)
 	
 	public void updateEmployee() {
 		
@@ -364,6 +410,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 				+ " Record(s) deleted.");
 		setFirst();
 	}
+	
 	
 	public DigiProduct displayProduct(DigiProduct p) {
 		
@@ -452,6 +499,21 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 			digiProdDetailBx[0].getCaret().setBlinkRate(600);
 			newProdBtnsPanel.setVisible(true);
 			addNew();
+			newProd = true;
+		} 
+		else if (e.getSource().equals(updateBtn)
+				&& updateBtn.getText().equals("Add New Product")) {
+			
+			prodOpertaion.addEmployee(newEmployee());
+			digiProductList.addContact();
+			digiProductList.refreshList();
+			prodBtnsPanel.setVisible(true);
+			JOptionPane.showMessageDialog(null, prodTitle.getText() + " Saved");
+			prodBtnsPanel.setVisible(true);
+			setEditableOff();
+			setFirst();
+			newProdBtnsPanel.setVisible(false);
+			newProd = false;
 		} 
 		else if (e.getSource().equals(back)) {
 			prodDetails.setText("User Details");
@@ -461,6 +523,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 			newProdBtnsPanel.repaint();
 			setEditableOff();
 			setFirst();
+			newProd = false;
 		} 
 		else if (e.getSource().equals(updateProd)) {
 			digiProdDetailBx[0].requestFocus();
@@ -495,16 +558,41 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 
 	public void itemStateChanged(ItemEvent e) {
 
+		int size = 0;
 		String[] digiPopup = { "cd", "dvd", "game" };
 		for (int i = 0; i < digiProdRadioBtns.length; i++) {
 			if (digiProdCheck[i].isSelected()) {
 
-				ProdDialog a = new ProdDialog(digiPopup[i], frame, digiProductList.getProduct(counter), digiProductList);
+			if(newProd == true)
+			{
+				if(slist.size()> 0)
+					
+					size = Integer.parseInt(JOptionPane.showInputDialog(null, "Songs you already entered will be delted! " +"\n" +" How many songs on this album?: "));
+				else
+					size = Integer.parseInt(JOptionPane.showInputDialog(null, "How many songs on this album?: "));
+				
+			}
+			else
+			{
+				size = 0;
+			}			
+				ProdDialog a = new ProdDialog(digiPopup[i], frame, digiProductList.getProduct(counter), digiProductList, this, size);
 			} 
 			
 			if(cd.isSelected())
 			{
-				
+				cdCB.setVisible(true);
+				detailsLB.setText(" Songs");
+			}
+			else if(dvd.isSelected())
+			{
+				cdCB.setVisible(false);
+				detailsLB.setText("");
+			}
+			else if(game.isSelected())
+			{
+				cdCB.setVisible(false);
+				detailsLB.setText("");
 			}
 		}
 	}

@@ -186,39 +186,75 @@ public class DigiProductList {
 		}
 		return num;
 	}
-//	
-//	public void addProduct() {
-//		rset = po.getLastRow();
-//		try {
-//			{
-//				Product p = new Product(rset.getString(1), 
-//						rset.getString(2),
-//						rset.getString(3), 
-//						rset.getDouble(4), 
-//						rset.getDouble(5), 
-//						rset.getInt(6),
-//						rset.getString(7),
-//						rset.getString(8),
-//						rset.getString(9), 
-//						rset.getDouble(10), c);
-//				plist.add(p);
-//			}
-//
-//		} catch (Exception ex) {
-//			System.out.println(ex);
-//		}
-//		
-//		
-//	}
+
 	
 	
+	public void addContact() {
+		rset = po.getLastRow();
+		rset2 = po.getLastRow();
+		
+		
+		
+		try{
+		addSongs(rset2.getString(1));
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+		
+		CD c = new CD(alist);
+		
+		try {
+			
+				
+				DigiProduct p = new DigiProduct(rset.getString(1), 
+						rset.getString(2),
+						rset.getString(3),
+						rset.getString(4), 
+						rset.getString(5),
+						rset.getString(6), 
+						rset.getDouble(7), 
+						rset.getDouble(8), 
+						rset.getInt(9),
+						rset.getString(10),
+						rset.getString(11),
+						rset.getString(12), 
+						rset.getDouble(13),
+						rset.getString(14), c);
+				plist.add(p);
+//				System.out.println(rset.getString(1));
+//				System.out.println(rset.getString(5));
+
+		} catch (Exception ex) {
+			System.out.println(ex);
+		}
+		
+	}
 	
+	public void addSongs(String id)
+	{
+		
+		rset2 = po.getLastRowAlbum(id);
+		try {
+			while (rset2.next())
+			{
+				Song s = new Song(rset2.getString(1),
+						rset2.getString(2),
+						rset2.getString(3), 
+						rset2.getString(4));
+				slist.add(s);
+			}
+		} 
+		catch (Exception ea) {
+			System.out.println(ea);
+		}
+	
+	}
 	
 	public void updateEmployee(DigiProduct p) {
 		
 		for (int i = 0; i < plist.size(); i++) {
-			
-			
 			
 			if (plist.get(i).getProd_id().equals(p.getProd_id())) {
 				plist.get(i).setAlbumName(p.getAlbumName());;

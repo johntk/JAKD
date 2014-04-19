@@ -3,12 +3,14 @@ package Popups;
 import gui.DigiProdPanel;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.border.*;
 
 import model.DigiProduct;
 import model.DigiProductList;
+import model.Song;
 
 public class ProdDialog extends JDialog {
 
@@ -21,31 +23,34 @@ public class ProdDialog extends JDialog {
 	private Border border = BorderFactory.createCompoundBorder(space, line);
 	private JTextField[] getDigiProdDetailBx;
 	private JTextField[] getDigiProdDetailBx2;
+	private int size;
+	
 	
 	private DigiProductList digiProductList;
+	private DigiProdPanel digiPanel;
 
-	public ProdDialog(String popUp, JFrame jFrame, DigiProduct p, DigiProductList digiProductList) {
+	public ProdDialog(String popUp, JFrame jFrame, DigiProduct p, DigiProductList digiProductList, DigiProdPanel digiPanel, int size) {
 
-		
+		this.digiPanel = digiPanel;
 		this.digiProductList = digiProductList;
 		this.p = p;
 		this.jframe = jFrame;
+		this.size =size;
 		
-		JPanel popupPanels[] = new JPanel[] { cd = new CDPopup(p, digiProductList)};
+		JPanel popupPanels[] = new JPanel[] { cd = new CDPopup(p, digiProductList, this, size)};
 
 		cdDialog = new JDialog(jFrame, true);
 		cdDialog.setLocationRelativeTo(null);
 		
 		
-//		for (Component c : cdDialog.getContentPane().getComponents()) {
-//		    if (c instanceof CDPopup) {
-//		 
-//		    	getDigiProdDetailBx = ((CDPopup) c).getDigiProdDetailBx();
-//		    	getDigiProdDetailBx2 = ((CDPopup) c).getDigiProdDetailBx2();
-//		    }
-//		}
 		
-	
+		for (Component c : cdDialog.getContentPane().getComponents()) {
+		    if (c instanceof JPanel) {
+		 
+		    	getDigiProdDetailBx = ((CDPopup) c).getDigiProdDetailBx();
+		    	getDigiProdDetailBx2 = ((CDPopup) c).getDigiProdDetailBx2();
+		    }
+		}
 		
 		
 		for (int i = 0; i < popupPanels.length; i++) {
@@ -57,10 +62,11 @@ public class ProdDialog extends JDialog {
 		cdDialog.setVisible(true);
 	}
 	
+	public void addSongs(ArrayList<Song> slist)
+	{
+		
+			digiPanel.newAlbum(slist);
+			cdDialog.dispose();
+	}
 	
-	
-//	public JTextField[] getValue()
-//	{
-//		return getDigiProdDetailBx;
-//	}
 }

@@ -338,6 +338,7 @@ public class UserPanel extends JPanel implements ActionListener {
 			editUserBtnsPanel.setVisible(true);
 			setEditableOff();
 			setFirst();
+			editNewUserBtnsPanel.setVisible(false);
 		} 
 		else if (e.getSource().equals(back)) {
 			userDetails.setText("User Details");

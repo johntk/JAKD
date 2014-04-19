@@ -23,7 +23,6 @@ public class DigiProduct {
 	private CD album;
 	private String artist;
 	private String cd_id;
-	
 	private String artist_id;
 
 
