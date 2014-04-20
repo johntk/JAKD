@@ -30,23 +30,27 @@ public class DigiProductList {
 	
 	public void refreshList()
 	{
-		if(count == 0)
-			{
+
 			if (plist.size() > 0) {
 				for (int i = plist.size() - 1; i >= 0; i--) {
 					plist.remove(i);
 				}
 			}
+			if (slist.size() > 0) {
+				for (int i = slist.size() - 1; i >= 0; i--) {
+					slist.remove(i);
+				}
+			}
+				songs();
 				refreshListCD();
 				refreshListDVD();
 				refreshListGame();
 			}
-	}
 	
 	public void refreshListCD() {
 		
-		songs();
 		rset = po.getProductCD();
+		
 		
 		try {
 			while (rset.next()) {
@@ -59,7 +63,6 @@ public class DigiProductList {
 				}	
 			}
 			CD c = new CD(alist);
-			
 				DigiProduct p = new DigiProduct(rset.getString(1), 
 						rset.getString(2),
 						rset.getString(3), 
@@ -76,7 +79,7 @@ public class DigiProductList {
 						rset.getString(14), 
 						c);
 				plist.add(p);
-				
+
 			}
 		} catch (Exception ex) {
 			System.out.println(ex);
@@ -85,10 +88,10 @@ public class DigiProductList {
 	
 	public void songs()
 	{
-		if(count == 0)
-		{
+
 		rset2 = po.getSongs();
 		try {
+			
 			while (rset2.next())
 			{
 				Song s = new Song(rset2.getString(1),
@@ -102,8 +105,7 @@ public class DigiProductList {
 			System.out.println(ea);
 		}
 		}
-		count++;
-	}
+
 	
 	
 	public void refreshListDVD()
@@ -132,19 +134,15 @@ public class DigiProductList {
 			System.out.println(ex);
 		}
 		
-//		System.out.println(plist.size());
-		}
+	}
 	
 		
 	public void refreshListGame()
 	{
 		rset = po.getProductGame();
-//		public DigiProduct(String prod_id, String digi_id, String game_id, String prod_type, String game_Name, double costPrice, double sellPrice, 
-//				int current_stock, String age_rating, String genre, String studio, String platform)
-		
+
 		try {
 			while (rset.next()) {
-//				System.out.println(rset.getString(3));
 				DigiProduct p = new DigiProduct(rset.getString(1), 
 						rset.getString(2),
 						rset.getString(3), 
@@ -164,8 +162,7 @@ public class DigiProductList {
 			System.out.println(ex);
 		}
 		
-//		System.out.println(plist.size());
-		}
+	}
 		
 	public int findProd(String id) {
 		int index = -1;
@@ -198,26 +195,19 @@ public class DigiProductList {
 	
 	
 	public void addProduct() {
-		rset = po.getLastRow();
-		rset2 = po.getLastRow();
+	
+		rset2 = po.getLastRowCD();
 		
 		
-		
-		try{
-//			System.out.println(rset2.getString(1));
-		addSongs(rset2.getString(1));
-		}
-		catch(Exception ex)
-		{
-			System.out.println(ex);
-		}
-		
-		CD c = new CD(nlist);
-//		System.out.println(c.getSongList().get(0).getSong_name() + "cd");
-//		System.out.println(slist.get(0).getSong_name() + "slist");
 		try {
 			
-				
+			if(rset2.getString(5).equals("CD"))
+			{
+			
+			addSongs(rset2.getString(1));
+			rset = po.getLastRowCD();
+			CD c = new CD(nlist);
+			
 				DigiProduct p = new DigiProduct(rset.getString(1), 
 						rset.getString(2),
 						rset.getString(3),
@@ -233,9 +223,44 @@ public class DigiProductList {
 						rset.getDouble(13),
 						rset.getString(14), c);
 				plist.add(p);
-//				System.out.println(rset.getString(1));
-//				System.out.println(rset.getString(5));
 
+			}
+			else if(rset2.getString(5).equals("DVD"))
+			{
+				
+				rset = po.getLastRowDVD();
+				DigiProduct p = new DigiProduct(rset.getString(1), 
+						rset.getString(2),
+						rset.getString(3),
+						rset.getString(4), 
+						rset.getString(5), 
+						rset.getDouble(7), 
+						rset.getDouble(8), 
+						rset.getInt(9),
+						rset.getString(10),
+						rset.getString(11),
+						rset.getString(12), 
+						rset.getDouble(13));
+				plist.add(p);
+			}
+			else if(rset2.getString(5).equals("GAME"))
+			{
+	
+				rset = po.getLastRowGAME();
+				DigiProduct p = new DigiProduct(rset.getString(1), 
+						rset.getString(2),
+						rset.getString(3),
+						rset.getString(4), 
+						rset.getString(5), 
+						rset.getDouble(7), 
+						rset.getDouble(8), 
+						rset.getInt(9),
+						rset.getString(10),
+						rset.getString(11),
+						rset.getString(12),
+						rset.getString(13));
+				plist.add(p);
+			}
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
@@ -260,7 +285,6 @@ public class DigiProductList {
 		catch (Exception ea) {
 			System.out.println(ea);
 		}
-//		System.out.println(nlist.get(0).getSong_name());
 	}
 	
 	public void updateProduct(DigiProduct p) {
@@ -336,7 +360,6 @@ public class DigiProductList {
 	public DigiProduct getProduct(int i) {
 		
 		refreshList();
-
 		return plist.get(i);
 	}
 }

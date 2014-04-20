@@ -49,13 +49,9 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 
 	private JRadioButton[] digiProdRadioBtns = new JRadioButton[] { cd, dvd,game };
 
-	
 	private JFrame frame;
 	private int counter = 0;
-	
-	
 
-	
 	JTextField[] digiProdDetailBx = { prodTitle = new JTextField(),
 			type = new JTextField(), details = new JTextField(),prodId = new JTextField(),
 			costPrice = new JTextField(), sellPrice = new JTextField(),
@@ -277,7 +273,6 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 			{
 				digiProdDetailBx[i].setEditable(true);
 			}
-		
 	}
 
 	public void setEditableOff() {
@@ -333,10 +328,36 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		else if(dvd.isSelected())
 		{
 			
+			p = new DigiProduct(prodId.getText(),
+					"",
+					"",
+					"DVD",
+					prodTitle.getText(),
+					Double.parseDouble(costPrice.getText()),
+					Double.parseDouble(sellPrice.getText()),
+					Integer.parseInt(currentStock.getText()),
+					bx3.getText(),
+					bx4.getText(),
+					bx1.getText(),
+					Double.parseDouble(bx2.getText())
+					);
 		}
-		else
+		else if(game.isSelected())
 		{
 			
+			p = new DigiProduct(prodId.getText(),
+					"",
+					"",
+					"GAME",
+					prodTitle.getText(),
+					Double.parseDouble(costPrice.getText()),
+					Double.parseDouble(sellPrice.getText()),
+					Integer.parseInt(currentStock.getText()),
+					bx3.getText(),
+					bx4.getText(),
+					bx1.getText(),
+					bx2.getText()
+					);
 		}
 		return p;
 	}
@@ -387,8 +408,6 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		else if(dvd.isSelected())
 		{
 			
-			
-			
 			DigiProduct p = new DigiProduct(prodId.getText(),
 					digiProductList.getProduct(counter).getDigi_id(),
 					digiProductList.getProduct(counter).getDvd_id(),
@@ -410,7 +429,6 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		}
 		else if(game.isSelected())
 		{
-//			System.out.println(digiProductList.getProduct(counter).getGame_id());
 		
 			DigiProduct p = new DigiProduct(prodId.getText(),
 					digiProductList.getProduct(counter).getDigi_id(),
@@ -615,12 +633,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 			{
 				size = 0;
 			}		
-			
-//			System.out.println(digiProductList.getProduct(counter).getAlbum().getSongList().get(0).getSong_name());
-//			System.out.println(digiProductList.getProduct(counter).getProd_id());
 				ProdDialog a = new ProdDialog(frame, digiProductList.getProduct(counter), digiProductList, this, size);
-				
-				
 			} 
 			
 			if(cd.isSelected())

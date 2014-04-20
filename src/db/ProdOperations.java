@@ -329,7 +329,8 @@ public class ProdOperations {
 	public void addNewProd(DigiProduct p) {
 		try {
 			
-//			System.out.println(p.getProd_type());
+			if(p.getProd_type().equals("CD"))
+			{
 			
 			String queryString1 = "INSERT INTO Product (prod_id, prod_type, current_stock) "
 					+ "VALUES ('P'||to_char(prod_seq.nextVal,'FM0000000'),?,?) ";
@@ -378,6 +379,73 @@ public class ProdOperations {
 			pstmt.executeUpdate();
 			
 			 addAlbum(p);
+			}
+			else if(p.getProd_type().equals("DVD"))
+			{
+				String queryString1 = "INSERT INTO Product (prod_id, prod_type, current_stock) "
+						+ "VALUES ('P'||to_char(prod_seq.nextVal,'FM0000000'),?,?) ";
+				
+				pstmt = conn.prepareStatement(queryString1);
+				
+				pstmt.setString(1, p.getProd_type());
+				pstmt.setInt(2, p.getCurrent_stock());
+				pstmt.executeUpdate();
+				
+				
+				String queryString3 = "INSERT INTO digital_product (dig_id, age_rating, genre, prod_id) "
+						+ "VALUES ('D'||to_char(digi_seq.nextVal,'FM0000000'),?,?,'P'||to_char(prod_seq.currVal,'FM0000000')) ";
+
+				pstmt = conn.prepareStatement(queryString3);
+				pstmt.setString(1, p.getAge_rating());
+				pstmt.setString(2, p.getGenre());
+				pstmt.executeUpdate();
+				
+				
+				String queryString2 = "INSERT INTO DVD (dvd_id, dvd_name, dvd_cost_price, dvd_sale_price, "
+						+" studio, dvd_length, dig_id) "
+						+ "VALUES ('D'||to_char(dvd_seq.nextVal,'FM0000000'),?,?,?,?,?,'D'||to_char(digi_seq.currVal,'FM0000000')) ";
+				
+				pstmt = conn.prepareStatement(queryString2);
+				pstmt.setString(1, p.getDvd_name());
+				pstmt.setDouble(2, p.getCostPrice());
+				pstmt.setDouble(3, p.getSellPrice());
+				pstmt.setString(4, p.getStudio());
+				pstmt.setDouble(5, p.getLength());
+				pstmt.executeUpdate();
+			}
+			else if(p.getProd_type().equals("GAME"))
+			{
+				String queryString1 = "INSERT INTO Product (prod_id, prod_type, current_stock) "
+						+ "VALUES ('P'||to_char(prod_seq.nextVal,'FM0000000'),?,?) ";
+				
+				pstmt = conn.prepareStatement(queryString1);
+				
+				pstmt.setString(1, p.getProd_type());
+				pstmt.setInt(2, p.getCurrent_stock());
+				pstmt.executeUpdate();
+				
+				
+				String queryString3 = "INSERT INTO digital_product (dig_id, age_rating, genre, prod_id) "
+						+ "VALUES ('D'||to_char(digi_seq.nextVal,'FM0000000'),?,?,'P'||to_char(prod_seq.currVal,'FM0000000')) ";
+
+				pstmt = conn.prepareStatement(queryString3);
+				pstmt.setString(1, p.getAge_rating());
+				pstmt.setString(2, p.getGenre());
+				pstmt.executeUpdate();
+				
+				
+				String queryString2 = "INSERT INTO GAME (game_id, game_name, game_cost_price, game_sale_price, "
+						+" company, platform, dig_id) "
+						+ "VALUES ('G'||to_char(game_seq.nextVal,'FM0000000'),?,?,?,?,?,'D'||to_char(digi_seq.currVal,'FM0000000')) ";
+				
+				pstmt = conn.prepareStatement(queryString2);
+				pstmt.setString(1, p.getGame_name());
+				pstmt.setDouble(2, p.getCostPrice());
+				pstmt.setDouble(3, p.getSellPrice());
+				pstmt.setString(4, p.getStudio());
+				pstmt.setString(5, p.getPlatform());
+				pstmt.executeUpdate();
+			}
 			
 		} catch (Exception se) {
 			System.out.println(se);
@@ -426,7 +494,7 @@ public class ProdOperations {
 
 	}
 	
-	public ResultSet getLastRow() {
+	public ResultSet getLastRowCD() {
 		String queryString = "SELECT p.prod_id, dp.dig_id, c.cd_id, a.artist_id, p.prod_type, c.album_name, "
 				+ "c.cd_cost_price, c.cd_sale_price, "
 				+ "p.current_stock, dp.age_rating, dp.genre, c.record_company, c.album_length, a.artist_name "
@@ -445,20 +513,47 @@ public class ProdOperations {
 			rset = pstmt.executeQuery();
 			rset.last();
 			
+		} catch (Exception ex) {
+			System.out.println("ERROR: " + ex.getMessage());
+		}
+
+		return rset;
+	}
+	public ResultSet getLastRowDVD() {
+		String queryString = "SELECT p.prod_id, dp.dig_id, d.dvd_id, p.prod_type, d.dvd_name, d.dvd_sale_price, d.dvd_cost_price, "
+				+ "p.current_stock, dp.age_rating, dp.genre, d.studio, d.dvd_length "
+				+"from product p, digital_product dp, dvd d "
+				+"where dp.prod_id = p.prod_id "
+				+"and dp.dig_id = d.dig_id ";
 		
-//			 ResultSetMetaData rsmd = rset.getMetaData();
-//		      int numberOfColumns = rsmd.getColumnCount();
-//			
-//			while (rset.next()) {
-//		        for (int i = 1; i <= numberOfColumns; i++) {
-//		          if (i > 1) System.out.print(",  ");
-//		          String columnValue = rset.getString(i);
-//		          System.out.print(columnValue);
-//		        }
-//		        System.out.println("");  
-//		      }
-	
+		
+		try {
+			pstmt = conn.prepareStatement(queryString,
+					ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
+			rset = pstmt.executeQuery();
+			rset.last();
 			
+		} catch (Exception ex) {
+			System.out.println("ERROR: " + ex.getMessage());
+		}
+
+		return rset;
+	}
+	public ResultSet getLastRowGAME() {
+		String queryString = "SELECT p.prod_id, dp.dig_id, g.game_id, p.prod_type, g.game_name, g.game_sale_price, g.game_cost_price, "
+				+ "p.current_stock, dp.age_rating, dp.genre, g.company, g.platform "
+				+"from product p, digital_product dp, game g "
+				+"where dp.prod_id = p.prod_id "
+				+"and dp.dig_id = g.dig_id ";
+		
+		
+		try {
+			pstmt = conn.prepareStatement(queryString,
+					ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
+			rset = pstmt.executeQuery();
+			rset.last();
 			
 		} catch (Exception ex) {
 			System.out.println("ERROR: " + ex.getMessage());
