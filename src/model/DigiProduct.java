@@ -80,7 +80,7 @@ public class DigiProduct {
 	}
 
 	//Game
-	public DigiProduct(String prod_id,  String prod_type, String game_Name, double costPrice, double sellPrice, 
+	public DigiProduct(String prod_id, String digi_id, String game_id, String prod_type, String game_Name, double costPrice, double sellPrice, 
 			int current_stock, String age_rating, String genre, String studio, String platform)
 	{
 		this.prod_id = prod_id;
@@ -92,6 +92,8 @@ public class DigiProduct {
 		this.age_rating = age_rating;
 		this.genre = genre;
 		this.studio = studio;
+		this.digi_id = digi_id;
+		this.game_id = game_id;
 		this.platform = platform;
 	}
 

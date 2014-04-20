@@ -76,7 +76,7 @@ public class ProdOperations {
 	public ResultSet getProductGame() {
 		try {
 			
-			String sqlStatement = "SELECT p.prod_id, p.prod_type, g.game_name, g.game_sale_price, g.game_cost_price, "
+			String sqlStatement = "SELECT p.prod_id, dp.dig_id, g.game_id, p.prod_type, g.game_name, g.game_sale_price, g.game_cost_price, "
 					+ "p.current_stock, dp.age_rating, dp.genre, g.company, g.platform "
 					+"from product p, digital_product dp, game g "
 					+"where dp.prod_id = p.prod_id "
@@ -183,10 +183,12 @@ public class ProdOperations {
 	}
 	
 
-	public void updateProdCD(DigiProduct p)
+	public void updateProduct(DigiProduct p)
 	{
 		 
 			try {
+				if(p.getProd_type().equals("CD"))
+				{
 //				System.out.println(p.getAlbumName());
 				String queryString1 = "UPDATE Product SET prod_id=?, prod_type=?, "
 						+" current_stock=? "
@@ -222,7 +224,77 @@ public class ProdOperations {
 				
 				
 			updateAlbum(p);
+				}
+				else if(p.getProd_type().equals("DVD"))
+				{
+					String queryString1 = "UPDATE Product SET prod_id=?, prod_type=?, "
+							+" current_stock=? "
+							+"WHERE prod_id ="+ "'" + p.getProd_id() + "'";
+					
+					pstmt = conn.prepareStatement(queryString1);
+					pstmt.setString(1, p.getProd_id() );
+					pstmt.setString(2, p.getProd_type());
+					pstmt.setInt(3, p.getCurrent_stock());
+					pstmt.executeUpdate();
+					
+					
+					String queryString2 = "UPDATE DVD SET  dvd_name=?, dvd_cost_price=?, dvd_sale_price=?, "
+							+" studio=?, dvd_length=? "
+							+"WHERE dvd_id ="+ "'" + p.getDvd_id() + "'";
+					
+					pstmt = conn.prepareStatement(queryString2);
+					pstmt.setString(1, p.getDvd_name());
+					pstmt.setDouble(2, p.getCostPrice());
+					pstmt.setDouble(3, p.getSellPrice());
+					pstmt.setString(4, p.getStudio());
+					pstmt.setDouble(5, p.getLength());
+					pstmt.executeUpdate();
+					
+					
+					String queryString3 = "UPDATE digital_product SET age_rating=?, genre=? "
+							+"WHERE dig_id ="+ "'" + p.getDigi_id() + "'";
+
+					pstmt = conn.prepareStatement(queryString3);
+					pstmt.setString(1, p.getAge_rating());
+					pstmt.setString(2, p.getGenre());
+					pstmt.executeUpdate();
+				}
+				else if(p.getProd_type().equals("GAME"))
+				{
+					String queryString1 = "UPDATE Product SET prod_id=?, prod_type=?, "
+							+" current_stock=? "
+							+"WHERE prod_id ="+ "'" + p.getProd_id() + "'";
+					
+					pstmt = conn.prepareStatement(queryString1);
+					pstmt.setString(1, p.getProd_id() );
+					pstmt.setString(2, p.getProd_type());
+					pstmt.setInt(3, p.getCurrent_stock());
+					pstmt.executeUpdate();
+					
+					
+					String queryString2 = "UPDATE GAME SET  game_name=?, game_cost_price=?, game_sale_price=?, "
+							+" company=?, platform=? "
+							+"WHERE game_id ="+ "'" + p.getGame_id() + "'";
 				
+					
+					pstmt = conn.prepareStatement(queryString2);
+					pstmt.setString(1, p.getGame_name());
+					pstmt.setDouble(2, p.getCostPrice());
+					pstmt.setDouble(3, p.getSellPrice());
+					pstmt.setString(4, p.getStudio());
+					pstmt.setString(5, p.getPlatform());
+					pstmt.executeUpdate();
+					
+					
+					String queryString3 = "UPDATE digital_product SET age_rating=?, genre=? "
+							+"WHERE dig_id ="+ "'" + p.getDigi_id() + "'";
+
+					
+					pstmt = conn.prepareStatement(queryString3);
+					pstmt.setString(1, p.getAge_rating());
+					pstmt.setString(2, p.getGenre());
+					pstmt.executeUpdate();
+				}
 				}catch (Exception ex) 
 					{
 					System.out.println(ex);

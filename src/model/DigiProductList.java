@@ -139,20 +139,24 @@ public class DigiProductList {
 	public void refreshListGame()
 	{
 		rset = po.getProductGame();
-
+//		public DigiProduct(String prod_id, String digi_id, String game_id, String prod_type, String game_Name, double costPrice, double sellPrice, 
+//				int current_stock, String age_rating, String genre, String studio, String platform)
+		
 		try {
 			while (rset.next()) {
-
+//				System.out.println(rset.getString(3));
 				DigiProduct p = new DigiProduct(rset.getString(1), 
 						rset.getString(2),
 						rset.getString(3), 
-						rset.getDouble(4), 
-						rset.getDouble(5), 
-						rset.getInt(6),
-						rset.getString(7),
-						rset.getString(8),
-						rset.getString(9), 
-						rset.getString(10));
+						rset.getString(4),
+						rset.getString(5),
+						rset.getDouble(6), 
+						rset.getDouble(7), 
+						rset.getInt(8),
+						rset.getString(9),
+						rset.getString(10),
+						rset.getString(11), 
+						rset.getString(12));
 				plist.add(p);
 	
 			}
@@ -259,11 +263,12 @@ public class DigiProductList {
 //		System.out.println(nlist.get(0).getSong_name());
 	}
 	
-	public void updateEmployee(DigiProduct p) {
+	public void updateProduct(DigiProduct p) {
 		
 		for (int i = 0; i < plist.size(); i++) {
 			
-			if (plist.get(i).getProd_id().equals(p.getProd_id())) {
+			
+			if (plist.get(i).getProd_id().equals(p.getProd_id()) && plist.get(i).getProd_type().equals("CD")) {
 				plist.get(i).setAlbumName(p.getAlbumName());;
 				plist.get(i).setProd_id(p.getProd_id());
 				plist.get(i).setDigi_id(p.getDigi_id());
@@ -279,7 +284,46 @@ public class DigiProductList {
 				plist.get(i).setArtist(p.getArtist());
 				plist.get(i).setAlbum(p.getAlbum());;
 
-				po.updateProdCD(plist.get(i));
+				po.updateProduct(plist.get(i));
+			}
+			
+
+			
+			else if(plist.get(i).getProd_id().equals(p.getProd_id()) && plist.get(i).getProd_type().equals("DVD"))
+			{
+				plist.get(i).setDvd_name(p.getDvd_name());
+				plist.get(i).setProd_id(p.getProd_id());
+				plist.get(i).setDigi_id(p.getDigi_id());
+				plist.get(i).setDvd_id(p.getDvd_id());
+				plist.get(i).setProd_type(p.getProd_type());
+				plist.get(i).setCostPrice(p.getCostPrice());;
+				plist.get(i).setSellPrice(p.getSellPrice());;
+				plist.get(i).setCurrent_stock(p.getCurrent_stock());;
+				plist.get(i).setAge_rating(p.getAge_rating());;
+				plist.get(i).setGenre(p.getGenre());;
+				plist.get(i).setStudio(p.getStudio());
+				plist.get(i).setLength(p.getLength());;
+			
+				po.updateProduct(plist.get(i));
+			}
+			
+
+			else if(plist.get(i).getProd_id().equals(p.getProd_id()))
+			{
+				plist.get(i).setGame_name(p.getGame_name());
+				plist.get(i).setProd_id(p.getProd_id());
+				plist.get(i).setDigi_id(p.getDigi_id());
+				plist.get(i).setGame_id(p.getGame_id());
+				plist.get(i).setProd_type(p.getProd_type());
+				plist.get(i).setCostPrice(p.getCostPrice());;
+				plist.get(i).setSellPrice(p.getSellPrice());;
+				plist.get(i).setCurrent_stock(p.getCurrent_stock());;
+				plist.get(i).setAge_rating(p.getAge_rating());;
+				plist.get(i).setGenre(p.getGenre());;
+				plist.get(i).setStudio(p.getStudio());
+				plist.get(i).setPlatform(p.getPlatform());
+			
+				po.updateProduct(plist.get(i));
 			}
 		}
 
@@ -292,6 +336,7 @@ public class DigiProductList {
 	public DigiProduct getProduct(int i) {
 		
 		refreshList();
+
 		return plist.get(i);
 	}
 }

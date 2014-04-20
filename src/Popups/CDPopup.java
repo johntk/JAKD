@@ -282,7 +282,7 @@ public class CDPopup extends JPanel implements ActionListener {
 		
 		
 		
-		digiProductList.updateEmployee(cd);
+		digiProductList.updateProduct(cd);
 		JOptionPane.showMessageDialog(null, "Album " + p.getAlbumName()
 				+ " Updated");
 		

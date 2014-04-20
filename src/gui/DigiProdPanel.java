@@ -189,12 +189,12 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 
 		this.add(prodDetailsPanel, BorderLayout.EAST);
 
-		// button panels inside edit user panel
+		// button panels inside edit prod panel
 		prodBtnsPanel = new JPanel();
 		prodBtnsPanel.setLayout(new GridBagLayout());
 		prodBtnsPanel.setPreferredSize(new Dimension(250, 50));
 
-		// Adding buttons to the button panel inside the edit user panel
+		// Adding buttons to the button panel inside the edit prod panel
 		JButton[] prodButtons = { searchProd = new JButton("Search Prod"),
 				addProd = new JButton("Add Prod"),
 				removeProd = new JButton("Remove Prod"),
@@ -379,7 +379,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		c
 		);
 		
-		digiProductList.updateEmployee(p);
+		digiProductList.updateProduct(p);
 		JOptionPane.showMessageDialog(null, "CD " + prodTitle.getText()
 				+ " Updated");
 		prodDetails.setText("Product Details");
@@ -387,9 +387,6 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		else if(dvd.isSelected())
 		{
 			
-//			public DigiProduct(String prod_id,  String digi_id, String dvd_id, String prod_type, String dvd_Name, double costPrice, double sellPrice, 
-//					int current_stock, String age_rating, String genre, String studio, double length)
-//			{
 			
 			
 			DigiProduct p = new DigiProduct(prodId.getText(),
@@ -406,14 +403,33 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 					Double.parseDouble(bx2.getText())
 					);
 					
-//					digiProductList.updateEmployee(p);
+					digiProductList.updateProduct(p);
 					JOptionPane.showMessageDialog(null, "DVD " + prodTitle.getText()
 							+ " Updated");
 					prodDetails.setText("Product Details");
 		}
-		else
+		else if(game.isSelected())
 		{
-			
+//			System.out.println(digiProductList.getProduct(counter).getGame_id());
+		
+			DigiProduct p = new DigiProduct(prodId.getText(),
+					digiProductList.getProduct(counter).getDigi_id(),
+					digiProductList.getProduct(counter).getGame_id(),
+					"GAME",
+					prodTitle.getText(),
+					Double.parseDouble(costPrice.getText()),
+					Double.parseDouble(sellPrice.getText()),
+					Integer.parseInt(currentStock.getText()),
+					bx3.getText(),
+					bx4.getText(),
+					bx1.getText(),
+					bx2.getText()
+					);
+					
+					digiProductList.updateProduct(p);
+					JOptionPane.showMessageDialog(null, "Game " + prodTitle.getText()
+							+ " Updated");
+					prodDetails.setText("Product Details");
 		}
 	}
 	
@@ -609,16 +625,22 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 			
 			if(cd.isSelected())
 			{
+				label4.setText(" Length");
+				label3.setText(" Label");
 				cdCB.setVisible(true);
 				detailsLB.setText(" Songs");
 			}
 			else if(dvd.isSelected())
 			{
+				label3.setText(" Studio");
+				label4.setText(" Length");
 				cdCB.setVisible(false);
 				detailsLB.setText("");
 			}
 			else if(game.isSelected())
 			{
+				label3.setText(" Studio");
+				label4.setText(" Platform");
 				cdCB.setVisible(false);
 				detailsLB.setText("");
 			}
