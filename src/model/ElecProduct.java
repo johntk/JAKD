@@ -14,25 +14,29 @@ public class ElecProduct {
 	private String manufacturer;
 	private String model;
 	private String colour;
+	private String elec_id;
 	
 	//Headphone
 	private String overEar;
 	private String mic;
 	private String iphoneComp;
+	private String headphone_id;
 	
 	//SoundDock
 	private String wireless;
 	private String digiRadio;
 	private int pwrOut;
+	private String sd_id;
 	
 	//Console
 	private int storageSize;
 	private String wifi;
 	private int numPad;
+	private String console_id;
 	
 
 	//Headphone product
-	public ElecProduct(String prod_id,  String prod_type, String model, double costPrice, double sellPrice, 
+	public ElecProduct(String prod_id, String elec_id, String headphone_id,  String prod_type, String model, double costPrice, double sellPrice, 
 			int current_stock, String mic, String overEar, String iphoneComp, String manufacturer, String colour)
 	{
 		this.prod_id = prod_id;
@@ -46,10 +50,13 @@ public class ElecProduct {
 		this.overEar = overEar;
 		this.mic = mic;
 		this.iphoneComp = iphoneComp;
+		this.headphone_id = headphone_id;
+		this.elec_id = elec_id;
+		
 	}
 	
 	//SoundDock product
-	public ElecProduct(String prod_id,  String prod_type, String model, double costPrice, double sellPrice, 
+	public ElecProduct(String prod_id, String elec_id, String sd_id, String prod_type, String model, double costPrice, double sellPrice, 
 			int current_stock, String digiRadio, String wireless, int pwrOut, String manufacturer, String colour)
 	{
 		this.prod_id = prod_id;
@@ -63,11 +70,13 @@ public class ElecProduct {
 		this.digiRadio = digiRadio;
 		this.wireless = wireless;
 		this.pwrOut = pwrOut;
+		this.elec_id = elec_id;
+		this.sd_id = sd_id;
 	}
 	
 			
 	//Console product
-	public ElecProduct(String prod_id,  String prod_type, String model, double costPrice, double sellPrice, 
+	public ElecProduct(String prod_id, String elec_id, String console_id, String prod_type, String model, double costPrice, double sellPrice, 
 			int current_stock, int storageSize, String wifi, int numPad, String manufacturer, String colour)
 	{
 		this.prod_id = prod_id;
@@ -81,7 +90,43 @@ public class ElecProduct {
 		this.storageSize = storageSize;
 		this.wifi = wifi;
 		this.numPad = numPad;
+		this.elec_id = elec_id;
+		this.console_id = console_id;
 		
+	}
+
+	
+	
+	public String getElec_id() {
+		return elec_id;
+	}
+
+	public void setElec_id(String elec_id) {
+		this.elec_id = elec_id;
+	}
+
+	public String getHeadphone_id() {
+		return headphone_id;
+	}
+
+	public void setHeadphone_id(String headphone_id) {
+		this.headphone_id = headphone_id;
+	}
+
+	public String getSd_id() {
+		return sd_id;
+	}
+
+	public void setSd_id(String sd_id) {
+		this.sd_id = sd_id;
+	}
+
+	public String getConsole_id() {
+		return console_id;
+	}
+
+	public void setConsole_id(String console_id) {
+		this.console_id = console_id;
 	}
 
 	public String getProd_id() {

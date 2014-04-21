@@ -248,7 +248,7 @@ public class CDPopup extends JPanel implements ActionListener {
 	
 	public void updateEmployee() {
 		
-
+		
 		
 			for(int i = 0 ; i < p.getAlbum().getSongList().size(); i++)
 			{
@@ -259,8 +259,6 @@ public class CDPopup extends JPanel implements ActionListener {
 			}
 
 			CD c = new CD(alist);
-			
-			
 			
 			DigiProduct cd = new DigiProduct(p.getProd_id(),
 					p.getProd_type(),
@@ -278,10 +276,7 @@ public class CDPopup extends JPanel implements ActionListener {
 					p.getArtist(),
 					c
 					);
-			
-		
-		
-		
+
 		digiProductList.updateProduct(cd);
 		JOptionPane.showMessageDialog(null, "Album " + p.getAlbumName()
 				+ " Updated");

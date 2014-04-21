@@ -282,6 +282,12 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	
 	
 	public void addNew() {
+		
+		if (slist.size() > 0) {
+			for (int i = slist.size() - 1; i >= 0; i--) {
+				slist.remove(i);
+			}
+		}
 		prodDetails.setText("Enter New Details");
 		prodDetails.setBorder(new EmptyBorder(10, 390, 0, 110));
 		updateBtn.setText("Add New Prod");
@@ -562,6 +568,13 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		else if (e.getSource().equals(updateBtn)
 				&& updateBtn.getText().equals("Add New Prod")) {
 			
+			if(slist.size() == 0)
+			{
+				JOptionPane.showMessageDialog(null, "You must enter songs for a CD product\nClick the Song check box to enter songs ");
+//				ProdDialog a = new ProdDialog(frame, digiProductList.getProduct(counter), digiProductList, this, size);
+			}
+			else
+			{
 			prodOpertaion.addNewProd(newProduct());
 			digiProductList.addProduct();
 			prodBtnsPanel.setVisible(true);
@@ -571,6 +584,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 			setEditableOff();
 			setFirst();
 			newProd = false;
+			}
 		} 
 		else if (e.getSource().equals(back)) {
 			prodDetails.setText("Product Details");
@@ -629,6 +643,10 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 					size = Integer.parseInt(JOptionPane.showInputDialog(null, "How many songs on this album?: "));
 				
 			}
+//			else if(digiProductList.getProduct(counter).getAlbum().getSongList().size() == 0)
+//			{
+//				size = Integer.parseInt(JOptionPane.showInputDialog(null, "How many songs on this album?: "));
+//			}
 			else
 			{
 				size = 0;

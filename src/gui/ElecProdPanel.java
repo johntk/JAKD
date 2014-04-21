@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import db.ProdOperations;
+import model.CD;
+import model.DigiProduct;
 import model.ElecProdList;
 import model.ElecProduct;
 
@@ -19,14 +21,14 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 	private static final long serialVersionUID = 1L;
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
-	private JButton addProd, editProd, removeProd, exit, previous, searchProd, next, updateProd;
-	
+	private JButton addProd, editProd, removeProd, exit, previous, searchProd, next, updateProd, updateBtn, back;
+	private boolean newProd = false;
 	private JLabel prodDetails, detailsLB, titleLB, typeLB, idLB, cPriceLB, sPriceLB, stockLB,  
 	manufLB, label1, label2, label3, colour;
 	private JTextField  prodTitle, type, prodId, sellPrice, costPrice, currentStock,
 	manuf,  bx1, bx2, bx3, colourbx ;
 	
-	private JPanel prodBtnsPanel, prodDetailsPanel;
+	private JPanel prodBtnsPanel, prodDetailsPanel, newProdBtnsPanel;
 
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
@@ -201,6 +203,33 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 		}
 
 		this.add(prodBtnsPanel, BorderLayout.WEST);
+		
+		
+		
+		newProdBtnsPanel = new JPanel();
+		newProdBtnsPanel.setLayout(new GridBagLayout());
+		newProdBtnsPanel.setPreferredSize(new Dimension(250, 50));
+
+		JButton[] addUserBtnsArray = { updateBtn = new JButton(""),
+				back = new JButton("Back") };
+
+		for (int i = 0; i < addUserBtnsArray.length; i++) {
+			gc.gridx = 0;
+			gc.gridy = i;
+			gc.gridwidth = 1;
+			gc.gridheight = 1;
+			gc.weighty = 0.0;
+			gc.weightx = 0.0;
+			gc.insets = new Insets(10, 0, 0, 0);
+			addUserBtnsArray[i].setPreferredSize(new Dimension(150, 40));
+			addUserBtnsArray[i].setIcon(new ImageIcon("src/resources/blueButton.png"));
+			addUserBtnsArray[i].setFont(new Font("sansserif", Font.BOLD, 16));
+			addUserBtnsArray[i].setHorizontalTextPosition(JButton.CENTER);
+			addUserBtnsArray[i].setVerticalTextPosition(JButton.CENTER);
+			addUserBtnsArray[i].addActionListener(this);
+			newProdBtnsPanel.add(addUserBtnsArray[i], gc);
+		}
+		
 		setFirst();
 	}
 	
@@ -222,6 +251,133 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 	public void setEditableOff() {
 		for (int i = 0; i < elecProdDetailBx.length; i++)
 			elecProdDetailBx[i].setEditable(false);
+	}
+	
+	public void addNew() {
+		
+
+		prodDetails.setText("Enter New Details");
+		prodDetails.setBorder(new EmptyBorder(10, 390, 0, 110));
+		updateBtn.setText("Add New Prod");
+		for (int i = 0; i < elecProdDetailBx.length; i++) {
+			prodId.setText(String.valueOf(prodOpertaion.getId()));
+			prodId.setEditable(false);
+			if (i != 2) {
+				elecProdDetailBx[i].setText("");
+				elecProdDetailBx[i].setEditable(true);
+			}
+		}
+		
+		phono.setEnabled(true);
+		console.setEnabled(true);
+		dock.setEnabled(true);
+		prodBtnsPanel.setVisible(false);
+		this.add(newProdBtnsPanel);
+	}
+
+	
+	
+	public void updateProd() {
+		updateBtn.setText("Update Product");
+		prodDetails.setText("Update Product Details");
+		prodDetails.setBorder(new EmptyBorder(10, 372, 0, 110));
+		prodBtnsPanel.setVisible(false);
+		this.add(newProdBtnsPanel);
+	}
+
+	public void updateProduct() {
+		
+
+		
+		if(phono.isSelected())
+		{		
+		ElecProduct p = new ElecProduct(
+		prodId.getText(),
+		elecProdList.getProduct(counter).getElec_id(),
+		elecProdList.getProduct(counter).getHeadphone_id(),
+		"HEADPHONES",
+		prodTitle.getText(),
+		Double.parseDouble(costPrice.getText()),
+		Double.parseDouble(sellPrice.getText()),
+		Integer.parseInt(currentStock.getText()),
+		bx3.getText(),
+		bx1.getText(),
+		bx2.getText(),
+		manuf.getText(),
+		colourbx.getText()
+		);
+		
+		elecProdList.updateProduct(p);
+		JOptionPane.showMessageDialog(null, "Headphone " + prodTitle.getText()
+				+ " Updated");
+		prodDetails.setText("Product Details");
+		}
+		else if(console.isSelected())
+		{
+
+		
+			ElecProduct p = new ElecProduct(
+			prodId.getText(),
+			elecProdList.getProduct(counter).getElec_id(),
+			elecProdList.getProduct(counter).getConsole_id(),
+			"CONSOLE",
+			prodTitle.getText(),
+			Double.parseDouble(costPrice.getText()),
+			Double.parseDouble(sellPrice.getText()),
+			Integer.parseInt(currentStock.getText()),
+			Integer.parseInt(bx1.getText()),
+			bx3.getText(),
+			Integer.parseInt(bx2.getText()),
+			manuf.getText(),
+			colourbx.getText()
+			);
+			
+			elecProdList.updateProduct(p);
+			JOptionPane.showMessageDialog(null, "Console " + prodTitle.getText()
+					+ " Updated");
+			prodDetails.setText("Product Details");
+		}
+		else if(dock.isSelected())
+		{
+			
+			ElecProduct p = new ElecProduct(
+					prodId.getText(),
+					elecProdList.getProduct(counter).getElec_id(),
+					elecProdList.getProduct(counter).getSd_id(),
+					"DOCK",
+					prodTitle.getText(),
+					Double.parseDouble(costPrice.getText()),
+					Double.parseDouble(sellPrice.getText()),
+					Integer.parseInt(currentStock.getText()),
+					bx1.getText(),
+					bx2.getText(),
+					Integer.parseInt(bx3.getText()),
+					manuf.getText(),
+					colourbx.getText()
+					);
+					
+					elecProdList.updateProduct(p);
+					JOptionPane.showMessageDialog(null, "SoundDock " + prodTitle.getText()
+							+ " Updated");
+					prodDetails.setText("Product Details");
+		}
+	}
+	public void searchProd() {
+		String prodID = JOptionPane.showInputDialog(null,
+				"Enter the Product ID: ",
+				"", JOptionPane.QUESTION_MESSAGE);
+		int index = elecProdList.findProd(prodID);
+		if (index != -1) 
+			displayProduct(elecProdList.getProd(index));
+		 else 
+			JOptionPane.showMessageDialog(null, " Product not found");
+	}
+	
+	public void deleteProd() {
+		int numberOfDeleted = elecProdList.removeProd(prodId.getText());
+		JOptionPane.showMessageDialog(null, numberOfDeleted
+				+ " Record(s) deleted.");
+		setFirst();
 	}
 	
 	public ElecProduct displayProduct(ElecProduct p) {
@@ -279,9 +435,9 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 			sellPrice.setText(Double.toString(p.getSellPrice()));
 			currentStock.setText(Integer.toString(p.getCurrent_stock()));
 			manuf.setText(p.getManufacturer());
-			bx1.setText(Integer.toString(p.getPwrOut()));
-			bx2.setText(p.getDigiRadio());
-			bx3.setText(p.getWireless());
+			bx3.setText(Integer.toString(p.getPwrOut()));
+			bx1.setText(p.getDigiRadio());
+			bx2.setText(p.getWireless());
 			colourbx.setText(p.getColour());
 			dock.setSelected(true);
 			dock.setEnabled(true);
@@ -309,6 +465,53 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 			if ((counter - 1) >= 0) {
 				counter--;
 				this.displayProduct(elecProdList.getProduct(counter));
+			}
+		}
+		else if (e.getSource().equals(back)) {
+			prodDetails.setText("Product Details");
+			prodDetails.setBorder(new EmptyBorder(10, 450, 0, 110));
+			prodBtnsPanel.setVisible(true);
+			newProdBtnsPanel.setVisible(false);
+			newProdBtnsPanel.repaint();
+			setEditableOff();
+			setFirst();
+			newProd = false;
+		} 
+		else if (e.getSource().equals(addProd)) {
+			elecProdDetailBx[0].requestFocus();
+			elecProdDetailBx[0].getCaret().setBlinkRate(600);
+			newProdBtnsPanel.setVisible(true);
+			addNew();
+			newProd = true;
+		} 
+		else if (e.getSource().equals(updateProd)) {
+			elecProdDetailBx[0].requestFocus();
+			elecProdDetailBx[0].getCaret().setBlinkRate(600);
+			newProdBtnsPanel.setVisible(true);
+			setEditableOn();
+			updateProd();
+		} 
+		else if (e.getSource().equals(updateBtn)
+				&& updateBtn.getText().equals("Update Product")) {
+			updateProduct();
+			prodBtnsPanel.setVisible(true);
+			newProdBtnsPanel.setVisible(false);
+			prodBtnsPanel.repaint();
+			setEditableOff();
+		}  
+		
+		else if (e.getSource().equals(searchProd)) {
+			searchProd();
+		}
+		else if (e.getSource().equals(removeProd)) {
+			int dialogButton = JOptionPane.YES_NO_OPTION;
+			int dialogResult = JOptionPane.showConfirmDialog(null,
+					"Are you sure you want to remove\n" + "        "
+					+ prodTitle.getText() + " from the system",
+					"Warning", dialogButton);
+			if (dialogResult == JOptionPane.YES_OPTION) {
+				deleteProd();
+				setFirst();
 			}
 		}
 	}
