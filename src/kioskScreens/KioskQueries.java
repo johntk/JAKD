@@ -10,10 +10,10 @@ public class KioskQueries
 	private Connection conn;
 	private Statement stmt;
 	private ResultSet rset;
-	
+
 	public void queryAllProducts(String sTerm,KioskResultsScreen krs)
 	{
-		
+
 		String description;
 		String productThumb;
 		String prodID;
@@ -37,6 +37,8 @@ public class KioskQueries
 				krs.addResult(productThumb, description, y, salePrice, prodID);
 				y++;
 			}
+			if (rset != null) rset.close();
+			if (stmt != null) stmt.close();
 		} catch (Exception ex)
 		{
 			System.out.println("ERROR: " + ex.getMessage());
@@ -45,7 +47,7 @@ public class KioskQueries
 
 	public void queryAllCategories(String productType,KioskResultsScreen krs)
 	{
-		
+
 		String description;
 		String productThumb;
 		String prodID;
@@ -69,6 +71,8 @@ public class KioskQueries
 				krs.addResult(productThumb, description, y, salePrice, prodID);
 				y++;
 			}
+			if (rset != null) rset.close();
+			if (stmt != null) stmt.close();
 		} catch (Exception ex)
 		{
 			System.out.println("ERROR: " + ex.getMessage());
@@ -88,6 +92,8 @@ public class KioskQueries
 				description = rset.getString("description");
 				consoleList.add(description);
 			}
+			if (rset != null) rset.close();
+			if (stmt != null) stmt.close();
 		} catch (Exception ex)
 		{
 			System.out.println("ERROR: " + ex.getMessage());
@@ -113,6 +119,8 @@ public class KioskQueries
 				krs.addResult(rset.getString("description")+".jpg", description, y, salePrice, prodID);
 				y++;
 			}
+			if (rset != null) rset.close();
+			if (stmt != null) stmt.close();
 		} catch (Exception ex)
 		{
 			System.out.println("queryGames ERROR: " + ex.getMessage());
@@ -220,7 +228,7 @@ public class KioskQueries
 						"and dp.dig_id = c.dig_id "+
 						"and s.cd_id = c.cd_id "+
 						"and p.prod_id = '"+prodID+"'";
-						rset = stmt.executeQuery(sqlStatement);
+				rset = stmt.executeQuery(sqlStatement);
 				while (rset.next())
 				{
 					songID = rset.getString("song_id");
@@ -384,11 +392,18 @@ public class KioskQueries
 				System.out.println("ERROR: " + ex.getMessage());
 			}
 		}
+		try {
+			if (rset != null) rset.close();
+			if (stmt != null) stmt.close();
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
-	
+
 	public void queryDeals(int priceThreshold,KioskResultsScreen krs)
 	{
-		
+
 		String description;
 		String productThumb;
 		String prodID;
@@ -412,12 +427,14 @@ public class KioskQueries
 				krs.addResult(productThumb, description, y, salePrice, prodID);
 				y++;
 			}
+			if (rset != null) rset.close();
+			if (stmt != null) stmt.close();
 		} catch (Exception ex)
 		{
 			System.out.println("ERROR: " + ex.getMessage());
 		}
 	}
-	
+
 	public Boolean getStaffPin(String pin)
 	{
 		Boolean authenticate = false;
@@ -425,7 +442,7 @@ public class KioskQueries
 			stmt = conn.createStatement();
 			String sqlStatement = "SELECT pin_num FROM EMPLOYEE";
 			rset = stmt.executeQuery(sqlStatement);
-			
+
 			while(rset.next())
 			{
 				if(pin.equals(rset.getString("pin_num")))
@@ -433,13 +450,15 @@ public class KioskQueries
 					authenticate = true;
 				}
 			}
+			if (rset != null) rset.close();
+			if (stmt != null) stmt.close();
 		} catch (Exception ex)
 		{
 			System.out.println("ERROR: " + ex.getMessage());
 		}
 		return authenticate;
 	}
-	
+
 	public void setDBconnection(Connection conn)
 	{
 		this.conn = conn;
