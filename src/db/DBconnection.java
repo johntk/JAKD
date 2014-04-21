@@ -15,7 +15,6 @@ public class DBconnection
 {
 	private Connection conn;
 	private Statement stmt;
-	private ResultSet rset;
 	private JLabel n,p;
 	private JTextField name;
 	private JPasswordField pswd;
@@ -101,7 +100,6 @@ public class DBconnection
 		try
 		{
 			if (stmt != null) stmt.close();
-			if (rset != null) rset.close();
 			if (conn != null) conn.close();
 			System.out.println("Connection closed");
 		} catch (SQLException e)
