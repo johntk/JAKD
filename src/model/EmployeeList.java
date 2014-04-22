@@ -66,12 +66,14 @@ public class EmployeeList {
 		return elist.size();
 	}
 
-	public int removeEmployee(String name) {
+	public int removeEmployee(int id) {
 		int num = 0;
+		
 		for (int i = 0; i < elist.size(); i++) {
-			if (name.equals(elist.get(i).getfName())) {
+			
+			if (id == elist.get(i).getEmpID()) {
 				elist.remove(i);
-				ao.deleteContact(name);
+				ao.deleteContact(id);
 				num++;
 			}
 		}

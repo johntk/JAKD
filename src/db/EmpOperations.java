@@ -76,7 +76,7 @@ public class EmpOperations {
 
 			rset.last();
 			nextVal = rset.getInt(1);
-			System.out.println("e");
+			
 			/*String sql2 = "Select empId_seq.nextVal from  Employee";
 			pstmt = conn.prepareStatement(sql2,
 					ResultSet.TYPE_SCROLL_INSENSITIVE,
@@ -95,10 +95,10 @@ public class EmpOperations {
 		return nextVal + 1;
 	}
 
-	public int deleteContact(String n) {
+	public int deleteContact(int n) {
 		int no = 0;
 		try {
-			String cmd = "DELETE FROM Employee WHERE f_name =" + "'" + n + "'";
+			String cmd = "DELETE FROM Employee WHERE emp_id =" + "'" + n + "'";
 			stmt = conn.createStatement();
 			no = stmt.executeUpdate(cmd);
 		} catch (Exception e) {
@@ -107,7 +107,7 @@ public class EmpOperations {
 		return no;
 
 	}
-//
+
 	public void updateEmployee(Employee e) {
 		try {
 

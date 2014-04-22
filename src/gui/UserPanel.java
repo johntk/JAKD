@@ -250,23 +250,36 @@ public class UserPanel extends JPanel implements ActionListener {
 	}
 
 	public void deleteContact() {
-		int numberOfDeleted = employeeList.removeEmployee(forenameBx.getText());
+		int numberOfDeleted = employeeList.removeEmployee(Integer.parseInt(staffIDBx.getText()));
 		JOptionPane.showMessageDialog(null, numberOfDeleted
 				+ " Record(s) deleted.");
 		setFirst();
 	}
 
 	public Employee newEmployee() {
-		Employee e = new Employee(Integer.parseInt(staffIDBx.getText()),
+		
+		Employee ep =null;
+		
+		
+		 ep = new Employee(Integer.parseInt(staffIDBx.getText()),
 				forenameBx.getText(), surenamebx.getText(), line1Bx.getText(),
 				line2Bx.getText(), Line3Bx.getText(), line2Bx.getText(),
 				PPSBx.getText(), Integer.parseInt(pinBx.getText()),
 				manager.getText());
-
-		return e;
+		
+		
+		return ep;
 	}
 
 	public void updateEmployee() {
+		
+		if(manager.getText() != "Y" || manager.getText() != "N")
+		{
+			JOptionPane.showMessageDialog(null, "Mamager field must be upper case Y for yes\n or upper case N for no");
+			manager.setText("");
+		}
+		else
+		{
 		Employee e = new Employee(Integer.parseInt(staffIDBx.getText()),
 				forenameBx.getText(), surenamebx.getText(), line1Bx.getText(),
 				line2Bx.getText(), Line3Bx.getText(), line2Bx.getText(),
@@ -276,6 +289,7 @@ public class UserPanel extends JPanel implements ActionListener {
 		JOptionPane.showMessageDialog(null, "Employee " + forenameBx.getText()
 				+ " Updated");
 		userDetails.setText("User Details");
+		}
 	}
 
 	public void searchEmployee() {
@@ -329,16 +343,24 @@ public class UserPanel extends JPanel implements ActionListener {
 		} 
 		else if (e.getSource().equals(updateBtn)
 				&& updateBtn.getText().equals("Add New User")) {
+			try
+			{
+				adminOperations.addEmployee(newEmployee());
+				employeeList.addContact();
+				employeeList.refreshList();
+				editUserBtnsPanel.setVisible(true);
+				editNewUserBtnsPanel.setVisible(false);
+				JOptionPane.showMessageDialog(null, forenameBx.getText() + " Saved");
+				editUserBtnsPanel.setVisible(true);
+				setEditableOff();
+				setFirst();
+				
+			}
+			catch(NumberFormatException ea)
+			{
+				JOptionPane.showMessageDialog(null, "The pin field must contain only numbers");
+			}
 			
-			adminOperations.addEmployee(newEmployee());
-			employeeList.addContact();
-			employeeList.refreshList();
-			editUserBtnsPanel.setVisible(true);
-			JOptionPane.showMessageDialog(null, forenameBx.getText() + " Saved");
-			editUserBtnsPanel.setVisible(true);
-			setEditableOff();
-			setFirst();
-			editNewUserBtnsPanel.setVisible(false);
 		} 
 		else if (e.getSource().equals(back)) {
 			userDetails.setText("User Details");
@@ -362,6 +384,7 @@ public class UserPanel extends JPanel implements ActionListener {
 		else if (e.getSource().equals(updateBtn)
 				&& updateBtn.getText().equals("Update User")) {
 			updateEmployee();
+			editNewUserBtnsPanel.setVisible(false);
 			editUserBtnsPanel.setVisible(true);
 			setEditableOff();
 		}  
