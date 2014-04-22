@@ -35,7 +35,7 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 	private Border border = BorderFactory.createCompoundBorder(space, line);
 
 	private ImageIcon close;
-	private Color  cl2;
+	private Color  cl2, cl3;
 
 	private JRadioButton phono = new JRadioButton("Headphones");
 	private JRadioButton console = new JRadioButton("Console");
@@ -53,12 +53,12 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 			bx2 = new JTextField(), bx3 = new JTextField(), colourbx = new JTextField()
 			 };
 	
-	JLabel[] elecProdDetailLb = { titleLB = new JLabel(" Product title"),
-			typeLB = new JLabel(" Type"),  idLB = new JLabel(" Product ID"),
-			cPriceLB = new JLabel(" Cost price"), sPriceLB = new JLabel(" Selling price"),
-			stockLB = new JLabel(" Current stock"), label1 = new JLabel(" Over Ear"),
-			manufLB = new JLabel(" Manufacturer"),
-			label2 = new JLabel(" Mic"), label3 = new JLabel(" iPhone Ready"), colour = new JLabel(" Colour") };
+	JLabel[] elecProdDetailLb = { titleLB = new JLabel(" Product title:"),
+			typeLB = new JLabel(" Type:"),  idLB = new JLabel(" Product ID:"),
+			cPriceLB = new JLabel(" Cost price:"), sPriceLB = new JLabel(" Selling price:"),
+			stockLB = new JLabel(" Current stock:"), label1 = new JLabel(" Over Ear:"),
+			manufLB = new JLabel(" Manufacturer:"),
+			label2 = new JLabel(" Mic:"), label3 = new JLabel(" iPhone Ready:"), colour = new JLabel(" Colour:") };
 	
 	private ProdOperations prodOpertaion;
 	private ElecProdList  elecProdList;
@@ -71,6 +71,7 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 		this.elecProdList = pl;
 		this.prodOpertaion = po;
 		cl2 = new Color(75,255,250);
+		cl3 = new Color(255,230,0);
 		prodDetails = new JLabel("Electric Product");
 		
 
@@ -151,7 +152,14 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 				gc.weightx = 10.0;
 				gc.gridwidth = 3;
 				elecProdDetailBx[i].setPreferredSize(new Dimension(300, 30));
-				elecProdDetailBx[i].setBackground(cl2);
+				if(elecProdDetailLb[i].getText().equals(" Product ID:"))
+				{
+					elecProdDetailBx[i].setBackground(cl3);
+				}
+				else
+				{
+					elecProdDetailBx[i].setBackground(cl2);
+				}
 				prodDetailsPanel.add(elecProdDetailBx[i], gc);
 			}	
 		}
@@ -244,7 +252,7 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 	
 	public void setEditableOn() {
 		for (int i = 0; i < elecProdDetailBx.length; i++)
-			if (elecProdDetailLb[i].getText() !=" Product ID")
+			if (elecProdDetailLb[i].getText() !=" Product ID:")
 				elecProdDetailBx[i].setEditable(true);
 	}
 
@@ -281,26 +289,39 @@ public ElecProduct newProduct() {
 		ElecProduct p =null;
 		if(phono.isSelected())
 		{
-					
-			p = new ElecProduct(prodId.getText(),
-					"",
-					"",
-					"HEADPHONES",
-					prodTitle.getText(),
-					Double.parseDouble(costPrice.getText()),
-					Double.parseDouble(sellPrice.getText()),
-					Integer.parseInt(currentStock.getText()),
-					bx3.getText(),
-					bx1.getText(),
-					bx2.getText(),
-					manuf.getText(),
-					colourbx.getText()
-			);
+			if(bx1.getText().equals("Y") ||  bx1.getText().equals("N"))
+			{
+				if(bx2.getText().equals("Y") ||  bx2.getText().equals("N") )
+				{
+					if(bx3.getText().equals("Y") ||  bx3.getText().equals("N" ))
+					{
+						p = new ElecProduct(prodId.getText(),
+								"",
+								"",
+								"HEADPHONES",
+								prodTitle.getText(),
+								Double.parseDouble(costPrice.getText()),
+								Double.parseDouble(sellPrice.getText()),
+								Integer.parseInt(currentStock.getText()),
+								bx3.getText(),
+								bx1.getText(),
+								bx2.getText(),
+								manuf.getText(),
+								colourbx.getText()
+								);
+					}
+				}
+			}
+			else
+			{
+				
+			
+		}
 		}
 		else if(console.isSelected())
 		{
-			
-			
+			if(bx3.getText().equals("Y") ||  bx3.getText().equals("N"))
+			{
 			p = new ElecProduct(prodId.getText(),
 					"",
 					"",
@@ -315,10 +336,18 @@ public ElecProduct newProduct() {
 					manuf.getText(),
 					colourbx.getText()
 					);
+			}
+			else
+			{
+				
+			}
 		}
 		else if(dock.isSelected())
 		{
-			
+			if(bx1.getText().equals("Y") ||  bx1.getText().equals("N"))
+			{
+				if(bx2.getText().equals("Y") ||  bx2.getText().equals("N") )
+				{
 			p = new ElecProduct(prodId.getText(),
 					"",
 					"",
@@ -333,6 +362,12 @@ public ElecProduct newProduct() {
 					manuf.getText(),
 					colourbx.getText()
 					);
+				}
+			}
+			else
+			{
+				
+			}
 		}
 		return p;
 	}
@@ -446,9 +481,9 @@ public ElecProduct newProduct() {
 		if(p.getProd_type().equals("CONSOLE"))
 		{
 			
-			label1.setText(" Storage Size");
-			label2.setText(" Controllers");
-			label3.setText(" Wifi");
+			label1.setText(" Storage Size:");
+			label2.setText(" Controllers:");
+			label3.setText(" Wifi:");
 			prodId.setText(p.getProd_id());
 			prodTitle.setText(p.getModel());
 			costPrice.setText(Double.toString(p.getCostPrice()));
@@ -466,18 +501,18 @@ public ElecProduct newProduct() {
 		}
 		else if(p.getProd_type().equals("HEADPHONES"))
 		{
-			label1.setText(" iPhone Comp");
-			label2.setText(" Mic");
-			label3.setText(" Over Ear");
+			label1.setText(" iPhone Comp:");
+			label2.setText(" Mic:");
+			label3.setText(" Over Ear:");
 			prodId.setText(p.getProd_id());
 			prodTitle.setText(p.getModel());
 			costPrice.setText(Double.toString(p.getCostPrice()));
 			sellPrice.setText(Double.toString(p.getSellPrice()));
 			currentStock.setText(Integer.toString(p.getCurrent_stock()));
 			manuf.setText(p.getManufacturer());
-			bx1.setText(p.getIphoneComp());
-			bx2.setText(p.getMic());
-			bx3.setText(p.getOverEar());
+			bx2.setText(p.getIphoneComp());
+			bx3.setText(p.getMic());
+			bx1.setText(p.getOverEar());
 			colourbx.setText(p.getColour());
 			phono.setSelected(true);
 			dock.setEnabled(false);
@@ -486,9 +521,9 @@ public ElecProduct newProduct() {
 		}
 		else if(p.getProd_type().equals("SOUNDDOCK"))
 		{
-			label1.setText(" Digi Radio");
-			label2.setText(" Wireless");
-			label3.setText(" Pwr Output");
+			label1.setText(" Digi Radio:");
+			label2.setText(" Wireless:");
+			label3.setText(" Pwr Output:");
 			prodId.setText(p.getProd_id());
 			prodTitle.setText(p.getModel());
 			costPrice.setText(Double.toString(p.getCostPrice()));
@@ -529,16 +564,31 @@ public ElecProduct newProduct() {
 		}
 		else if (e.getSource().equals(updateBtn)
 				&& updateBtn.getText().equals("Add New Prod")) {
-			
-			prodOpertaion.addNewProd(newProduct());
-			elecProdList.addProduct();
-			prodBtnsPanel.setVisible(true);
-			newProdBtnsPanel.setVisible(false);
-			JOptionPane.showMessageDialog(null, prodTitle.getText() + " Saved");
-			prodBtnsPanel.setVisible(true);
-			setEditableOff();
-			setFirst();
-			newProd = false;
+			try
+			{
+				if(newProduct() != null)
+				{
+				prodOpertaion.addNewProd(newProduct());
+				elecProdList.addProduct();
+				prodBtnsPanel.setVisible(true);
+				newProdBtnsPanel.setVisible(false);
+				JOptionPane.showMessageDialog(null, prodTitle.getText() + " Saved");
+				prodBtnsPanel.setVisible(true);
+				setEditableOff();
+				setFirst();
+				newProd = false;
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "iPhone Comp:\nMic:\nOver Ear:\nUpper case Y for yes.\nUpper case N for no.");
+				}
+			}
+			catch(NumberFormatException ex)
+			{
+				JOptionPane.showMessageDialog(null, "Cost price:\nSelling price:\nCurrent stock:\nControllers:"
+						+ "\nStorage size:\nPwr Output:\n Must contain numbers."  );
+			}
+		
 			
 		} 
 		else if (e.getSource().equals(back)) {

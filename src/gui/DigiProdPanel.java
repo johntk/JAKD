@@ -39,7 +39,8 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	private Border border = BorderFactory.createCompoundBorder(space, line);
 
 	private ImageIcon close;
-	private Color  cl2;
+	private Color  cl2, cl3;
+	
 	
 	private String prodType;
 	private JCheckBox cdCB =  new JCheckBox();
@@ -59,11 +60,11 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 			bx4 = new JTextField(), bx1 = new JTextField(), bx2 = new JTextField()
 			 };
 	//Remove label name when finished
-	JLabel[] digiProdDetailLb = { titleLB = new JLabel(" Product title"),
-			typeLB = new JLabel(" Type"), detailsLB = new JLabel(" Songs"), idLB = new JLabel(" Product ID"),
-			cPriceLB = new JLabel(" Cost price"), sPriceLB = new JLabel(" Selling price"),
-			stockLB = new JLabel(" Current stock"), label1 = new JLabel(" Age Rating"),
-			label2 = new JLabel(" Genre"), label3 = new JLabel(" Publisher"), label4 = new JLabel(" length") };
+	JLabel[] digiProdDetailLb = { titleLB = new JLabel(" Product title:"),
+			typeLB = new JLabel(" Type:"), detailsLB = new JLabel(" Songs:"), idLB = new JLabel(" Product ID:"),
+			cPriceLB = new JLabel(" Cost price:"), sPriceLB = new JLabel(" Selling price:"),
+			stockLB = new JLabel(" Current stock:"), label1 = new JLabel(" Age Rating:"),
+			label2 = new JLabel(" Genre:"), label3 = new JLabel(" Publisher:"), label4 = new JLabel(" length:") };
 	
 	private ProdOperations prodOpertaion;
 	private DigiProductList  digiProductList;
@@ -78,6 +79,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		this.digiProductList = pl;
 		this.prodOpertaion = po;
 		cl2 = new Color(75,255,250);
+		cl3 = new Color(255,230,0);
 		
 		prodDetails = new JLabel("Digital Product");
 		
@@ -176,7 +178,15 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 				gc.weightx = 10.0;
 				gc.gridwidth = 3;
 				digiProdDetailBx[i].setPreferredSize(new Dimension(300, 30));
-				digiProdDetailBx[i].setBackground(cl2);
+				if(digiProdDetailLb[i].getText().equals(" Product ID:"))
+				{
+					digiProdDetailBx[i].setBackground(cl3);
+				}
+				else
+				{
+					digiProdDetailBx[i].setBackground(cl2);
+				}
+				
 				prodDetailsPanel.add(digiProdDetailBx[i], gc);
 			}
 			
@@ -269,7 +279,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	
 	public void setEditableOn() {
 		for (int i = 0; i < digiProdDetailBx.length; i++)
-			if (digiProdDetailLb[i].getText() !=" Product ID")
+			if (digiProdDetailLb[i].getText() !=" Product ID:")
 			{
 				digiProdDetailBx[i].setEditable(true);
 			}
