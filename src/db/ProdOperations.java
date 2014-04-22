@@ -572,7 +572,124 @@ public class ProdOperations {
 		}
 	}
 	
+	public void addNewProd(ElecProduct p) {
+		try {
+			
+			if(p.getProd_type().equals("HEADPHONES"))
+			{
+			
+				String queryString1 = "INSERT INTO Product (prod_id, prod_type, current_stock) "
+						+ "VALUES ('P'||to_char(prod_seq.nextVal,'FM0000000'),?,?) ";
+				
+				pstmt = conn.prepareStatement(queryString1);
+				
+				pstmt.setString(1, p.getProd_type());
+				pstmt.setInt(2, p.getCurrent_stock());
+				pstmt.executeUpdate();
+				
+				
+				String queryString3 = "INSERT INTO electronic (elec_id, manufacturer, model, colour, prod_id) "
+						+ "VALUES ('E'||to_char(elec_seq.nextVal,'FM0000000'),?,?,?,'P'||to_char(prod_seq.currVal,'FM0000000')) ";
 	
+				pstmt = conn.prepareStatement(queryString3);
+				pstmt.setString(1, p.getManufacturer());
+				pstmt.setString(2, p.getModel());
+				pstmt.setString(3, p.getColour());
+				pstmt.executeUpdate();
+				
+				
+				String queryString2 = "INSERT INTO HEADPHONES (HEADPHONE_id, over_ear, headphone_cost_price, headphone_sale_price, "
+						+" microphone, iphone_compatible, elec_id) "
+						+ "VALUES ('H'||to_char(HEADPHONES_seq.nextVal,'FM0000000'),?,?,?,?,?,'E'||to_char(elec_seq.currVal,'FM0000000')) ";
+				
+				pstmt = conn.prepareStatement(queryString2);
+				pstmt.setString(1, p.getOverEar());
+				pstmt.setDouble(2, p.getCostPrice());
+				pstmt.setDouble(3, p.getSellPrice());
+				pstmt.setString(4, p.getMic());
+				pstmt.setString(5, p.getIphoneComp());
+				pstmt.executeUpdate();
+			
+			
+			
+			}
+			else if(p.getProd_type().equals("CONSOLE"))
+			{
+				String queryString1 = "INSERT INTO Product (prod_id, prod_type, current_stock) "
+						+ "VALUES ('P'||to_char(prod_seq.nextVal,'FM0000000'),?,?) ";
+				
+				pstmt = conn.prepareStatement(queryString1);
+				
+				pstmt.setString(1, p.getProd_type());
+				pstmt.setInt(2, p.getCurrent_stock());
+				pstmt.executeUpdate();
+				
+				
+				String queryString3 = "INSERT INTO electronic (elec_id, manufacturer, model, colour, prod_id) "
+						+ "VALUES ('E'||to_char(elec_seq.nextVal,'FM0000000'),?,?,?,'P'||to_char(prod_seq.currVal,'FM0000000')) ";
+
+				pstmt = conn.prepareStatement(queryString3);
+				pstmt.setString(1, p.getManufacturer());
+				pstmt.setString(2, p.getModel());
+				pstmt.setString(3, p.getColour());
+				pstmt.executeUpdate();
+				
+				
+				String queryString2 = "INSERT INTO CONSOLE (CONSOLE_id, storage_size, CONSOLE_cost_price, CONSOLE_sale_price, "
+						+" wifi, num_controllers, elec_id) "
+						+ "VALUES ('L'||to_char(CONSOLE_seq.nextVal,'FM0000000'),?,?,?,?,?,'E'||to_char(elec_seq.currVal,'FM0000000')) ";
+				
+				pstmt = conn.prepareStatement(queryString2);
+				pstmt.setString(1, p.getOverEar());
+				pstmt.setDouble(2, p.getCostPrice());
+				pstmt.setDouble(3, p.getSellPrice());
+				pstmt.setString(4, p.getMic());
+				pstmt.setString(5, p.getIphoneComp());
+				pstmt.executeUpdate();
+				
+				
+			}
+			else if(p.getProd_type().equals("SOUNDDOCK"))
+			{
+				String queryString1 = "INSERT INTO Product (prod_id, prod_type, current_stock) "
+						+ "VALUES ('P'||to_char(prod_seq.nextVal,'FM0000000'),?,?) ";
+				
+				pstmt = conn.prepareStatement(queryString1);
+				
+				pstmt.setString(1, p.getProd_type());
+				pstmt.setInt(2, p.getCurrent_stock());
+				pstmt.executeUpdate();
+				
+				
+				String queryString3 = "INSERT INTO electronic (elec_id, manufacturer, model, colour, prod_id) "
+						+ "VALUES ('E'||to_char(elec_seq.nextVal,'FM0000000'),?,?,?,'P'||to_char(prod_seq.currVal,'FM0000000')) ";
+
+				pstmt = conn.prepareStatement(queryString3);
+				pstmt.setString(1, p.getManufacturer());
+				pstmt.setString(2, p.getModel());
+				pstmt.setString(3, p.getColour());
+				pstmt.executeUpdate();
+				
+				
+				String queryString2 = "INSERT INTO SOUND_DOCK (sd_id, WIRELESS, sd_cost_price, sd_SALE_PRICE, "
+						+" POWER_OUPUT, DIGITAL_RADIO, elec_id) "
+						+ "VALUES ('S'||to_char(SOUND_DOCK_seq.nextVal,'FM0000000'),?,?,?,?,?,'E'||to_char(elec_seq.currVal,'FM0000000')) ";
+				
+				pstmt = conn.prepareStatement(queryString2);
+				pstmt.setString(1, p.getWireless());
+				pstmt.setDouble(2, p.getCostPrice());
+				pstmt.setDouble(3, p.getSellPrice());
+				pstmt.setInt(4, p.getPwrOut());
+				pstmt.setString(5, p.getDigiRadio());
+				pstmt.executeUpdate();
+				
+				
+			}
+			
+		} catch (Exception se) {
+			System.out.println(se);
+		}
+	}
 	public void addAlbum(DigiProduct p)
 	{
 		
@@ -612,6 +729,27 @@ public class ProdOperations {
 		}
 		return no;
 
+	}
+	
+	
+	public ResultSet getLastRow() {
+		String queryString = "SELECT* "
+				+"FROM product "
+				+"ORDER BY prod_id";
+		
+		
+		try {
+			pstmt = conn.prepareStatement(queryString,
+					ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
+			rset = pstmt.executeQuery();
+			rset.last();
+			
+		} catch (Exception ex) {
+			System.out.println("ERROR: " + ex.getMessage());
+		}
+
+		return rset;
 	}
 	
 	public ResultSet getLastRowCD() {
@@ -707,4 +845,70 @@ public class ProdOperations {
 		
 		
 	}
+	
+	public ResultSet getLastRowHeadphone() {
+		String queryString = "SELECT p.prod_id, e.elec_id, hp.headphone_id, p.prod_type, e.model,  hp.headphone_cost_price, hp.headphone_sale_price, "
+				+ " p.current_stock, hp.microphone, hp.over_ear, hp.iphone_compatible, e.manufacturer,  e.colour "
+				+"from product p, electronic e, headphones hp "
+				+"where e.prod_id = p.prod_id  "
+				+"and e.elec_id = hp.elec_id ";
+		
+		
+		try {
+			pstmt = conn.prepareStatement(queryString,
+					ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
+			rset = pstmt.executeQuery();
+			rset.last();
+			
+		} catch (Exception ex) {
+			System.out.println("ERROR: " + ex.getMessage());
+		}
+
+		return rset;
+	}
+		public ResultSet getLastRowConsole() {
+			String queryString = "SELECT p.prod_id, e.elec_id, console_id, p.prod_type, e.model,  c.console_cost_price, c.console_sale_price, "
+					+ " p.current_stock, c.storage_size, c.wifi, c.num_controllers, e.manufacturer,  e.colour "
+					+"from product p, electronic e, console c "
+					+"where e.prod_id = p.prod_id  "
+					+"and e.elec_id = c.elec_id ";
+			
+			
+			try {
+				pstmt = conn.prepareStatement(queryString,
+						ResultSet.TYPE_SCROLL_INSENSITIVE,
+						ResultSet.CONCUR_READ_ONLY);
+				rset = pstmt.executeQuery();
+				rset.last();
+				
+			} catch (Exception ex) {
+				System.out.println("ERROR: " + ex.getMessage());
+			}
+
+			return rset;
+		}
+		
+		public ResultSet getLastRowSounddock() {
+			String queryString = "SELECT p.prod_id, e.elec_id, sd_id, p.prod_type, e.model,  sd.sd_cost_price, sd.sd_sale_price, "
+					+ " p.current_stock, sd.digital_radio, sd.wireless, sd.power_ouput,  e.manufacturer,  e.colour "
+					+"from product p, electronic e, sound_dock sd "
+					+"where e.prod_id = p.prod_id  "
+					+"and e.elec_id = sd.elec_id ";
+			
+			
+			try {
+				pstmt = conn.prepareStatement(queryString,
+						ResultSet.TYPE_SCROLL_INSENSITIVE,
+						ResultSet.CONCUR_READ_ONLY);
+				rset = pstmt.executeQuery();
+				rset.last();
+				
+			} catch (Exception ex) {
+				System.out.println("ERROR: " + ex.getMessage());
+			}
+
+			return rset;
+		}
+	
 }

@@ -11,7 +11,7 @@ public class ElecProdList {
 	private ArrayList<ElecProduct> plist;
 	private ProdOperations po;
 	private ResultSet rset;
-	
+	private ResultSet rset2;
 	
 	public ElecProdList(ProdOperations po)
 	{
@@ -125,7 +125,78 @@ public class ElecProdList {
 		}	
 	}
 	
+	public void addProduct() {
+		
+		rset2 = po.getLastRow();
+		
+		try {
+			
+			if(rset2.getString(1).equals("HEADPHONES"))
+			{
+			
+			rset = po.getLastRowHeadphone();
+			
+			
+			ElecProduct p = new ElecProduct(rset.getString(1), 
+						rset.getString(2),
+						rset.getString(3),
+						rset.getString(4), 
+						rset.getString(5),
+						rset.getDouble(6), 
+						rset.getDouble(7), 
+						rset.getInt(8),
+						rset.getString(9),
+						rset.getString(10),
+						rset.getString(11), 
+						rset.getString(12),
+						rset.getString(13));
+				plist.add(p);
+
+			}
+			else if(rset2.getString(1).equals("CONSOLE"))
+			{
+				
+				rset = po.getLastRowConsole();
+				ElecProduct p = new ElecProduct(rset.getString(1), 
+						rset.getString(2),
+						rset.getString(3),
+						rset.getString(4), 
+						rset.getString(5),
+						rset.getDouble(6), 
+						rset.getDouble(7), 
+						rset.getInt(8),
+						rset.getInt(9),
+						rset.getString(10),
+						rset.getInt(11), 
+						rset.getString(12),
+						rset.getString(13));
+				plist.add(p);
+			}
+			else if(rset2.getString(1).equals("SOUND_DOCK"))
+			{
 	
+				
+				rset = po.getLastRowSounddock();
+				ElecProduct p = new ElecProduct(rset.getString(1), 
+						rset.getString(2),
+						rset.getString(3),
+						rset.getString(4), 
+						rset.getString(5),
+						rset.getDouble(6), 
+						rset.getDouble(7), 
+						rset.getInt(8),
+						rset.getString(9),
+						rset.getString(10),
+						rset.getInt(11), 
+						rset.getString(12),
+						rset.getString(13));
+				plist.add(p);
+			}
+		} catch (Exception ex) {
+			System.out.println(ex);
+		}
+		
+	}
 	public void updateProduct(ElecProduct p) {
 		
 		for (int i = 0; i < plist.size(); i++) {
@@ -173,8 +244,6 @@ public class ElecProdList {
 			else if(plist.get(i).getProd_id().equals(p.getProd_id()))
 			{
 				
-//				public ElecProduct(String prod_id, String elec_id, String sd_id, String prod_type, String model, double costPrice, double sellPrice, 
-//				int current_stock, String digiRadio, String wireless, int pwrOut, String manufacturer, String colour)
 				plist.get(i).setModel(p.getModel());
 				plist.get(i).setProd_id(p.getProd_id());
 				plist.get(i).setElec_id(p.getElec_id());

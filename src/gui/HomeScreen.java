@@ -364,10 +364,6 @@ public class HomeScreen extends JFrame implements ActionListener{
 		}
 	}
 	
-
-	
-
-	
 	public void logIn()
 	{
 		

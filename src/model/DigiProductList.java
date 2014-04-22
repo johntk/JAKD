@@ -196,7 +196,7 @@ public class DigiProductList {
 	
 	public void addProduct() {
 	
-		rset2 = po.getLastRowCD();
+		rset2 = po.getLastRow();
 		
 		
 		try {

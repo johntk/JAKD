@@ -275,7 +275,67 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 		this.add(newProdBtnsPanel);
 	}
 
+public ElecProduct newProduct() {
+		
 	
+		ElecProduct p =null;
+		if(phono.isSelected())
+		{
+					
+			p = new ElecProduct(prodId.getText(),
+					"",
+					"",
+					"HEADPHONES",
+					prodTitle.getText(),
+					Double.parseDouble(costPrice.getText()),
+					Double.parseDouble(sellPrice.getText()),
+					Integer.parseInt(currentStock.getText()),
+					bx3.getText(),
+					bx1.getText(),
+					bx2.getText(),
+					manuf.getText(),
+					colourbx.getText()
+			);
+		}
+		else if(console.isSelected())
+		{
+			
+			
+			p = new ElecProduct(prodId.getText(),
+					"",
+					"",
+					"CONSOLE",
+					prodTitle.getText(),
+					Double.parseDouble(costPrice.getText()),
+					Double.parseDouble(sellPrice.getText()),
+					Integer.parseInt(currentStock.getText()),
+					Integer.parseInt(bx1.getText()),
+					bx3.getText(),
+					Integer.parseInt(bx2.getText()),
+					manuf.getText(),
+					colourbx.getText()
+					);
+		}
+		else if(dock.isSelected())
+		{
+			
+			p = new ElecProduct(prodId.getText(),
+					"",
+					"",
+					"SOUNDDOCK",
+					prodTitle.getText(),
+					Double.parseDouble(costPrice.getText()),
+					Double.parseDouble(sellPrice.getText()),
+					Integer.parseInt(currentStock.getText()),
+					bx1.getText(),
+					bx2.getText(),
+					Integer.parseInt(bx3.getText()),
+					manuf.getText(),
+					colourbx.getText()
+					);
+		}
+		return p;
+	}
 	
 	public void updateProd() {
 		updateBtn.setText("Update Product");
@@ -291,20 +351,20 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 		
 		if(phono.isSelected())
 		{		
-		ElecProduct p = new ElecProduct(
-		prodId.getText(),
-		elecProdList.getProduct(counter).getElec_id(),
-		elecProdList.getProduct(counter).getHeadphone_id(),
-		"HEADPHONES",
-		prodTitle.getText(),
-		Double.parseDouble(costPrice.getText()),
-		Double.parseDouble(sellPrice.getText()),
-		Integer.parseInt(currentStock.getText()),
-		bx3.getText(),
-		bx1.getText(),
-		bx2.getText(),
-		manuf.getText(),
-		colourbx.getText()
+			ElecProduct p = new ElecProduct(
+			prodId.getText(),
+			elecProdList.getProduct(counter).getElec_id(),
+			elecProdList.getProduct(counter).getHeadphone_id(),
+			"HEADPHONES",
+			prodTitle.getText(),
+			Double.parseDouble(costPrice.getText()),
+			Double.parseDouble(sellPrice.getText()),
+			Integer.parseInt(currentStock.getText()),
+			bx3.getText(),
+			bx1.getText(),
+			bx2.getText(),
+			manuf.getText(),
+			colourbx.getText()
 		);
 		
 		elecProdList.updateProduct(p);
@@ -341,25 +401,25 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 		{
 			
 			ElecProduct p = new ElecProduct(
-					prodId.getText(),
-					elecProdList.getProduct(counter).getElec_id(),
-					elecProdList.getProduct(counter).getSd_id(),
-					"DOCK",
-					prodTitle.getText(),
-					Double.parseDouble(costPrice.getText()),
-					Double.parseDouble(sellPrice.getText()),
-					Integer.parseInt(currentStock.getText()),
-					bx1.getText(),
-					bx2.getText(),
-					Integer.parseInt(bx3.getText()),
-					manuf.getText(),
-					colourbx.getText()
-					);
-					
-					elecProdList.updateProduct(p);
-					JOptionPane.showMessageDialog(null, "SoundDock " + prodTitle.getText()
-							+ " Updated");
-					prodDetails.setText("Product Details");
+			prodId.getText(),
+			elecProdList.getProduct(counter).getElec_id(),
+			elecProdList.getProduct(counter).getSd_id(),
+			"DOCK",
+			prodTitle.getText(),
+			Double.parseDouble(costPrice.getText()),
+			Double.parseDouble(sellPrice.getText()),
+			Integer.parseInt(currentStock.getText()),
+			bx1.getText(),
+			bx2.getText(),
+			Integer.parseInt(bx3.getText()),
+			manuf.getText(),
+			colourbx.getText()
+			);
+				
+			elecProdList.updateProduct(p);
+			JOptionPane.showMessageDialog(null, "SoundDock " + prodTitle.getText()
+					+ " Updated");
+			prodDetails.setText("Product Details");
 		}
 	}
 	public void searchProd() {
@@ -467,6 +527,20 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 				this.displayProduct(elecProdList.getProduct(counter));
 			}
 		}
+		else if (e.getSource().equals(updateBtn)
+				&& updateBtn.getText().equals("Add New Prod")) {
+			
+			prodOpertaion.addNewProd(newProduct());
+			elecProdList.addProduct();
+			prodBtnsPanel.setVisible(true);
+			newProdBtnsPanel.setVisible(false);
+			JOptionPane.showMessageDialog(null, prodTitle.getText() + " Saved");
+			prodBtnsPanel.setVisible(true);
+			setEditableOff();
+			setFirst();
+			newProd = false;
+			
+		} 
 		else if (e.getSource().equals(back)) {
 			prodDetails.setText("Product Details");
 			prodDetails.setBorder(new EmptyBorder(10, 450, 0, 110));
@@ -522,5 +596,25 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 		for (int i = 0; i < elecProdRadioBtns.length; i++) {
 			
 		}
+		if(phono.isSelected())
+		{
+			label1.setText(" iPhone Comp");
+			label2.setText(" Mic");
+			label3.setText(" Over Ear");
+		}
+		else if(console.isSelected())
+		{
+			label1.setText(" Storage Size");
+			label2.setText(" Controllers");
+			label3.setText(" Wifi");
+		}
+		else if(dock.isSelected())
+		{
+			label1.setText(" Digi Radio");
+			label2.setText(" Wireless");
+			label3.setText(" Pwr Output");
+		
+		}
+	
 	}
 }
