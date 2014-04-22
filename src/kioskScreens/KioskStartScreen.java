@@ -285,10 +285,11 @@ public class KioskStartScreen extends JFrame implements ActionListener
 			krs.displayResult();
 			switchToMainPanel(krs.getPanel());
 		}
+		
+//		When the EXIT button is pressed the program prompts for a staff PIN number to exit back to the main program
 		if(e.getSource()==exit)
 		{
-			pswd = new JPanel(new GridBagLayout()); ////make jdialog instead of jpanel - Why???? // Just what Pat told us to use, its stops all other processes untill the pop up is dealt with
-			// I'm not using the JPanel itself as the pop up. It gets passed into a JOptionPane (see below) Is that not more or less the same thing but with less code to write??
+			pswd = new JPanel(new GridBagLayout());
 			pinLbl = new JLabel("Enter your STAFF PIN Number:");
 			gc.gridx = 0;
 			gc.gridy = 0;

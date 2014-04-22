@@ -186,6 +186,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 		main.repaint();
 	}
 	
+//	Adds a list of games console JButtons to the results panel to filter game results by console
 	public void displayGameOptions(ArrayList<String> consoleList)
 	{
 		JPanel radioButtonPanel = new JPanel();
