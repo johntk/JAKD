@@ -280,9 +280,6 @@ public class HomeScreen extends JFrame implements ActionListener{
 		else if(button.equals(button1) && button1.getText().equals("POS")) ///////////////////////////////// pos //////////////////////
 		{
 			logIn();
-
-
-
 		}
 		else if(button.equals(button2) && button2.getText().equals("Edit User"))
 		{
@@ -338,7 +335,6 @@ public class HomeScreen extends JFrame implements ActionListener{
 		} 
 		else if (e.getSource() == closeBtn) {
 			digiProductList.refreshListCD();
-			//adminOperations.getId();
 		}
 		else if (e.getSource() == enterPButton)
 		{
