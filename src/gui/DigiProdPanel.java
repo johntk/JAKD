@@ -86,18 +86,11 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 
 		JPanel top = new JPanel();
 		top.setLayout(new FlowLayout());
-		close = new ImageIcon("src/resources/kioskFiles/images/close.png");
-		exit = new JButton("Close", close);
-		exit.setBackground(new Color(238, 238, 238));
-		exit.setPreferredSize(new Dimension(100, 50));
-		exit.addActionListener(this);
-		exit.setBorder(new EmptyBorder(10, 0, 0, 0));
-
+		
 		prodDetails.setBorder(new EmptyBorder(10, 410, 0, 110));
 		prodDetails.setFont(font);
-
 		top.add(prodDetails);
-		top.add(exit);
+		
 		this.add(top, BorderLayout.NORTH);
 
 		// product detail panel, inside the Edit product panel
@@ -640,48 +633,59 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	public void itemStateChanged(ItemEvent e) {
 
 		int size = 0;
-		
+		boolean go = false;
 		
 			if (cdCB.isSelected()) {
 
 			if(newProd == true)
 			{
+				try{
 				if(slist.size() > 0)
-					
-					size = Integer.parseInt(JOptionPane.showInputDialog(null, "Songs you already entered will be delted! " +"\n" +" How many songs on this album?: "));
+				{
+					size = Integer.parseInt(JOptionPane.showInputDialog(null, "Songs you already entered will be delted!\nHow many songs on this album?: "));
+					go = true;
+				}
 				else
+				{
 					size = Integer.parseInt(JOptionPane.showInputDialog(null, "How many songs on this album?: "));
+					go = true;
+				}
+				}
+				catch(NumberFormatException ea)
+				{
+					go = false;
+				}
 				
 			}
-//			else if(digiProductList.getProduct(counter).getAlbum().getSongList().size() == 0)
-//			{
-//				size = Integer.parseInt(JOptionPane.showInputDialog(null, "How many songs on this album?: "));
-//			}
 			else
 			{
+				go=true;
 				size = 0;
 			}		
+			if(go==true)
+			{
 				ProdDialog a = new ProdDialog(frame, digiProductList.getProduct(counter), digiProductList, this, size);
+			}
 			} 
 			
 			if(cd.isSelected())
 			{
-				label4.setText(" Length");
-				label3.setText(" Label");
+				label4.setText(" Length:");
+				label3.setText(" Label:");
 				cdCB.setVisible(true);
 				detailsLB.setText(" Songs");
 			}
 			else if(dvd.isSelected())
 			{
-				label3.setText(" Studio");
-				label4.setText(" Length");
+				label3.setText(" Studio:");
+				label4.setText(" Length:");
 				cdCB.setVisible(false);
 				detailsLB.setText("");
 			}
 			else if(game.isSelected())
 			{
-				label3.setText(" Studio");
-				label4.setText(" Platform");
+				label3.setText(" Studio:");
+				label4.setText(" Platform:");
 				cdCB.setVisible(false);
 				detailsLB.setText("");
 			}

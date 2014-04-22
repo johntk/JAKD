@@ -65,18 +65,11 @@ public class UserPanel extends JPanel implements ActionListener {
 				
 		JPanel top = new JPanel();
 		top.setLayout(new FlowLayout());
-		close = new ImageIcon("src/resources/kioskFiles/images/close.png");
-		exit = new JButton("Close", close);
-		exit.setBackground(new Color(238, 238, 238));
-		exit.setPreferredSize(new Dimension(100, 50));
-		exit.addActionListener(this);
-		exit.setBorder(new EmptyBorder(10, 0, 0, 0));
+		
 		userDetails = new JLabel("User Details");
 		userDetails.setBorder(new EmptyBorder(10, 450, 0, 110));
 		userDetails.setFont(font);
-
 		top.add(userDetails);
-		top.add(exit);
 		this.add(top, BorderLayout.NORTH);
 
 		// user detail panel, inside the Edit user panel
