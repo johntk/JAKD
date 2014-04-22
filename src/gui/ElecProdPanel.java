@@ -77,18 +77,10 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 
 		JPanel top = new JPanel();
 		top.setLayout(new FlowLayout());
-		close = new ImageIcon("src/resources/kioskFiles/images/close.png");
-		exit = new JButton("Close", close);
-		exit.setBackground(new Color(238, 238, 238));
-		exit.setPreferredSize(new Dimension(100, 50));
-		exit.addActionListener(this);
-		exit.setBorder(new EmptyBorder(10, 0, 0, 0));
-
 		prodDetails.setBorder(new EmptyBorder(10, 410, 0, 110));
 		prodDetails.setFont(font);
-
 		top.add(prodDetails);
-		top.add(exit);
+		
 		this.add(top, BorderLayout.NORTH);
 
 		// product detail panel, inside the Edit product panel
@@ -648,21 +640,21 @@ public ElecProduct newProduct() {
 		}
 		if(phono.isSelected())
 		{
-			label1.setText(" iPhone Comp");
-			label2.setText(" Mic");
-			label3.setText(" Over Ear");
+			label1.setText(" iPhone Comp:");
+			label2.setText(" Mic:");
+			label3.setText(" Over Ear:");
 		}
 		else if(console.isSelected())
 		{
-			label1.setText(" Storage Size");
-			label2.setText(" Controllers");
-			label3.setText(" Wifi");
+			label1.setText(" Storage Size:");
+			label2.setText(" Controllers:");
+			label3.setText(" Wifi:");
 		}
 		else if(dock.isSelected())
 		{
-			label1.setText(" Digi Radio");
-			label2.setText(" Wireless");
-			label3.setText(" Pwr Output");
+			label1.setText(" Digi Radio:");
+			label2.setText(" Wireless:");
+			label3.setText(" Pwr Output:");
 		
 		}
 	

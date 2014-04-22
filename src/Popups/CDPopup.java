@@ -122,15 +122,15 @@ public class CDPopup extends JPanel implements ActionListener {
 		gc.gridx = 0;
 		gc.gridy = 0;
 		artist = new JLabel(" Artist");
+		artist.setBorder(new EmptyBorder(0, 90, 0, 0));
 		details.add(artist, gc);
 		
 		gc.gridx = 0;
 		gc.gridy = 1;
-		artistTBox = new JTextField(10);
-		
+		gc.insets = new Insets(0, 14, 0, 0);
+		artistTBox = new JTextField(16);
+		artistTBox.setText(p.getArtist());
 		details.add(artistTBox, gc);
-
-		
 		
 		JPanel bottom = new JPanel(new FlowLayout());
 		this.add(bottom, BorderLayout.SOUTH);
@@ -146,6 +146,7 @@ public class CDPopup extends JPanel implements ActionListener {
 		addAlbum.addActionListener(this);
 		bottom.add(addAlbum);
 		this.setVisible(true);
+		
 		
 		
 		
