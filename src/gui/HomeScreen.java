@@ -9,6 +9,7 @@ import java.sql.Connection;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import reports.generateReport;
 import kioskScreens.KioskStartScreen;
 import model.ElecProdList;
 import model.EmployeeList;
@@ -276,6 +277,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 		if (button.equals(button1) && button1.getText().equals("Generate Report")) {
 			cards.show(cardPanel, "genReport");
+			new generateReport();
 		}
 		else if(button.equals(button1) && button1.getText().equals("POS")) ///////////////////////////////// pos //////////////////////
 		{
