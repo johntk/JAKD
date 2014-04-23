@@ -22,7 +22,7 @@ import javax.swing.border.Border;
 class DialogBox
 {
 	private JPanel reportSelect;
-	private JRadioButton toFromSalesReport, returnsTrans, currentStock, lowStock;
+	private JRadioButton qReport,toFromSalesReport, returnsTrans, currentStock, lowStock;
 	private Calender c;
 	private CurrentStockReport csr;
 	private LowStockReport lsr;
@@ -32,8 +32,10 @@ class DialogBox
 	{
 		ro = r;
 		
-		JPanel reportSelect = new JPanel(new GridLayout(4,1));
+		JPanel reportSelect = new JPanel(new GridLayout(5,1));
 		reportSelect.setPreferredSize(new Dimension(240,150));
+		qReport = new JRadioButton("Quarterly Revenue Report");
+		reportSelect.add(qReport);
 		toFromSalesReport = new JRadioButton("Sales Transactions");
 		reportSelect.add(toFromSalesReport,BorderLayout.EAST);
 		returnsTrans = new JRadioButton("Returns Transactions");
@@ -48,7 +50,11 @@ class DialogBox
 		JOptionPane.showOptionDialog(null, reportSelect, "Select Report Type",
 				JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 				null, null);
-		
+		if(qReport.isSelected())
+		{
+			QuartReports q = new QuartReports();
+			q.launchReport();
+		}
 		if(toFromSalesReport.isSelected())
 		{
 			c = new Calender(ro);
