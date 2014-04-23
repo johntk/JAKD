@@ -146,10 +146,7 @@ public class CDPopup extends JPanel implements ActionListener {
 		addAlbum.addActionListener(this);
 		bottom.add(addAlbum);
 		this.setVisible(true);
-		
-		
-		
-		
+			
 }
 
 	

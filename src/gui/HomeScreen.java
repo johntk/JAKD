@@ -215,6 +215,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		userPanel = new UserPanel(frame, adminOperations, employeeList);
 		elecProdPanel = new ElecProdPanel(frame, "elec", prodOpertaion, elecProductList);
 		digiProdPanel = new DigiProdPanel(frame, "digi", prodOpertaion, digiProductList);
+		genReportPanel = new generateReport();
 
 
 		cards = new CardLayout();
@@ -223,7 +224,6 @@ public class HomeScreen extends JFrame implements ActionListener{
 		cardPanel.add(homePanel, "homePanel");
 		cardPanel.add(ProdSelect, "prodSelect");
 		cardPanel.add(genReportPanel, "genReport");
-		
 		cardPanel.add(userPanel, "editUser");
 		cardPanel.add(elecProdPanel, "editElec");
 		cardPanel.add(digiProdPanel, "editDigi");
@@ -277,7 +277,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 		if (button.equals(button1) && button1.getText().equals("Generate Report")) {
 			cards.show(cardPanel, "genReport");
-			new generateReport();
+//			new generateReport();
 		}
 		else if(button.equals(button1) && button1.getText().equals("POS")) ///////////////////////////////// pos //////////////////////
 		{
