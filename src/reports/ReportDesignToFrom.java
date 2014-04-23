@@ -38,7 +38,7 @@ public class ReportDesignToFrom
 		frame.setSize(600, 700);
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		f = new Font("Helvetica", Font.ITALIC, 20);
 		String[] colNames = {"Transaction ID","Transaction Date","Total"};

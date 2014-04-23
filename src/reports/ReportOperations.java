@@ -18,7 +18,7 @@ public class ReportOperations
 	{
 		this.topDate = topDate;
 		this.bottomDate = bottomDate;
-	}*/
+	}
 	public void openDB() 
 	{
 		try {
