@@ -1,6 +1,9 @@
 package reports;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -13,7 +16,7 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.util.Rotation;
 
-public class QuartReports extends JPanel
+public class QuartReports extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
 	private ReportOperations ro;
@@ -21,10 +24,14 @@ public class QuartReports extends JPanel
 	private JLabel select;
 	private JComboBox<Object> jcb;
 	private ArrayList<String> years;
+	private double q1,q2,q3,q4;
+	private DecimalFormat d;
 
 	public QuartReports(ReportOperations r)
 	{
 		ro = r;
+		d = new DecimalFormat(" €#####.##");
+		
 		this.setLayout(new BorderLayout());
 		top = new JPanel();
 
@@ -33,13 +40,13 @@ public class QuartReports extends JPanel
 		top.add(select);
 		years = new ArrayList<String>(ro.getTransactionYears());
 		jcb = new JComboBox<>(years.toArray());
+		jcb.addActionListener(this);
 		top.add(jcb);
+		this.add(top, BorderLayout.NORTH);
 
 		PieDataset dataset = createDataset();
 		JFreeChart chart = createChart(dataset, "Quarterly Revenue Report");
 		ChartPanel chartPanel = new ChartPanel(chart);
-		
-		this.add(top, BorderLayout.NORTH);
 		this.add(chartPanel, BorderLayout.CENTER);
 	}
 
@@ -48,12 +55,11 @@ public class QuartReports extends JPanel
 	 */
 	private  PieDataset createDataset() {
 		DefaultPieDataset result = new DefaultPieDataset();
-		result.setValue("Quarter One", 29);
+		result.setValue("Quarter One",0);
 		result.setValue("Quarter Two", 20);
 		result.setValue("Quarter Three", 51);
 		result.setValue("Quarter Four", 51);
 		return result;
-
 	}
 	/*
 	 Creates a chart
@@ -65,7 +71,20 @@ public class QuartReports extends JPanel
 		PiePlot3D plot = (PiePlot3D) chart.getPlot();
 		plot.setStartAngle(290);
 		plot.setDirection(Rotation.CLOCKWISE);
-		plot.setForegroundAlpha(0.5f);
+		plot.setForegroundAlpha(0.7f);
 		return chart;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		if(e.getSource()==jcb)
+		{
+			q1 = ro.getFirstQuarterRevenue(jcb.getSelectedItem().toString());
+			q2 = ro.getSecondQuarterRevenue(jcb.getSelectedItem().toString());
+			q3 = ro.getThirdQuarterRevenue(jcb.getSelectedItem().toString());
+			q4 = ro.getFourthQuarterRevenue(jcb.getSelectedItem().toString());
+			System.out.println(d.format(q1)+" "+d.format(q2)+" "+d.format(q3)+" "+d.format(q4));
+		}
 	}
 }

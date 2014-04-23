@@ -13,7 +13,7 @@ public class ReportOperations
 	private Results r;
 	private String topDate;
 	private String bottomDate;
-	
+
 	/*public ReportOperations(String topDate,String bottomDate)
 	{
 		this.topDate = topDate;
@@ -76,13 +76,13 @@ public class ReportOperations
 			System.out.println(e);
 		}
 	}*/
-	
+
 	public ResultSet salesReportToFromDates()
 	{
 		String query = "SELECT unique(trans_ID),trans_date,total_cost "
-					 + "FROM TRANSACTION "
-					 + "WHERE TRANS_DATE BETWEEN '"+ topDate +"' AND '"+ bottomDate +"' "
-					 + "ORDER BY trans_ID";
+				+ "FROM TRANSACTION "
+				+ "WHERE TRANS_DATE BETWEEN '"+ topDate +"' AND '"+ bottomDate +"' "
+				+ "ORDER BY trans_ID";
 		try
 		{
 			stmt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
@@ -94,34 +94,34 @@ public class ReportOperations
 		}
 		return rset;
 	}
-	
+
 	public ResultSet checkCurrentStock()
 	{
 		String query = 
-		  "select p.prod_id, d.dvd_name, p.prod_type, p.current_stock, d.dvd_sale_price " 
-		+ "from dvd d, product p, digital_product dp " 
-		+ "where d.dig_id = dp.dig_id and dp.prod_id = p.prod_id " 
-		+ "UNION "
-		+ "select p.prod_id, a.artist_name ||' - ' || cd.album_name, p.prod_type, p.current_stock, cd.cd_sale_price "
-		+ "from cd cd, product p, digital_product dp, artist a,cd_artist cda "
-		+ "where a.artist_id = cda.artist_id and cda.cd_id = cd.cd_id and cd.dig_id = dp.dig_id and dp.prod_id = p.prod_id "
-		+ "UNION " 
-		+ "select p.prod_id, g.game_name, p.prod_type, p.current_stock, g.game_sale_price " 
-		+ "from game g, product p, digital_product dp " 
-		+ "where g.dig_id = dp.dig_id and dp.prod_id = p.prod_id " 
-		+ "UNION " 
-		+ "select p.prod_id, e.manufacturer ||' - ' || e.model, p.prod_type, p.current_stock, h.headphone_sale_price " 
-		+ "from headphones h, product p, digital_product dp, electronic e "
-		+ "where h.elec_id = e.elec_id and e.prod_id = p.prod_id "
-		+ "UNION "
-		+ "select p.prod_id, e.manufacturer ||' - ' || e.model, p.prod_type, p.current_stock, s.sd_sale_price " 
-		+ "from sound_dock s, product p, digital_product dp, electronic e " 
-		+ "where s.elec_id = e.elec_id and e.prod_id = p.prod_id "
-		+ "UNION "
-		+ "select p.prod_id, e.manufacturer ||' - ' || e.model, p.prod_type, p.current_stock, c.console_sale_price "
-		+ "from console c, product p, digital_product dp, electronic e " 
-		+ "where c.elec_id = e.elec_id and e.prod_id = p.prod_id "
-		+ "order by current_stock asc";
+				"select p.prod_id, d.dvd_name, p.prod_type, p.current_stock, d.dvd_sale_price " 
+						+ "from dvd d, product p, digital_product dp " 
+						+ "where d.dig_id = dp.dig_id and dp.prod_id = p.prod_id " 
+						+ "UNION "
+						+ "select p.prod_id, a.artist_name ||' - ' || cd.album_name, p.prod_type, p.current_stock, cd.cd_sale_price "
+						+ "from cd cd, product p, digital_product dp, artist a,cd_artist cda "
+						+ "where a.artist_id = cda.artist_id and cda.cd_id = cd.cd_id and cd.dig_id = dp.dig_id and dp.prod_id = p.prod_id "
+						+ "UNION " 
+						+ "select p.prod_id, g.game_name, p.prod_type, p.current_stock, g.game_sale_price " 
+						+ "from game g, product p, digital_product dp " 
+						+ "where g.dig_id = dp.dig_id and dp.prod_id = p.prod_id " 
+						+ "UNION " 
+						+ "select p.prod_id, e.manufacturer ||' - ' || e.model, p.prod_type, p.current_stock, h.headphone_sale_price " 
+						+ "from headphones h, product p, digital_product dp, electronic e "
+						+ "where h.elec_id = e.elec_id and e.prod_id = p.prod_id "
+						+ "UNION "
+						+ "select p.prod_id, e.manufacturer ||' - ' || e.model, p.prod_type, p.current_stock, s.sd_sale_price " 
+						+ "from sound_dock s, product p, digital_product dp, electronic e " 
+						+ "where s.elec_id = e.elec_id and e.prod_id = p.prod_id "
+						+ "UNION "
+						+ "select p.prod_id, e.manufacturer ||' - ' || e.model, p.prod_type, p.current_stock, c.console_sale_price "
+						+ "from console c, product p, digital_product dp, electronic e " 
+						+ "where c.elec_id = e.elec_id and e.prod_id = p.prod_id "
+						+ "order by current_stock asc";
 		try
 		{
 			stmt = conn.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
@@ -136,28 +136,28 @@ public class ReportOperations
 	public ResultSet lowStockReport()
 	{
 		String query =   "select p.prod_id as ProdID, p.prod_type as Type, dvd.DVD_NAME as Description, p.current_stock as CurrentStock "
-						+"from product p, digital_product dp, dvd dvd "
-						+"where dvd.DIG_ID = dp.DIG_ID and dp.PROD_ID = p.PROD_ID and p.current_stock < 10 "
-						+"UNION "
-						+"select p.prod_id, p.prod_type, a.artist_name ||' - ' || cd.album_name, p.current_stock "
-						+"from cd cd, product p, digital_product dp, artist a,cd_artist cda "
-						+"where a.artist_id = cda.artist_id and cda.cd_id = cd.cd_id and cd.dig_id = dp.dig_id and dp.prod_id = p.prod_id and p.current_stock < 10 "
-						+"UNION "
-						+"select p.prod_id,  p.prod_type, g.game_name, p.current_stock "
-						+"from game g, product p, digital_product dp "
-						+"where g.dig_id = dp.dig_id and dp.prod_id = p.prod_id and p.current_stock < 10 "
-						+"UNION "
-						+"select p.prod_id, p.prod_type, e.manufacturer ||' - ' || e.model, p.current_stock "
-						+"from headphones h, product p, electronic e "
-						+"where h.elec_id = e.elec_id and e.prod_id = p.prod_id and p.current_stock < 10 "
-						+"UNION " 
-						+"select p.prod_id, p.prod_type, e.manufacturer ||' - ' || e.model, p.current_stock "
-						+"from sound_dock s, product p, electronic e "
-						+"where s.elec_id = e.elec_id and e.prod_id = p.prod_id and p.current_stock < 10 "
-						+"UNION "
-						+"select p.prod_id, p.prod_type, e.manufacturer ||' - ' || e.model, p.current_stock "
-						+"from console c, product p, electronic e "
-						+"where c.elec_id = e.elec_id and e.prod_id = p.prod_id and p.current_stock < 10 ";
+				+"from product p, digital_product dp, dvd dvd "
+				+"where dvd.DIG_ID = dp.DIG_ID and dp.PROD_ID = p.PROD_ID and p.current_stock < 10 "
+				+"UNION "
+				+"select p.prod_id, p.prod_type, a.artist_name ||' - ' || cd.album_name, p.current_stock "
+				+"from cd cd, product p, digital_product dp, artist a,cd_artist cda "
+				+"where a.artist_id = cda.artist_id and cda.cd_id = cd.cd_id and cd.dig_id = dp.dig_id and dp.prod_id = p.prod_id and p.current_stock < 10 "
+				+"UNION "
+				+"select p.prod_id,  p.prod_type, g.game_name, p.current_stock "
+				+"from game g, product p, digital_product dp "
+				+"where g.dig_id = dp.dig_id and dp.prod_id = p.prod_id and p.current_stock < 10 "
+				+"UNION "
+				+"select p.prod_id, p.prod_type, e.manufacturer ||' - ' || e.model, p.current_stock "
+				+"from headphones h, product p, electronic e "
+				+"where h.elec_id = e.elec_id and e.prod_id = p.prod_id and p.current_stock < 10 "
+				+"UNION " 
+				+"select p.prod_id, p.prod_type, e.manufacturer ||' - ' || e.model, p.current_stock "
+				+"from sound_dock s, product p, electronic e "
+				+"where s.elec_id = e.elec_id and e.prod_id = p.prod_id and p.current_stock < 10 "
+				+"UNION "
+				+"select p.prod_id, p.prod_type, e.manufacturer ||' - ' || e.model, p.current_stock "
+				+"from console c, product p, electronic e "
+				+"where c.elec_id = e.elec_id and e.prod_id = p.prod_id and p.current_stock < 10 ";
 		try
 		{
 			stmt = conn.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
@@ -168,16 +168,16 @@ public class ReportOperations
 			System.out.println(e);
 		}
 		return rset;
-		
+
 	}
 	public ResultSet returnTrans()
 	{
 		String query = "select Trans_id, Trans_date, Trans_type, total_Cost,e.f_name || ' ' || e.L_NAME as Employee "
-					  +"from TRANSACTION t, Employee e "
-					  +"where e.EMP_ID = t.EMP_ID " 
-					  +"and TRANS_TYPE = 'R' "
-					  +"and TRANS_DATE BETWEEN '"+ topDate +"' AND '"+ bottomDate +"'";
-		
+				+"from TRANSACTION t, Employee e "
+				+"where e.EMP_ID = t.EMP_ID " 
+				+"and TRANS_TYPE = 'R' "
+				+"and TRANS_DATE BETWEEN '"+ topDate +"' AND '"+ bottomDate +"'";
+
 		//System.out.printf("%10",rset.getString(0));
 		try
 		{
@@ -190,10 +190,14 @@ public class ReportOperations
 		}
 		return rset;
 	}
-	
+
+	/*
+	 * Operations for the Quarterly Report Screen
+	 */
+
+	// Returns a list of all transaction years
 	public ArrayList<String> getTransactionYears()
 	{
-		Object[] years =null;
 		ArrayList<String> y = new ArrayList<String>();
 		String query = "select UNIQUE(to_char(trans_date, 'YYYY')) as year from transaction";
 		try
@@ -204,7 +208,6 @@ public class ReportOperations
 			{
 				y.add(rset.getString("YEAR"));
 			}
-			years = y.toArray();
 		}
 		catch(Exception e) 
 		{
@@ -212,7 +215,108 @@ public class ReportOperations
 		}
 		return y;
 	}
-	
+
+	public double getFirstQuarterRevenue(String year)
+	{
+		double total =0.0;
+		String query = "select UNIQUE(TRANS_ID),trans_date, total_cost FROM transaction "
+				+ "WHERE to_char(trans_date, 'YYYY') = '"+year+"' "
+				+ "AND TRANS_TYPE = 'S' "
+				+ "AND to_char(trans_date, 'MON') = 'JAN' "
+				+ "OR to_char(trans_date, 'MON') = 'FEB' "
+				+ "OR to_char(trans_date, 'MON') = 'MAR'";
+		try
+		{
+			stmt = conn.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			rset = stmt.executeQuery();
+			while (rset.next())
+			{
+				total +=(rset.getDouble("TOTAL_COST"));
+			}
+		}
+		catch(Exception e) 
+		{
+			System.out.println(e);
+		}
+		return total;
+	}
+	public double getSecondQuarterRevenue(String year)
+	{
+		double total =0.0;
+		String query = "select UNIQUE(TRANS_ID),trans_date, total_cost FROM transaction "
+				+ "WHERE to_char(trans_date, 'YYYY') = '"+year+"' "
+				+ "AND TRANS_TYPE = 'S' "
+				+ "AND to_char(trans_date, 'MON') = 'APR' "
+				+ "OR to_char(trans_date, 'MON') = 'MAY' "
+				+ "OR to_char(trans_date, 'MON') = 'JUN'";
+		try
+		{
+			stmt = conn.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			rset = stmt.executeQuery();
+			while (rset.next())
+			{
+				total +=(rset.getDouble("TOTAL_COST"));
+			}
+		}
+		catch(Exception e) 
+		{
+			System.out.println(e);
+		}
+		return total;
+	}
+	public double getThirdQuarterRevenue(String year)
+	{
+		double total =0.0;
+		String query = "select UNIQUE(TRANS_ID),trans_date, total_cost FROM transaction "
+				+ "WHERE to_char(trans_date, 'YYYY') = '"+year+"' "
+				+ "AND TRANS_TYPE = 'S' "
+				+ "AND to_char(trans_date, 'MON') = 'JUL' "
+				+ "OR to_char(trans_date, 'MON') = 'AUG' "
+				+ "OR to_char(trans_date, 'MON') = 'SEP'";
+		try
+		{
+			stmt = conn.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			rset = stmt.executeQuery();
+			while (rset.next())
+			{
+				total +=(rset.getDouble("TOTAL_COST"));
+			}
+		}
+		catch(Exception e) 
+		{
+			System.out.println(e);
+		}
+		return total;
+	}
+	public double getFourthQuarterRevenue(String year)
+	{
+		double total =0.0;
+		String query = "select UNIQUE(TRANS_ID),trans_date, total_cost FROM transaction "
+				+ "WHERE to_char(trans_date, 'YYYY') = '"+year+"' "
+				+ "AND TRANS_TYPE = 'S' "
+				+ "AND to_char(trans_date, 'MON') = 'OCT' "
+				+ "OR to_char(trans_date, 'MON') = 'NOV' "
+				+ "OR to_char(trans_date, 'MON') = 'DEC'";
+		try
+		{
+			stmt = conn.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			rset = stmt.executeQuery();
+			while (rset.next())
+			{
+				total +=(rset.getDouble("TOTAL_COST"));
+			}
+		}
+		catch(Exception e) 
+		{
+			System.out.println(e);
+		}
+		return total;
+	}
+
+
+
+
+
 	public void setTopDate(String td)
 	{
 		topDate = td;
@@ -221,7 +325,7 @@ public class ReportOperations
 	{
 		bottomDate = bd;
 	}
-	
+
 	public void setDBconnection(Connection conn)
 	{
 		this.conn = conn;
