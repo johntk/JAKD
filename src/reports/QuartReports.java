@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import javafx.scene.chart.*;
 import javafx.scene.Group;
 
+
 public class QuartReports extends Application
 {
 	public void start(Stage stage) {
