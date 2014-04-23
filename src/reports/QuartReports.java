@@ -46,6 +46,7 @@ public class QuartReports extends JPanel implements ActionListener
 		jcb = new JComboBox<>(years.toArray());
 		jcb.addActionListener(this);
 		top.add(jcb);
+		jcb.setSelectedIndex(0);
 		this.add(top, BorderLayout.NORTH);
 
 
