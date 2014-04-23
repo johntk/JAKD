@@ -93,7 +93,7 @@ public class QuartReports extends JPanel implements ActionListener
 			q4 = ro.getFourthQuarterRevenue(jcb.getSelectedItem().toString());
 
 			dataset = createDataset(q1,q2,q3,q4);
-			chart = createChart(dataset, "Quarterly Revenue Report");
+			chart = createChart(dataset, "Quarterly Sales Report");
 			chartPanel = new ChartPanel(chart);
 			this.add(chartPanel, BorderLayout.CENTER);
 
