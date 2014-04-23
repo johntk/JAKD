@@ -84,6 +84,15 @@ public class DigiProductList {
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
+		finally {  
+		    if(rset != null) {  
+		        try {  
+		        	rset.close();  
+		        	po.closeReultSets();
+		        }  
+		        catch (SQLException e) {}  
+		    }  
+		}
 	}
 	
 	public void songs()
@@ -103,6 +112,15 @@ public class DigiProductList {
 		} 
 		catch (Exception ea) {
 			System.out.println(ea);
+		}
+		finally {  
+		    if(rset != null) {  
+		        try {   
+		        	rset2.close();
+		        	po.closeReultSets();
+		        }  
+		        catch (SQLException e) {}  
+		    }  
 		}
 		}
 
@@ -132,6 +150,15 @@ public class DigiProductList {
 			}
 		} catch (Exception ex) {
 			System.out.println(ex);
+		}
+		finally {  
+		    if(rset != null) {  
+		        try {  
+		        	rset.close(); 
+		        	po.closeReultSets();
+		        }  
+		        catch (SQLException e) {}  
+		    }  
 		}
 		
 	}
@@ -264,6 +291,16 @@ public class DigiProductList {
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
+		finally {  
+		    if(rset != null) {  
+		        try {  
+		        	rset.close();  
+		        	rset2.close();
+		        	po.closeReultSets();
+		        }  
+		        catch (SQLException e) {}  
+		    }  
+		}
 		
 	}
 	
@@ -284,6 +321,15 @@ public class DigiProductList {
 		} 
 		catch (Exception ea) {
 			System.out.println(ea);
+		}
+		finally {  
+		    if(rset != null) {  
+		        try {  
+		        	rset3.close();  
+		        	po.closeReultSets();
+		        }  
+		        catch (SQLException e) {}  
+		    }  
 		}
 	}
 	

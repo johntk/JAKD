@@ -33,6 +33,7 @@ public class ProdOperations {
 
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(queryString);
+			
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -909,6 +910,22 @@ public class ProdOperations {
 			}
 
 			return rset;
+		}
+		
+		public void closeReultSets()
+		{
+			try
+			{
+			if (rset != null) rset.close();
+			if (pstmt != null) pstmt.close();
+			if (stmt != null) stmt.close();
+//			if (conn != null) conn.close();
+			
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 	
 }

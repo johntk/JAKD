@@ -61,6 +61,15 @@ public class ElecProdList {
 				e.printStackTrace();
 				
 			}	
+			finally {  
+			    if(rset != null) {  
+			        try {  
+			        	rset.close();  
+			        	po.closeReultSets();
+			        }  
+			        catch (SQLException e) {}  
+			    }  
+			}
 	}
 	
 	
@@ -92,6 +101,15 @@ public class ElecProdList {
 			e.printStackTrace();
 			
 		}	
+		finally {  
+		    if(rset != null) {  
+		        try {  
+		        	rset.close();  
+		        	po.closeReultSets();
+		        }  
+		        catch (SQLException e) {}  
+		    }  
+		}
 	}
 	
 	
@@ -122,7 +140,16 @@ public class ElecProdList {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			
-		}	
+		}
+		finally {  
+		    if(rset != null) {  
+		        try {  
+		        	rset.close();  
+		        	po.closeReultSets();
+		        }  
+		        catch (SQLException e) {}  
+		    }  
+		}
 	}
 	
 	public void addProduct() {
@@ -194,6 +221,16 @@ public class ElecProdList {
 			}
 		} catch (Exception ex) {
 			System.out.println(ex);
+		}
+		finally {  
+		    if(rset != null) {  
+		        try {  
+		        	rset.close();  
+		        	rset2.close();
+		        	po.closeReultSets();
+		        }  
+		        catch (SQLException e) {}  
+		    }  
 		}
 		
 	}
@@ -288,6 +325,8 @@ public class ElecProdList {
 			}
 		}
 		return num;
+		
+		
 	}
 
 	
@@ -296,8 +335,13 @@ public class ElecProdList {
 	}
 	
 	
+	
+	
 	public ElecProduct getProduct(int i) {
+		
 		refreshList(); 
 		return plist.get(i);
+		
+		
 	}
 }
