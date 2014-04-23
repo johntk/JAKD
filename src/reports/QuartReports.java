@@ -27,11 +27,15 @@ public class QuartReports extends JPanel implements ActionListener
 	private double q1,q2,q3,q4;
 	private DecimalFormat d;
 
+	private PieDataset dataset;
+	private JFreeChart chart;
+	private ChartPanel chartPanel;
+
 	public QuartReports(ReportOperations r)
 	{
 		ro = r;
 		d = new DecimalFormat(" €#####.##");
-		
+
 		this.setLayout(new BorderLayout());
 		top = new JPanel();
 
@@ -44,21 +48,18 @@ public class QuartReports extends JPanel implements ActionListener
 		top.add(jcb);
 		this.add(top, BorderLayout.NORTH);
 
-		PieDataset dataset = createDataset();
-		JFreeChart chart = createChart(dataset, "Quarterly Revenue Report");
-		ChartPanel chartPanel = new ChartPanel(chart);
-		this.add(chartPanel, BorderLayout.CENTER);
+
 	}
 
 	/*
 	 Creates a sample dataset 
 	 */
-	private  PieDataset createDataset() {
+	private  PieDataset createDataset(double q1,double q2,double q3,double q4) {
 		DefaultPieDataset result = new DefaultPieDataset();
-		result.setValue("Quarter One",0);
-		result.setValue("Quarter Two", 20);
-		result.setValue("Quarter Three", 51);
-		result.setValue("Quarter Four", 51);
+		result.setValue("Quarter One\n"+d.format(q1),q1);
+		result.setValue("Quarter Two\n"+d.format(q2), q2);
+		result.setValue("Quarter Three\n"+d.format(q3), q3);
+		result.setValue("Quarter Four\n"+d.format(q4), q4);
 		return result;
 	}
 	/*
@@ -79,12 +80,24 @@ public class QuartReports extends JPanel implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		if(e.getSource()==jcb)
-		{
+		{	
+			if(chartPanel != null)
+			{
+				this.remove(chartPanel);
+				this.validate();this.repaint();
+			}
 			q1 = ro.getFirstQuarterRevenue(jcb.getSelectedItem().toString());
 			q2 = ro.getSecondQuarterRevenue(jcb.getSelectedItem().toString());
 			q3 = ro.getThirdQuarterRevenue(jcb.getSelectedItem().toString());
 			q4 = ro.getFourthQuarterRevenue(jcb.getSelectedItem().toString());
-			System.out.println(d.format(q1)+" "+d.format(q2)+" "+d.format(q3)+" "+d.format(q4));
+
+			dataset = createDataset(q1,q2,q3,q4);
+			chart = createChart(dataset, "Quarterly Revenue Report");
+			chartPanel = new ChartPanel(chart);
+			this.add(chartPanel, BorderLayout.CENTER);
+
+			chartPanel.validate();chartPanel.repaint();
+			this.validate();this.repaint();
 		}
 	}
 }

@@ -220,11 +220,10 @@ public class ReportOperations
 	{
 		double total =0.0;
 		String query = "select UNIQUE(TRANS_ID),trans_date, total_cost FROM transaction "
-				+ "WHERE to_char(trans_date, 'YYYY') = '"+year+"' "
-				+ "AND TRANS_TYPE = 'S' "
-				+ "AND to_char(trans_date, 'MON') = 'JAN' "
-				+ "OR to_char(trans_date, 'MON') = 'FEB' "
-				+ "OR to_char(trans_date, 'MON') = 'MAR'";
+				+"WHERE TRANS_TYPE = 'S' "
+				+"AND to_char(trans_date, 'MON-YYYY') = 'JAN-"+year+"' "
+				+"OR to_char(trans_date, 'MON-YYYY') = 'FEB-"+year+"' "
+				+"OR to_char(trans_date, 'MON-YYYY') = 'MAR-"+year+"'";
 		try
 		{
 			stmt = conn.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
@@ -244,11 +243,10 @@ public class ReportOperations
 	{
 		double total =0.0;
 		String query = "select UNIQUE(TRANS_ID),trans_date, total_cost FROM transaction "
-				+ "WHERE to_char(trans_date, 'YYYY') = '"+year+"' "
-				+ "AND TRANS_TYPE = 'S' "
-				+ "AND to_char(trans_date, 'MON') = 'APR' "
-				+ "OR to_char(trans_date, 'MON') = 'MAY' "
-				+ "OR to_char(trans_date, 'MON') = 'JUN'";
+				+"WHERE TRANS_TYPE = 'S' "
+				+"AND to_char(trans_date, 'MON-YYYY') = 'APR-"+year+"' "
+				+"OR to_char(trans_date, 'MON-YYYY') = 'MAY-"+year+"' "
+				+"OR to_char(trans_date, 'MON-YYYY') = 'JUN-"+year+"'";
 		try
 		{
 			stmt = conn.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
@@ -268,11 +266,10 @@ public class ReportOperations
 	{
 		double total =0.0;
 		String query = "select UNIQUE(TRANS_ID),trans_date, total_cost FROM transaction "
-				+ "WHERE to_char(trans_date, 'YYYY') = '"+year+"' "
-				+ "AND TRANS_TYPE = 'S' "
-				+ "AND to_char(trans_date, 'MON') = 'JUL' "
-				+ "OR to_char(trans_date, 'MON') = 'AUG' "
-				+ "OR to_char(trans_date, 'MON') = 'SEP'";
+				+"WHERE TRANS_TYPE = 'S' "
+				+"AND to_char(trans_date, 'MON-YYYY') = 'JUL-"+year+"' "
+				+"OR to_char(trans_date, 'MON-YYYY') = 'AUG-"+year+"' "
+				+"OR to_char(trans_date, 'MON-YYYY') = 'SEP-"+year+"'";
 		try
 		{
 			stmt = conn.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
@@ -292,11 +289,10 @@ public class ReportOperations
 	{
 		double total =0.0;
 		String query = "select UNIQUE(TRANS_ID),trans_date, total_cost FROM transaction "
-				+ "WHERE to_char(trans_date, 'YYYY') = '"+year+"' "
-				+ "AND TRANS_TYPE = 'S' "
-				+ "AND to_char(trans_date, 'MON') = 'OCT' "
-				+ "OR to_char(trans_date, 'MON') = 'NOV' "
-				+ "OR to_char(trans_date, 'MON') = 'DEC'";
+				+"WHERE TRANS_TYPE = 'S' "
+				+"AND to_char(trans_date, 'MON-YYYY') = 'OCT-"+year+"' "
+				+"OR to_char(trans_date, 'MON-YYYY') = 'NOV-"+year+"' "
+				+"OR to_char(trans_date, 'MON-YYYY') = 'DEC-"+year+"'";
 		try
 		{
 			stmt = conn.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
