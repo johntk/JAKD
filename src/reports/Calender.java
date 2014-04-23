@@ -23,19 +23,21 @@ import javax.swing.border.Border;
 class DialogBox
 {
 	private JPanel reportSelect;
-	private JRadioButton toFromSalesReport, returnsTrans, currentStock, lowStock;
+	private JRadioButton qReport,toFromSalesReport, returnsTrans, currentStock, lowStock;
 	private Calender c;
 	private CurrentStockReport csr;
 	private LowStockReport lsr;
 	private ReportOperations ro;
 	private  generateReport grp;
-	
+
 	public DialogBox(ReportOperations r, generateReport gr)
 	{
 		ro = r;
 		this.grp = gr;
-		JPanel reportSelect = new JPanel(new GridLayout(4,1));
+		JPanel reportSelect = new JPanel(new GridLayout(5,1));
 		reportSelect.setPreferredSize(new Dimension(240,150));
+		qReport = new JRadioButton("Quarterly Revenue Report");
+		reportSelect.add(qReport);
 		toFromSalesReport = new JRadioButton("Sales Transactions");
 		reportSelect.add(toFromSalesReport,BorderLayout.EAST);
 		returnsTrans = new JRadioButton("Returns Transactions");
@@ -44,13 +46,18 @@ class DialogBox
 		reportSelect.add(currentStock);
 		lowStock = new JRadioButton("Low Stock Report");
 		reportSelect.add(lowStock);
-		
+
 		reportSelect.setVisible(true);
 
 		JOptionPane.showOptionDialog(null, reportSelect, "Select Report Type",
 				JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 				null, null);
-		
+
+		if(qReport.isSelected())
+		{
+			QuartReports q = new QuartReports();
+			q.launchReport();
+		}
 		if(toFromSalesReport.isSelected())
 		{
 			c = new Calender(ro, grp);
@@ -64,11 +71,11 @@ class DialogBox
 			try 
 			{
 				csr = new CurrentStockReport(ro);
-				
+
 				grp.removeAll();
 				grp.add(csr);
 				grp.revalidate();
-				
+
 			} 
 			catch (SQLException e) 
 			{	
@@ -89,7 +96,7 @@ class DialogBox
 				e.printStackTrace();
 			}
 		}
-		
+
 
 	}
 	public class Calender extends JDialog implements ActionListener
@@ -122,7 +129,7 @@ class DialogBox
 			frame.setLayout(new GridBagLayout());
 			frame.setSize(420, 210);
 			frame.setLocationRelativeTo(null);
-//			frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+			//			frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 			String[] months = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
 			String[] days31 = {"01","02","03","04","05","06","07","08","09","10","11","12","13","14","15"
@@ -220,21 +227,21 @@ class DialogBox
 			{
 				topDate = topDate2.getSelectedItem()+"-"+topDate1.getSelectedItem()+"-"+topDate3.getSelectedItem();
 				bottomDate = bottomDate2.getSelectedItem()+"-"+bottomDate1.getSelectedItem()+"-"+bottomDate3.getSelectedItem();
-//				ro = new ReportOperations(topDate,bottomDate);
-//				ro.openDB();
-				
+				//				ro = new ReportOperations(topDate,bottomDate);
+				//				ro.openDB();
+
 				ro.setTopDate(topDate);
 				ro.setBottomDate(bottomDate);
 				ro.salesReportToFromDates();
 				try 
 				{
-					
+
 					rd = new ReportDesignToFrom(topDate,bottomDate,ro);
 					grp.removeAll();
 					grp.add(rd);
 					grp.revalidate();
-					
-//				
+
+					//				
 				} 
 				catch (SQLException e) 
 				{	
@@ -245,9 +252,9 @@ class DialogBox
 			{
 				topDate = topDate2.getSelectedItem()+"-"+topDate1.getSelectedItem()+"-"+topDate3.getSelectedItem();
 				bottomDate = bottomDate2.getSelectedItem()+"-"+bottomDate1.getSelectedItem()+"-"+bottomDate3.getSelectedItem();
-//				ro = new ReportOperations(topDate,bottomDate);
-//				ro.openDB();
-				
+				//				ro = new ReportOperations(topDate,bottomDate);
+				//				ro.openDB();
+
 				ro.setTopDate(topDate);
 				ro.setBottomDate(bottomDate);
 				ro.returnTrans();
@@ -266,7 +273,7 @@ class DialogBox
 		}
 	}
 }
-	/*public Calender()
+/*public Calender()
 	{
 		gc = new GridBagConstraints();
 		frame = new JFrame();
@@ -362,7 +369,7 @@ class DialogBox
 
 	}*/
 
-	/*public void actionPerformed(ActionEvent ae)
+/*public void actionPerformed(ActionEvent ae)
 	{
 		if(ae.getSource() == cancel)
 		{
