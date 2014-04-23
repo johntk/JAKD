@@ -12,7 +12,7 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.util.Rotation;
 
-public class QuartReports
+public class QuartReports extends JPanel
 {
 	private ReportOperations ro;
 	private JFrame frame;
@@ -23,7 +23,8 @@ public class QuartReports
 	public QuartReports(ReportOperations r)
 	{
 		ro = r;
-		panel = new JPanel(new BorderLayout());
+//		panel = new JPanel(new BorderLayout());
+		this.setLayout(new BorderLayout());
 		top = new JPanel();
 
 		select = new JLabel("Select a year: ");
@@ -38,8 +39,8 @@ public class QuartReports
 		ChartPanel chartPanel = new ChartPanel(chart);
 		chartPanel.setPreferredSize(new java.awt.Dimension(1000, 600));
 		
-		panel.add(top, BorderLayout.NORTH);
-		panel.add(chartPanel, BorderLayout.CENTER);
+		this.add(top, BorderLayout.NORTH);
+		this.add(chartPanel, BorderLayout.CENTER);
 	}
 
 	/*
