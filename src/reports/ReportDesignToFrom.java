@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 import reports.ReportOperations;
 
-public class ReportDesignToFrom
+public class ReportDesignToFrom extends JPanel
 {
 	private JFrame frame;
 	private JPanel topPanel, mainPanel, topLeftPanel, topRightPanel, headingsPanel, resultsPanel;
@@ -33,18 +33,18 @@ public class ReportDesignToFrom
 	{
 		layout = new GridBagLayout();
 		gc = new GridBagConstraints();
-		frame = new JFrame();
-		frame.setTitle("Report");
-		frame.setSize(600, 700);
-		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setLayout(new BorderLayout());
+//		frame = new JFrame();
+//		frame.setTitle("Report");
+//		frame.setSize(600, 700);
+//		frame.setLocationRelativeTo(null);
+//		frame.setResizable(false);
+//		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setLayout(new BorderLayout());
 		f = new Font("Helvetica", Font.ITALIC, 20);
 		String[] colNames = {"Transaction ID","Transaction Date","Total"};
 
 		topPanel = new JPanel(new GridLayout());
-		frame.add(topPanel, BorderLayout.NORTH);
+		this.add(topPanel, BorderLayout.NORTH);
 
 		topLeftPanel = new JPanel(layout);
 		topLeftPanel.setBackground(Color.white);
@@ -108,7 +108,7 @@ public class ReportDesignToFrom
 
 
 		mainPanel = new JPanel(new BorderLayout());
-		frame.add(mainPanel, BorderLayout.CENTER);
+		this.add(mainPanel, BorderLayout.CENTER);
 
 		headingsPanel = new JPanel(new GridLayout(0,3));
 		headingsPanel.setSize(600, 60);
@@ -176,6 +176,6 @@ public class ReportDesignToFrom
 		}
 		resultsPanel.add(scrollPane, BorderLayout.CENTER);
 		mainPanel.add(resultsPanel, BorderLayout.CENTER);
-		frame.setVisible(true);
+		this.setVisible(true);
 	}
 }

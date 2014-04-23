@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 import reports.ReportOperations;
 
-public class LowStockReport
+public class LowStockReport extends JPanel
 {
 	private ReportOperations ro;
 	private JFrame frame;
@@ -27,13 +27,13 @@ public class LowStockReport
 		ro = r;
 
 
-		frame = new JFrame();
-		frame.setTitle("Report");
-		frame.setSize(600, 700);
-		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setLayout(new BorderLayout());
+//		frame = new JFrame();
+//		frame.setTitle("Report");
+//		frame.setSize(600, 700);
+//		frame.setLocationRelativeTo(null);
+//		frame.setResizable(false);
+//		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setLayout(new BorderLayout());
 
 		f = new Font("Helvetica", Font.ITALIC, 40);
 
@@ -41,14 +41,14 @@ public class LowStockReport
 
 		topPanel = new JPanel(new FlowLayout());
 		topPanel.setSize(600, 140);
-		frame.add(topPanel, BorderLayout.NORTH);
+		this.add(topPanel, BorderLayout.NORTH);
 
 		title = new JLabel("Low Stock Levels");
 		title.setFont(f);
 		topPanel.add(title);
 
 		mainPanel = new JPanel(new BorderLayout());
-		frame.add(mainPanel, BorderLayout.CENTER);
+		this.add(mainPanel, BorderLayout.CENTER);
 
 		resultsPanel = new JPanel(new BorderLayout());
 
@@ -86,6 +86,6 @@ public class LowStockReport
 		}
 		resultsPanel.add(scrollPane, BorderLayout.CENTER);
 		mainPanel.add(resultsPanel, BorderLayout.CENTER);
-		frame.setVisible(true);
+		this.setVisible(true);
 	}
 }

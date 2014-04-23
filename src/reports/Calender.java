@@ -27,11 +27,12 @@ class DialogBox
 	private CurrentStockReport csr;
 	private LowStockReport lsr;
 	private ReportOperations ro;
+	private  generateReport grp;
 	
-	public DialogBox(ReportOperations r)
+	public DialogBox(ReportOperations r, generateReport gr)
 	{
 		ro = r;
-		
+		this.grp = gr;
 		JPanel reportSelect = new JPanel(new GridLayout(4,1));
 		reportSelect.setPreferredSize(new Dimension(240,150));
 		toFromSalesReport = new JRadioButton("Sales Transactions");
@@ -51,17 +52,22 @@ class DialogBox
 		
 		if(toFromSalesReport.isSelected())
 		{
-			c = new Calender(ro);
+			c = new Calender(ro, grp);
 		}
 		if(returnsTrans.isSelected())
 		{
-			c = new Calender(ro);
+			c = new Calender(ro, grp);
 		}
 		if(currentStock.isSelected())
 		{
 			try 
 			{
 				csr = new CurrentStockReport(ro);
+				
+				grp.removeAll();
+				grp.add(csr);
+				grp.revalidate();
+				
 			} 
 			catch (SQLException e) 
 			{	
@@ -73,6 +79,9 @@ class DialogBox
 			try 
 			{
 				lsr = new LowStockReport(ro);
+				grp.removeAll();
+				grp.add(lsr);
+				grp.revalidate();
 			}
 			catch (SQLException e) 
 			{
@@ -82,9 +91,9 @@ class DialogBox
 		
 
 	}
-	public class Calender extends JFrame implements ActionListener
+	public class Calender extends JDialog implements ActionListener
 	{ 
-		private JFrame frame;
+		private JDialog frame;
 		private ReturnsReport rr;
 		private CurrentStockReport csr;
 		private ReportDesignToFrom rd;
@@ -100,18 +109,19 @@ class DialogBox
 		String topDate;
 		String bottomDate;
 		private Border space = (Border) BorderFactory.createEmptyBorder(3, 3, 3, 3);
+		private  generateReport grp;
 
-		public Calender(ReportOperations r)
+		public Calender(ReportOperations r, generateReport gr)
 		{
 			ro = r;
-			
+			this.grp = gr;
 			gc = new GridBagConstraints();
-			frame = new JFrame();
+			frame = new JDialog();
 			frame.setTitle("Select Date");
 			frame.setLayout(new GridBagLayout());
 			frame.setSize(420, 210);
 			frame.setLocationRelativeTo(null);
-			frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+//			frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 			String[] months = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
 			String[] days31 = {"01","02","03","04","05","06","07","08","09","10","11","12","13","14","15"
@@ -187,7 +197,7 @@ class DialogBox
 			frame.add(ok,gc);
 			ok.addActionListener(this);
 
-			cancel = new JButton("Cancel");
+			cancel = new JButton("Close");
 			gc.gridx = 1;
 			gc.gridy = 4;
 			gc.anchor = GridBagConstraints.EAST;
@@ -203,7 +213,7 @@ class DialogBox
 		{
 			if(ae.getSource() == cancel)
 			{
-				System.exit(0);
+				frame.dispose();
 			}
 			if(ae.getSource() == ok && toFromSalesReport.isSelected())
 			{
@@ -217,8 +227,13 @@ class DialogBox
 				ro.salesReportToFromDates();
 				try 
 				{
+					
 					rd = new ReportDesignToFrom(topDate,bottomDate,ro);
-					frame.dispose();
+					grp.removeAll();
+					grp.add(rd);
+					grp.revalidate();
+					
+//				
 				} 
 				catch (SQLException e) 
 				{	
@@ -238,7 +253,9 @@ class DialogBox
 				try 
 				{
 					rr = new ReturnsReport(topDate,bottomDate,ro);
-					frame.dispose();
+					grp.removeAll();
+					grp.add(rr);
+					grp.revalidate();
 				} 
 				catch (SQLException e) 
 				{	

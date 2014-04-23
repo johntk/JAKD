@@ -9,6 +9,8 @@ import java.sql.Connection;
 import javax.swing.*;
 import javax.swing.border.*;
 
+
+import reports.ReportOperations;
 import reports.generateReport;
 import kioskScreens.KioskStartScreen;
 import model.ElecProdList;
@@ -21,6 +23,7 @@ import db.ProdOperations;
 
 public class HomeScreen extends JFrame implements ActionListener{
 
+	
 	private static final long serialVersionUID = 1L;
 	private CardLayout cards;
 	private JFrame frame;
@@ -52,6 +55,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private ProdOperations prodOpertaion;
 	private DigiProductList  digiProductList;
 	private ElecProdList  elecProductList;
+	private ReportOperations ro;
 
 	private ImageIcon frameIcon;
 	
@@ -92,6 +96,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		EmployeeList el = new EmployeeList(ao);
 		ao.setDBconnection(conn);
 		po.setDBconnection(conn);
+		ro = new ReportOperations();
 
 		// Main frame declaration
 		frame = new JFrame();
@@ -215,7 +220,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		userPanel = new UserPanel(frame, adminOperations, employeeList);
 		elecProdPanel = new ElecProdPanel(frame, "elec", prodOpertaion, elecProductList);
 		digiProdPanel = new DigiProdPanel(frame, "digi", prodOpertaion, digiProductList);
-		genReportPanel = new generateReport(conn);
+		
 
 
 		cards = new CardLayout();
@@ -223,7 +228,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		cardPanel.setBackground(cl1);
 		cardPanel.add(homePanel, "homePanel");
 		cardPanel.add(ProdSelect, "prodSelect");
-		cardPanel.add(genReportPanel, "genReport");
+		
 		cardPanel.add(userPanel, "editUser");
 		cardPanel.add(elecProdPanel, "editElec");
 		cardPanel.add(digiProdPanel, "editDigi");
@@ -276,8 +281,10 @@ public class HomeScreen extends JFrame implements ActionListener{
 	public void buttonSelect(JButton button) {
 
 		if (button.equals(button1) && button1.getText().equals("Generate Report")) {
+			genReportPanel = new generateReport(conn);
+			cardPanel.add(genReportPanel, "genReport");
 			cards.show(cardPanel, "genReport");
-//			new generateReport();
+
 		}
 		else if(button.equals(button1) && button1.getText().equals("POS")) ///////////////////////////////// pos //////////////////////
 		{

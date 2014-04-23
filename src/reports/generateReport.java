@@ -13,7 +13,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import reports.CurrentStockReport;
-import reports.DialogBox.Calender;
+
 //import Reports.Calender;
 import db.DBconnection;
 public class generateReport extends JPanel implements ActionListener, ItemListener 
@@ -83,7 +83,7 @@ public class generateReport extends JPanel implements ActionListener, ItemListen
 
 		// side button array
 		JButton[] sideButtonsArray = {
-				genReportBtn = new JButton("Generate Report"),
+				genReportBtn = new JButton("Select Report"),
 						 };
 
 		// Adding side buttons to side panel
@@ -106,24 +106,24 @@ public class generateReport extends JPanel implements ActionListener, ItemListen
 		// Different panels for action performed events on the side buttons
 		cardPanel = new JPanel();
 		genReportPanel = new JPanel();
-		topPanel = new JPanel(new GridLayout(0,2));
+//		topPanel = new JPanel(new GridLayout(0,2));
 		dateFrom = new JLabel("Date From");
-		topPanel.add(dateFrom);
+//		topPanel.add(dateFrom);
 		dateTo = new JLabel("Date To");
-		topPanel.add(dateTo);
+//		topPanel.add(dateTo);
 		//genReportPanel.add();
-		genReportPanel.setLayout(new FlowLayout());
-		genReportPanel.add(topPanel);
+//		genReportPanel.setLayout(new FlowLayout());
+//		genReportPanel.add(topPanel);
+//		
 		
 		
+//		scrollPane = new JScrollPane(genReportPanel);
+//		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+//		cardPanel.add(scrollPane,BorderLayout.CENTER);
 		
-		scrollPane = new JScrollPane(genReportPanel);
-		scrollPane.getVerticalScrollBar().setUnitIncrement(20);
-		cardPanel.add(scrollPane,BorderLayout.CENTER);
-		
-		JButton test = new JButton("Test");
-		test.addActionListener(this);
-		genReportPanel.add(test);
+//		JButton test = new JButton("Test");
+//		test.addActionListener(this);
+//		genReportPanel.add(test);
 		
 //		cards = new CardLayout();
 //		cardPanel.setLayout(cards);
@@ -134,7 +134,7 @@ public class generateReport extends JPanel implements ActionListener, ItemListen
 		//cardPanel.add(financialPanel, "financial");
 //		cardPanel.setBorder(border);
 //		cardPanel.setPreferredSize(new Dimension(820, 10));
-//		this.add(cardPanel, BorderLayout.EAST);
+		this.add(cardPanel, BorderLayout.EAST);
 		this.setVisible(true);
 	}
 
@@ -147,7 +147,7 @@ public class generateReport extends JPanel implements ActionListener, ItemListen
 		if(ae.getSource() == genReportBtn)
 		{
 //			cardPanel.add(genReportPanel);
-			DialogBox d = new DialogBox(ro);
+			DialogBox d = new DialogBox(ro, this);
 		}
 	}
 }
