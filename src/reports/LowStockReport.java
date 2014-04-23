@@ -26,7 +26,6 @@ public class LowStockReport extends JPanel
 	{
 		ro = r;
 
-
 //		frame = new JFrame();
 //		frame.setTitle("Report");
 //		frame.setSize(600, 700);

@@ -39,7 +39,7 @@ public class CurrentStockReport extends JPanel
 		String[] colNames = {"Product ID","Description","Product Type","Current Stock","Sale Price"};
 
 		topPanel = new JPanel(new FlowLayout());
-		topPanel.setSize(600, 140);
+//		topPanel.setSize(600, 140);
 		this.add(topPanel, BorderLayout.NORTH);
 		
 		title = new JLabel("Current Stock");
@@ -68,11 +68,12 @@ public class CurrentStockReport extends JPanel
 		for(int i = 0;i<colNames.length;i++)
 		{
 			table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-			table.getColumnModel().getColumn(0).setPreferredWidth(70);
-			table.getColumnModel().getColumn(1).setPreferredWidth(230);
-			table.getColumnModel().getColumn(2).setPreferredWidth(90);
+			table.getColumnModel().getColumn(0).setPreferredWidth(180);
+			table.getColumnModel().getColumn(1).setPreferredWidth(250);
+			table.getColumnModel().getColumn(2).setPreferredWidth(230);
 			table.getColumnModel().getColumn(3).setPreferredWidth(100);
-			table.getColumnModel().getColumn(4).setPreferredWidth(101);
+			table.getColumnModel().getColumn(4).setPreferredWidth(115);
+			
 		}
 		for(int i = 0;i < rowCount;i++)
 		{
