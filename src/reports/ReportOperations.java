@@ -191,10 +191,26 @@ public class ReportOperations
 		return rset;
 	}
 	
-	public int[] getTransactionYears()
+	public ArrayList<String> getTransactionYears()
 	{
-		int[] years =null;
-		return years;
+		Object[] years =null;
+		ArrayList<String> y = new ArrayList<String>();
+		String query = "select UNIQUE(to_char(trans_date, 'YYYY')) as year from transaction";
+		try
+		{
+			stmt = conn.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			rset = stmt.executeQuery();
+			while (rset.next())
+			{
+				y.add(rset.getString("YEAR"));
+			}
+			years = y.toArray();
+		}
+		catch(Exception e) 
+		{
+			System.out.println(e);
+		}
+		return y;
 	}
 	
 	public void setTopDate(String td)

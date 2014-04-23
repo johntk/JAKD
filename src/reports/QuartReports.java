@@ -1,6 +1,7 @@
 package reports;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -14,30 +15,29 @@ import org.jfree.util.Rotation;
 
 public class QuartReports extends JPanel
 {
+	private static final long serialVersionUID = 1L;
 	private ReportOperations ro;
-	private JFrame frame;
-	private JPanel panel,top;
+	private JPanel top;
 	private JLabel select;
-	private JComboBox<String> jcb;
+	private JComboBox<Object> jcb;
+	private ArrayList<String> years;
 
 	public QuartReports(ReportOperations r)
 	{
 		ro = r;
-//		panel = new JPanel(new BorderLayout());
 		this.setLayout(new BorderLayout());
 		top = new JPanel();
 
 		select = new JLabel("Select a year: ");
 		select.setFont(new Font("Calibri", Font.PLAIN, 25));
 		top.add(select);
-		String[] years = {"2013","2014"};
-		jcb = new JComboBox<>(years);
+		years = new ArrayList<String>(ro.getTransactionYears());
+		jcb = new JComboBox<>(years.toArray());
 		top.add(jcb);
 
 		PieDataset dataset = createDataset();
 		JFreeChart chart = createChart(dataset, "Quarterly Revenue Report");
 		ChartPanel chartPanel = new ChartPanel(chart);
-		chartPanel.setPreferredSize(new java.awt.Dimension(1000, 600));
 		
 		this.add(top, BorderLayout.NORTH);
 		this.add(chartPanel, BorderLayout.CENTER);
