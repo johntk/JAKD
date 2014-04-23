@@ -36,5 +36,5 @@ public class QuartReports extends Application
 	{
 		QuartReports.launch();
 	}
-
+//
 }
