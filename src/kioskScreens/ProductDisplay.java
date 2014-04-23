@@ -9,6 +9,13 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 
+
+/*
+The Product Display class is called when the "View Product" button is pressed from the results list
+It displays all the details of the selected product.
+*/
+
+
 public class ProductDisplay extends JFrame implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
