@@ -80,18 +80,18 @@ public class CDPopup extends JPanel implements ActionListener {
 		this.setLayout(new BorderLayout());
 		
 		
-//		if(p.getAlbum().getSongList().size() >= 15 || size  >= 15)
-//		{
-//			this.setSize(690, 600);
-//		}
-//		else if(p.getAlbum().getSongList().size() < 11 || size < 11)
-//		{
-//			this.setSize(690, 510);
-//		}
-//		else
-//		{
-//			this.setSize(690, 490);
-//		}
+		if(p.getAlbum().getSongList().size() >= 15 || size  >= 15)
+		{
+			this.setSize(690, 650);
+		}
+		else if(p.getAlbum().getSongList().size() < 11 || size < 11)
+		{
+			this.setSize(690, 510);
+		}
+		else
+		{
+			this.setSize(690, 520);
+		}
 //		JPanel top = new JPanel(new GridBagLayout());
 		this.setBorder(new TitledBorder("CD"));
 
@@ -109,13 +109,12 @@ public class CDPopup extends JPanel implements ActionListener {
 			
 
 		JPanel detailsPanel = new JPanel(new BorderLayout());
-//		detailsPanel.setPreferredSize(new Dimension(240, 80));
-		
+		detailsPanel.setPreferredSize(new Dimension(240, 80));
 		this.add(detailsPanel, BorderLayout.WEST);
 
 		JPanel details = new JPanel(new GridBagLayout());
 		details.setBorder(border);
-//		details.setPreferredSize(new Dimension(150, 130));
+		details.setPreferredSize(new Dimension(150, 130));
 		detailsPanel.add(details, BorderLayout.NORTH);
 
 		JPanel spacer = new JPanel();

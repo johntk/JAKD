@@ -29,6 +29,7 @@ class DialogBox
 	private LowStockReport lsr;
 	private ReportOperations ro;
 	private  generateReport grp;
+	private QuartReports qr;
 
 	public DialogBox(ReportOperations r, generateReport gr)
 	{
@@ -55,7 +56,11 @@ class DialogBox
 
 		if(qReport.isSelected())
 		{
-			new QuartReports(ro);
+			qr = new QuartReports(ro);
+			grp.removeAll();
+			grp.add(qr);
+			grp.revalidate();
+			
 		}
 		if(toFromSalesReport.isSelected())
 		{

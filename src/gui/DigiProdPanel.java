@@ -651,11 +651,21 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 				{
 					size = Integer.parseInt(JOptionPane.showInputDialog(null, "Songs you already entered will be delted!\nHow many songs on this album?: "));
 					go = true;
+					if(size > 19)
+					{
+						JOptionPane.showMessageDialog(null, "Album cannot have more than 19 songs: ");
+						go = false;
+					}
 				}
 				else
 				{
 					size = Integer.parseInt(JOptionPane.showInputDialog(null, "How many songs on this album?: "));
 					go = true;
+					if(size > 19)
+					{
+						JOptionPane.showMessageDialog(null, "Album cannot have more than 19 songs: ");
+						go = false;
+					}
 				}
 				}
 				catch(NumberFormatException ea)
