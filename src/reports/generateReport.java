@@ -147,7 +147,7 @@ public class generateReport extends JPanel implements ActionListener, ItemListen
 		if(ae.getSource() == genReportBtn)
 		{
 //			cardPanel.add(genReportPanel);
-			DialogBox d = new DialogBox(ro, this);
+			DialogBox d = new DialogBox(ro);
 		}
 	}
 }
