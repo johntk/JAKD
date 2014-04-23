@@ -1,40 +1,59 @@
 package reports;
 
-import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.scene.chart.*;
-import javafx.scene.Group;
+import javax.swing.JFrame;
 
-public class QuartReports extends Application
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PiePlot3D;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
+import org.jfree.util.Rotation;
+
+public class QuartReports extends JFrame
 {
-	public void start(Stage stage) {
-		Scene scene = new Scene(new Group());
-		stage.setTitle("Quarterly Revenue");
-		stage.setWidth(500);
-		stage.setHeight(500);
+	private static final long serialVersionUID = 1L;
 
-		ObservableList<PieChart.Data> pieChartData =
-				FXCollections.observableArrayList(
-						new PieChart.Data("First Quarter", 25),
-						new PieChart.Data("Second Quarter", 25),
-						new PieChart.Data("Third Quarter", 25),
-						new PieChart.Data("Fourth Quarter", 25));
-		final PieChart chart = new PieChart(pieChartData);
-		chart.setTitle("Quarterly Revenue");
-
-		((Group) scene.getRoot()).getChildren().add(chart);
-		stage.setScene(scene);
-		stage.show();
-
-
-
-	}
-	public void launchReport()
+	public QuartReports()
 	{
-		QuartReports.launch();
+		PieDataset dataset = createDataset();
+		JFreeChart chart = createChart(dataset, "Quarterly Revenue Report");
+		ChartPanel chartPanel = new ChartPanel(chart);
+		chartPanel.setPreferredSize(new java.awt.Dimension(1000, 600));
+		setContentPane(chartPanel);
+		pack();
+		setVisible(true);
 	}
-//
+
+	/*
+	 Creates a sample dataset 
+	 */
+	private  PieDataset createDataset() {
+		DefaultPieDataset result = new DefaultPieDataset();
+		result.setValue("Quarter One", 29);
+		result.setValue("Quarter Two", 20);
+		result.setValue("Quarter Three", 51);
+		result.setValue("Quarter Four", 51);
+		return result;
+
+	}
+
+	/*
+	 Creates a chart
+	 */
+	private JFreeChart createChart(PieDataset dataset, String title) {
+
+		JFreeChart chart = ChartFactory.createPieChart3D(title,          // chart title
+				dataset,                // data
+				true,                   // include legend
+				true,
+				false);
+
+		PiePlot3D plot = (PiePlot3D) chart.getPlot();
+		plot.setStartAngle(290);
+		plot.setDirection(Rotation.CLOCKWISE);
+		plot.setForegroundAlpha(0.5f);
+		return chart;
+
+	}
 }

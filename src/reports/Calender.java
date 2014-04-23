@@ -55,8 +55,7 @@ class DialogBox
 
 		if(qReport.isSelected())
 		{
-			QuartReports q = new QuartReports();
-			q.launchReport();
+			new QuartReports();
 		}
 		if(toFromSalesReport.isSelected())
 		{
