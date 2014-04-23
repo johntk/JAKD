@@ -17,6 +17,7 @@ import model.Song;
 
 public class CDPopup extends JPanel implements ActionListener {
 
+	private JPanel bottom;
 	private JLabel artist, songName, songLength, songNumber;
 	private JTextField artistTBox;
 	private JButton addSong, addAlbum, update;
@@ -62,7 +63,7 @@ public class CDPopup extends JPanel implements ActionListener {
 	private ArrayList<Song> alist = new  ArrayList<Song>();
 	private DigiProductList digiProductList;
 	private int size;
-	
+	private boolean newSongs = false;
 
 	
 	
@@ -79,25 +80,27 @@ public class CDPopup extends JPanel implements ActionListener {
 		this.setLayout(new BorderLayout());
 		
 		
-		if(p.getAlbum().getSongList().size() >= 15 || size  >= 15)
-		{
-			this.setSize(690, 600);
-		}
-		else if(p.getAlbum().getSongList().size() < 11 || size < 11)
-		{
-			this.setSize(690, 510);
-		}
-		else
-		{
-			this.setSize(690, 490);
-		}
-		JPanel top = new JPanel(new GridBagLayout());
+//		if(p.getAlbum().getSongList().size() >= 15 || size  >= 15)
+//		{
+//			this.setSize(690, 600);
+//		}
+//		else if(p.getAlbum().getSongList().size() < 11 || size < 11)
+//		{
+//			this.setSize(690, 510);
+//		}
+//		else
+//		{
+//			this.setSize(690, 490);
+//		}
+//		JPanel top = new JPanel(new GridBagLayout());
 		this.setBorder(new TitledBorder("CD"));
 
 		
 		if(size > 0)
 		{
-			addFields(size, true);
+			newSongs = true;
+			addFields(size, newSongs);
+			
 		}
 		else
 		{
@@ -106,12 +109,13 @@ public class CDPopup extends JPanel implements ActionListener {
 			
 
 		JPanel detailsPanel = new JPanel(new BorderLayout());
-		detailsPanel.setPreferredSize(new Dimension(240, 80));
+//		detailsPanel.setPreferredSize(new Dimension(240, 80));
+		
 		this.add(detailsPanel, BorderLayout.WEST);
 
 		JPanel details = new JPanel(new GridBagLayout());
 		details.setBorder(border);
-		details.setPreferredSize(new Dimension(150, 130));
+//		details.setPreferredSize(new Dimension(150, 130));
 		detailsPanel.add(details, BorderLayout.NORTH);
 
 		JPanel spacer = new JPanel();
@@ -145,6 +149,18 @@ public class CDPopup extends JPanel implements ActionListener {
 		addAlbum.setPreferredSize(new Dimension(120, 30));
 		addAlbum.addActionListener(this);
 		bottom.add(addAlbum);
+		
+		
+		if(newSongs == false)
+		{
+			bottom.remove(addAlbum);
+		}
+		else
+		{
+			bottom.remove(update);
+			artistTBox.setText("");
+		}
+		
 		this.setVisible(true);
 			
 }
@@ -153,7 +169,9 @@ public class CDPopup extends JPanel implements ActionListener {
 	
 	public void addFields(int size, boolean newSong)
 	{
+		
 
+		
 		JPanel songs = new JPanel(new GridBagLayout());
 		songs.setPreferredSize(new Dimension(380, 200));
 		songs.setBorder(border);

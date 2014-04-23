@@ -40,7 +40,8 @@ public class ProdDialog extends JDialog {
 		cdDialog = new JDialog(jFrame, true);
 		cdDialog.setLocationRelativeTo(null);
 		cdDialog.add(cd);
-		cdDialog.setSize(cd.getSize());
+//		cdDialog.setSize(cd.getSize());
+		cdDialog.pack();
 		cdDialog.setVisible(true);
 		
 		

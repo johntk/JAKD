@@ -571,13 +571,14 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		else if (e.getSource().equals(updateBtn)
 				&& updateBtn.getText().equals("Add New Prod")) {
 			
-			if(slist.size() == 0)
+			if(cd.isSelected() && slist.size() == 0)
 			{
 				JOptionPane.showMessageDialog(null, "You must enter songs for a CD product\nClick the Song check box to enter songs ");
 //				ProdDialog a = new ProdDialog(frame, digiProductList.getProduct(counter), digiProductList, this, size);
 			}
 			else
 			{
+				try{
 			prodOpertaion.addNewProd(newProduct());
 			digiProductList.addProduct();
 			prodBtnsPanel.setVisible(true);
@@ -587,6 +588,12 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 			setEditableOff();
 			setFirst();
 			newProd = false;
+				}
+				catch(NumberFormatException ex)
+				{
+					JOptionPane.showMessageDialog(null, "Cost price:\nSelling price:\nCurrent stock:"
+							+ "\nLength:\nMust contain numbers."  );
+				}
 			}
 		} 
 		else if (e.getSource().equals(back)) {

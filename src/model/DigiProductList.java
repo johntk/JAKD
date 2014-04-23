@@ -201,7 +201,7 @@ public class DigiProductList {
 		
 		try {
 			
-			if(rset2.getString(5).equals("CD"))
+			if(rset2.getString(1).equals("CD"))
 			{
 			
 			addSongs(rset2.getString(1));
@@ -225,7 +225,7 @@ public class DigiProductList {
 				plist.add(p);
 
 			}
-			else if(rset2.getString(5).equals("DVD"))
+			else if(rset2.getString(1).equals("DVD"))
 			{
 				
 				rset = po.getLastRowDVD();
@@ -243,7 +243,7 @@ public class DigiProductList {
 						rset.getDouble(13));
 				plist.add(p);
 			}
-			else if(rset2.getString(5).equals("GAME"))
+			else if(rset2.getString(1).equals("GAME"))
 			{
 	
 				rset = po.getLastRowGAME();
