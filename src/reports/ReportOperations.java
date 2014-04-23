@@ -191,6 +191,12 @@ public class ReportOperations
 		return rset;
 	}
 	
+	public int[] getTransactionYears()
+	{
+		int[] years =null;
+		return years;
+	}
+	
 	public void setTopDate(String td)
 	{
 		topDate = td;
