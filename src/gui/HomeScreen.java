@@ -25,7 +25,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 	
 	private static final long serialVersionUID = 1L;
-	private CardLayout cards;
+	
 	private JFrame frame;
 	private static final int FRAME_WIDTH = 1248;
 	private static final int FRAME_HEIGHT = 700;
@@ -50,6 +50,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private Color cl1;
 
+	private CardLayout cards;
 	private EmployeeList employeeList;
 	private EmpOperations adminOperations;
 	private ProdOperations prodOpertaion;
@@ -57,16 +58,15 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private ElecProdList  elecProductList;
 	private ReportOperations ro;
 
-	private ImageIcon frameIcon;
 	
 	private SystemTray tray;
 	public static TrayIcon trayIcon;
 	private Image img;
 	private PopupMenu popup;
+	private ImageIcon frameIcon;
 	private ImageIcon ti;
 	private DBconnection db;
 	private Connection conn;
-	
 	
 	
 	////////////////     log in variables //////////////////////////////////

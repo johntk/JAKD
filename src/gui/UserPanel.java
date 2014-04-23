@@ -16,6 +16,8 @@ public class UserPanel extends JPanel implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
 	private JButton addUser, updateBtn, updateUser, removeUser, next, previous,
@@ -23,17 +25,13 @@ public class UserPanel extends JPanel implements ActionListener {
 	private JLabel userDetails;
 	private JTextField spacer, forenameBx, surenamebx, line1Bx, line2Bx,
 			Line3Bx, staffIDBx, pinBx, PPSBx, manager;
-	private JPanel editUserBtnsPanel, userDetailsPanel, editNewUserBtnsPanel;
+	private JPanel editUserBtnsPanel, userDetailsPanel, editNewUserBtnsPanel, cardPanel;
 
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border border = BorderFactory.createCompoundBorder(space, line);
-	private Frame frame;
-	private ImageIcon close;
+	
 	private int counter = 0;
-	private EmployeeList employeeList;
-	private EmpOperations adminOperations;
-	private JPanel cardPanel;
 	
 	private JTextField[] userDetailBx = { forenameBx = new JTextField(),
 			surenamebx = new JTextField(), spacer = new JTextField(),
@@ -42,7 +40,6 @@ public class UserPanel extends JPanel implements ActionListener {
 			staffIDBx = new JTextField(), pinBx = new JTextField(),
 			PPSBx = new JTextField(), manager = new JTextField() };
 
-	
 	private JLabel[] userDetailLb = { new JLabel(" Forename:"),
 			new JLabel(" Surename:"), new JLabel(" Address"),
 			new JLabel(" House No:"), new JLabel(" Town:"),
@@ -52,11 +49,14 @@ public class UserPanel extends JPanel implements ActionListener {
 	
 	private Color  cl2 ,cl3;
 	
+	private EmployeeList employeeList;
+	private EmpOperations adminOperations;
+	private Frame frame;
+	
 	public UserPanel(Frame frame, EmpOperations ao, EmployeeList el) {
 
 		this.employeeList = el;
 		this.adminOperations = ao;
-		this.cardPanel =cardPanel;
 		this.frame = frame;
 		this.setLayout(new BorderLayout());
 
@@ -65,7 +65,6 @@ public class UserPanel extends JPanel implements ActionListener {
 				
 		JPanel top = new JPanel();
 		top.setLayout(new FlowLayout());
-		
 		userDetails = new JLabel("User Details");
 		userDetails.setBorder(new EmptyBorder(10, 450, 0, 110));
 		userDetails.setFont(font);
@@ -253,13 +252,11 @@ public class UserPanel extends JPanel implements ActionListener {
 		
 		Employee ep =null;
 		
-		
 		 ep = new Employee(Integer.parseInt(staffIDBx.getText()),
 				forenameBx.getText(), surenamebx.getText(), line1Bx.getText(),
 				line2Bx.getText(), Line3Bx.getText(), line2Bx.getText(),
 				PPSBx.getText(), Integer.parseInt(pinBx.getText()),
 				manager.getText());
-		
 		
 		return ep;
 	}

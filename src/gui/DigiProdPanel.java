@@ -23,35 +23,34 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	private static final long serialVersionUID = 1L;
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
+	
+	private JPanel prodBtnsPanel, prodDetailsPanel, newProdBtnsPanel;
 	private JButton addProd, editProd, removeProd, exit, previous, searchProd, next, updateProd, updateBtn, back;
 	private JLabel prodDetails, detailsLB, titleLB, typeLB, idLB, cPriceLB, sPriceLB, 
 	stockLB, label1, label2, label3, label4;
 	private JTextField details, prodTitle, type, prodId, sellPrice, costPrice,
 	currentStock, bx1, bx2, bx3, bx4;
 	private ProdDialog a;
-	private boolean newProd = false;
+	
 	private ArrayList<Song> slist = new ArrayList<Song>();
 	
-	private JPanel prodBtnsPanel, prodDetailsPanel, newProdBtnsPanel;
-
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border border = BorderFactory.createCompoundBorder(space, line);
 
-	private ImageIcon close;
 	private Color  cl2, cl3;
-	
-	
+	private int size = 0;
+	private int counter = 0;
 	private String prodType;
+	private boolean go = false;
+	private boolean newProd = false;
+	
 	private JCheckBox cdCB =  new JCheckBox();
 	private JRadioButton cd = new JRadioButton("CD");
 	private JRadioButton dvd = new JRadioButton("DVD");
 	private JRadioButton game = new JRadioButton("Game");
 
 	private JRadioButton[] digiProdRadioBtns = new JRadioButton[] { cd, dvd,game };
-
-	private JFrame frame;
-	private int counter = 0;
 
 	JTextField[] digiProdDetailBx = { prodTitle = new JTextField(),
 			type = new JTextField(), details = new JTextField(),prodId = new JTextField(),
@@ -66,6 +65,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 			stockLB = new JLabel(" Current stock:"), label1 = new JLabel(" Age Rating:"),
 			label2 = new JLabel(" Genre:"), label3 = new JLabel(" Publisher:"), label4 = new JLabel(" length:") };
 	
+	private JFrame frame;
 	private ProdOperations prodOpertaion;
 	private DigiProductList  digiProductList;
 	private DigiProdPanel  digiPanel;
@@ -74,7 +74,6 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 
 		
 		this.frame = frame;
-		
 		this.setLayout(new BorderLayout());
 		this.digiProductList = pl;
 		this.prodOpertaion = po;
@@ -82,11 +81,8 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		cl3 = new Color(255,230,0);
 		
 		prodDetails = new JLabel("Digital Product");
-		
-
 		JPanel top = new JPanel();
 		top.setLayout(new FlowLayout());
-		
 		prodDetails.setBorder(new EmptyBorder(10, 410, 0, 110));
 		prodDetails.setFont(font);
 		top.add(prodDetails);
@@ -182,8 +178,6 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 				
 				prodDetailsPanel.add(digiProdDetailBx[i], gc);
 			}
-			
-			
 		}
 
 		this.add(prodDetailsPanel, BorderLayout.EAST);
@@ -478,6 +472,48 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		setFirst();
 	}
 	
+	public void newAlbum()
+	{
+		if(newProd == true){
+			try{
+			if(slist.size() > 0){
+				size = Integer.parseInt(JOptionPane.showInputDialog(null, 
+						"Songs you already entered will be delted!\nHow many songs on this album?: "));
+				go = true;
+				if(size > 19){
+					JOptionPane.showMessageDialog(null, "Album cannot have more than 19 songs: ");
+					go = false;
+				}
+				else if(size == 0){
+					JOptionPane.showMessageDialog(null, "Album cannot have 0 songs: ");
+					go = false;
+				}
+			}
+			else{
+				size = Integer.parseInt(JOptionPane.showInputDialog(null, "How many songs on this album?: "));
+				go = true;
+				if(size > 19){
+					JOptionPane.showMessageDialog(null, "Album cannot have more than 19 songs: ");
+					go = false;
+				}
+				else if(size == 0){
+					JOptionPane.showMessageDialog(null, "Album cannot have 0 songs: ");
+					go = false;
+				}
+			}
+			}
+			catch(NumberFormatException ea){
+				go = false;
+			}	
+		}
+		else{
+			go=true;
+			size = 0;
+		}		
+		if(go==true){
+			ProdDialog a = new ProdDialog(frame, digiProductList.getProduct(counter), digiProductList, this, size);
+		}
+	}
 	
 	public DigiProduct displayProduct(DigiProduct p) {
 		
@@ -574,7 +610,6 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 			if(cd.isSelected() && slist.size() == 0)
 			{
 				JOptionPane.showMessageDialog(null, "You must enter songs for a CD product\nClick the Song check box to enter songs ");
-//				ProdDialog a = new ProdDialog(frame, digiProductList.getProduct(counter), digiProductList, this, size);
 			}
 			else
 			{
@@ -639,73 +674,28 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 
 	public void itemStateChanged(ItemEvent e) {
 
-		int size = 0;
-		boolean go = false;
 		
 			if (cdCB.isSelected()) {
-
-			if(newProd == true)
-			{
-				try{
-				if(slist.size() > 0)
-				{
-					size = Integer.parseInt(JOptionPane.showInputDialog(null, "Songs you already entered will be delted!\nHow many songs on this album?: "));
-					go = true;
-					if(size > 19)
-					{
-						JOptionPane.showMessageDialog(null, "Album cannot have more than 19 songs: ");
-						go = false;
-					}
-				}
-				else
-				{
-					size = Integer.parseInt(JOptionPane.showInputDialog(null, "How many songs on this album?: "));
-					go = true;
-					if(size > 19)
-					{
-						JOptionPane.showMessageDialog(null, "Album cannot have more than 19 songs: ");
-						go = false;
-					}
-				}
-				}
-				catch(NumberFormatException ea)
-				{
-					go = false;
-				}
-				
-			}
-			else
-			{
-				go=true;
-				size = 0;
-			}		
-			if(go==true)
-			{
-				ProdDialog a = new ProdDialog(frame, digiProductList.getProduct(counter), digiProductList, this, size);
-			}
+				newAlbum();
 			} 
 			
-			if(cd.isSelected())
-			{
+			if(cd.isSelected()){
 				label4.setText(" Length:");
 				label3.setText(" Label:");
 				cdCB.setVisible(true);
 				detailsLB.setText(" Songs");
 			}
-			else if(dvd.isSelected())
-			{
+			else if(dvd.isSelected()){
 				label3.setText(" Studio:");
 				label4.setText(" Length:");
 				cdCB.setVisible(false);
 				detailsLB.setText("");
 			}
-			else if(game.isSelected())
-			{
+			else if(game.isSelected()){
 				label3.setText(" Studio:");
 				label4.setText(" Platform:");
 				cdCB.setVisible(false);
 				detailsLB.setText("");
 			}
-		
 	}
 }

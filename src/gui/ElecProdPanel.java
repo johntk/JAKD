@@ -21,15 +21,15 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 	private static final long serialVersionUID = 1L;
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
+	
+	private JPanel prodBtnsPanel, prodDetailsPanel, newProdBtnsPanel;
 	private JButton addProd, editProd, removeProd, exit, previous, searchProd, next, updateProd, updateBtn, back;
-	private boolean newProd = false;
+	
 	private JLabel prodDetails, detailsLB, titleLB, typeLB, idLB, cPriceLB, sPriceLB, stockLB,  
 	manufLB, label1, label2, label3, colour;
 	private JTextField  prodTitle, type, prodId, sellPrice, costPrice, currentStock,
 	manuf,  bx1, bx2, bx3, colourbx ;
 	
-	private JPanel prodBtnsPanel, prodDetailsPanel, newProdBtnsPanel;
-
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border border = BorderFactory.createCompoundBorder(space, line);
@@ -42,9 +42,8 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 	private JRadioButton dock = new JRadioButton("Dock");
 	private JRadioButton[] elecProdRadioBtns = new JRadioButton[] { phono,console, dock };
 	
-	private JFrame frame;
 	private int counter = 0;
-	
+	private boolean newProd = false;
 	
 	JTextField[] elecProdDetailBx = { prodTitle = new JTextField(),
 			type = new JTextField(), prodId = new JTextField(),
@@ -60,6 +59,7 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 			manufLB = new JLabel(" Manufacturer:"),
 			label2 = new JLabel(" Mic:"), label3 = new JLabel(" iPhone Ready:"), colour = new JLabel(" Colour:") };
 	
+	private JFrame frame;
 	private ProdOperations prodOpertaion;
 	private ElecProdList  elecProdList;
 	

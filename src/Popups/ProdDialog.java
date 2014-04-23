@@ -56,7 +56,6 @@ public class ProdDialog extends JDialog {
 	
 	public void addSongs(ArrayList<Song> slist)
 	{
-		
 			digiPanel.newAlbum(slist);
 			cdDialog.dispose();
 	}

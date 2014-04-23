@@ -21,14 +21,14 @@ public class CDPopup extends JPanel implements ActionListener {
 	private JLabel artist, songName, songLength, songNumber;
 	private JTextField artistTBox;
 	private JButton addSong, addAlbum, update;
-	private DigiProduct p;
-	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
-	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
-	private Border border = BorderFactory.createCompoundBorder(space, line);
+	
+	
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private GridBagConstraints gc = new GridBagConstraints();
 	
-	private ProdDialog prodDialog;
+	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
+	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
+	private Border border = BorderFactory.createCompoundBorder(space, line);
 	
 	private JTextField song9, song10, song11, song12, song13, song8, song7, song6, song5, song4, song1, song2, song3, 
 	song14, song15, song16, song17, song18, song19,
@@ -61,15 +61,15 @@ public class CDPopup extends JPanel implements ActionListener {
 	
 	private ArrayList<Song> slist = new ArrayList<Song>();
 	private ArrayList<Song> alist = new  ArrayList<Song>();
-	private DigiProductList digiProductList;
+	
 	private int size;
 	private boolean newSongs = false;
 
-	
-	
+	private DigiProductList digiProductList;
+	private ProdDialog prodDialog;
+	private DigiProduct p;
 
 	public CDPopup(DigiProduct p, DigiProductList digiProductList, ProdDialog prodDialog, int size) {
-		
 		
 		
 		this.size = size;
@@ -78,32 +78,24 @@ public class CDPopup extends JPanel implements ActionListener {
 		this.setName("cd");
 		this.p = p;
 		this.setLayout(new BorderLayout());
+		this.setBorder(new TitledBorder("CD"));
 		
-		
-		if(p.getAlbum().getSongList().size() >= 15 || size  >= 15)
-		{
+		if(p.getAlbum().getSongList().size() >= 15 || size  >= 15){
 			this.setSize(690, 650);
 		}
-		else if(p.getAlbum().getSongList().size() < 11 || size < 11)
-		{
+		else if(p.getAlbum().getSongList().size() < 11 || size < 11){
 			this.setSize(690, 510);
 		}
-		else
-		{
+		else{
 			this.setSize(690, 520);
 		}
-//		JPanel top = new JPanel(new GridBagLayout());
-		this.setBorder(new TitledBorder("CD"));
 
-		
-		if(size > 0)
-		{
+
+		if(size > 0){
 			newSongs = true;
 			addFields(size, newSongs);
-			
 		}
-		else
-		{
+		else{
 			addFields(p.getAlbum().getSongList().size(), false);
 		}
 			
@@ -168,8 +160,6 @@ public class CDPopup extends JPanel implements ActionListener {
 	
 	public void addFields(int size, boolean newSong)
 	{
-		
-
 		
 		JPanel songs = new JPanel(new GridBagLayout());
 		songs.setPreferredSize(new Dimension(380, 200));
@@ -267,7 +257,6 @@ public class CDPopup extends JPanel implements ActionListener {
 		
 			for(int i = 0 ; i < p.getAlbum().getSongList().size(); i++)
 			{
-			
 				Song s = new Song(p.getProd_id(),p.getAlbum().getSongList().get(i).getProd_id(), 
 						digiProdDetailBx[i].getText(), digiProdDetailBx2[i].getText());
 				alist.add(s);
@@ -299,9 +288,6 @@ public class CDPopup extends JPanel implements ActionListener {
 }
 
 	
-	
-	
-	
 	public JTextField[] getDigiProdDetailBx() {
 		return digiProdDetailBx;
 	}
@@ -324,25 +310,15 @@ public class CDPopup extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		
-		if(e.getSource().equals(update))
-		{
+		if(e.getSource().equals(update)){
 			updateEmployee();
 		}
-		else if(e.getSource().equals(addAlbum))
-		{
-			
-			for(int i = 0; i < size; i++)
-			{
-				
+		else if(e.getSource().equals(addAlbum)){
+			for(int i = 0; i < size; i++){
 				Song s = new Song("","",digiProdDetailBx[i].getText(), digiProdDetailBx2[i].getText());
 				slist.add(s);
 			}
-
 			prodDialog.addSongs(slist);
-			
-			
 		}
-		
 	}
-
 }
