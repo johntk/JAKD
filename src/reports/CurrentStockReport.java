@@ -22,11 +22,9 @@ public class CurrentStockReport
 	private JScrollPane scrollPane;
 	private Font f;
 
-	public CurrentStockReport() throws SQLException
+	public CurrentStockReport(ReportOperations r) throws SQLException
 	{
-		ro = new ReportOperations(null,null);
-		ro.openDB();
-		
+		ro = r;
 		
 		frame = new JFrame();
 		frame.setTitle("Report");

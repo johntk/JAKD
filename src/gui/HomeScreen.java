@@ -215,7 +215,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		userPanel = new UserPanel(frame, adminOperations, employeeList);
 		elecProdPanel = new ElecProdPanel(frame, "elec", prodOpertaion, elecProductList);
 		digiProdPanel = new DigiProdPanel(frame, "digi", prodOpertaion, digiProductList);
-		genReportPanel = new generateReport();
+		genReportPanel = new generateReport(conn);
 
 
 		cards = new CardLayout();

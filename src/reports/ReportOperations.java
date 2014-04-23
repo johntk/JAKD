@@ -14,11 +14,11 @@ public class ReportOperations
 	private String topDate;
 	private String bottomDate;
 	
-	public ReportOperations(String topDate,String bottomDate)
+	/*public ReportOperations(String topDate,String bottomDate)
 	{
 		this.topDate = topDate;
 		this.bottomDate = bottomDate;
-	}
+	}*/
 	public void openDB() 
 	{
 		try {
@@ -189,5 +189,19 @@ public class ReportOperations
 			System.out.println(e);
 		}
 		return rset;
+	}
+	
+	public void setTopDate(String td)
+	{
+		topDate = td;
+	}
+	public void setBottomDate(String bd)
+	{
+		bottomDate = bd;
+	}
+	
+	public void setDBconnection(Connection conn)
+	{
+		this.conn = conn;
 	}
 }

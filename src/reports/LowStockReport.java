@@ -22,10 +22,9 @@ public class LowStockReport
 	private JScrollPane scrollPane;
 	private Font f;
 
-	public LowStockReport() throws SQLException
+	public LowStockReport(ReportOperations r) throws SQLException
 	{
-		ro = new ReportOperations(null,null);
-		ro.openDB();
+		ro = r;
 
 
 		frame = new JFrame();

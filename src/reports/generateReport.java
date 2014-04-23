@@ -21,7 +21,7 @@ public class generateReport extends JPanel implements ActionListener, ItemListen
 	private DialogBox d;
 	private CurrentStockReport lsr;
 	private static final long serialVersionUID = 1L;
-	private DBconnection db;
+	private Connection conn;
 	private CardLayout cards;
 	private JButton genReportBtn, editUserBtn, editProdBtn, financialManagBtn;
 	private JRadioButton toFromSalesReport, returnsTrans, totalSales, lowStock, reportType4, reportType5;
@@ -29,15 +29,19 @@ public class generateReport extends JPanel implements ActionListener, ItemListen
 	private JComboBox date1, date2, date3;
 	private GridLayout layout = new GridLayout();
 	private GridBagConstraints gc = new GridBagConstraints();
+	private ReportOperations ro;
 
 	private JLabel  dateTo, dateFrom;
 	private JTextField textDateTo, textDateFrom;
 	
 	private JPanel cardPanel,  genReportPanel, topPanel, report1;
 
-	public generateReport()
+	public generateReport(Connection c)
 	{
-		this.db = db;
+		conn = c;
+		ro = new ReportOperations();
+		ro.setDBconnection(c);
+		
 //		frame = new JFrame();
 		this.setLayout(layout);
 //		frame.setTitle("Report Screen");
@@ -143,14 +147,7 @@ public class generateReport extends JPanel implements ActionListener, ItemListen
 		if(ae.getSource() == genReportBtn)
 		{
 //			cardPanel.add(genReportPanel);
-			DialogBox d = new DialogBox();
-			
+			DialogBox d = new DialogBox(ro);
 		}
-
 	}
-	/*public static void main(String[] args) 
-	{
-		generateReport a = new generateReport();
-
-	}*/
 }

@@ -26,9 +26,11 @@ class DialogBox
 	private Calender c;
 	private CurrentStockReport csr;
 	private LowStockReport lsr;
+	private ReportOperations ro;
 	
-	public DialogBox()
+	public DialogBox(ReportOperations r)
 	{
+		ro = r;
 		
 		JPanel reportSelect = new JPanel(new GridLayout(4,1));
 		reportSelect.setPreferredSize(new Dimension(240,150));
@@ -49,17 +51,17 @@ class DialogBox
 		
 		if(toFromSalesReport.isSelected())
 		{
-			c = new Calender();
+			c = new Calender(ro);
 		}
 		if(returnsTrans.isSelected())
 		{
-			c = new Calender();
+			c = new Calender(ro);
 		}
 		if(currentStock.isSelected())
 		{
 			try 
 			{
-				csr = new CurrentStockReport();
+				csr = new CurrentStockReport(ro);
 			} 
 			catch (SQLException e) 
 			{	
@@ -70,7 +72,7 @@ class DialogBox
 		{
 			try 
 			{
-				lsr = new LowStockReport();
+				lsr = new LowStockReport(ro);
 			}
 			catch (SQLException e) 
 			{
@@ -99,8 +101,10 @@ class DialogBox
 		String bottomDate;
 		private Border space = (Border) BorderFactory.createEmptyBorder(3, 3, 3, 3);
 
-		public Calender()
+		public Calender(ReportOperations r)
 		{
+			ro = r;
+			
 			gc = new GridBagConstraints();
 			frame = new JFrame();
 			frame.setTitle("Select Date");
@@ -205,8 +209,11 @@ class DialogBox
 			{
 				topDate = topDate2.getSelectedItem()+"-"+topDate1.getSelectedItem()+"-"+topDate3.getSelectedItem();
 				bottomDate = bottomDate2.getSelectedItem()+"-"+bottomDate1.getSelectedItem()+"-"+bottomDate3.getSelectedItem();
-				ro = new ReportOperations(topDate,bottomDate);
-				ro.openDB();
+//				ro = new ReportOperations(topDate,bottomDate);
+//				ro.openDB();
+				
+				ro.setTopDate(topDate);
+				ro.setBottomDate(bottomDate);
 				ro.salesReportToFromDates();
 				try 
 				{
@@ -222,8 +229,11 @@ class DialogBox
 			{
 				topDate = topDate2.getSelectedItem()+"-"+topDate1.getSelectedItem()+"-"+topDate3.getSelectedItem();
 				bottomDate = bottomDate2.getSelectedItem()+"-"+bottomDate1.getSelectedItem()+"-"+bottomDate3.getSelectedItem();
-				ro = new ReportOperations(topDate,bottomDate);
-				ro.openDB();
+//				ro = new ReportOperations(topDate,bottomDate);
+//				ro.openDB();
+				
+				ro.setTopDate(topDate);
+				ro.setBottomDate(bottomDate);
 				ro.returnTrans();
 				try 
 				{
