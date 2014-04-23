@@ -24,12 +24,7 @@ import db.POSOperations;
 public class PosGui extends JPanel implements ActionListener 
 {
 	
-	////////////////// pos panel variables //////////////////////////////////
-	
-
-
 	private static final long serialVersionUID = 1L;
-	
 	
 	private JPanel posPanel,posTop, posMiddle,posRight, posBottom;
 	private JLabel trans_id, dateField, totalPrice, enterProdid,blank,blank2,blank3;
@@ -38,16 +33,24 @@ public class PosGui extends JPanel implements ActionListener
 	private JScrollPane prodBox;
 	private JTextField trans_idf,dateFieldf, enterProd;
 	private JTextField totalPriceField;
-	//private ImageIcon close;
 	private final DateFormat df;
 	private Calendar now;
 	private POSOperations po;
 	private ResultSet data;
 	private ArrayList <Transaction> tranList;
 	private Transaction tran;
-
-
 	
+	double totalCost = 0;
+	boolean quantity = false;
+	int quanPoint;
+	boolean prodExists;
+	int prodCount;
+	DecimalFormat decf = new DecimalFormat(" € #####.##");
+	private DefaultTableModel dtm ;
+	private String colNames[] = {"ID" , "Description", "Sale/Return","Quantity", "Price"};
+	private JTable table;
+	private boolean continueWithTran = true;
+	private String empID;
 	boolean voidd = false;
 	boolean returnn = false;
 	
@@ -58,20 +61,8 @@ public class PosGui extends JPanel implements ActionListener
 	private JTextField enterAmountf;
 	private JButton enterAm;
 
-	/// brain spark
-	double totalCost = 0;
-	boolean quantity = false;
-	int quanPoint;
-	boolean prodExists;
-	int prodCount;
-	DecimalFormat decf = new DecimalFormat(" € #####.##");
-	
-	private DefaultTableModel dtm ;
-	private String colNames[] = {"ID" , "Description", "Sale/Return","Quantity", "Price"};
-	private JTable table;
-	
-	private boolean continueWithTran = true;
-	private String empID;
+
+
 
 	
 	
@@ -88,11 +79,11 @@ public class PosGui extends JPanel implements ActionListener
 		
 		//Border declaration for use on east and west panels on main frame
 		Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10, 10);
-		Border line = (Border) BorderFactory.createLineBorder(Color.black);
-		//Border border = BorderFactory.createCompoundBorder(space, line);
 		
 		
-//		this.setBorder(border);
+		
+		
+
 		this.setLayout(new BorderLayout());
 		
 		//Top panel
@@ -113,24 +104,16 @@ public class PosGui extends JPanel implements ActionListener
 		trans_idf.setEditable(false);
 		posTop.add(trans_idf);
 		
-		
 
-
-		
-		
-		
-		
 		////////insert space
 		blank = new JLabel("                                                                         ");
 		posTop.add(blank);
 		
-		
+		///// set up current time
 		dateField = new JLabel("Date");
 		posTop.add(dateField);
 		
 		dateFieldf = new JTextField(8);
-		
-
 		df = new SimpleDateFormat("ddMMMyy");
 		now = Calendar.getInstance();
 		dateFieldf.setText(df.format(now.getTime()));
@@ -156,12 +139,12 @@ public class PosGui extends JPanel implements ActionListener
 		this.add(posMiddle, BorderLayout.CENTER);
 		
 		
-		
+		//// table set up for products on transaction
 		dtm= new DefaultTableModel(colNames,40); 
 	    table = new JTable(dtm);
 	    table.setShowGrid(false);
 	    table.setShowVerticalLines(true);
-		products = new JTextArea(30,45);
+		products = new JTextArea(25,45);
 		products.setEditable(false);
 		prodBox = new JScrollPane(table);
 		table.setBackground(Color.white);
@@ -169,27 +152,11 @@ public class PosGui extends JPanel implements ActionListener
 		posMiddle.add(prodBox,BorderLayout.CENTER);
 		
 		
-		JPanel headings = new JPanel();
-		headings.setLayout(new GridLayout(1,4));
-		posMiddle.add(headings,BorderLayout.NORTH);
-		
-		JLabel prodid = new JLabel("Product ID");
-		JLabel desc = new JLabel("Description");
-		JLabel price = new JLabel("Price");
-		JLabel qty = new JLabel("Quantity");
-		prodid.setBorder(line);
-		desc.setBorder(line);
-		price.setBorder(line);
-		qty.setBorder(line);
-		
-		//headings.add(prodid);
-	   // headings.add(desc);
-		//headings.add(price);
-		//headings.add(qty);
+
 		
 		
 		//right panel
-
+		
 		posRight = new JPanel();
 		posRight.setLayout(new GridBagLayout());
 		posRight.setBorder(space);
@@ -313,7 +280,7 @@ public class PosGui extends JPanel implements ActionListener
 		}
 		
 		
-		else if(e.getSource() == complete)
+		else if(e.getSource() == complete) // completes a tranaction
 		{
 			if(tranList.size() > 0)
 			{
@@ -355,19 +322,8 @@ public class PosGui extends JPanel implements ActionListener
 				jd.setVisible(false);
 				po.insertTran(tranList);
 				po.updateCurrentStock(tranList);
-				
-				//HomeScreen h = new HomeScreen();
-				//h.completeSale();
-				
-
-				/*try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e1) {
-					
-					e1.printStackTrace();
-				}*/
-				
-				newTran();
+								
+				newTran(); // clears all data for a new transaction
 				
 				
 				
@@ -531,9 +487,7 @@ public class PosGui extends JPanel implements ActionListener
 								double prodCost = Double.parseDouble(data.getString(3));
 								tran.setTotalCost(prodCost);
 								tran.setQuantity(1);
-								
-								
-								
+
 								totalCost = prodCost + totalCost;
 								tranList.add(tran);
 								
@@ -623,6 +577,7 @@ public class PosGui extends JPanel implements ActionListener
 				double singleProdPrice = (tranList.get(quanPoint).getTotalCost()) / (tranList.get(quanPoint).getQuantity());
 				tranList.get(quanPoint).setTotalCost((tranList.get(quanPoint).getTotalCost()) + singleProdPrice);
 				totalCost = totalCost + singleProdPrice;
+				tranList.get(quanPoint).setQuantity(tranList.get(quanPoint).getQuantity() + 1);
 				totalPriceField.setText(decf.format(totalCost));
 				
 
@@ -659,7 +614,7 @@ public class PosGui extends JPanel implements ActionListener
 	
 	public void newTran()
 	{
-		JOptionPane.showMessageDialog(null,"Click Ok For New Sale","New Sale",JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showMessageDialog(null,"Click Ok For New Transaction","New Transaction",JOptionPane.WARNING_MESSAGE);
 
 		trans_idf.setText(po.queryTransid());
 		dateFieldf.setText(df.format(now.getTime()));
