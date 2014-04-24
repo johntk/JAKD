@@ -320,7 +320,6 @@ public class HomeScreen extends JFrame implements ActionListener{
 				manager =true;
 				logIn();
 			}
-		
 		}
 		else if(button.equals(button3) && button3.getText().equals("Edit Product"))
 		{
@@ -368,7 +367,6 @@ public class HomeScreen extends JFrame implements ActionListener{
 		}
 		else if (e.getSource() == enterPButton)
 		{
-
 			if(check() == true){	
 				buttonSelect(sideButtonsArray[index], true);}
 			else {

@@ -85,7 +85,6 @@ public class HomeScreenOperations
 	
 	public Boolean getStaffPin(String pin)
 	{
-		System.out.println(pin);
 		openDB();
 		
 		Boolean authenticate = false;
@@ -134,7 +133,6 @@ public class HomeScreenOperations
 	
 	public Boolean getMangPin(String pin)
 	{
-		System.out.println(pin);
 		openDB();
 		
 		Boolean authenticate = false;
