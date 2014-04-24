@@ -1,4 +1,4 @@
-package kioskScreens;
+package model;
 
 import java.awt.*;
 import java.text.DecimalFormat;

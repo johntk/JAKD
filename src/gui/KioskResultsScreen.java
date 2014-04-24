@@ -1,4 +1,4 @@
-package kioskScreens;
+package gui;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import model.KioskResult;
 import operations.KioskOperations;
 
 public class KioskResultsScreen extends JFrame implements ActionListener, ItemListener
@@ -26,7 +27,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 	private JRadioButton platform;
 	private JRadioButton allGames;
 	private KioskResultsScreen krs;
-	private ProductDisplay pd;
+	private KioskProductDisplay pd;
 	private GridBagConstraints gc;
 	private KioskOperations kq;
 
@@ -244,7 +245,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 			{
 				if(((JButton)e.getSource()) == viewButtons.get(i))
 				{
-					pd = new ProductDisplay();
+					pd = new KioskProductDisplay();
 					kq.queryProductInfo(resultList.get(i).getProdID(),pd);
 					main.setVisible(false);
 					KioskStartScreen.addPanel(pd.getPanel());

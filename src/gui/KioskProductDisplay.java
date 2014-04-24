@@ -1,4 +1,4 @@
-package kioskScreens;
+package gui;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -9,6 +9,9 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 
+import model.KioskAudioPlayer;
+import model.KioskSong;
+
 
 /*
 The Product Display class is called when the "View Product" button is pressed from the results list
@@ -16,7 +19,7 @@ It displays all the details of the selected product.
 */
 
 
-public class ProductDisplay extends JFrame implements ActionListener
+public class KioskProductDisplay extends JFrame implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
 	private JPanel main,center,top,centerTop,footer,productInfo;
@@ -29,18 +32,18 @@ public class ProductDisplay extends JFrame implements ActionListener
 	private ArrayList<KioskSong> songList;
 	private ArrayList<JButton> playButtons;
 	private ArrayList<JLabel> songNames;
-	private AudioPlayer ap;
+	private KioskAudioPlayer ap;
 	private JSlider volume;
 	private DecimalFormat d;
 
-	public ProductDisplay()
+	public KioskProductDisplay()
 	{
 		playButtons = new ArrayList<JButton>();
 		songList = new ArrayList<KioskSong>();
 		songNames = new ArrayList<JLabel>();
 		play = new ImageIcon(this.getClass().getResource("/resources/kioskFiles/images/play.png"));
 		stop = new ImageIcon(this.getClass().getResource("/resources/kioskFiles/images/stop.png"));
-		ap = new AudioPlayer();
+		ap = new KioskAudioPlayer();
 
 		volume = new JSlider(JSlider.HORIZONTAL,0,100,90);
 		volume.setMajorTickSpacing(25);

@@ -2,12 +2,13 @@
 
 package operations;
 
+import gui.KioskProductDisplay;
+import gui.KioskResultsScreen;
+
 import java.sql.*;
 import java.util.ArrayList;
 
-import kioskScreens.KioskResultsScreen;
-import kioskScreens.ProductDisplay;
-import kioskScreens.KioskSong;
+import model.KioskSong;
 
 public class KioskOperations
 {
@@ -131,7 +132,7 @@ public class KioskOperations
 		}
 	}
 
-	public void queryProductInfo(String prodID,ProductDisplay pd)
+	public void queryProductInfo(String prodID,KioskProductDisplay pd)
 	{
 		String prodType =null;
 		try

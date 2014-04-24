@@ -1,4 +1,4 @@
-package kioskScreens;
+package model;
 
 import java.io.IOException;
 import java.net.URL;
@@ -10,7 +10,7 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.Line;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-public class AudioPlayer
+public class KioskAudioPlayer
 {
 	private Clip clip;
 	private AudioInputStream aiStream;
