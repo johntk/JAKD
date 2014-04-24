@@ -24,12 +24,12 @@ public class KioskStartScreen extends JFrame implements ActionListener
 	private KioskResultsScreen krs;
 	private KioskSearch ks;
 	private Connection conn;
-	private KioskQueries kq;
+	private KioskOperations kq;
 
 	public KioskStartScreen(Connection c)
 	{
 		conn = c;
-		kq = new KioskQueries();
+		kq = new KioskOperations();
 		kq.setDBconnection(conn);
 
 		frameIcon = new ImageIcon(this.getClass().getResource("/resources/titleIcon.png"));

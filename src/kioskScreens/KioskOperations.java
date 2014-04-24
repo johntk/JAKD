@@ -5,7 +5,7 @@ package kioskScreens;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class KioskQueries
+public class KioskOperations
 {
 	private Connection conn;
 	private Statement stmt;

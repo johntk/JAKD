@@ -17,9 +17,9 @@ public class KioskSearch extends JFrame implements ActionListener
 	private Font f1;
 	private ImageIcon hm,logo;
 	private GridBagConstraints gc;
-	private KioskQueries k;
+	private KioskOperations k;
 
-	public KioskSearch(KioskQueries kq)
+	public KioskSearch(KioskOperations kq)
 	{
 		k = kq;
 		f1=new Font("Calibri",Font.PLAIN,20);

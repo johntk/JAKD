@@ -2,7 +2,6 @@ package kioskScreens;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -27,9 +26,9 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 	private KioskResultsScreen krs;
 	private ProductDisplay pd;
 	private GridBagConstraints gc;
-	private KioskQueries kq;
+	private KioskOperations kq;
 
-	public KioskResultsScreen(KioskQueries kq)
+	public KioskResultsScreen(KioskOperations kq)
 	{
 		this.kq = kq;
 
