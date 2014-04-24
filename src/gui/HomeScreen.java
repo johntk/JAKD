@@ -67,6 +67,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private ImageIcon ti;
 	private DBconnection db;
 	private Connection conn;
+	int index =0;
 	
 	
 	////////////////     log in variables //////////////////////////////////
@@ -278,7 +279,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 //		trayIcon.displayMessage("JAKD", "Right-Click Here For Options", TrayIcon.MessageType.NONE);
 	}
 
-	public void buttonSelect(JButton button) {
+	public void buttonSelect(JButton button, boolean pinCheck) {
 
 		if (button.equals(button1) && button1.getText().equals("Generate Report")) {
 			genReportPanel = new generateReport(conn);
@@ -288,20 +289,41 @@ public class HomeScreen extends JFrame implements ActionListener{
 		}
 		else if(button.equals(button1) && button1.getText().equals("POS")) ///////////////////////////////// pos //////////////////////
 		{
-			logIn();
+			if(pinCheck == true)
+			{
+				posGUI = new PosGui(pin);
+				cardPanel.add(posGUI, "POSGui");
+				frame.setTitle("POS Screen");
+				button4.setText("Logout");
+				cards.show(cardPanel, "POSGui");
+				logIn.dispose();	
+			}
+			else
+			{
+				logIn();
+			}
 		}
 		else if(button.equals(button2) && button2.getText().equals("Edit User"))
 		{
 			cards.show(cardPanel, "editUser");
 		}
 		else if (button.equals(button2) && button2.getText().equals("Admin"))
-		{
-			frame.setTitle("Admin Screen");
-			button1.setText("Generate Report");
-			button2.setText("Edit User");
-			button3.setText("Edit Product");
-			button4.setText("Logout");
-			cards.show(cardPanel, "editUser");
+		{	
+			if(pinCheck == true)
+			{
+				frame.setTitle("Admin Screen");
+				button1.setText("Generate Report");
+				button2.setText("Edit User");
+				button3.setText("Edit Product");
+				button4.setText("Logout");
+				cards.show(cardPanel, "editUser");
+				logIn.dispose();
+			}
+			else
+			{
+				logIn();
+			}
+		
 		}
 		else if(button.equals(button3) && button3.getText().equals("Edit Product"))
 		{
@@ -330,9 +352,12 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 
+		
 		for (int i = 0; i < sideButtonsArray.length; i++) {
 			if (e.getSource().equals(sideButtonsArray[i])) {
-				buttonSelect(sideButtonsArray[i]);
+				buttonSelect(sideButtonsArray[i], false);
+				System.out.println(i);
+				index = i;
 			}
 		}
 
@@ -343,31 +368,30 @@ public class HomeScreen extends JFrame implements ActionListener{
 			cards.show(cardPanel, "editDigi");
 		} 
 		else if (e.getSource() == closeBtn) {
-			digiProductList.refreshListCD();
+			
 		}
 		else if (e.getSource() == enterPButton)
 		{
-			pin = new String(jpf.getPassword());
-			if(ho.getStaffPin(pin)==true)
-			{
-				// if moved empid will not save in database, no other way of doing it!!
-				posGUI = new PosGui(pin);
-				cardPanel.add(posGUI, "POSGui");
+
+			if(check() == true){	
 				
+				buttonSelect(sideButtonsArray[index], true);
+				
+/*				posGUI = new PosGui(pin);
+				cardPanel.add(posGUI, "POSGui");
 				frame.setTitle("POS Screen");
 				button4.setText("Logout");
 				cards.show(cardPanel, "POSGui");
-				logIn.setVisible(false);
-				
+				logIn.dispose();*/	
 			}
-			else 
-			{
-				
+			else {
 				JOptionPane.showMessageDialog(null,"Pin Incorrect","Invalid User",JOptionPane.WARNING_MESSAGE);
 				
 			}
 		}
 	}
+	
+	
 	
 	public void logIn()
 	{
@@ -389,8 +413,22 @@ public class HomeScreen extends JFrame implements ActionListener{
 		enterPButton = new JButton("Log In");
 		enterPButton.addActionListener(this);
 		logIn.add(enterPButton);
+		
 	}
 	
+	public boolean check()
+	{
+		boolean go = false;
+		
+		pin = new String(jpf.getPassword());
+		if(ho.getStaffPin(pin)==true){
+			go = true;	
+		}
+		else{
+			go = false;
+		}
+		return go;
+	}
 
 	public static void main(String args[]) {
 		new HomeScreen();
