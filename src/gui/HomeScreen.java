@@ -312,7 +312,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 				button2.setText("Edit User");
 				button3.setText("Edit Product");
 				button4.setText("Logout");
-				cards.show(cardPanel, "homePanel");
+				welcome.setText("Admin");
+				cardPanel.repaint();
 				logIn.dispose();	
 			}
 			else
@@ -336,6 +337,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 			button3.setText("Kiosk");
 			button4.setText("Close");
 			frame.setTitle("Home Screen");
+			welcome.setText("Welcome to JAKD!");
 			cards.show(cardPanel, "homePanel");
 			cardPanel.repaint();
 		}
