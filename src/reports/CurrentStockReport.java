@@ -51,7 +51,6 @@ public class CurrentStockReport extends JPanel
 		{
 			rowCount = rset.getRow();
 			rset.beforeFirst();
-			System.out.println(rowCount);
 		}
 		dtm = new DefaultTableModel(colNames, rowCount);
 		table = new JTable(dtm);
@@ -66,7 +65,7 @@ public class CurrentStockReport extends JPanel
 			table.getColumnModel().getColumn(1).setPreferredWidth(250);
 			table.getColumnModel().getColumn(2).setPreferredWidth(230);
 			table.getColumnModel().getColumn(3).setPreferredWidth(100);
-			table.getColumnModel().getColumn(4).setPreferredWidth(115);
+			table.getColumnModel().getColumn(4).setPreferredWidth(130);
 			
 		}
 		for(int i = 0;i < rowCount;i++)
