@@ -71,7 +71,6 @@ public class PosGui extends JPanel implements ActionListener
 		this.pin = pin;
 	
 		po = new POSOperations(conn);
-//		po.openDB();
 		tranList = new ArrayList<Transaction>();
 
 		empID = po.getEmployeeID(pin);

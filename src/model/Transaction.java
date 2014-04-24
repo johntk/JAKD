@@ -22,7 +22,6 @@ public class Transaction
 		conn = c;
 		
 		po = new POSOperations(conn);
-//		po.openDB();
 		transType = "S";
 		//empID = pin;
 		transID = po.queryTransid();
