@@ -111,7 +111,6 @@ public class HomeScreenOperations
 				if(pin.equals(rset.getString(1)))
 				{
 					authenticate = true;
-					System.out.println("true pin ");
 				}
 			}
 			
@@ -121,6 +120,14 @@ public class HomeScreenOperations
 		{
 			ex.printStackTrace();
 			System.out.println("ERROR: " + ex.getMessage());
+		}
+		finally {  
+		    if(rset != null) {  
+		        try {  
+		        	rset.close();  
+		        }  
+		        catch (SQLException e) {}  
+		    }  
 		}
 		return authenticate;
 	}
@@ -137,22 +144,25 @@ public class HomeScreenOperations
 			String sqlStatement = "SELECT pin_num FROM EMPLOYEE WHERE manager =" + "'" + "Y" + "'";
 			rset = stmt.executeQuery(sqlStatement);
 			
-
 			while (rset.next())
 			{
 				if(pin.equals(rset.getString(1)))
 				{
 					authenticate = true;
-					System.out.println("true pin ");
 				}
-			}
-			
-			
-			
+			}	
 		} catch (Exception ex)
 		{
 			ex.printStackTrace();
 			System.out.println("ERROR: " + ex.getMessage());
+		}
+		finally {  
+		    if(rset != null) {  
+		        try {  
+		        	rset.close();
+		        }  
+		        catch (SQLException e) {}  
+		    }  
 		}
 		return authenticate;
 	}
