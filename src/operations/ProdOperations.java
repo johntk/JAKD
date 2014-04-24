@@ -324,6 +324,7 @@ public class ProdOperations {
 				pstmt.executeUpdate();
 				
 				//I'm an easter egg, you win life ,!,,
+//				Found it
 				String queryString2 = "UPDATE Headphones SET over_ear=?, headphone_cost_price=?, headphone_sale_price=?, "
 						+" iphone_compatible=?, microphone=? "
 						+"WHERE headphone_id ="+ "'" + p.getHeadphone_id() + "'";
