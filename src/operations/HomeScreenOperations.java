@@ -114,7 +114,40 @@ public class HomeScreenOperations
 					System.out.println("true pin ");
 				}
 			}
-//			
+			
+			
+			
+		} catch (Exception ex)
+		{
+			ex.printStackTrace();
+			System.out.println("ERROR: " + ex.getMessage());
+		}
+		return authenticate;
+	}
+	
+	public Boolean getMangPin(String pin)
+	{
+		System.out.println(pin);
+		openDB();
+		
+		Boolean authenticate = false;
+		try {
+
+			stmt = conn.createStatement();
+			String sqlStatement = "SELECT pin_num FROM EMPLOYEE WHERE manager =" + "'" + "Y" + "'";
+			rset = stmt.executeQuery(sqlStatement);
+			
+
+			while (rset.next())
+			{
+				if(pin.equals(rset.getString(1)))
+				{
+					authenticate = true;
+					System.out.println("true pin ");
+				}
+			}
+			
+			
 			
 		} catch (Exception ex)
 		{

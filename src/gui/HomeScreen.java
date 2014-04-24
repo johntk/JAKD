@@ -63,8 +63,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private ImageIcon ti;
 	private DBconnection db;
 	private Connection conn;
-	int index =0;
-	
+	private int index =0;
+	private boolean manager;
 	
 	////////////////     log in variables //////////////////////////////////
 	JDialog logIn; 
@@ -295,6 +295,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 			}
 			else
 			{
+				manager =false;
 				logIn();
 			}
 		}
@@ -316,6 +317,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 			}
 			else
 			{
+				manager =true;
 				logIn();
 			}
 		
@@ -351,7 +353,6 @@ public class HomeScreen extends JFrame implements ActionListener{
 		for (int i = 0; i < sideButtonsArray.length; i++) {
 			if (e.getSource().equals(sideButtonsArray[i])) {
 				buttonSelect(sideButtonsArray[i], false);
-				System.out.println(i);
 				index = i;
 			}
 		}
@@ -369,7 +370,6 @@ public class HomeScreen extends JFrame implements ActionListener{
 		{
 
 			if(check() == true){	
-				System.out.println(index);
 				buttonSelect(sideButtonsArray[index], true);}
 			else {
 				JOptionPane.showMessageDialog(null,"Pin Incorrect","Invalid User",JOptionPane.WARNING_MESSAGE);
@@ -407,12 +407,25 @@ public class HomeScreen extends JFrame implements ActionListener{
 	{
 		boolean go = false;
 		
-		pin = new String(jpf.getPassword());
-		if(ho.getStaffPin(pin)==true){
-			go = true;	
+		if(manager != true)
+		{
+			pin = new String(jpf.getPassword());
+			if(ho.getStaffPin(pin)==true){
+				go = true;	
+			}
+			else{
+				go = false;
+		}	
 		}
-		else{
-			go = false;
+		else
+		{
+			pin = new String(jpf.getPassword());
+			if(ho.getMangPin(pin)==true){
+				go = true;	
+			}
+			else{
+				go = false;
+		}	
 		}
 		return go;
 	}
