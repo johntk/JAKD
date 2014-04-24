@@ -383,8 +383,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 				else
 				{
 					logIn.dispose();
-					JOptionPane.showMessageDialog(null,"You do no have sufficent privliges","", JOptionPane.WARNING_MESSAGE);
-					
+					JOptionPane.showMessageDialog(null,"You do no have sufficent privliges","", JOptionPane.WARNING_MESSAGE);	
 				}
 				
 			}
