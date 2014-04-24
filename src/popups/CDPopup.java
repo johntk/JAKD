@@ -127,6 +127,7 @@ public class CDPopup extends JPanel implements ActionListener {
 		gc.gridy = 1;
 		gc.insets = new Insets(0, 14, 0, 0);
 		artistTBox = new JTextField(16);
+		artistTBox.setBackground(cl2);
 		artistTBox.setText(p.getArtist());
 		details.add(artistTBox, gc);
 		
