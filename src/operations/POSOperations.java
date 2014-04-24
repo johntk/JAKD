@@ -244,6 +244,32 @@ public class POSOperations
 			}
 		}
 	}
+	public String getEmployeeID(String pin)
+	{
+		
+		openDB();
+		String id = "";
+		
+		try 
+		{
+			stmt = conn.createStatement();
+			String sqlStatement = "SELECT emp_id FROM EMPLOYEE WHERE pin_num = '" +pin+"'" ;
+			rset = stmt.executeQuery(sqlStatement);
+			
+			rset.next();
+			id = rset.getString(1);
+		}
+	
+		catch (Exception ex)
+		{
+			System.out.println("get employee id problem");
+			ex.printStackTrace();
+			System.out.println("ERROR: " + ex.getMessage());
+		}
+		
+		
+		return id;
+	}
 
 
 }

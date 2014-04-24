@@ -47,7 +47,7 @@ public class PosGui extends JPanel implements ActionListener
 	private String colNames[] = {"ID" , "Description", "Sale/Return","Quantity", "Price"};
 	private JTable table;
 	private boolean continueWithTran = true;
-	private String empID;
+	private String empID, pin;
 	boolean voidd = false;
 	boolean returnn = false;
 	
@@ -64,14 +64,15 @@ public class PosGui extends JPanel implements ActionListener
 	
 	
 	
-	public PosGui(String id)
+	public PosGui(String pin)
 	{
-		empID = id;
+		this.pin = pin;
+	
 		po = new POSOperations();
 		po.openDB();
 		tranList = new ArrayList<Transaction>();
 
-
+		empID = po.getEmployeeID(pin);
 	
 		
 		//Border declaration for use on east and west panels on main frame
