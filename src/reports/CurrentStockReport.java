@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -12,8 +11,11 @@ import reports.ReportOperations;
 
 public class CurrentStockReport extends JPanel
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ReportOperations ro;
-	private JFrame frame;
 	private JPanel topPanel, mainPanel, resultsPanel;
 	private JLabel title;
 	private DefaultTableModel dtm;
@@ -25,13 +27,6 @@ public class CurrentStockReport extends JPanel
 	public CurrentStockReport(ReportOperations r) throws SQLException
 	{
 		ro = r;
-		
-//		frame = new JFrame();
-//		frame.setTitle("Report");
-//		frame.setSize(600, 700);
-//		frame.setLocationRelativeTo(null);
-//		frame.setResizable(false);
-//		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		
 		f = new Font("Helvetica", Font.ITALIC, 40);
@@ -39,7 +34,6 @@ public class CurrentStockReport extends JPanel
 		String[] colNames = {"Product ID","Description","Product Type","Current Stock","Sale Price"};
 
 		topPanel = new JPanel(new FlowLayout());
-//		topPanel.setSize(600, 140);
 		this.add(topPanel, BorderLayout.NORTH);
 		
 		title = new JLabel("Current Stock");

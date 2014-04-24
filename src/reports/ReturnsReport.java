@@ -18,7 +18,10 @@ import reports.ReportOperations;
 
 public class ReturnsReport extends JPanel
 {
-	private JFrame frame;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel topPanel, mainPanel, topLeftPanel, topRightPanel, headingsPanel, resultsPanel;
 	private JLabel dateTo, dateFrom, tranID, saleDate,amount;
 	private JTextField textDateTo, textDateFrom;
@@ -37,12 +40,6 @@ public class ReturnsReport extends JPanel
 	{
 		layout = new GridBagLayout();
 		gc = new GridBagConstraints();
-//		frame = new JFrame();
-//		frame.setTitle("Report");
-//		frame.setSize(600, 700);
-//		frame.setLocationRelativeTo(null);
-//		frame.setResizable(false);
-//		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		f = new Font("Helvetica", Font.ITALIC, 20);
 		String[] colNames = {"Transaction ID","Transaction Date", "Transaction Type","Total Returned", "Employee"};
@@ -188,85 +185,3 @@ public class ReturnsReport extends JPanel
 		this.setVisible(true);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*ro = new ReportOperations(null,null);
-ro.openDB();
-
-
-frame = new JFrame();
-frame.setTitle("Report");
-frame.setSize(600, 700);
-frame.setLocationRelativeTo(null);
-frame.setResizable(false);
-frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-frame.setLayout(new BorderLayout());
-
-f = new Font("Helvetica", Font.ITALIC, 40);
-
-String[] colNames = {"Transaction ID","Transaction Date", "Transaction Type","Total Returned", "Employee"};
-
-topPanel = new JPanel(new FlowLayout());
-topPanel.setSize(600, 140);
-frame.add(topPanel, BorderLayout.NORTH);
-
-title = new JLabel("Low Stock Levels");
-title.setFont(f);
-topPanel.add(title);
-
-mainPanel = new JPanel(new BorderLayout());
-frame.add(mainPanel, BorderLayout.CENTER);
-
-resultsPanel = new JPanel(new BorderLayout());
-
-rset = ro.lowStockReport();
-int rowCount = 0;
-if(rset.last())
-{
-	rowCount = rset.getRow();
-	rset.beforeFirst();
-	System.out.println(rowCount);
-}
-dtm = new DefaultTableModel(colNames, rowCount);
-table = new JTable(dtm);
-//table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-scrollPane = new JScrollPane(table);
-DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-for(int i = 0;i<colNames.length;i++)
-{
-	table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-	table.getColumnModel().getColumn(0).setPreferredWidth(120);
-	table.getColumnModel().getColumn(1).setPreferredWidth(150);
-	table.getColumnModel().getColumn(2).setPreferredWidth(230);
-	table.getColumnModel().getColumn(3).setPreferredWidth(100);
-	table.getColumnModel().getColumn(4).setPreferredWidth(100);
-}
-for(int i = 0;i < rowCount;i++)
-{
-	if(rset.next())
-	{
-		table.setValueAt(rset.getInt   (1), i, 0);
-		table.setValueAt(rset.getString(2), i, 1);
-		table.setValueAt(rset.getString(3), i, 2);
-		table.setValueAt(rset.getDouble(4), i, 3);
-		table.setValueAt(rset.getString(5), i, 4);
-	}
-}
-resultsPanel.add(scrollPane, BorderLayout.CENTER);
-mainPanel.add(resultsPanel, BorderLayout.CENTER);
-frame.setVisible(true);
-}
-}*/
-

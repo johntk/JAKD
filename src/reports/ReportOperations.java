@@ -2,80 +2,13 @@ package reports;
 import java.sql.*;
 import java.util.ArrayList;
 
-import oracle.jdbc.pool.OracleDataSource;
-import reports.Results;
-
 public class ReportOperations
 {
 	private Connection conn;
 	private PreparedStatement stmt;
 	private ResultSet rset;
-	private Results r;
 	private String topDate;
 	private String bottomDate;
-
-	/*public ReportOperations(String topDate,String bottomDate)
-	{
-		this.topDate = topDate;
-		this.bottomDate = bottomDate;
-	}
-	public void openDB() 
-	{
-		try {
-			// Load the Oracle JDBC driver
-			OracleDataSource ods = new OracleDataSource();
-			ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
-			ods.setUser("davidprendergast");
-			ods.setPassword("Ralph0886");
-
-			// Tallaght Database
-			//ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
-			//ods.setUser("x00058277");
-			//ods.setPassword("db30Aug86");
-
-			conn = ods.getConnection();
-			System.out.println("connected.");
-		} catch (Exception e) {
-			System.out.print("Unable to load driver " + e);
-			System.exit(1);
-		}
-	}
-	public void closeDB() 
-	{
-		try 
-		{
-			stmt.close();
-			rset.close();
-			conn.close();
-			System.out.print("Connection closed");
-		}
-		catch (SQLException e)
-		{
-			System.out.print("Could not close connection ");
-			e.printStackTrace();
-		}
-	}
-	/*public void queryDB()
-	{
-		ResultSet rset;
-		String query = "SELECT Trans_ID,Trans_DATE,TRANS_TYPE,TOTAL_COST,QUANTITY,EMP_ID,PROD_ID FROM Transaction";
-		try
-		{
-			stmt = conn.prepareStatement(query);
-			rset = stmt.executeQuery();
-			while(rset.next())
-			{
-				r = new Results(rset.getInt(1), rset.getDate(2), rset.getString(3), rset.getDouble(4),
-										rset.getInt(5), rset.getInt(6), rset.getString(7));
-				System.out.println(r);
-				aList.add(r);
-			}
-		}
-		catch(Exception e) 
-		{
-			System.out.println(e);
-		}
-	}*/
 
 	public ResultSet salesReportToFromDates()
 	{

@@ -14,7 +14,10 @@ import reports.ReportOperations;
 
 public class ReportDesignToFrom extends JPanel
 {
-	private JFrame frame;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel topPanel, mainPanel, topLeftPanel, topRightPanel, headingsPanel, resultsPanel;
 	private JLabel dateTo, dateFrom, tranID, saleDate,amount;
 	private JTextField textDateTo, textDateFrom;
@@ -33,12 +36,6 @@ public class ReportDesignToFrom extends JPanel
 	{
 		layout = new GridBagLayout();
 		gc = new GridBagConstraints();
-//		frame = new JFrame();
-//		frame.setTitle("Report");
-//		frame.setSize(600, 700);
-//		frame.setLocationRelativeTo(null);
-//		frame.setResizable(false);
-//		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		f = new Font("Helvetica", Font.ITALIC, 20);
 		String[] colNames = {"Transaction ID","Transaction Date","Total"};
