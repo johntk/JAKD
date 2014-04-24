@@ -8,12 +8,12 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import operations.ProdOperations;
+import popups.ProdDialog;
 import model.CD;
 import model.DigiProduct;
 import model.DigiProductList;
 import model.Employee;
 import model.Song;
-import Popups.ProdDialog;
 
 public class DigiProdPanel extends JPanel implements ActionListener, ItemListener {
 

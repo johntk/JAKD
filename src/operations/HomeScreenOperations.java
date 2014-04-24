@@ -112,10 +112,7 @@ public class HomeScreenOperations
 				{
 					authenticate = true;
 				}
-			}
-			
-			
-			
+			}	
 		} catch (Exception ex)
 		{
 			ex.printStackTrace();
@@ -131,6 +128,9 @@ public class HomeScreenOperations
 		}
 		return authenticate;
 	}
+	
+	
+	
 	
 	public Boolean getMangPin(String pin)
 	{

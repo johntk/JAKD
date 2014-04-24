@@ -1,4 +1,4 @@
-package Popups;
+package popups;
 
 import gui.DigiProdPanel;
 
