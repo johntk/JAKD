@@ -371,7 +371,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		else if (e.getSource() == enterPButton)
 		{
 
-			if(check() == true){	
+			if(pinCheck() == true){	
 				
 				buttonSelect(sideButtonsArray[index], true);
 				
@@ -414,18 +414,16 @@ public class HomeScreen extends JFrame implements ActionListener{
 		
 	}
 	
-	public boolean check()
+	public boolean pinCheck()
 	{
-		boolean go = false;
+		boolean rightPin = false;
 		
 		pin = new String(jpf.getPassword());
 		if(ho.getStaffPin(pin)==true){
-			go = true;	
+			rightPin = true;	
 		}
-		else{
-			go = false;
-		}
-		return go;
+
+		return rightPin;
 	}
 
 	public static void main(String args[]) {
