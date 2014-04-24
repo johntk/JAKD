@@ -224,7 +224,6 @@ public class ProdOperations {
 				String queryString4 = "UPDATE artist SET artist_name=? "
 						+"WHERE artist_id ="+ "'" + p.getArtist_id() + "'";
 
-				System.out.println(p.getArtist_id());
 				pstmt = conn.prepareStatement(queryString4);
 				pstmt.setString(1, p.getArtist());
 				pstmt.executeUpdate();

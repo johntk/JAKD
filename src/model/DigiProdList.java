@@ -79,6 +79,7 @@ public class DigiProdList {
 						rset.getString(14), 
 						c);
 				plist.add(p);
+
 			}
 		} catch (Exception ex) {
 			System.out.println(ex);

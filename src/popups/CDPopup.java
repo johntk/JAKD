@@ -273,10 +273,10 @@ public class CDPopup extends JPanel implements ActionListener {
 			CD c = new CD(alist);
 			
 			DigiProduct cd = new DigiProduct(p.getProd_id(),
-					p.getProd_type(),
 					p.getDigi_id(),
 					p.getCd_id(),
 					p.getArtist_id(),
+					p.getProd_type(),
 					p.getAlbumName(),
 					p.getCostPrice(),
 					p.getSellPrice(),
