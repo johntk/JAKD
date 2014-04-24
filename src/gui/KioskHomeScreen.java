@@ -10,7 +10,7 @@ import javax.swing.*;
 
 import operations.KioskOperations;
 
-public class KioskStartScreen extends JFrame implements ActionListener
+public class KioskHomeScreen extends JFrame implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
 	private static JFrame frame;
@@ -28,7 +28,7 @@ public class KioskStartScreen extends JFrame implements ActionListener
 	private Connection conn;
 	private KioskOperations kq;
 
-	public KioskStartScreen(Connection c)
+	public KioskHomeScreen(Connection c)
 	{
 		conn = c;
 		kq = new KioskOperations();

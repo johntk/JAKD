@@ -126,7 +126,7 @@ public class KioskSearch extends JFrame implements ActionListener
 					krs.displayResult();
 					krs.setHeading(searchTerm.toUpperCase());
 					main.setVisible(false);
-					KioskStartScreen.addPanel(krs.getPanel());
+					KioskHomeScreen.addPanel(krs.getPanel());
 				}
 		    }
 		}
@@ -169,12 +169,12 @@ public class KioskSearch extends JFrame implements ActionListener
 				krs.displayResult();
 				krs.setHeading(searchTerm.toUpperCase());
 				main.setVisible(false);
-				KioskStartScreen.addPanel(krs.getPanel());
+				KioskHomeScreen.addPanel(krs.getPanel());
 			}
 		}
 		if(e.getSource()==home)
 		{
-			KioskStartScreen.switchToMainPanel(main);
+			KioskHomeScreen.switchToMainPanel(main);
 		}
 	}
 }

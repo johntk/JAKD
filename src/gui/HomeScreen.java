@@ -329,7 +329,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		}
 		else if(button.equals(button3) && button3.getText().equals("Kiosk"))
 		{
-			new KioskStartScreen(conn);
+			new KioskHomeScreen(conn);
 			button4.setText("Logout");
 		}
 		else if (button.equals(button4) && button4.getText().equals("Logout")) {

@@ -236,7 +236,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 	{
 		if(e.getSource()==home)
 		{
-			KioskStartScreen.switchToMainPanel(main);
+			KioskHomeScreen.switchToMainPanel(main);
 		}
 
 		if(e.getSource() instanceof JButton)
@@ -248,7 +248,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 					pd = new KioskProductDisplay();
 					kq.queryProductInfo(resultList.get(i).getProdID(),pd);
 					main.setVisible(false);
-					KioskStartScreen.addPanel(pd.getPanel());
+					KioskHomeScreen.addPanel(pd.getPanel());
 				}
 			}
 		}
