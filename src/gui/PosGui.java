@@ -179,7 +179,7 @@ public class PosGui extends JPanel implements ActionListener
 			gc.gridheight = 1; 
 			gc.weighty = 0.2; 
 			gc.weightx = 0.0;
-			posButtons[i].setIcon(new ImageIcon("src/resources/blueButton.png"));
+			posButtons[i].setIcon(new ImageIcon(this.getClass().getResource("/resources/blueButton.png")));
 			posButtons[i].setFont(new Font("sansserif",Font.BOLD,22));
 			posButtons[i].setPreferredSize(new Dimension(250, 100));
 			posButtons[i].setHorizontalTextPosition(JButton.CENTER);
