@@ -373,7 +373,19 @@ public class HomeScreen extends JFrame implements ActionListener{
 			if(check() == true){	
 				buttonSelect(sideButtonsArray[index], true);}
 			else {
-				JOptionPane.showMessageDialog(null,"Pin Incorrect","Invalid User",JOptionPane.WARNING_MESSAGE);
+				
+				manager = false;
+				if(check() != true)
+				{
+					logIn.dispose();
+					JOptionPane.showMessageDialog(null,"Pin Incorrect","",JOptionPane.WARNING_MESSAGE);
+				}
+				else
+				{
+					logIn.dispose();
+					JOptionPane.showMessageDialog(null,"You do no have sufficent privliges","", JOptionPane.WARNING_MESSAGE);
+					
+				}
 				
 			}
 		}
