@@ -325,6 +325,7 @@ public class ProdOperations {
 				
 				//I'm an easter egg, you win life ,!,,
 //				Found it
+				//I suspect you used Git for a little help...
 				String queryString2 = "UPDATE Headphones SET over_ear=?, headphone_cost_price=?, headphone_sale_price=?, "
 						+" iphone_compatible=?, microphone=? "
 						+"WHERE headphone_id ="+ "'" + p.getHeadphone_id() + "'";
