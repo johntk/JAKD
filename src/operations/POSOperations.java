@@ -21,12 +21,12 @@ public class POSOperations
 	private PreparedStatement pstmt;
 	
 
-	public POSOperations() 
+	public POSOperations(Connection c) 
 	{
-		
+		conn = c;
 	}
 	
-	public void openDB()
+	/*public void openDB()
 	{
 		try
 		{
@@ -86,7 +86,7 @@ public class POSOperations
 			System.out.print("\nCould not close connection ");
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	public ResultSet queryProduct(String prodInput) throws SQLException
 	{
@@ -247,7 +247,7 @@ public class POSOperations
 	public String getEmployeeID(String pin)
 	{
 		
-		openDB();
+//		openDB();
 		String id = "";
 		
 		try 

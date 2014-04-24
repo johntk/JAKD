@@ -36,6 +36,7 @@ public class PosGui extends JPanel implements ActionListener
 	private ResultSet data;
 	private ArrayList <Transaction> tranList;
 	private Transaction tran;
+	private Connection conn;
 	
 	double totalCost = 0;
 	boolean quantity = false;
@@ -64,12 +65,13 @@ public class PosGui extends JPanel implements ActionListener
 	
 	
 	
-	public PosGui(String pin)
+	public PosGui(String pin,Connection c)
 	{
+		conn = c;
 		this.pin = pin;
 	
-		po = new POSOperations();
-		po.openDB();
+		po = new POSOperations(conn);
+//		po.openDB();
 		tranList = new ArrayList<Transaction>();
 
 		empID = po.getEmployeeID(pin);
@@ -341,7 +343,7 @@ public class PosGui extends JPanel implements ActionListener
 		else if(e.getSource() == enter)
 		{
 			
-			tran = new Transaction();
+			tran = new Transaction(conn);
 			
 			///////////////////// can't have return and sale of same product in same tran
 			for(int i = 0;i < tranList.size();i++) //check if product is in sale

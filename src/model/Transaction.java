@@ -2,6 +2,8 @@ package model;
 
 
 
+import java.sql.Connection;
+
 import operations.POSOperations;
 
 public class Transaction 
@@ -11,15 +13,16 @@ public class Transaction
 	private double totalCost;
 	private String transID,empID,prodID,date;
 	private POSOperations po;
+	private Connection conn;
 
 
 	
-	public Transaction()
+	public Transaction(Connection c)
 	{
+		conn = c;
 		
-		
-		po = new POSOperations();
-		po.openDB();
+		po = new POSOperations(conn);
+//		po.openDB();
 		transType = "S";
 		//empID = pin;
 		transID = po.queryTransid();

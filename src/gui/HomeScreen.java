@@ -286,7 +286,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		{
 			if(pinCheck == true)
 			{
-				posGUI = new PosGui(pin);
+				posGUI = new PosGui(pin,conn);
 				cardPanel.add(posGUI, "POSGui");
 				frame.setTitle("POS Screen");
 				button4.setText("Logout");
