@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import db.KioskOperations;
+
 public class KioskResultsScreen extends JFrame implements ActionListener, ItemListener
 {
 	private static final long serialVersionUID = 1L;
@@ -16,7 +18,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 	private JLabel resultsHeading,logoLabel;
 	private JButton home,view;
 	private ImageIcon hm,logo;
-	private ArrayList<Result> resultList;
+	private ArrayList<KioskResult> resultList;
 	private ArrayList<JButton> viewButtons;
 	private ArrayList<Integer> yPos;
 	private ButtonGroup bg;
@@ -36,7 +38,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 		r = new JPanel();
 		viewButtons = new ArrayList<JButton>();
 		yPos = new ArrayList<Integer>();
-		resultList = new ArrayList<Result>();
+		resultList = new ArrayList<KioskResult>();
 		gc = new GridBagConstraints();
 		hm = new ImageIcon(this.getClass().getResource(srcPath+"home.png"));
 		logo = new ImageIcon(this.getClass().getResource(srcPath+"logo3.png"));
@@ -99,7 +101,7 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 	// Creates a result object and adds it to the result arrayList
 	public void addResult(String img,String desc,int y,double price, String prodID)
 	{
-		Result rslt = new Result(img,desc,price,prodID);
+		KioskResult rslt = new KioskResult(img,desc,price,prodID);
 		resultList.add(rslt);
 		yPos.add(y);
 

@@ -26,7 +26,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 	private ImageIcon hm,logo,play,stop,img;
 	private GridBagConstraints gc;
 	private String srcPath;
-	private ArrayList<Song> songList;
+	private ArrayList<KioskSong> songList;
 	private ArrayList<JButton> playButtons;
 	private ArrayList<JLabel> songNames;
 	private AudioPlayer ap;
@@ -36,7 +36,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 	public ProductDisplay()
 	{
 		playButtons = new ArrayList<JButton>();
-		songList = new ArrayList<Song>();
+		songList = new ArrayList<KioskSong>();
 		songNames = new ArrayList<JLabel>();
 		play = new ImageIcon(this.getClass().getResource("/resources/kioskFiles/images/play.png"));
 		stop = new ImageIcon(this.getClass().getResource("/resources/kioskFiles/images/stop.png"));
@@ -568,7 +568,7 @@ public class ProductDisplay extends JFrame implements ActionListener
 		}
 	}
 
-	public void addSong(Song s)
+	public void addSong(KioskSong s)
 	{
 		pb = new JButton();
 		pb.setIcon(play);

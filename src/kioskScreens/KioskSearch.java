@@ -5,6 +5,8 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import db.KioskOperations;
+
 public class KioskSearch extends JFrame implements ActionListener
 {
 	private static final long serialVersionUID = 1L;

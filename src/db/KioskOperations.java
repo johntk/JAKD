@@ -1,9 +1,13 @@
 
 
-package kioskScreens;
+package db;
 
 import java.sql.*;
 import java.util.ArrayList;
+
+import kioskScreens.KioskResultsScreen;
+import kioskScreens.ProductDisplay;
+import kioskScreens.KioskSong;
 
 public class KioskOperations
 {
@@ -235,7 +239,7 @@ public class KioskOperations
 					songName = rset.getString("song_name");
 					songLength = rset.getString("song_length");
 
-					Song s = new Song(songID,songName,songLength,artist,album,songNum);
+					KioskSong s = new KioskSong(songID,songName,songLength,artist,album,songNum);
 					pd.addSong(s);
 					songNum++;
 				}

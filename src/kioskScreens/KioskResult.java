@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 
 import javax.swing.*;
 
-public class Result extends JPanel
+public class KioskResult extends JPanel
 {
 	private static final long serialVersionUID = 1L;
 	private ImageIcon productImage;
@@ -16,7 +16,7 @@ public class Result extends JPanel
 	private GridBagConstraints gc;
 	private DecimalFormat d;
 
-	public Result(String img,String desc,double price,String prodID)
+	public KioskResult(String img,String desc,double price,String prodID)
 	{
 		this.prodID = prodID;
 		gc = new GridBagConstraints();

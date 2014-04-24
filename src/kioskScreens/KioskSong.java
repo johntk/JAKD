@@ -2,7 +2,7 @@ package kioskScreens;
 
 import java.net.URL;
 
-public class Song
+public class KioskSong
 {
 	private String title;
 	private String id;
@@ -11,7 +11,7 @@ public class Song
 	private URL filePath;
 	
 
-	public Song(String id, String name, String length, String artist, String album, int songNum)
+	public KioskSong(String id, String name, String length, String artist, String album, int songNum)
 	{
 		title = name;
 		this.id = id;

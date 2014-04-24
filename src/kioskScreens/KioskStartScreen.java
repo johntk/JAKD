@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import db.KioskOperations;
+
 public class KioskStartScreen extends JFrame implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
