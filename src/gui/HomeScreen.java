@@ -306,11 +306,12 @@ public class HomeScreen extends JFrame implements ActionListener{
 		{	
 			if(pinCheck == true)
 			{
-				posGUI = new PosGui(pin);
-				cardPanel.add(posGUI, "POSGui");
-				frame.setTitle("POS Screen");
+				frame.setTitle("Admin Screen");
+				button1.setText("Generate Report");
+				button2.setText("Edit User");
+				button3.setText("Edit Product");
 				button4.setText("Logout");
-				cards.show(cardPanel, "POSGui");
+				cards.show(cardPanel, "editUser");
 				logIn.dispose();	
 			}
 			else
@@ -368,6 +369,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		{
 
 			if(check() == true){	
+				System.out.println(index);
 				buttonSelect(sideButtonsArray[index], true);}
 			else {
 				JOptionPane.showMessageDialog(null,"Pin Incorrect","Invalid User",JOptionPane.WARNING_MESSAGE);
