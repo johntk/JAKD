@@ -65,7 +65,7 @@ public class CDPopup extends JPanel implements ActionListener {
 	private int size;
 	private boolean newSongs = false;
 	private Color  cl2 ;
-	
+	private CD c;
 
 	private DigiProdList digiProductList;
 	private ProdDialog prodDialog;
@@ -259,7 +259,7 @@ public class CDPopup extends JPanel implements ActionListener {
 		this.revalidate();
 	}
 	
-	public void updateEmployee() {
+	public void updateAlbum() {
 		
 		
 		
@@ -285,7 +285,7 @@ public class CDPopup extends JPanel implements ActionListener {
 					p.getGenre(),
 					p.getPublisher(),
 					p.getLength(),
-					p.getArtist(),
+					artistTBox.getText(),
 					c
 					);
 
@@ -319,14 +319,15 @@ public class CDPopup extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource().equals(update)){
-			updateEmployee();
+			updateAlbum();
 		}
 		else if(e.getSource().equals(addAlbum)){
 			for(int i = 0; i < size; i++){
 				Song s = new Song("","",digiProdDetailBx[i].getText(), digiProdDetailBx2[i].getText());
 				slist.add(s);
 			}
-			prodDialog.addSongs(slist);
+			prodDialog.addSongs(slist, artistTBox.getText());
+			
 		}
 	}
 }

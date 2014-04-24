@@ -42,6 +42,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	private int size = 0;
 	private int counter = 0;
 	private String prodType;
+	private String artist;
 	private boolean go = false;
 	private boolean newProd = false;
 	
@@ -324,7 +325,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 			bx4.getText(),
 			bx1.getText(),
 			Double.parseDouble(bx2.getText()),
-			"p",
+			artist,
 			c
 			);
 		}
@@ -366,9 +367,10 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	}
 	
 	
-	public void newAlbum(ArrayList<Song> slist)
+	public void newAlbum(ArrayList<Song> slist, String artist)
 	{
 		this.slist = slist;
+		this.artist = artist;
 	}
 	
 	public void updateProd() {

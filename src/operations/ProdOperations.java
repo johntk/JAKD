@@ -148,11 +148,7 @@ public class ProdOperations {
 		return rset;
 	}
 	
-	
-	
-	
-	
-	
+
 
 	public String getId() {
 		String nextVal = "";
@@ -224,6 +220,14 @@ public class ProdOperations {
 				pstmt.setString(2, p.getGenre());
 				pstmt.executeUpdate();
 				
+				
+				String queryString4 = "UPDATE artist SET artist_name=? "
+						+"WHERE artist_id ="+ "'" + p.getArtist_id() + "'";
+
+				System.out.println(p.getArtist_id());
+				pstmt = conn.prepareStatement(queryString4);
+				pstmt.setString(1, p.getArtist());
+				pstmt.executeUpdate();
 				
 			updateAlbum(p);
 				}
