@@ -21,7 +21,7 @@ public class KioskAudioPlayer
 	{
 		filePath = fp;
 		aiStream = AudioSystem.getAudioInputStream(filePath);
-		
+
 		try
 		{
 			Line.Info linfo = new Line.Info(Clip.class);
