@@ -54,7 +54,6 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private ProdOperations prodOpertaion;
 	private DigiProductList  digiProductList;
 	private ElecProdList  elecProductList;
-	private ReportOperations ro;
 
 	
 	private SystemTray tray;
@@ -95,7 +94,6 @@ public class HomeScreen extends JFrame implements ActionListener{
 		EmployeeList el = new EmployeeList(ao);
 		ao.setDBconnection(conn);
 		po.setDBconnection(conn);
-		ro = new ReportOperations();
 
 		// Main frame declaration
 		frame = new JFrame();
