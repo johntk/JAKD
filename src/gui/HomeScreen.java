@@ -230,7 +230,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		cardPanel.add(digiProdPanel, "editDigi");
 		cardPanel.setBorder(border);
 		cardPanel.setPreferredSize(new Dimension(900, 10));
-		frame.add(cardPanel, BorderLayout.EAST);
+		frame.add(cardPanel, BorderLayout.CENTER);
 
 		frame.setVisible(true);
 
