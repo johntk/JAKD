@@ -2,10 +2,11 @@ package reports;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import java.sql.Connection;
 
 import javax.swing.*;
+
+import operations.ReportOperations;
 public class generateReport extends JPanel implements ActionListener, ItemListener 
 {
 	private static final long serialVersionUID = 1L;

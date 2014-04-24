@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import operations.ReportOperations;
+
 class DialogBox
 {
 	private JRadioButton qReport,toFromSalesReport, returnsTrans, currentStock, lowStock;

@@ -13,7 +13,7 @@ import java.util.Date;
 
 import javax.swing.border.Border;
 
-import reports.ReportOperations;
+import operations.ReportOperations;
 
 
 public class ReturnsReport extends JPanel

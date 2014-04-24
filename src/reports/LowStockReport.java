@@ -8,7 +8,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import reports.ReportOperations;
+import operations.ReportOperations;
 
 public class LowStockReport extends JPanel
 {

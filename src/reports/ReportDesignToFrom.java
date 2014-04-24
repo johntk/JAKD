@@ -10,7 +10,7 @@ import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import reports.ReportOperations;
+import operations.ReportOperations;
 
 public class ReportDesignToFrom extends JPanel
 {
