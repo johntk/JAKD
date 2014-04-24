@@ -1,5 +1,6 @@
 
 
+
 package gui;
 
 import java.awt.*;
@@ -286,7 +287,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		{
 			if(pinCheck == true)
 			{
-				posGUI = new PosGui(pin);
+				posGUI = new PosGui(pin,conn);
 				cardPanel.add(posGUI, "POSGui");
 				frame.setTitle("POS Screen");
 				button4.setText("Logout");
@@ -383,7 +384,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 				else
 				{
 					logIn.dispose();
-					JOptionPane.showMessageDialog(null,"You do no have sufficent privliges","", JOptionPane.WARNING_MESSAGE);	
+					JOptionPane.showMessageDialog(null,"You do no have sufficent privliges","", JOptionPane.WARNING_MESSAGE);
+					
 				}
 				
 			}
