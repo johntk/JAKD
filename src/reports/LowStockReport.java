@@ -53,7 +53,6 @@ public class LowStockReport extends JPanel
 		{
 			rowCount = rset.getRow();
 			rset.beforeFirst();
-			System.out.println(rowCount);
 		}
 		dtm = new DefaultTableModel(colNames, rowCount);
 		table = new JTable(dtm);
