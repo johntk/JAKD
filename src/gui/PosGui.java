@@ -617,6 +617,7 @@ public class PosGui extends JPanel implements ActionListener
 		trans_idf.setText(po.queryTransid());
 		dateFieldf.setText(df.format(now.getTime()));
 		totalCost = 0;
+		totalPrice.setText("Total:");
 		totalPriceField.setText("");
 		tranList.clear();
 		
