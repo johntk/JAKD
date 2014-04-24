@@ -3,21 +3,18 @@ package gui;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
-
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.DefaultTableModel;
 
+import operations.POSOperations;
 import model.Transaction;
-
-import db.POSOperations;
 
 
 

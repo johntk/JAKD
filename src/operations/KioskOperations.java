@@ -1,6 +1,6 @@
 
 
-package db;
+package operations;
 
 import java.sql.*;
 import java.util.ArrayList;

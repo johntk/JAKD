@@ -5,7 +5,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import db.KioskOperations;
+import operations.KioskOperations;
 
 public class KioskSearch extends JFrame implements ActionListener
 {

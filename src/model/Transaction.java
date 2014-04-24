@@ -2,7 +2,7 @@ package model;
 
 
 
-import db.POSOperations;
+import operations.POSOperations;
 
 public class Transaction 
 {

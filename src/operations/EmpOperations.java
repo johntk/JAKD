@@ -1,5 +1,5 @@
 
-package db;
+package operations;
 
 import java.sql.*;
 import model.Employee;

@@ -9,17 +9,16 @@ import java.sql.Connection;
 import javax.swing.*;
 import javax.swing.border.*;
 
-
+import operations.DBconnection;
+import operations.EmpOperations;
+import operations.HomeScreenOperations;
+import operations.ProdOperations;
 import reports.ReportOperations;
 import reports.generateReport;
 import kioskScreens.KioskStartScreen;
 import model.ElecProdList;
 import model.EmployeeList;
-import db.EmpOperations;
-import db.DBconnection;
 import model.DigiProductList;
-import db.HomeScreenOperations;
-import db.ProdOperations;
 
 public class HomeScreen extends JFrame implements ActionListener{
 

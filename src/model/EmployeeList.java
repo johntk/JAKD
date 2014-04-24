@@ -3,7 +3,7 @@ package model;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import db.EmpOperations;
+import operations.EmpOperations;
 
 public class EmployeeList {
 

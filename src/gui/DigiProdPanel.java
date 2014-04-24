@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
 
-import db.ProdOperations;
+import operations.ProdOperations;
 import model.CD;
 import model.DigiProduct;
 import model.DigiProductList;

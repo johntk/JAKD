@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import db.KioskOperations;
+import operations.KioskOperations;
 
 public class KioskStartScreen extends JFrame implements ActionListener
 {

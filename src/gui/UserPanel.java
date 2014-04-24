@@ -6,7 +6,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-import db.EmpOperations;
+import operations.EmpOperations;
 import model.Employee;
 import model.EmployeeList;
 

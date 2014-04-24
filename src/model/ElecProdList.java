@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import db.ProdOperations;
+import operations.ProdOperations;
 
 public class ElecProdList {
 

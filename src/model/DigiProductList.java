@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
-import db.ProdOperations;
+import operations.ProdOperations;
 
 public class DigiProductList {
 
