@@ -312,7 +312,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 				button2.setText("Edit User");
 				button3.setText("Edit Product");
 				button4.setText("Logout");
-				cards.show(cardPanel, "editUser");
+				cards.show(cardPanel, "homePanel");
 				logIn.dispose();	
 			}
 			else
