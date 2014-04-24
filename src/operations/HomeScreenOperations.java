@@ -56,7 +56,7 @@ public class HomeScreenOperations
 //			 ods.setPassword("");
 
 			conn = ods.getConnection();
-			System.out.println("Connection Established.\n");
+//			System.out.println("Connection Established.\n");
 		}
 		catch(Exception e)
 		{
