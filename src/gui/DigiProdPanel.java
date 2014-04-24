@@ -217,7 +217,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 				prodButtons[i].setPreferredSize(new Dimension(60, 50));
 			}
 
-			prodButtons[i].setIcon(new ImageIcon(this.getClass().getResource("src/resources/blueButton.png")));
+			prodButtons[i].setIcon(new ImageIcon("src/resources/blueButton.png"));
 			prodButtons[i].setFont(new Font("sansserif", Font.BOLD, 16));
 			prodButtons[i].setHorizontalTextPosition(JButton.CENTER);
 			prodButtons[i].setVerticalTextPosition(JButton.CENTER);
@@ -244,7 +244,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 			gc.weightx = 0.0;
 			gc.insets = new Insets(10, 0, 0, 0);
 			addUserBtnsArray[i].setPreferredSize(new Dimension(150, 40));
-			addUserBtnsArray[i].setIcon(new ImageIcon(this.getClass().getResource("src/resources/blueButton.png")));
+			addUserBtnsArray[i].setIcon(new ImageIcon("src/resources/blueButton.png"));
 			addUserBtnsArray[i].setFont(new Font("sansserif", Font.BOLD, 16));
 			addUserBtnsArray[i].setHorizontalTextPosition(JButton.CENTER);
 			addUserBtnsArray[i].setVerticalTextPosition(JButton.CENTER);
