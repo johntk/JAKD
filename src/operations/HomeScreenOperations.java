@@ -1,8 +1,8 @@
 package operations;
 
 import java.sql.Connection;
-
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -95,6 +95,17 @@ public class HomeScreenOperations
 			String sqlStatement = "SELECT pin_num FROM EMPLOYEE";
 			rset = stmt.executeQuery(sqlStatement);
 			
+//			 ResultSetMetaData rsmd = rset.getMetaData();
+//		      int numberOfColumns = rsmd.getColumnCount();
+//			
+//			while (rset.next()) {
+//		        for (int i = 1; i <= numberOfColumns; i++) {
+//		          if (i > 1) System.out.print(",  ");
+//		          String columnValue = rset.getString(i);
+//		          System.out.print(columnValue);
+//		        }
+//		        System.out.println("");  
+//		      }
 			while (rset.next())
 			{
 				if(pin.equals(rset.getString(1)))
@@ -103,7 +114,7 @@ public class HomeScreenOperations
 					System.out.println("true pin ");
 				}
 			}
-			
+//			
 			
 		} catch (Exception ex)
 		{

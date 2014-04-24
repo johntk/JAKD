@@ -306,13 +306,12 @@ public class HomeScreen extends JFrame implements ActionListener{
 		{	
 			if(pinCheck == true)
 			{
-				frame.setTitle("Admin Screen");
-				button1.setText("Generate Report");
-				button2.setText("Edit User");
-				button3.setText("Edit Product");
+				posGUI = new PosGui(pin);
+				cardPanel.add(posGUI, "POSGui");
+				frame.setTitle("POS Screen");
 				button4.setText("Logout");
-				cards.show(cardPanel, "editUser");
-				logIn.dispose();
+				cards.show(cardPanel, "POSGui");
+				logIn.dispose();	
 			}
 			else
 			{
@@ -368,17 +367,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 		else if (e.getSource() == enterPButton)
 		{
 
-			if(ho.getStaffPin(pin) == true){	
-				
-				buttonSelect(sideButtonsArray[index], true);
-				
-/*				posGUI = new PosGui(pin);
-				cardPanel.add(posGUI, "POSGui");
-				frame.setTitle("POS Screen");
-				button4.setText("Logout");
-				cards.show(cardPanel, "POSGui");
-				logIn.dispose();*/	
-			}
+			if(check() == true){	
+				buttonSelect(sideButtonsArray[index], true);}
 			else {
 				JOptionPane.showMessageDialog(null,"Pin Incorrect","Invalid User",JOptionPane.WARNING_MESSAGE);
 				
@@ -411,7 +401,19 @@ public class HomeScreen extends JFrame implements ActionListener{
 		
 	}
 	
-
+	public boolean check()
+	{
+		boolean go = false;
+		
+		pin = new String(jpf.getPassword());
+		if(ho.getStaffPin(pin)==true){
+			go = true;	
+		}
+		else{
+			go = false;
+		}
+		return go;
+	}
 
 	public static void main(String args[]) {
 		new HomeScreen();
