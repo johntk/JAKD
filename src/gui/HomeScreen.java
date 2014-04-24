@@ -16,7 +16,7 @@ import operations.ProdOperations;
 import reports.generateReport;
 import model.ElecProdList;
 import model.EmployeeList;
-import model.DigiProductList;
+import model.DigiProdList;
 
 public class HomeScreen extends JFrame implements ActionListener{
 
@@ -51,7 +51,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private EmployeeList employeeList;
 	private EmpOperations adminOperations;
 	private ProdOperations prodOpertaion;
-	private DigiProductList  digiProductList;
+	private DigiProdList  digiProductList;
 	private ElecProdList  elecProductList;
 
 	
@@ -88,7 +88,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		
 		EmpOperations ao = new EmpOperations();
 		ProdOperations po = new ProdOperations();
-		DigiProductList dpl = new DigiProductList(po);
+		DigiProdList dpl = new DigiProdList(po);
 		ElecProdList epl = new ElecProdList(po);
 		EmployeeList el = new EmployeeList(ao);
 		ao.setDBconnection(conn);

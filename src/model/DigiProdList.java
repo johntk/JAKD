@@ -8,7 +8,7 @@ import java.util.Map;
 
 import operations.ProdOperations;
 
-public class DigiProductList {
+public class DigiProdList {
 
 	private ArrayList<DigiProduct> plist;
 	private ArrayList<Song> slist;
@@ -20,7 +20,7 @@ public class DigiProductList {
 	private ResultSet rset3;
 	private int count =0;
 	
-	public DigiProductList(ProdOperations po)
+	public DigiProdList(ProdOperations po)
 	{
 		this.po = po;
 		plist = new ArrayList<DigiProduct>();

@@ -9,7 +9,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import model.DigiProduct;
-import model.DigiProductList;
+import model.DigiProdList;
 import model.Song;
 
 public class ProdDialog extends JDialog {
@@ -25,10 +25,10 @@ public class ProdDialog extends JDialog {
 	private JTextField[] getDigiProdDetailBx2;
 	private int size;
 	
-	private DigiProductList digiProductList;
+	private DigiProdList digiProductList;
 	private DigiProdPanel digiPanel;
 
-	public ProdDialog(JFrame jFrame, DigiProduct p, DigiProductList digiProductList, DigiProdPanel digiPanel, int size) {
+	public ProdDialog(JFrame jFrame, DigiProduct p, DigiProdList digiProductList, DigiProdPanel digiPanel, int size) {
 
 		this.digiPanel = digiPanel;
 		this.digiProductList = digiProductList;

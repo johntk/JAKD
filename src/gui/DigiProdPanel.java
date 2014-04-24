@@ -11,7 +11,7 @@ import operations.ProdOperations;
 import popups.ProdDialog;
 import model.CD;
 import model.DigiProduct;
-import model.DigiProductList;
+import model.DigiProdList;
 import model.Employee;
 import model.Song;
 
@@ -67,10 +67,10 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	
 	private JFrame frame;
 	private ProdOperations prodOpertaion;
-	private DigiProductList  digiProductList;
+	private DigiProdList  digiProductList;
 	private DigiProdPanel  digiPanel;
 	
-	public DigiProdPanel(JFrame frame, String prodType, ProdOperations po, DigiProductList pl) {
+	public DigiProdPanel(JFrame frame, String prodType, ProdOperations po, DigiProdList pl) {
 
 		
 		this.frame = frame;

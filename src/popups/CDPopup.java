@@ -12,7 +12,7 @@ import javax.swing.border.*;
 
 import model.CD;
 import model.DigiProduct;
-import model.DigiProductList;
+import model.DigiProdList;
 import model.Song;
 
 public class CDPopup extends JPanel implements ActionListener {
@@ -67,11 +67,11 @@ public class CDPopup extends JPanel implements ActionListener {
 	private Color  cl2 ;
 	
 
-	private DigiProductList digiProductList;
+	private DigiProdList digiProductList;
 	private ProdDialog prodDialog;
 	private DigiProduct p;
 
-	public CDPopup(DigiProduct p, DigiProductList digiProductList, ProdDialog prodDialog, int size) {
+	public CDPopup(DigiProduct p, DigiProdList digiProductList, ProdDialog prodDialog, int size) {
 		
 		
 		this.size = size;
