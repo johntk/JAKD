@@ -50,7 +50,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private Border border = BorderFactory.createCompoundBorder(space, line);
 	
 //	Border for the database selection panel
-	private Border emptyB = (Border) BorderFactory.createEmptyBorder(10,100,10,100);
+	private Border emptyB = (Border) BorderFactory.createEmptyBorder(10,150,10,150);
 	private Border line2 = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border dbBorder = BorderFactory.createCompoundBorder(emptyB, line2);
 
@@ -232,27 +232,17 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 //		Adds options for connecting to a database
 		dbPanel = new JPanel(new BorderLayout());
-		bg = new ButtonGroup();
+		
 
 		dbHeading = new JLabel("Select a Database Connection:");
 		dbHeading.setFont(new Font("Calibri",Font.BOLD,25));
 		dbHeading.setBorder(BorderFactory.createEmptyBorder(5,0,10,0));
 		dbHeading.setHorizontalAlignment(SwingConstants.CENTER);
 		dbPanel.add(dbHeading,BorderLayout.NORTH);
-
-		tu = new JRadioButton("Tallaght Database");
-		lt = new JRadioButton("Local Database");
-		cu = new JRadioButton("Custom URL");
-		bg.add(tu);bg.add(lt);bg.add(cu);
-
-		urlt = new JTextField("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
-		urlt.setEditable(false);
-		urll = new JTextField("jdbc:oracle:thin:HR/@localhost:1521:XE");
-		urll.setEditable(false);
-		urlc = new JTextField();
-
+		
 		dbOptionsPanel = new JPanel(new GridBagLayout());
 		
+		tu = new JRadioButton("Tallaght Database");
 		gc.gridx =0;
 		gc.gridy = 0;
 		gc.weightx=1.0;
@@ -260,6 +250,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(tu,gc);
 		
+		urlt = new JTextField("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
+		urlt.setEditable(false);
 		gc.gridx =1;
 		gc.gridy = 0;
 		gc.weightx=1.0;
@@ -268,6 +260,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(urlt,gc);
 		
+		lt = new JRadioButton("Local Database");
 		gc.gridx =0;
 		gc.gridy = 1;
 		gc.weightx=1.0;
@@ -275,6 +268,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(lt,gc);
 		
+		urll = new JTextField("jdbc:oracle:thin:HR/@localhost:1521:XE");
+		urll.setEditable(false);
 		gc.gridx =1;
 		gc.gridy = 1;
 		gc.weightx=1.0;
@@ -283,6 +278,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(urll,gc);
 		
+		cu = new JRadioButton("Custom URL");
 		gc.gridx =0;
 		gc.gridy = 2;
 		gc.weightx=1.0;
@@ -290,6 +286,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(cu,gc);
 		
+		urlc = new JTextField();
 		gc.gridx =1;
 		gc.gridy = 2;
 		gc.weightx=1.0;
@@ -297,6 +294,11 @@ public class HomeScreen extends JFrame implements ActionListener{
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(urlc,gc);
+		
+		bg = new ButtonGroup();
+		bg.add(tu);
+		bg.add(lt);
+		bg.add(cu);
 		
 		JLabel empty1 = new JLabel(" ");
 		gc.gridx =0;
@@ -342,7 +344,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		
 		
 
-		dbPanel.add(dbOptionsPanel,BorderLayout.WEST);
+		dbPanel.add(dbOptionsPanel,BorderLayout.CENTER);
 
 		connButtonPanel = new JPanel();
 		connect = new JButton("Connect");
