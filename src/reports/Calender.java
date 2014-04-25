@@ -18,6 +18,7 @@ import operations.ReportOperations;
 class DialogBox
 {
 	private JRadioButton qReport,toFromSalesReport, returnsTrans, currentStock, lowStock;
+	private ButtonGroup bg;
 	private CurrentStockReport csr;
 	private LowStockReport lsr;
 	private ReportOperations ro;
@@ -40,6 +41,13 @@ class DialogBox
 		reportSelect.add(currentStock);
 		lowStock = new JRadioButton("Low Stock Report");
 		reportSelect.add(lowStock);
+		
+		bg = new ButtonGroup();
+		bg.add(qReport);
+		bg.add(toFromSalesReport);
+		bg.add(returnsTrans);
+		bg.add(currentStock);
+		bg.add(lowStock);
 
 		reportSelect.setVisible(true);
 
