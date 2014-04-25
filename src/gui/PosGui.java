@@ -58,6 +58,7 @@ public class PosGui extends JPanel implements ActionListener
 	private JLabel enterAmount;
 	private JTextField enterAmountf;
 	private JButton enterAm;
+	private double tempTotal;
 
 
 
@@ -306,18 +307,20 @@ public class PosGui extends JPanel implements ActionListener
 		
 		else if(e.getSource() == enterAm)
 		{
+			
 			double cashEntered = Double.parseDouble(enterAmountf.getText());
-			if( totalCost > cashEntered)
+			if( tempTotal > cashEntered)
 			{
-				products.setText(products.getText() + "Cash\t\t " + cashEntered);
-				totalPriceField.setText(decf.format((totalCost - cashEntered)));
+				//products.setText(products.getText() + "Cash\t\t " + cashEntered);
+				totalPriceField.setText(decf.format((tempTotal - cashEntered)));
+				tempTotal -= cashEntered;
 				jd.setVisible(false);
 				
 			}
 			else
 			{
 				totalPrice.setText("Change:");
-				totalPriceField.setText(decf.format((cashEntered - totalCost)));
+				totalPriceField.setText(decf.format((cashEntered - tempTotal)));
 				jd.setVisible(false);
 				po.insertTran(tranList);
 				po.updateCurrentStock(tranList);
@@ -393,6 +396,7 @@ public class PosGui extends JPanel implements ActionListener
 						{
 							
 							totalCost -=  tranList.get(prodCount).getTotalCost();
+							tempTotal = totalCost;
 							totalPriceField.setText(decf.format(totalCost));
 							tranList.remove(prodCount);
 							
@@ -404,6 +408,7 @@ public class PosGui extends JPanel implements ActionListener
 							tranList.get(prodCount).setQuantity(tranList.get(prodCount).getQuantity() - 1);
 							
 							totalCost -= tranList.get(prodCount).getTotalCost()/tranList.get(prodCount).getQuantity() ;
+							tempTotal = totalCost;
 							totalPriceField.setText(decf.format(totalCost));
 	
 						}
@@ -446,6 +451,7 @@ public class PosGui extends JPanel implements ActionListener
 							tran.setTotalCost(prodCost);
 							
 							totalCost =  totalCost - prodCost;
+							tempTotal = totalCost;
 							
 		
 							totalPriceField.setText(decf.format(totalCost));
@@ -488,6 +494,7 @@ public class PosGui extends JPanel implements ActionListener
 								tran.setQuantity(1);
 
 								totalCost = prodCost + totalCost;
+								tempTotal = totalCost;
 								tranList.add(tran);
 								
 								
@@ -576,6 +583,7 @@ public class PosGui extends JPanel implements ActionListener
 				double singleProdPrice = (tranList.get(quanPoint).getTotalCost()) / (tranList.get(quanPoint).getQuantity());
 				tranList.get(quanPoint).setTotalCost((tranList.get(quanPoint).getTotalCost()) + singleProdPrice);
 				totalCost = totalCost + singleProdPrice;
+				tempTotal = totalCost;
 				tranList.get(quanPoint).setQuantity(tranList.get(quanPoint).getQuantity() + 1);
 				totalPriceField.setText(decf.format(totalCost));
 				
@@ -589,6 +597,7 @@ public class PosGui extends JPanel implements ActionListener
 				double singleProdPrice = (tranList.get(quanPoint).getTotalCost()) / (tranList.get(quanPoint).getQuantity());
 				tranList.get(quanPoint).setTotalCost((tranList.get(quanPoint).getTotalCost()) + singleProdPrice);
 				totalCost = totalCost - singleProdPrice;
+				tempTotal = totalCost;
 				totalPriceField.setText(decf.format(totalCost));
 				
 				quan = tranList.get(quanPoint).getQuantity() + 1;
@@ -618,6 +627,7 @@ public class PosGui extends JPanel implements ActionListener
 		trans_idf.setText(po.queryTransid());
 		dateFieldf.setText(df.format(now.getTime()));
 		totalCost = 0;
+		tempTotal = 0;
 		totalPrice.setText("Total:");
 		totalPriceField.setText("");
 		tranList.clear();
