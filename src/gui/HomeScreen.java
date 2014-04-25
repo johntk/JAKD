@@ -42,7 +42,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 			button4 = new JButton("Close"), };
 
 	private JPanel homePanel, ProdSelect, center, posGUI, cardPanel, digiProdPanel, genReportPanel,
-	userPanel, elecProdPanel, dbPanel, rButtonPanel, connButtonPanel;
+	userPanel, elecProdPanel, dbPanel, rButtonPanel, connButtonPanel, passwordPanel;
 
 	// Border declaration for use on east and west panels on main frame
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
@@ -225,7 +225,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		digiProdPanel = new DigiProdPanel(frame, "digi", prodOpertaion, digiProductList);
 
 
-		//		Adds options for connecting to a database
+//		Adds options for connecting to a database
 		dbPanel = new JPanel(new BorderLayout());
 		rButtonPanel = new JPanel(new GridLayout(3,2));
 		bg = new ButtonGroup();
@@ -235,9 +235,18 @@ public class HomeScreen extends JFrame implements ActionListener{
 		dbHeading.setBorder(BorderFactory.createEmptyBorder(5,0,20,0));
 		dbHeading.setHorizontalAlignment(SwingConstants.CENTER);
 		dbPanel.add(dbHeading,BorderLayout.NORTH);
-
+		
+		passwordPanel = new JPanel(new GridLayout(2,2));
 		uName = new JLabel("Username:");
+		passwordPanel.add(uName);
+		user = new JTextField();
+		passwordPanel.add(user);
 		pass = new JLabel("Password:");
+		passwordPanel.add(pass);
+		password = new JPasswordField();
+		passwordPanel.add(password);
+		
+		dbPanel.add(passwordPanel,BorderLayout.CENTER);
 
 		tu = new JRadioButton("Tallaght Database");
 		lt = new JRadioButton("Local Database");
@@ -256,13 +265,13 @@ public class HomeScreen extends JFrame implements ActionListener{
 		rButtonPanel.add(urll);
 		rButtonPanel.add(cu);
 		rButtonPanel.add(urlc);
+		dbPanel.add(rButtonPanel,BorderLayout.WEST);
 
 		connButtonPanel = new JPanel();
 		connect = new JButton("Connect");
 		connButtonPanel.add(connect);
 		dbPanel.add(connButtonPanel,BorderLayout.SOUTH);
 
-		dbPanel.add(rButtonPanel,BorderLayout.WEST);
 		dbPanel.setBorder(border);
 		homePanel.add(dbPanel,BorderLayout.SOUTH);
 
