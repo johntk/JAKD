@@ -28,7 +28,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private static final int FRAME_WIDTH = 1248;
 	private static final int FRAME_HEIGHT = 700;
 	private JButton button1, button2, button3, button4, digiProd, elecProd, closeBtn;
-	private JLabel logo, logo2, welcome, spacer, uName, pass;
+	private JLabel logo, logo2, welcome, spacer, uName, pass, dbHeading;
 	
 	private JRadioButton tu,lt,cu;
 	private ButtonGroup bg;
@@ -230,6 +230,12 @@ public class HomeScreen extends JFrame implements ActionListener{
 		rButtonPanel = new JPanel(new GridLayout(3,2));
 		bg = new ButtonGroup();
 		
+		dbHeading = new JLabel("Select a Database Connection:");
+		dbHeading.setFont(new Font("Calibri",Font.BOLD,25));
+		dbHeading.setBorder(BorderFactory.createEmptyBorder(5,0,20,0));
+		dbHeading.setHorizontalAlignment(SwingConstants.CENTER);
+		dbPanel.add(dbHeading,BorderLayout.NORTH);
+		
 		uName = new JLabel("Username:");
 		pass = new JLabel("Password:");
 		
@@ -253,6 +259,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		
 		dbPanel.add(rButtonPanel,BorderLayout.WEST);
 		dbPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+		dbPanel.setBorder(border);
 		homePanel.add(dbPanel,BorderLayout.SOUTH);
 		
 
