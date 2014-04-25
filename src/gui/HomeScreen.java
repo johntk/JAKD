@@ -254,6 +254,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		dbOptionsPanel.add(tu,gc);
 		
 		urlt = new JTextField("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
+		urlt.setMinimumSize(new Dimension(200,18));
 		urlt.setEditable(false);
 		gc.gridx =1;
 		gc.gridy = 0;
@@ -410,8 +411,6 @@ public class HomeScreen extends JFrame implements ActionListener{
 				frame.requestFocus();
 			}
 		});
-
-		//		trayIcon.displayMessage("JAKD", "Right-Click Here For Options", TrayIcon.MessageType.NONE);
 	}
 
 	public void buttonSelect(JButton button, boolean pinCheck) {
