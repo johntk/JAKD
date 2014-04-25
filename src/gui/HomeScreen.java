@@ -397,7 +397,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 	public void logIn()
 	{
 		
-		ho = new HomeScreenOperations();
+		ho = new HomeScreenOperations(conn);
 		
 		logIn = new JDialog();
 		logIn.setTitle("Log In");
