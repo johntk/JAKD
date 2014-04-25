@@ -131,7 +131,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 		// Logo and buttons added to left side panel
 		logo = new JLabel("");
-		logo.setIcon(new ImageIcon(this.getClass().getResource("/resources/logo.jpeg")));
+		logo.setIcon(new ImageIcon(this.getClass().getResource("/resources/logo.png")));
 		logo.setPreferredSize(new Dimension(295, 120));
 		gc.gridx = 0; // col
 		gc.gridy = 0; // row
