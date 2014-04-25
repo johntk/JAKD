@@ -461,7 +461,18 @@ public class HomeScreen extends JFrame implements ActionListener{
 		logIn.add(jpf);
 		enterPButton = new JButton("Log In");
 		enterPButton.addActionListener(this);
-		logIn.add(enterPButton);
+		logIn.add(enterPButton); 
+		
+		/////// allows enter key press "enter" in gui
+		enterPButton.registerKeyboardAction(enterPButton.getActionForKeyStroke(
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
+                JComponent.WHEN_IN_FOCUSED_WINDOW);
+		
+		enterPButton.registerKeyboardAction(enterPButton.getActionForKeyStroke(
+                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
+                JComponent.WHEN_FOCUSED);
 		
 	}
 	
