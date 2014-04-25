@@ -51,7 +51,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 	
 //	Border for the database selection panel
 	private Border emptyB = (Border) BorderFactory.createEmptyBorder(10,150,10,150);
-	private Border line2 = (Border) BorderFactory.createLineBorder(Color.black);
+	private Border line2 = (Border) BorderFactory.createLineBorder(Color.LIGHT_GRAY);
 	private Border dbBorder = BorderFactory.createCompoundBorder(emptyB, line2);
 
 	private BorderLayout layout = new BorderLayout();
@@ -344,7 +344,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		
 		
 
-		dbPanel.add(dbOptionsPanel,BorderLayout.CENTER);
+		dbPanel.add(dbOptionsPanel,BorderLayout.WEST);
 
 		connButtonPanel = new JPanel();
 		connect = new JButton("Connect");
