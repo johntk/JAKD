@@ -48,6 +48,11 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border border = BorderFactory.createCompoundBorder(space, line);
+	
+//	Border for the database selection panel
+	private Border emptyB = (Border) BorderFactory.createEmptyBorder(10,50,10,50);
+	private Border line2 = (Border) BorderFactory.createLineBorder(Color.black);
+	private Border dbBorder = BorderFactory.createCompoundBorder(emptyB, line2);
 
 	private BorderLayout layout = new BorderLayout();
 	private GridBagConstraints gc = new GridBagConstraints();
@@ -234,25 +239,6 @@ public class HomeScreen extends JFrame implements ActionListener{
 		dbHeading.setBorder(BorderFactory.createEmptyBorder(5,0,20,0));
 		dbHeading.setHorizontalAlignment(SwingConstants.CENTER);
 		dbPanel.add(dbHeading,BorderLayout.NORTH);
-		
-		passwordPanel = new JPanel(new GridLayout(2,3));
-		JLabel empty1 = new JLabel("   ");
-		JLabel empty2 = new JLabel("   ");
-		
-		uName = new JLabel("Username:");
-		passwordPanel.add(uName);
-		user = new JTextField();
-		passwordPanel.add(user);
-		passwordPanel.add(empty1);
-		
-		pass = new JLabel("Password:");
-		passwordPanel.add(pass);
-		password = new JPasswordField();
-		passwordPanel.add(password);
-		passwordPanel.add(empty2);
-		
-		passwordPanel.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
-		dbPanel.add(passwordPanel,BorderLayout.CENTER);
 
 		tu = new JRadioButton("Tallaght Database");
 		lt = new JRadioButton("Local Database");
@@ -265,13 +251,92 @@ public class HomeScreen extends JFrame implements ActionListener{
 		urll.setEditable(false);
 		urlc = new JTextField();
 
-		rButtonPanel = new JPanel(new GridLayout(3,2));
-		rButtonPanel.add(tu);
-		rButtonPanel.add(urlt);
-		rButtonPanel.add(lt);
-		rButtonPanel.add(urll);
-		rButtonPanel.add(cu);
-		rButtonPanel.add(urlc);
+		rButtonPanel = new JPanel(new GridBagLayout());
+		
+		gc.gridx =0;
+		gc.gridy = 0;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		rButtonPanel.add(tu,gc);
+		
+		gc.gridx =1;
+		gc.gridy = 0;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.fill = GridBagConstraints.HORIZONTAL;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		rButtonPanel.add(urlt,gc);
+		
+		gc.gridx =0;
+		gc.gridy = 1;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		rButtonPanel.add(lt,gc);
+		
+		gc.gridx =1;
+		gc.gridy = 1;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.fill = GridBagConstraints.HORIZONTAL;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		rButtonPanel.add(urll,gc);
+		
+		gc.gridx =0;
+		gc.gridy = 2;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		rButtonPanel.add(cu,gc);
+		
+		gc.gridx =1;
+		gc.gridy = 2;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.fill = GridBagConstraints.HORIZONTAL;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		rButtonPanel.add(urlc,gc);
+		
+		
+		uName = new JLabel("Username:");
+		gc.gridx =3;
+		gc.gridy = 0;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.fill = GridBagConstraints.HORIZONTAL;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		rButtonPanel.add(uName,gc);
+		
+		pass = new JLabel("Password:");
+		gc.gridx =3;
+		gc.gridy = 1;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.fill = GridBagConstraints.HORIZONTAL;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		rButtonPanel.add(pass,gc);
+		
+		user = new JTextField();
+		gc.gridx =4;
+		gc.gridy = 0;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.fill = GridBagConstraints.HORIZONTAL;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		rButtonPanel.add(user,gc);
+		
+		password = new JPasswordField();
+		gc.gridx =4;
+		gc.gridy = 1;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		gc.gridwidth = 2;
+		gc.fill = GridBagConstraints.HORIZONTAL;
+		gc.anchor = GridBagConstraints.NORTHWEST;
+		rButtonPanel.add(password,gc);
+		
+		
 
 		dbPanel.add(rButtonPanel,BorderLayout.WEST);
 
@@ -281,7 +346,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		connButtonPanel.add(connect);
 		dbPanel.add(connButtonPanel,BorderLayout.SOUTH);
 
-		dbPanel.setBorder(border);
+		dbPanel.setBorder(dbBorder);
 		homePanel.add(dbPanel,BorderLayout.SOUTH);
 
 
