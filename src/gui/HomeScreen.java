@@ -42,7 +42,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 			button4 = new JButton("Close"), };
 
 	private JPanel homePanel, ProdSelect, center, posGUI, cardPanel, digiProdPanel, genReportPanel,
-	userPanel, elecProdPanel, dbPanel, rButtonPanel, connButtonPanel, passwordPanel;
+	userPanel, elecProdPanel, dbPanel, dbOptionsPanel, connButtonPanel;
 
 	// Border declaration for use on east and west panels on main frame
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
@@ -50,7 +50,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private Border border = BorderFactory.createCompoundBorder(space, line);
 	
 //	Border for the database selection panel
-	private Border emptyB = (Border) BorderFactory.createEmptyBorder(10,50,10,50);
+	private Border emptyB = (Border) BorderFactory.createEmptyBorder(10,100,10,100);
 	private Border line2 = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border dbBorder = BorderFactory.createCompoundBorder(emptyB, line2);
 
@@ -236,7 +236,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 		dbHeading = new JLabel("Select a Database Connection:");
 		dbHeading.setFont(new Font("Calibri",Font.BOLD,25));
-		dbHeading.setBorder(BorderFactory.createEmptyBorder(5,0,20,0));
+		dbHeading.setBorder(BorderFactory.createEmptyBorder(5,0,10,0));
 		dbHeading.setHorizontalAlignment(SwingConstants.CENTER);
 		dbPanel.add(dbHeading,BorderLayout.NORTH);
 
@@ -251,14 +251,14 @@ public class HomeScreen extends JFrame implements ActionListener{
 		urll.setEditable(false);
 		urlc = new JTextField();
 
-		rButtonPanel = new JPanel(new GridBagLayout());
+		dbOptionsPanel = new JPanel(new GridBagLayout());
 		
 		gc.gridx =0;
 		gc.gridy = 0;
 		gc.weightx=1.0;
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
-		rButtonPanel.add(tu,gc);
+		dbOptionsPanel.add(tu,gc);
 		
 		gc.gridx =1;
 		gc.gridy = 0;
@@ -266,14 +266,14 @@ public class HomeScreen extends JFrame implements ActionListener{
 		gc.weighty=1.0;
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.anchor = GridBagConstraints.NORTHWEST;
-		rButtonPanel.add(urlt,gc);
+		dbOptionsPanel.add(urlt,gc);
 		
 		gc.gridx =0;
 		gc.gridy = 1;
 		gc.weightx=1.0;
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
-		rButtonPanel.add(lt,gc);
+		dbOptionsPanel.add(lt,gc);
 		
 		gc.gridx =1;
 		gc.gridy = 1;
@@ -281,14 +281,14 @@ public class HomeScreen extends JFrame implements ActionListener{
 		gc.weighty=1.0;
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.anchor = GridBagConstraints.NORTHWEST;
-		rButtonPanel.add(urll,gc);
+		dbOptionsPanel.add(urll,gc);
 		
 		gc.gridx =0;
 		gc.gridy = 2;
 		gc.weightx=1.0;
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
-		rButtonPanel.add(cu,gc);
+		dbOptionsPanel.add(cu,gc);
 		
 		gc.gridx =1;
 		gc.gridy = 2;
@@ -296,49 +296,53 @@ public class HomeScreen extends JFrame implements ActionListener{
 		gc.weighty=1.0;
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.anchor = GridBagConstraints.NORTHWEST;
-		rButtonPanel.add(urlc,gc);
+		dbOptionsPanel.add(urlc,gc);
 		
+		JLabel empty1 = new JLabel(" ");
+		gc.gridx =0;
+		gc.gridy = 4;
+		gc.weightx=1.0;
+		gc.weighty=1.0;
+		dbOptionsPanel.add(empty1,gc);
 		
 		uName = new JLabel("Username:");
-		gc.gridx =3;
-		gc.gridy = 0;
+		gc.gridx =0;
+		gc.gridy = 5;
 		gc.weightx=1.0;
 		gc.weighty=1.0;
-		gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.anchor = GridBagConstraints.NORTHWEST;
-		rButtonPanel.add(uName,gc);
+		dbOptionsPanel.add(uName,gc);
 		
 		pass = new JLabel("Password:");
-		gc.gridx =3;
-		gc.gridy = 1;
+		gc.gridx =0;
+		gc.gridy = 6;
 		gc.weightx=1.0;
 		gc.weighty=1.0;
-		gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.anchor = GridBagConstraints.NORTHWEST;
-		rButtonPanel.add(pass,gc);
+		dbOptionsPanel.add(pass,gc);
 		
 		user = new JTextField();
-		gc.gridx =4;
-		gc.gridy = 0;
+		gc.gridx =1;
+		gc.gridy = 5;
 		gc.weightx=1.0;
 		gc.weighty=1.0;
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.anchor = GridBagConstraints.NORTHWEST;
-		rButtonPanel.add(user,gc);
+		dbOptionsPanel.add(user,gc);
 		
 		password = new JPasswordField();
-		gc.gridx =4;
-		gc.gridy = 1;
+		gc.gridx =1;
+		gc.gridy = 6;
 		gc.weightx=1.0;
 		gc.weighty=1.0;
 		gc.gridwidth = 2;
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.anchor = GridBagConstraints.NORTHWEST;
-		rButtonPanel.add(password,gc);
+		dbOptionsPanel.add(password,gc);
 		
 		
 
-		dbPanel.add(rButtonPanel,BorderLayout.WEST);
+		dbPanel.add(dbOptionsPanel,BorderLayout.WEST);
 
 		connButtonPanel = new JPanel();
 		connect = new JButton("Connect");
