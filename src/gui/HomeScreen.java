@@ -227,7 +227,6 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 //		Adds options for connecting to a database
 		dbPanel = new JPanel(new BorderLayout());
-		rButtonPanel = new JPanel(new GridLayout(3,2));
 		bg = new ButtonGroup();
 
 		dbHeading = new JLabel("Select a Database Connection:");
@@ -236,16 +235,23 @@ public class HomeScreen extends JFrame implements ActionListener{
 		dbHeading.setHorizontalAlignment(SwingConstants.CENTER);
 		dbPanel.add(dbHeading,BorderLayout.NORTH);
 		
-		passwordPanel = new JPanel(new GridLayout(2,2));
+		passwordPanel = new JPanel(new GridLayout(2,3));
+		JLabel empty1 = new JLabel("   ");
+		JLabel empty2 = new JLabel("   ");
+		
 		uName = new JLabel("Username:");
 		passwordPanel.add(uName);
 		user = new JTextField();
 		passwordPanel.add(user);
+		passwordPanel.add(empty1);
+		
 		pass = new JLabel("Password:");
 		passwordPanel.add(pass);
 		password = new JPasswordField();
 		passwordPanel.add(password);
+		passwordPanel.add(empty2);
 		
+		passwordPanel.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
 		dbPanel.add(passwordPanel,BorderLayout.CENTER);
 
 		tu = new JRadioButton("Tallaght Database");
@@ -259,16 +265,19 @@ public class HomeScreen extends JFrame implements ActionListener{
 		urll.setEditable(false);
 		urlc = new JTextField();
 
+		rButtonPanel = new JPanel(new GridLayout(3,2));
 		rButtonPanel.add(tu);
 		rButtonPanel.add(urlt);
 		rButtonPanel.add(lt);
 		rButtonPanel.add(urll);
 		rButtonPanel.add(cu);
 		rButtonPanel.add(urlc);
+
 		dbPanel.add(rButtonPanel,BorderLayout.WEST);
 
 		connButtonPanel = new JPanel();
 		connect = new JButton("Connect");
+		connect.addActionListener(this);
 		connButtonPanel.add(connect);
 		dbPanel.add(connButtonPanel,BorderLayout.SOUTH);
 
