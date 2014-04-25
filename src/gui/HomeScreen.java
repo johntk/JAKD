@@ -233,9 +233,9 @@ public class HomeScreen extends JFrame implements ActionListener{
 //		Adds options for connecting to a database
 		dbPanel = new JPanel(new BorderLayout());
 		
-
 		dbHeading = new JLabel("Select a Database Connection:");
 		dbHeading.setFont(new Font("Calibri",Font.BOLD,25));
+		dbHeading.setForeground(new Color(20,120,230));
 		dbHeading.setBorder(BorderFactory.createEmptyBorder(5,0,10,0));
 		dbHeading.setHorizontalAlignment(SwingConstants.CENTER);
 		dbPanel.add(dbHeading,BorderLayout.NORTH);
