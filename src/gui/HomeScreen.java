@@ -14,7 +14,6 @@ import operations.DBconnection;
 import operations.EmpOperations;
 import operations.HomeScreenOperations;
 import operations.ProdOperations;
-import reports.generateReport;
 import model.ElecProdList;
 import model.EmployeeList;
 import model.DigiProdList;

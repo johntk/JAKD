@@ -1,7 +1,8 @@
-package reports;
+package gui;
 
 import java.awt.*;
 import java.sql.Connection;
+
 import javax.swing.*;
 
 import operations.ReportOperations;

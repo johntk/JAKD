@@ -1,22 +1,18 @@
-package reports;
-
+package gui;
 import java.awt.*;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.swing.border.Border;
-
 import operations.ReportOperations;
 
-
-public class ReturnsReport extends JPanel
+public class ReportDesignToFrom extends JPanel
 {
 	/**
 	 * 
@@ -36,13 +32,13 @@ public class ReturnsReport extends JPanel
 	private	Border line = (Border) BorderFactory.createLineBorder(Color.LIGHT_GRAY);
 	private	Border border = BorderFactory.createCompoundBorder(space, line);
 
-	public ReturnsReport(String topDate, String bottomDate, ReportOperations ro) throws SQLException
+	public ReportDesignToFrom(String topDate, String bottomDate, ReportOperations ro) throws SQLException
 	{
 		layout = new GridBagLayout();
 		gc = new GridBagConstraints();
 		this.setLayout(new BorderLayout());
 		f = new Font("Helvetica", Font.ITALIC, 20);
-		String[] colNames = {"Transaction ID","Transaction Date", "Transaction Type","Total Returned", "Employee"};
+		String[] colNames = {"Transaction ID","Transaction Date","Total"};
 
 		topPanel = new JPanel(new GridLayout());
 		this.add(topPanel, BorderLayout.NORTH);
@@ -147,8 +143,8 @@ public class ReturnsReport extends JPanel
 		headingsPanel.add(right);
 
 		resultsPanel = new JPanel(new BorderLayout());
-
-		this.rset = ro.returnTrans();
+		
+		this.rset = ro.salesReportToFromDates();
 		int rowCount = 0;
 		if(rset.last())
 		{
@@ -160,23 +156,18 @@ public class ReturnsReport extends JPanel
 		scrollPane = new JScrollPane(table);
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER );
-		for(int i = 0;i<colNames.length;i++)
-		{
-			table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-		}
+		table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+		table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+		table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
 		for(int i = 0;i < rowCount;i++)
 		{
 			if(rset.next())
 			{
 				table.setValueAt(rset.getInt(1), i, 0);
-				
 				Date date = rset.getDate(2); 
 				String d = new SimpleDateFormat("dd-MM-YYYY").format(date);
 				table.setValueAt(d, i, 1);
-				
 				table.setValueAt(rset.getString(3), i, 2);
-				table.setValueAt(rset.getDouble(4), i, 3);
-				table.setValueAt(rset.getString(5), i, 4);
 			}
 		}
 		resultsPanel.add(scrollPane, BorderLayout.CENTER);
