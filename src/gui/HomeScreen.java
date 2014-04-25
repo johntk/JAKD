@@ -352,6 +352,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 		connButtonPanel = new JPanel();
 		connect = new JButton("Connect");
+		connect.setBackground(Color.DARK_GRAY);
+		connect.setForeground(Color.WHITE);
 		connect.addActionListener(this);
 		connButtonPanel.add(connect);
 		dbPanel.add(connButtonPanel,BorderLayout.SOUTH);
