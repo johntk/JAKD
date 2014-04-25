@@ -42,7 +42,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 			button4 = new JButton("Close"), };
 
 	private JPanel homePanel, ProdSelect, center, posGUI, cardPanel, digiProdPanel, genReportPanel,
-	userPanel, elecProdPanel, dbPanel, dbOptionsPanel, connButtonPanel;
+	userPanel, elecProdPanel, dbPanel, dbOptionsPanel, connButtonPanel, innerDBPanel;
 
 	// Border declaration for use on east and west panels on main frame
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
@@ -240,6 +240,9 @@ public class HomeScreen extends JFrame implements ActionListener{
 		dbHeading.setHorizontalAlignment(SwingConstants.CENTER);
 		dbPanel.add(dbHeading,BorderLayout.NORTH);
 		
+		innerDBPanel = new JPanel(new GridBagLayout());
+		dbPanel.add(innerDBPanel,BorderLayout.CENTER);
+		
 		dbOptionsPanel = new JPanel(new GridBagLayout());
 		
 		tu = new JRadioButton("Tallaght Database");
@@ -307,7 +310,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		gc.weighty=1.0;
 		dbOptionsPanel.add(empty1,gc);
 		
-		uName = new JLabel("Username:");
+		uName = new JLabel("        Username:");
 		gc.gridx =0;
 		gc.gridy = 5;
 		gc.weightx=1.0;
@@ -315,7 +318,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(uName,gc);
 		
-		pass = new JLabel("Password:");
+		pass = new JLabel("        Password:");
 		gc.gridx =0;
 		gc.gridy = 6;
 		gc.weightx=1.0;
@@ -344,7 +347,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		
 		
 
-		dbPanel.add(dbOptionsPanel,BorderLayout.WEST);
+		innerDBPanel.add(dbOptionsPanel);
 
 		connButtonPanel = new JPanel();
 		connect = new JButton("Connect");
