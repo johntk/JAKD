@@ -10,6 +10,8 @@ import java.sql.Connection;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import com.sun.org.apache.bcel.internal.generic.LUSHR;
+
 import operations.DBconnection;
 import operations.EmpOperations;
 import operations.HomeScreenOperations;
@@ -18,7 +20,7 @@ import model.ElecProdList;
 import model.EmployeeList;
 import model.DigiProdList;
 
-public class HomeScreen extends JFrame implements ActionListener{
+public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 
 
 	private static final long serialVersionUID = 1L;
@@ -245,6 +247,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		dbOptionsPanel = new JPanel(new GridBagLayout());
 		
 		tu = new JRadioButton("Tallaght Database");
+		tu.addItemListener(this);
 		gc.gridx =0;
 		gc.gridy = 0;
 		gc.weightx=1.0;
@@ -264,6 +267,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		dbOptionsPanel.add(urlt,gc);
 		
 		lt = new JRadioButton("Local Database");
+		lt.addItemListener(this);
 		gc.gridx =0;
 		gc.gridy = 1;
 		gc.weightx=1.0;
@@ -282,6 +286,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 		dbOptionsPanel.add(urll,gc);
 		
 		cu = new JRadioButton("Custom URL");
+		cu.addItemListener(this);
 		gc.gridx =0;
 		gc.gridy = 2;
 		gc.weightx=1.0;
@@ -598,6 +603,26 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 	public static void main(String args[]) {
 		new HomeScreen();
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent arg0)
+	{
+		if(tu.isSelected())
+		{
+			urlt.setForeground(new Color(20,120,230));
+			urll.setForeground(Color.black);
+		}
+		else if(lt.isSelected())
+		{
+			urll.setForeground(new Color(20,120,230));
+			urlt.setForeground(Color.black);
+		}
+		else if(cu.isSelected())
+		{
+			urlt.setForeground(Color.black);
+			urll.setForeground(Color.black);
+		}
 	}
 }
 
