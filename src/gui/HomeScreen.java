@@ -21,18 +21,18 @@ import model.DigiProdList;
 
 public class HomeScreen extends JFrame implements ActionListener{
 
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private JFrame frame;
 	private static final int FRAME_WIDTH = 1248;
 	private static final int FRAME_HEIGHT = 700;
 	private JButton button1, button2, button3, button4, digiProd, elecProd, closeBtn, connect;
 	private JLabel logo, logo2, welcome, spacer, uName, pass, dbHeading;
-	
+
 	private JRadioButton tu,lt,cu;
 	private ButtonGroup bg;
-	
+
 	private JTextField urlt,urll,urlc,user;
 	private JPasswordField password;
 
@@ -61,7 +61,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private DigiProdList  digiProductList;
 	private ElecProdList  elecProductList;
 
-	
+
 	private SystemTray tray;
 	public static TrayIcon trayIcon;
 	private Image img;
@@ -72,7 +72,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private Connection conn;
 	private int index =0;
 	private boolean manager;
-	
+
 	////////////////     log in variables //////////////////////////////////
 	JDialog logIn; 
 	JLabel enterPassword;
@@ -80,19 +80,19 @@ public class HomeScreen extends JFrame implements ActionListener{
 	JButton enterPButton;
 	String pin;
 	HomeScreenOperations ho;
-	
-	
+
+
 
 	public HomeScreen() {
 		ti = new ImageIcon(this.getClass().getResource("/resources/trayIcon.png"));
 		frameIcon = new ImageIcon(this.getClass().getResource("/resources/titleIcon.png"));
 		Image im = frameIcon.getImage();
-		
+
 		addSystemTray();
 
 		db = new DBconnection();
 		conn = db.openDB();
-		
+
 		EmpOperations ao = new EmpOperations();
 		ProdOperations po = new ProdOperations();
 		DigiProdList dpl = new DigiProdList(po);
@@ -223,57 +223,56 @@ public class HomeScreen extends JFrame implements ActionListener{
 		userPanel = new UserPanel(frame, adminOperations, employeeList);
 		elecProdPanel = new ElecProdPanel(frame, "elec", prodOpertaion, elecProductList);
 		digiProdPanel = new DigiProdPanel(frame, "digi", prodOpertaion, digiProductList);
-		
-		
-//		Adds options for connecting to a database
+
+
+		//		Adds options for connecting to a database
 		dbPanel = new JPanel(new BorderLayout());
 		rButtonPanel = new JPanel(new GridLayout(3,2));
 		bg = new ButtonGroup();
-		
+
 		dbHeading = new JLabel("Select a Database Connection:");
 		dbHeading.setFont(new Font("Calibri",Font.BOLD,25));
 		dbHeading.setBorder(BorderFactory.createEmptyBorder(5,0,20,0));
 		dbHeading.setHorizontalAlignment(SwingConstants.CENTER);
 		dbPanel.add(dbHeading,BorderLayout.NORTH);
-		
+
 		uName = new JLabel("Username:");
 		pass = new JLabel("Password:");
-		
+
 		tu = new JRadioButton("Tallaght Database");
 		lt = new JRadioButton("Local Database");
 		cu = new JRadioButton("Custom URL");
 		bg.add(tu);bg.add(lt);bg.add(cu);
-		
+
 		urlt = new JTextField("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
 		urlt.setEditable(false);
 		urll = new JTextField("jdbc:oracle:thin:HR/@localhost:1521:XE");
 		urll.setEditable(false);
 		urlc = new JTextField();
-		
+
 		rButtonPanel.add(tu);
 		rButtonPanel.add(urlt);
 		rButtonPanel.add(lt);
 		rButtonPanel.add(urll);
 		rButtonPanel.add(cu);
 		rButtonPanel.add(urlc);
-		
-		dbPanel.add(rButtonPanel,BorderLayout.WEST);
-		dbPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-		dbPanel.setBorder(border);
-		homePanel.add(dbPanel,BorderLayout.SOUTH);
-		
+
 		connButtonPanel = new JPanel();
 		connect = new JButton("Connect");
 		connButtonPanel.add(connect);
-		dbPanel.add(connect,BorderLayout.SOUTH);
-		
+		dbPanel.add(connButtonPanel,BorderLayout.SOUTH);
+
+		dbPanel.add(rButtonPanel,BorderLayout.WEST);
+		dbPanel.setBorder(border);
+		homePanel.add(dbPanel,BorderLayout.SOUTH);
+
 
 		cards = new CardLayout();
 		cardPanel.setLayout(cards);
 		cardPanel.setBackground(cl1);
 		cardPanel.add(homePanel, "homePanel");
 		cardPanel.add(ProdSelect, "prodSelect");
-		
+
 		cardPanel.add(userPanel, "editUser");
 		cardPanel.add(elecProdPanel, "editElec");
 		cardPanel.add(digiProdPanel, "editDigi");
@@ -319,8 +318,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 				frame.requestFocus();
 			}
 		});
-		
-//		trayIcon.displayMessage("JAKD", "Right-Click Here For Options", TrayIcon.MessageType.NONE);
+
+		//		trayIcon.displayMessage("JAKD", "Right-Click Here For Options", TrayIcon.MessageType.NONE);
 	}
 
 	public void buttonSelect(JButton button, boolean pinCheck) {
@@ -400,7 +399,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 
-		
+
 		for (int i = 0; i < sideButtonsArray.length; i++) {
 			if (e.getSource().equals(sideButtonsArray[i])) {
 				buttonSelect(sideButtonsArray[i], false);
@@ -415,14 +414,14 @@ public class HomeScreen extends JFrame implements ActionListener{
 			cards.show(cardPanel, "editDigi");
 		} 
 		else if (e.getSource() == closeBtn) {
-			
+
 		}
 		else if (e.getSource() == enterPButton)
 		{
 			if(check() == true){	
 				buttonSelect(sideButtonsArray[index], true);}
 			else {
-				
+
 				manager = false;
 				if(check() != true)
 				{
@@ -433,20 +432,20 @@ public class HomeScreen extends JFrame implements ActionListener{
 				{
 					logIn.dispose();
 					JOptionPane.showMessageDialog(null,"You do no have sufficent privliges","", JOptionPane.WARNING_MESSAGE);
-					
+
 				}
-				
+
 			}
 		}
 	}
-	
-	
-	
+
+
+
 	public void logIn()
 	{
-		
+
 		ho = new HomeScreenOperations(conn);
-		
+
 		logIn = new JDialog();
 		logIn.setTitle("Log In");
 		logIn.setVisible(true);
@@ -454,32 +453,34 @@ public class HomeScreen extends JFrame implements ActionListener{
 		logIn.setLocationRelativeTo(null);
 		logIn.setSize(160,130);
 		logIn.setLayout(new FlowLayout());
-		
+
 		enterPassword = new JLabel("Enter Pin:");
 		logIn.add(enterPassword);
 		jpf = new JPasswordField(10);
 		logIn.add(jpf);
 		enterPButton = new JButton("Log In");
 		enterPButton.addActionListener(this);
+		logIn.add(enterPButton);
+
 		logIn.add(enterPButton); 
-		
+
 		/////// allows enter key press "enter" in gui
 		enterPButton.registerKeyboardAction(enterPButton.getActionForKeyStroke(
-                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
-                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
-                JComponent.WHEN_IN_FOCUSED_WINDOW);
-		
+				KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
+				KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
+				JComponent.WHEN_IN_FOCUSED_WINDOW);
+
 		enterPButton.registerKeyboardAction(enterPButton.getActionForKeyStroke(
-                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
-                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
-                JComponent.WHEN_FOCUSED);
-		
+				KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
+				KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
+				JComponent.WHEN_FOCUSED);
+
 	}
-	
+
 	public boolean check()
 	{
 		boolean go = false;
-		
+
 		if(manager != true)
 		{
 			pin = new String(jpf.getPassword());
@@ -488,7 +489,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 			}
 			else{
 				go = false;
-		}	
+			}	
 		}
 		else
 		{
@@ -498,7 +499,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 			}
 			else{
 				go = false;
-		}	
+			}	
 		}
 		return go;
 	}
