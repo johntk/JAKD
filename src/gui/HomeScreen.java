@@ -186,8 +186,8 @@ public class HomeScreen extends JFrame implements ActionListener{
 		welcome = new JLabel("Welcome to JAKD!");
 		welcome.setFont(font);
 		logo2 = new JLabel("");
-		logo2.setIcon(new ImageIcon(this.getClass().getResource("/resources/logo.jpeg")));
-		logo2.setPreferredSize(new Dimension(400, 120));
+		logo2.setIcon(new ImageIcon(this.getClass().getResource("/resources/logo2.png")));
+//		logo2.setPreferredSize(new Dimension(400, 120));
 		homePanel.add(logo2);
 
 
