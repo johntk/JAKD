@@ -15,8 +15,8 @@ public class ProdOperations {
 	private Connection conn;
 	private PreparedStatement pstmt;
 	
-	public Connection setDBconnection(Connection conn) {
-		return this.conn = conn;
+	public void setDBconnection(Connection conn) {
+		this.conn = conn;
 	}
 
 	public ResultSet getProductCD() {

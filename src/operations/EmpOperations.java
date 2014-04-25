@@ -13,8 +13,8 @@ public class EmpOperations {
 	private PreparedStatement pstmt;
 
 	
-	public Connection setDBconnection(Connection conn) {
-		return this.conn = conn;
+	public void setDBconnection(Connection conn) {
+		this.conn = conn;
 	}
 	
 	public ResultSet queryEmployee() {
