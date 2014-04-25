@@ -27,7 +27,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private JFrame frame;
 	private static final int FRAME_WIDTH = 1248;
 	private static final int FRAME_HEIGHT = 700;
-	private JButton button1, button2, button3, button4, digiProd, elecProd, closeBtn;
+	private JButton button1, button2, button3, button4, digiProd, elecProd, closeBtn, connect;
 	private JLabel logo, logo2, welcome, spacer, uName, pass, dbHeading;
 	
 	private JRadioButton tu,lt,cu;
@@ -42,7 +42,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 			button4 = new JButton("Close"), };
 
 	private JPanel homePanel, ProdSelect, center, posGUI, cardPanel, digiProdPanel, genReportPanel,
-	userPanel, elecProdPanel, dbPanel, rButtonPanel;
+	userPanel, elecProdPanel, dbPanel, rButtonPanel, connButtonPanel;
 
 	// Border declaration for use on east and west panels on main frame
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
@@ -261,6 +261,11 @@ public class HomeScreen extends JFrame implements ActionListener{
 		dbPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 		dbPanel.setBorder(border);
 		homePanel.add(dbPanel,BorderLayout.SOUTH);
+		
+		connButtonPanel = new JPanel();
+		connect = new JButton("Connect");
+		connButtonPanel.add(connect);
+		dbPanel.add(connect,BorderLayout.SOUTH);
 		
 
 		cards = new CardLayout();
