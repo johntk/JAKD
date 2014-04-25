@@ -28,7 +28,13 @@ public class HomeScreen extends JFrame implements ActionListener{
 	private static final int FRAME_WIDTH = 1248;
 	private static final int FRAME_HEIGHT = 700;
 	private JButton button1, button2, button3, button4, digiProd, elecProd, closeBtn;
-	private JLabel logo, logo2, welcome, spacer;
+	private JLabel logo, logo2, welcome, spacer, uName, pass;
+	
+	private JRadioButton tu,lt,cu;
+	private ButtonGroup bg;
+	
+	private JTextField urlt,urll,urlc,user;
+	private JPasswordField password;
 
 	private	JButton[] sideButtonsArray = { button1 = new JButton("POS"),
 			button2 = new JButton("Admin"), 
@@ -36,7 +42,7 @@ public class HomeScreen extends JFrame implements ActionListener{
 			button4 = new JButton("Close"), };
 
 	private JPanel homePanel, ProdSelect, center, posGUI, cardPanel, digiProdPanel, genReportPanel,
-	userPanel, elecProdPanel;
+	userPanel, elecProdPanel, dbPanel, rButtonPanel;
 
 	// Border declaration for use on east and west panels on main frame
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
@@ -218,7 +224,37 @@ public class HomeScreen extends JFrame implements ActionListener{
 		elecProdPanel = new ElecProdPanel(frame, "elec", prodOpertaion, elecProductList);
 		digiProdPanel = new DigiProdPanel(frame, "digi", prodOpertaion, digiProductList);
 		
-
+		
+//		Adds options for connecting to a database
+		dbPanel = new JPanel(new BorderLayout());
+		rButtonPanel = new JPanel(new GridLayout(3,2));
+		bg = new ButtonGroup();
+		
+		uName = new JLabel("Username:");
+		pass = new JLabel("Password:");
+		
+		tu = new JRadioButton("Tallaght Database");
+		lt = new JRadioButton("Local Database");
+		cu = new JRadioButton("Custom URL");
+		bg.add(tu);bg.add(lt);bg.add(cu);
+		
+		urlt = new JTextField("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
+		urlt.setEditable(false);
+		urll = new JTextField("jdbc:oracle:thin:HR/@localhost:1521:XE");
+		urll.setEditable(false);
+		urlc = new JTextField();
+		
+		rButtonPanel.add(tu);
+		rButtonPanel.add(urlt);
+		rButtonPanel.add(lt);
+		rButtonPanel.add(urll);
+		rButtonPanel.add(cu);
+		rButtonPanel.add(urlc);
+		
+		dbPanel.add(rButtonPanel,BorderLayout.WEST);
+		dbPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+		homePanel.add(dbPanel,BorderLayout.SOUTH);
+		
 
 		cards = new CardLayout();
 		cardPanel.setLayout(cards);
