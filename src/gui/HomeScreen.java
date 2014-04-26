@@ -6,6 +6,7 @@ package gui;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -32,6 +33,8 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 	private JLabel logo, logo2, welcome, spacer, uName, pass, dbHeading;
 
 	private JRadioButton tu,lt,cu;
+	private ArrayList<JRadioButton> dbButtons;
+	private ArrayList<JTextField> dbTextFields;
 	private ButtonGroup bg;
 
 	private JTextField urlt,urll,urlc,user;
@@ -93,9 +96,8 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		ti = new ImageIcon(this.getClass().getResource("/resources/trayIcon.png"));
 		frameIcon = new ImageIcon(this.getClass().getResource("/resources/titleIcon.png"));
 		Image im = frameIcon.getImage();
-
 		addSystemTray();
-
+		
 		db = new DBconnection();
 		conn = db.openDB();
 
@@ -350,8 +352,6 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(password,gc);
 		
-		
-
 		innerDBPanel.add(dbOptionsPanel);
 
 		connButtonPanel = new JPanel();
@@ -365,6 +365,16 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		dbPanel.setBorder(dbBorder);
 		homePanel.add(dbPanel,BorderLayout.SOUTH);
 
+		dbButtons = new ArrayList<JRadioButton>();
+		dbButtons.add(tu);
+		dbButtons.add(lt);
+		dbButtons.add(cu);
+		
+		dbTextFields = new ArrayList<JTextField>();
+		dbTextFields.add(urlt);
+		dbTextFields.add(urll);
+		dbTextFields.add(urlc);
+		
 
 		cards = new CardLayout();
 		cardPanel.setLayout(cards);
@@ -531,7 +541,6 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 					JOptionPane.showMessageDialog(null,"You do no have sufficent privliges","", JOptionPane.WARNING_MESSAGE);
 
 				}
-
 			}
 		}
 	}
@@ -606,22 +615,18 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 	}
 
 	@Override
-	public void itemStateChanged(ItemEvent arg0)
-	{
-		if(tu.isSelected())
+	public void itemStateChanged(ItemEvent ie)
+	{	
+		for(int i=0;i<dbButtons.size();i++)
 		{
-			urlt.setForeground(new Color(20,120,230));
-			urll.setForeground(Color.black);
-		}
-		else if(lt.isSelected())
-		{
-			urll.setForeground(new Color(20,120,230));
-			urlt.setForeground(Color.black);
-		}
-		else if(cu.isSelected())
-		{
-			urlt.setForeground(Color.black);
-			urll.setForeground(Color.black);
+			if(dbButtons.get(i).isSelected())
+			{
+				dbTextFields.get(i).setForeground(new Color(20,120,230));
+			}
+			else
+			{
+				dbTextFields.get(i).setForeground(Color.black);
+			}
 		}
 	}
 }
