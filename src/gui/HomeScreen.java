@@ -233,7 +233,9 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		digiProdPanel = new DigiProdPanel(frame, "digi", prodOpertaion, digiProductList);
 
 
-		//		Adds options for connecting to a database
+		/*
+		 *   Add options for connecting to a database
+		 */
 		dbPanel = new JPanel(new BorderLayout());
 
 		dbHeading = new JLabel("Select a Database Connection:");
@@ -247,24 +249,25 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		dbPanel.add(innerDBPanel,BorderLayout.CENTER);
 
 		dbOptionsPanel = new JPanel(new GridBagLayout());
-//		Create radio buttons to select a database URL to connect to
+		
+		//		Create radio buttons to select a database URL to connect to
 		tu = new JRadioButton("Tallaght Database");
 		tu.addItemListener(this);
 		lt = new JRadioButton("Local Database");
 		lt.addItemListener(this);
 		cu = new JRadioButton("Custom URL");
 		cu.addItemListener(this);
-		
+
 		bg = new ButtonGroup();
 		bg.add(tu);
 		bg.add(lt);
 		bg.add(cu);
-		
+
 		dbButtons = new ArrayList<JRadioButton>();
 		dbButtons.add(tu);
 		dbButtons.add(lt);
 		dbButtons.add(cu);
-		
+
 		for(int i=0; i<dbButtons.size();i++)
 		{
 			gc.gridx =0;
@@ -274,19 +277,20 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 			gc.anchor = GridBagConstraints.NORTHWEST;
 			dbOptionsPanel.add(dbButtons.get(i),gc);
 		}
-//		Create text fields for displaying database URLs
+		
+		//		Create text fields for displaying database URLs
 		urlt = new JTextField("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
 		urlt.setMinimumSize(new Dimension(200,18));
 		urlt.setEditable(false);
 		urll = new JTextField("jdbc:oracle:thin:HR/@localhost:1521:XE");
 		urll.setEditable(false);
 		urlc = new JTextField();
-		
+
 		dbTextFields = new ArrayList<JTextField>();
 		dbTextFields.add(urlt);
 		dbTextFields.add(urll);
 		dbTextFields.add(urlc);
-		
+
 		for(int i=0;i<dbTextFields.size();i++)
 		{
 			gc.gridx =1;
@@ -339,7 +343,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(password,gc);
-		
+
 		innerDBPanel.add(dbOptionsPanel);
 
 		connButtonPanel = new JPanel();
@@ -526,7 +530,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		{
 			Boolean select = false;
 			String p = new String(password.getPassword());
-			
+
 			for(int i=0;i<dbButtons.size();i++)
 			{
 				if(dbButtons.get(i).isSelected())
@@ -539,7 +543,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 				JOptionPane.showConfirmDialog(frame, "Select a Database to connect", "DB Connection Error",JOptionPane.CLOSED_OPTION,JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			
+
 			if(!user.getText().equals("") && !p.equals(""))
 			{
 				if(cu.isSelected() && urlc.getText().equals(""))
@@ -547,14 +551,14 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 					JOptionPane.showConfirmDialog(frame, "Enter a URL", "DB Connection Error",JOptionPane.CLOSED_OPTION,JOptionPane.ERROR_MESSAGE);
 				}
 				else
-				for(int i=0;i<dbButtons.size();i++)
-				{
-					if(dbButtons.get(i).isSelected())
+					for(int i=0;i<dbButtons.size();i++)
 					{
-						System.out.println("Connect");
-						//conn = db.openDB(dbTextFields.get(i).getText(),user.getText(),p);
+						if(dbButtons.get(i).isSelected())
+						{
+							System.out.println("Connect");
+							//conn = db.openDB(dbTextFields.get(i).getText(),user.getText(),p);
+						}
 					}
-				}
 			}
 			else
 			{
@@ -563,7 +567,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		}
 	}
 
-	
+
 	public void logIn()
 	{
 
