@@ -21,7 +21,7 @@ import model.ElecProdList;
 import model.EmployeeList;
 import model.DigiProdList;
 
-public class HomeScreen extends JFrame implements ActionListener, ItemListener, Runnable{
+public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 
 
 	private static final long serialVersionUID = 1L;
@@ -97,19 +97,6 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener, 
 		frameIcon = new ImageIcon(this.getClass().getResource("/resources/titleIcon.png"));
 		Image im = frameIcon.getImage();
 		addSystemTray();
-
-		Runnable runnable = new Runnable()
-		{
-
-			public void run()
-			{
-				System.out.println("Runnable running");
-			}
-		};
-
-
-		Thread thread = new Thread(runnable);
-		thread.start();
 
 		db = new DBconnection();
 		conn = db.openDB(null,null,null);
@@ -657,10 +644,6 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener, 
 				dbTextFields.get(i).setForeground(Color.black);
 			}
 		}
-	}
-	@Override
-	public void run(){
-		System.out.println("MyRunnable running");
 	}
 
 	public static void main(String args[]) {
