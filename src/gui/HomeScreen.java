@@ -546,13 +546,29 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 
 		if(e.getSource()==connect)
 		{
+			Boolean select = false;
 			String p = new String(password.getPassword());
+			
+			for(int i=0;i<dbButtons.size();i++)
+			{
+				if(dbButtons.get(i).isSelected())
+				{
+					select = true;
+				}
+			}
+			if(select==false)
+			{
+				JOptionPane.showConfirmDialog(frame, "Select a Database to connect", "DB Connection Error",JOptionPane.CLOSED_OPTION,JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
 			if(!user.getText().equals("") && !p.equals(""))
 			{
 				if(cu.isSelected() && urlc.getText().equals(""))
 				{
 					JOptionPane.showConfirmDialog(frame, "Enter a URL", "DB Connection Error",JOptionPane.CLOSED_OPTION,JOptionPane.ERROR_MESSAGE);
 				}
+				else
 				for(int i=0;i<dbButtons.size();i++)
 				{
 					if(dbButtons.get(i).isSelected())
