@@ -98,8 +98,29 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener, 
 		Image im = frameIcon.getImage();
 		addSystemTray();
 
+		Runnable runnable = new Runnable()
+		{
+
+			public void run()
+			{
+				System.out.println("Runnable running");
+			}
+		};
+
+
+		Thread thread = new Thread(runnable);
+		thread.start();
+
 		db = new DBconnection();
 		conn = db.openDB(null,null,null);
+
+		EmpOperations ao = new EmpOperations();
+		ProdOperations po = new ProdOperations();
+		DigiProdList dpl = new DigiProdList(po);
+		ElecProdList epl = new ElecProdList(po);
+		EmployeeList el = new EmployeeList(ao);
+		ao.setDBconnection(conn);
+		po.setDBconnection(conn);
 
 		// Main frame declaration
 		frame = new JFrame();
@@ -110,14 +131,6 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener, 
 		frame.setIconImage(im);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		EmpOperations ao = new EmpOperations();
-		ProdOperations po = new ProdOperations();
-		DigiProdList dpl = new DigiProdList(po);
-		ElecProdList epl = new ElecProdList(po);
-		EmployeeList el = new EmployeeList(ao);
-		ao.setDBconnection(conn);
-		po.setDBconnection(conn);
-		
 		this.employeeList = el;
 		this.adminOperations = ao;
 		this.digiProductList = dpl;
@@ -249,7 +262,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener, 
 		dbPanel.add(innerDBPanel,BorderLayout.CENTER);
 
 		dbOptionsPanel = new JPanel(new GridBagLayout());
-		
+
 		//		Create radio buttons to select a database URL to connect to
 		tu = new JRadioButton("Tallaght Database");
 		tu.addItemListener(this);
@@ -277,7 +290,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener, 
 			gc.anchor = GridBagConstraints.NORTHWEST;
 			dbOptionsPanel.add(dbButtons.get(i),gc);
 		}
-		
+
 		//		Create text fields for displaying database URLs
 		urlt = new JTextField("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
 		urlt.setMinimumSize(new Dimension(200,18));
@@ -646,9 +659,8 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener, 
 		}
 	}
 	@Override
-	public void run()
-	{
-		
+	public void run(){
+		System.out.println("MyRunnable running");
 	}
 
 	public static void main(String args[]) {
