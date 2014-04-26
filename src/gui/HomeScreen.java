@@ -114,14 +114,6 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener, 
 		db = new DBconnection();
 		conn = db.openDB(null,null,null);
 
-		EmpOperations ao = new EmpOperations();
-		ProdOperations po = new ProdOperations();
-		DigiProdList dpl = new DigiProdList(po);
-		ElecProdList epl = new ElecProdList(po);
-		EmployeeList el = new EmployeeList(ao);
-		ao.setDBconnection(conn);
-		po.setDBconnection(conn);
-
 		// Main frame declaration
 		frame = new JFrame();
 		frame.setLayout(layout);
@@ -130,6 +122,14 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener, 
 		frame.setLocationRelativeTo(null);
 		frame.setIconImage(im);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+		EmpOperations ao = new EmpOperations();
+		ProdOperations po = new ProdOperations();
+		DigiProdList dpl = new DigiProdList(po);
+		ElecProdList epl = new ElecProdList(po);
+		EmployeeList el = new EmployeeList(ao);
+		ao.setDBconnection(conn);
+		po.setDBconnection(conn);
 
 		this.employeeList = el;
 		this.adminOperations = ao;
