@@ -250,12 +250,30 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 
 		tu = new JRadioButton("Tallaght Database");
 		tu.addItemListener(this);
-		gc.gridx =0;
-		gc.gridy = 0;
-		gc.weightx=1.0;
-		gc.weighty=1.0;
-		gc.anchor = GridBagConstraints.NORTHWEST;
-		dbOptionsPanel.add(tu,gc);
+		lt = new JRadioButton("Local Database");
+		lt.addItemListener(this);
+		cu = new JRadioButton("Custom URL");
+		cu.addItemListener(this);
+		
+		bg = new ButtonGroup();
+		bg.add(tu);
+		bg.add(lt);
+		bg.add(cu);
+		
+		dbButtons = new ArrayList<JRadioButton>();
+		dbButtons.add(tu);
+		dbButtons.add(lt);
+		dbButtons.add(cu);
+		
+		for(int i=0; i<dbButtons.size();i++)
+		{
+			gc.gridx =0;
+			gc.gridy = i;
+			gc.weightx=1.0;
+			gc.weighty=1.0;
+			gc.anchor = GridBagConstraints.NORTHWEST;
+			dbOptionsPanel.add(dbButtons.get(i),gc);
+		}
 
 		urlt = new JTextField("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
 		urlt.setMinimumSize(new Dimension(200,18));
@@ -268,14 +286,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(urlt,gc);
 
-		lt = new JRadioButton("Local Database");
-		lt.addItemListener(this);
-		gc.gridx =0;
-		gc.gridy = 1;
-		gc.weightx=1.0;
-		gc.weighty=1.0;
-		gc.anchor = GridBagConstraints.NORTHWEST;
-		dbOptionsPanel.add(lt,gc);
+		
 
 		urll = new JTextField("jdbc:oracle:thin:HR/@localhost:1521:XE");
 		urll.setEditable(false);
@@ -287,15 +298,8 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(urll,gc);
 
-		cu = new JRadioButton("Custom URL");
-		cu.addItemListener(this);
-		gc.gridx =0;
-		gc.gridy = 2;
-		gc.weightx=1.0;
-		gc.weighty=1.0;
-		gc.anchor = GridBagConstraints.NORTHWEST;
-		dbOptionsPanel.add(cu,gc);
-
+		
+		
 		urlc = new JTextField();
 		gc.gridx =1;
 		gc.gridy = 2;
@@ -304,11 +308,6 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(urlc,gc);
-
-		bg = new ButtonGroup();
-		bg.add(tu);
-		bg.add(lt);
-		bg.add(cu);
 
 		JLabel empty1 = new JLabel(" ");
 		gc.gridx =0;
@@ -364,11 +363,6 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 
 		dbPanel.setBorder(dbBorder);
 		homePanel.add(dbPanel,BorderLayout.SOUTH);
-
-		dbButtons = new ArrayList<JRadioButton>();
-		dbButtons.add(tu);
-		dbButtons.add(lt);
-		dbButtons.add(cu);
 
 		dbTextFields = new ArrayList<JTextField>();
 		dbTextFields.add(urlt);
