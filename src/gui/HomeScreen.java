@@ -65,7 +65,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 
 	private CardLayout cards;
 	private EmployeeList employeeList;
-	private EmpOperations adminOperations;
+	private EmpOperations empOperations;
 	private ProdOperations prodOpertaion;
 	private DigiProdList  digiProductList;
 	private ElecProdList  elecProductList;
@@ -247,7 +247,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 			po.setDBconnection(conn);
 
 			this.employeeList = el;
-			this.adminOperations = ao;
+			this.empOperations = ao;
 			this.digiProductList = dpl;
 			this.elecProductList = epl;
 			this.prodOpertaion = po;
@@ -356,19 +356,10 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 			homePanel.add(center, BorderLayout.CENTER);
 
 			// Main panel for displaying all the panels on action performed
-			userPanel = new UserPanel(frame, adminOperations, employeeList);
-			elecProdPanel = new ElecProdPanel(frame, "elec", prodOpertaion, elecProductList);
-			digiProdPanel = new DigiProdPanel(frame, "digi", prodOpertaion, digiProductList);
-
 			cards = new CardLayout();
 			cardPanel.setLayout(cards);
 			cardPanel.setBackground(cl1);
 			cardPanel.add(homePanel, "homePanel");
-			cardPanel.add(ProdSelect, "prodSelect");
-
-			cardPanel.add(userPanel, "editUser");
-			cardPanel.add(elecProdPanel, "editElec");
-			cardPanel.add(digiProdPanel, "editDigi");
 			cardPanel.setBorder(border);
 			cardPanel.setPreferredSize(new Dimension(900, 10));
 			frame.add(cardPanel, BorderLayout.CENTER);
@@ -441,6 +432,8 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		}
 		else if(button.equals(button2) && button2.getText().equals("Edit User"))
 		{
+			userPanel = new UserPanel(frame, empOperations, employeeList);
+			cardPanel.add(userPanel, "editUser");
 			cards.show(cardPanel, "editUser");
 		}
 		else if (button.equals(button2) && button2.getText().equals("Admin"))
@@ -465,6 +458,11 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		}
 		else if(button.equals(button3) && button3.getText().equals("Edit Product"))
 		{
+			elecProdPanel = new ElecProdPanel(frame, "elec", prodOpertaion, elecProductList);
+			digiProdPanel = new DigiProdPanel(frame, "digi", prodOpertaion, digiProductList);
+			cardPanel.add(ProdSelect, "prodSelect");
+			cardPanel.add(elecProdPanel, "editElec");
+			cardPanel.add(digiProdPanel, "editDigi");
 			cards.show(cardPanel, "prodSelect");
 		}
 		else if(button.equals(button3) && button3.getText().equals("Kiosk"))
@@ -523,7 +521,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 				else
 				{
 					logIn.dispose();
-					JOptionPane.showMessageDialog(null,"You do no have sufficent privliges","", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null,"You do not have sufficent privliges","", JOptionPane.WARNING_MESSAGE);
 
 				}
 			}
