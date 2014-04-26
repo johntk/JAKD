@@ -100,143 +100,11 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 
 		db = new DBconnection();
 		conn = db.openDB(null,null,null);
-
-		// Main frame declaration
-		frame = new JFrame();
-		frame.setLayout(layout);
-		frame.setTitle("Home Screen");
-		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-		frame.setLocationRelativeTo(null);
-		frame.setIconImage(im);
-		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-		EmpOperations ao = new EmpOperations();
-		ProdOperations po = new ProdOperations();
-		DigiProdList dpl = new DigiProdList(po);
-		ElecProdList epl = new ElecProdList(po);
-		EmployeeList el = new EmployeeList(ao);
-		ao.setDBconnection(conn);
-		po.setDBconnection(conn);
-
-		this.employeeList = el;
-		this.adminOperations = ao;
-		this.digiProductList = dpl;
-		this.elecProductList = epl;
-		this.prodOpertaion = po;
-		cl1 = new Color(240, 240, 240);
-
-		// Left side buttons panel
-		JPanel sideButtons = new JPanel();
-		sideButtons.setBackground(cl1);
-		sideButtons.setLayout(new GridBagLayout());
-		sideButtons.setBorder(border);
-		frame.add(sideButtons, BorderLayout.WEST);
-
-		// Logo and buttons added to left side panel
-		logo = new JLabel("");
-		logo.setIcon(new ImageIcon(this.getClass().getResource("/resources/logo.png")));
-		logo.setPreferredSize(new Dimension(295, 120));
-		gc.gridx = 0; // col
-		gc.gridy = 0; // row
-		gc.gridwidth = 1; // set gridwidth
-		gc.gridheight = 1; // set gridheight
-		gc.weighty = 0.0;// amount of space to allocate vertically
-		gc.weightx = 0.0;// amount of space to allocate horizontally
-		sideButtons.add(logo, gc);
-
-		// space between logo and buttons, would rather use a "spacer" here,
-		// more research needed
-		spacer = new JLabel("");
-		gc.gridy = 1;
-		gc.weighty = 10.0;
-		sideButtons.add(spacer, gc);
-
-
-
-		// Adding side buttons to side panel
-		for (int i = 0; i < sideButtonsArray.length; i++) {
-			gc.gridx = 0;
-			gc.gridy = i + 2;
-			gc.gridwidth = 1;
-			gc.gridheight = 1;
-			gc.weighty = 0.2;
-			gc.weightx = 0.0;
-			sideButtonsArray[i].setIcon(new ImageIcon(this.getClass().getResource("/resources/blueButton.png")));
-			sideButtonsArray[i].setFont(new Font("sansserif", Font.BOLD, 22));
-			sideButtonsArray[i].setPreferredSize(new Dimension(280, 100));
-			sideButtonsArray[i].setHorizontalTextPosition(JButton.CENTER);
-			sideButtonsArray[i].setVerticalTextPosition(JButton.CENTER);
-			sideButtonsArray[i].addActionListener(this);
-			sideButtons.add(sideButtonsArray[i], gc);
-		}
-
-		// Different panels for action performed events on the side buttons
-		cardPanel = new JPanel();
-
-		// Generate report panel
-		genReportPanel = new JPanel();
-		genReportPanel.setBackground(Color.WHITE);
-		closeBtn = new JButton("Close");
-		closeBtn.addActionListener(this);
-		genReportPanel.add(closeBtn);
-
-
-		// Home panel
-		homePanel = new JPanel();
-		homePanel.setLayout(new BorderLayout());
-		frame.add(homePanel, BorderLayout.CENTER);
-
-		welcome = new JLabel("Welcome to JAKD!");
-		welcome.setFont(font);
-		logo2 = new JLabel("");
-		logo2.setIcon(new ImageIcon(this.getClass().getResource("/resources/logo2.png")));
-		//		logo2.setPreferredSize(new Dimension(400, 120));
-		homePanel.add(logo2);
-
-
-		JButton[] prodSelect = {elecProd = new JButton("Electric Product"),
-				digiProd = new JButton("Digital Product")};
-
-		//Product select panel	
-		ProdSelect = new JPanel();
-		ProdSelect.setLayout(new GridBagLayout());
-
-		for(int i =0; i < prodSelect.length; i++)
-		{
-			prodSelect[i].setIcon(new ImageIcon(this.getClass().getResource("/resources/blueButton.png")));
-			prodSelect[i].setFont(new Font("sansserif", Font.BOLD, 22));
-			prodSelect[i].setPreferredSize(new Dimension(280, 100));
-			prodSelect[i].setHorizontalTextPosition(JButton.CENTER);
-			prodSelect[i].setVerticalTextPosition(JButton.CENTER);
-			prodSelect[i].addActionListener(this);
-			ProdSelect.add(prodSelect[i]);
-		}
-
-
-		//Center in Home Panel
-		center = new JPanel();
-		center.setLayout(new GridBagLayout());
-		center.setBackground(new Color(0, 0, 0, 0));
-
-		logo2.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
-		gc.gridx = 0;
-		gc.gridy = 0;
-		center.add(logo2, gc);
-		welcome.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 40));
-		gc.gridy = 1;
-		center.add(welcome, gc);
-		homePanel.add(center, BorderLayout.CENTER);
-
-		// Main panel for displaying all the panels on action performed
-		userPanel = new UserPanel(frame, adminOperations, employeeList);
-		elecProdPanel = new ElecProdPanel(frame, "elec", prodOpertaion, elecProductList);
-		digiProdPanel = new DigiProdPanel(frame, "digi", prodOpertaion, digiProductList);
-
-
+	
 		/*
-		 *   Add options for connecting to a database
+		 *   Add JOptionPane for connecting to a database
 		 */
-		dbPanel = new JPanel(new BorderLayout());
+		/*dbPanel = new JPanel(new BorderLayout());
 
 		dbHeading = new JLabel("Select a Database Connection:");
 		dbHeading.setFont(new Font("Calibri",Font.BOLD,25));
@@ -250,7 +118,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 
 		dbOptionsPanel = new JPanel(new GridBagLayout());
 
-		//		Create radio buttons to select a database URL to connect to
+		// Create radio buttons to select a database URL to connect to
 		tu = new JRadioButton("Tallaght Database");
 		tu.addItemListener(this);
 		lt = new JRadioButton("Local Database");
@@ -355,23 +223,158 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		dbPanel.add(connButtonPanel,BorderLayout.SOUTH);
 
 		dbPanel.setBorder(dbBorder);
-		homePanel.add(dbPanel,BorderLayout.SOUTH);
+
+		JOptionPane.showMessageDialog(null, dbPanel, "Enter PIN:",JOptionPane.PLAIN_MESSAGE);
+*/
+		
+		if(conn != null)
+		{
+			// Main frame declaration
+			frame = new JFrame();
+			frame.setLayout(layout);
+			frame.setTitle("Home Screen");
+			frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+			frame.setLocationRelativeTo(null);
+			frame.setIconImage(im);
+			frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+			EmpOperations ao = new EmpOperations();
+			ProdOperations po = new ProdOperations();
+			DigiProdList dpl = new DigiProdList(po);
+			ElecProdList epl = new ElecProdList(po);
+			EmployeeList el = new EmployeeList(ao);
+			ao.setDBconnection(conn);
+			po.setDBconnection(conn);
+
+			this.employeeList = el;
+			this.adminOperations = ao;
+			this.digiProductList = dpl;
+			this.elecProductList = epl;
+			this.prodOpertaion = po;
+			cl1 = new Color(240, 240, 240);
+
+			// Left side buttons panel
+			JPanel sideButtons = new JPanel();
+			sideButtons.setBackground(cl1);
+			sideButtons.setLayout(new GridBagLayout());
+			sideButtons.setBorder(border);
+			frame.add(sideButtons, BorderLayout.WEST);
+
+			// Logo and buttons added to left side panel
+			logo = new JLabel("");
+			logo.setIcon(new ImageIcon(this.getClass().getResource("/resources/logo.png")));
+			logo.setPreferredSize(new Dimension(295, 120));
+			gc.gridx = 0; // col
+			gc.gridy = 0; // row
+			gc.gridwidth = 1; // set gridwidth
+			gc.gridheight = 1; // set gridheight
+			gc.weighty = 0.0;// amount of space to allocate vertically
+			gc.weightx = 0.0;// amount of space to allocate horizontally
+			sideButtons.add(logo, gc);
+
+			// space between logo and buttons, would rather use a "spacer" here,
+			// more research needed
+			spacer = new JLabel("");
+			gc.gridy = 1;
+			gc.weighty = 10.0;
+			sideButtons.add(spacer, gc);
 
 
-		cards = new CardLayout();
-		cardPanel.setLayout(cards);
-		cardPanel.setBackground(cl1);
-		cardPanel.add(homePanel, "homePanel");
-		cardPanel.add(ProdSelect, "prodSelect");
 
-		cardPanel.add(userPanel, "editUser");
-		cardPanel.add(elecProdPanel, "editElec");
-		cardPanel.add(digiProdPanel, "editDigi");
-		cardPanel.setBorder(border);
-		cardPanel.setPreferredSize(new Dimension(900, 10));
-		frame.add(cardPanel, BorderLayout.CENTER);
+			// Adding side buttons to side panel
+			for (int i = 0; i < sideButtonsArray.length; i++) {
+				gc.gridx = 0;
+				gc.gridy = i + 2;
+				gc.gridwidth = 1;
+				gc.gridheight = 1;
+				gc.weighty = 0.2;
+				gc.weightx = 0.0;
+				sideButtonsArray[i].setIcon(new ImageIcon(this.getClass().getResource("/resources/blueButton.png")));
+				sideButtonsArray[i].setFont(new Font("sansserif", Font.BOLD, 22));
+				sideButtonsArray[i].setPreferredSize(new Dimension(280, 100));
+				sideButtonsArray[i].setHorizontalTextPosition(JButton.CENTER);
+				sideButtonsArray[i].setVerticalTextPosition(JButton.CENTER);
+				sideButtonsArray[i].addActionListener(this);
+				sideButtons.add(sideButtonsArray[i], gc);
+			}
 
-		frame.setVisible(true);
+			// Different panels for action performed events on the side buttons
+			cardPanel = new JPanel();
+
+			// Generate report panel
+			genReportPanel = new JPanel();
+			genReportPanel.setBackground(Color.WHITE);
+			closeBtn = new JButton("Close");
+			closeBtn.addActionListener(this);
+			genReportPanel.add(closeBtn);
+
+
+			// Home panel
+			homePanel = new JPanel();
+			homePanel.setLayout(new BorderLayout());
+			frame.add(homePanel, BorderLayout.CENTER);
+
+			welcome = new JLabel("Welcome to JAKD!");
+			welcome.setFont(font);
+			logo2 = new JLabel("");
+			logo2.setIcon(new ImageIcon(this.getClass().getResource("/resources/logo2.png")));
+			//		logo2.setPreferredSize(new Dimension(400, 120));
+			homePanel.add(logo2);
+
+
+			JButton[] prodSelect = {elecProd = new JButton("Electric Product"),
+					digiProd = new JButton("Digital Product")};
+
+			//Product select panel	
+			ProdSelect = new JPanel();
+			ProdSelect.setLayout(new GridBagLayout());
+
+			for(int i =0; i < prodSelect.length; i++)
+			{
+				prodSelect[i].setIcon(new ImageIcon(this.getClass().getResource("/resources/blueButton.png")));
+				prodSelect[i].setFont(new Font("sansserif", Font.BOLD, 22));
+				prodSelect[i].setPreferredSize(new Dimension(280, 100));
+				prodSelect[i].setHorizontalTextPosition(JButton.CENTER);
+				prodSelect[i].setVerticalTextPosition(JButton.CENTER);
+				prodSelect[i].addActionListener(this);
+				ProdSelect.add(prodSelect[i]);
+			}
+
+
+			//Center in Home Panel
+			center = new JPanel();
+			center.setLayout(new GridBagLayout());
+			center.setBackground(new Color(0, 0, 0, 0));
+
+			logo2.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+			gc.gridx = 0;
+			gc.gridy = 0;
+			center.add(logo2, gc);
+			welcome.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 40));
+			gc.gridy = 1;
+			center.add(welcome, gc);
+			homePanel.add(center, BorderLayout.CENTER);
+
+			// Main panel for displaying all the panels on action performed
+			userPanel = new UserPanel(frame, adminOperations, employeeList);
+			elecProdPanel = new ElecProdPanel(frame, "elec", prodOpertaion, elecProductList);
+			digiProdPanel = new DigiProdPanel(frame, "digi", prodOpertaion, digiProductList);
+
+			cards = new CardLayout();
+			cardPanel.setLayout(cards);
+			cardPanel.setBackground(cl1);
+			cardPanel.add(homePanel, "homePanel");
+			cardPanel.add(ProdSelect, "prodSelect");
+
+			cardPanel.add(userPanel, "editUser");
+			cardPanel.add(elecProdPanel, "editElec");
+			cardPanel.add(digiProdPanel, "editDigi");
+			cardPanel.setBorder(border);
+			cardPanel.setPreferredSize(new Dimension(900, 10));
+			frame.add(cardPanel, BorderLayout.CENTER);
+
+			frame.setVisible(true);
+		}
 
 	}
 
@@ -556,7 +559,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 						if(dbButtons.get(i).isSelected())
 						{
 							System.out.println("Connect");
-							//conn = db.openDB(dbTextFields.get(i).getText(),user.getText(),p);
+							conn = db.openDB(dbTextFields.get(i).getText(),user.getText(),p);
 						}
 					}
 			}
