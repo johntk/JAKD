@@ -52,8 +52,8 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 	private Border space = (Border) BorderFactory.createEmptyBorder(10, 10, 10,10);
 	private Border line = (Border) BorderFactory.createLineBorder(Color.black);
 	private Border border = BorderFactory.createCompoundBorder(space, line);
-	
-//	Border for the database selection panel
+
+	//	Border for the database selection panel
 	private Border emptyB = (Border) BorderFactory.createEmptyBorder(10,150,10,150);
 	private Border line2 = (Border) BorderFactory.createLineBorder(Color.LIGHT_GRAY);
 	private Border dbBorder = BorderFactory.createCompoundBorder(emptyB, line2);
@@ -97,9 +97,9 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		frameIcon = new ImageIcon(this.getClass().getResource("/resources/titleIcon.png"));
 		Image im = frameIcon.getImage();
 		addSystemTray();
-		
+
 		db = new DBconnection();
-		conn = db.openDB();
+		conn = db.openDB(null,null,null);
 
 		EmpOperations ao = new EmpOperations();
 		ProdOperations po = new ProdOperations();
@@ -190,7 +190,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		welcome.setFont(font);
 		logo2 = new JLabel("");
 		logo2.setIcon(new ImageIcon(this.getClass().getResource("/resources/logo2.png")));
-//		logo2.setPreferredSize(new Dimension(400, 120));
+		//		logo2.setPreferredSize(new Dimension(400, 120));
 		homePanel.add(logo2);
 
 
@@ -233,21 +233,21 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		digiProdPanel = new DigiProdPanel(frame, "digi", prodOpertaion, digiProductList);
 
 
-//		Adds options for connecting to a database
+		//		Adds options for connecting to a database
 		dbPanel = new JPanel(new BorderLayout());
-		
+
 		dbHeading = new JLabel("Select a Database Connection:");
 		dbHeading.setFont(new Font("Calibri",Font.BOLD,25));
 		dbHeading.setForeground(new Color(20,120,230));
 		dbHeading.setBorder(BorderFactory.createEmptyBorder(5,0,10,0));
 		dbHeading.setHorizontalAlignment(SwingConstants.CENTER);
 		dbPanel.add(dbHeading,BorderLayout.NORTH);
-		
+
 		innerDBPanel = new JPanel(new GridBagLayout());
 		dbPanel.add(innerDBPanel,BorderLayout.CENTER);
-		
+
 		dbOptionsPanel = new JPanel(new GridBagLayout());
-		
+
 		tu = new JRadioButton("Tallaght Database");
 		tu.addItemListener(this);
 		gc.gridx =0;
@@ -256,7 +256,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(tu,gc);
-		
+
 		urlt = new JTextField("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
 		urlt.setMinimumSize(new Dimension(200,18));
 		urlt.setEditable(false);
@@ -267,7 +267,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(urlt,gc);
-		
+
 		lt = new JRadioButton("Local Database");
 		lt.addItemListener(this);
 		gc.gridx =0;
@@ -276,7 +276,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(lt,gc);
-		
+
 		urll = new JTextField("jdbc:oracle:thin:HR/@localhost:1521:XE");
 		urll.setEditable(false);
 		gc.gridx =1;
@@ -286,7 +286,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(urll,gc);
-		
+
 		cu = new JRadioButton("Custom URL");
 		cu.addItemListener(this);
 		gc.gridx =0;
@@ -295,7 +295,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(cu,gc);
-		
+
 		urlc = new JTextField();
 		gc.gridx =1;
 		gc.gridy = 2;
@@ -304,19 +304,19 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(urlc,gc);
-		
+
 		bg = new ButtonGroup();
 		bg.add(tu);
 		bg.add(lt);
 		bg.add(cu);
-		
+
 		JLabel empty1 = new JLabel(" ");
 		gc.gridx =0;
 		gc.gridy = 4;
 		gc.weightx=1.0;
 		gc.weighty=1.0;
 		dbOptionsPanel.add(empty1,gc);
-		
+
 		uName = new JLabel("        Username:");
 		gc.gridx =0;
 		gc.gridy = 5;
@@ -324,7 +324,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(uName,gc);
-		
+
 		pass = new JLabel("        Password:");
 		gc.gridx =0;
 		gc.gridy = 6;
@@ -332,7 +332,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		gc.weighty=1.0;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(pass,gc);
-		
+
 		user = new JTextField();
 		gc.gridx =1;
 		gc.gridy = 5;
@@ -341,7 +341,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(user,gc);
-		
+
 		password = new JPasswordField();
 		gc.gridx =1;
 		gc.gridy = 6;
@@ -351,7 +351,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		gc.fill = GridBagConstraints.HORIZONTAL;
 		gc.anchor = GridBagConstraints.NORTHWEST;
 		dbOptionsPanel.add(password,gc);
-		
+
 		innerDBPanel.add(dbOptionsPanel);
 
 		connButtonPanel = new JPanel();
@@ -369,12 +369,12 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		dbButtons.add(tu);
 		dbButtons.add(lt);
 		dbButtons.add(cu);
-		
+
 		dbTextFields = new ArrayList<JTextField>();
 		dbTextFields.add(urlt);
 		dbTextFields.add(urll);
 		dbTextFields.add(urlc);
-		
+
 
 		cards = new CardLayout();
 		cardPanel.setLayout(cards);
@@ -543,10 +543,33 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 				}
 			}
 		}
+
+		if(e.getSource()==connect)
+		{
+			String p = new String(password.getPassword());
+			if(!user.getText().equals("") && !p.equals(""))
+			{
+				if(cu.isSelected() && urlc.getText().equals(""))
+				{
+					JOptionPane.showConfirmDialog(frame, "Enter a URL", "DB Connection Error",JOptionPane.CLOSED_OPTION,JOptionPane.ERROR_MESSAGE);
+				}
+				for(int i=0;i<dbButtons.size();i++)
+				{
+					if(dbButtons.get(i).isSelected())
+					{
+						System.out.println("Connect");
+						//conn = db.openDB(dbTextFields.get(i).getText(),user.getText(),p);
+					}
+				}
+			}
+			else
+			{
+				JOptionPane.showConfirmDialog(frame, "Enter a Username & Password", "DB Connection Error",JOptionPane.CLOSED_OPTION,JOptionPane.ERROR_MESSAGE);
+			}
+		}
 	}
 
-
-
+	
 	public void logIn()
 	{
 
@@ -610,11 +633,6 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		return go;
 	}
 
-	public static void main(String args[]) {
-		new HomeScreen();
-	}
-
-	@Override
 	public void itemStateChanged(ItemEvent ie)
 	{	
 		for(int i=0;i<dbButtons.size();i++)
@@ -628,6 +646,10 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 				dbTextFields.get(i).setForeground(Color.black);
 			}
 		}
+	}
+
+	public static void main(String args[]) {
+		new HomeScreen();
 	}
 }
 

@@ -33,7 +33,7 @@ public class DBconnection
 		panel.add(pswd);
 	}
 
-	public Connection openDB()
+	public Connection openDB(String URL,String uName,String psw)
 	{
 		try {
 			OracleDataSource ods = new OracleDataSource();
@@ -105,10 +105,6 @@ public class DBconnection
 			System.out.println("Could not close connection");
 			e.printStackTrace();
 		}
-	}
-	public Connection getCon()
-	{
-		return conn;
 	}
 }
 
