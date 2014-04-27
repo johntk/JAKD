@@ -35,7 +35,7 @@ public class DBconnection
 
 	public Connection openDB(String URL,String uName,String psw)
 	{
-		/*try {
+		try {
 			OracleDataSource ods = new OracleDataSource();
 
 			ods.setURL(URL);
@@ -47,9 +47,9 @@ public class DBconnection
 		catch (Exception e)
 		{
 			HomeScreen.trayIcon.displayMessage("JAKD", "Could not connect to Database", TrayIcon.MessageType.ERROR);
-		}*/
+		}
 		
-		try {
+		/*try {
 			OracleDataSource ods = new OracleDataSource();
 
 			name.requestFocusInWindow();
@@ -104,7 +104,7 @@ public class DBconnection
 					}
 				}
 			}
-		}
+		}*/
 		return conn;
 	}
 
