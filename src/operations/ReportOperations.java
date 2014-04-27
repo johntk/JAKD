@@ -152,7 +152,7 @@ public class ReportOperations
 	public double getFirstQuarterRevenue(String year)
 	{
 		double total =0.0;
-		String query = "select UNIQUE(TRANS_ID),trans_date, total_cost FROM transaction "
+		String query = "select TRANS_ID,trans_date, total_cost FROM transaction "
 				+"WHERE TRANS_TYPE = 'S' "
 				+"AND to_char(trans_date, 'MON-YYYY') = 'JAN-"+year+"' "
 				+"OR to_char(trans_date, 'MON-YYYY') = 'FEB-"+year+"' "
@@ -175,7 +175,7 @@ public class ReportOperations
 	public double getSecondQuarterRevenue(String year)
 	{
 		double total =0.0;
-		String query = "select UNIQUE(TRANS_ID),trans_date, total_cost FROM transaction "
+		String query = "select TRANS_ID,trans_date, total_cost FROM transaction "
 				+"WHERE TRANS_TYPE = 'S' "
 				+"AND to_char(trans_date, 'MON-YYYY') = 'APR-"+year+"' "
 				+"OR to_char(trans_date, 'MON-YYYY') = 'MAY-"+year+"' "
@@ -198,7 +198,7 @@ public class ReportOperations
 	public double getThirdQuarterRevenue(String year)
 	{
 		double total =0.0;
-		String query = "select UNIQUE(TRANS_ID),trans_date, total_cost FROM transaction "
+		String query = "select TRANS_ID,trans_date, total_cost FROM transaction "
 				+"WHERE TRANS_TYPE = 'S' "
 				+"AND to_char(trans_date, 'MON-YYYY') = 'JUL-"+year+"' "
 				+"OR to_char(trans_date, 'MON-YYYY') = 'AUG-"+year+"' "
@@ -221,7 +221,7 @@ public class ReportOperations
 	public double getFourthQuarterRevenue(String year)
 	{
 		double total =0.0;
-		String query = "select UNIQUE(TRANS_ID),trans_date, total_cost FROM transaction "
+		String query = "select TRANS_ID,trans_date, total_cost FROM transaction "
 				+"WHERE TRANS_TYPE = 'S' "
 				+"AND to_char(trans_date, 'MON-YYYY') = 'OCT-"+year+"' "
 				+"OR to_char(trans_date, 'MON-YYYY') = 'NOV-"+year+"' "
