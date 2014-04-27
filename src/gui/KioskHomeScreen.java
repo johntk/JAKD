@@ -52,6 +52,10 @@ public class KioskHomeScreen extends JFrame implements ActionListener
 		gc = new GridBagConstraints();
 		font = new Font("Calibri",Font.BOLD,30);
 
+		/*
+		 * Icons courtesy of http://www.iconarchive.com/show/windows-8-metro-icons-by-dakirby309.html
+		 */
+		// Set icons to be used on Kiosk Home Screen
 		cn = new ImageIcon(this.getClass().getResource(srcPath+"console.png"));
 		hp = new ImageIcon(this.getClass().getResource(srcPath+"headphones.png"));
 		gm = new ImageIcon(this.getClass().getResource(srcPath+"games.png"));
@@ -79,6 +83,9 @@ public class KioskHomeScreen extends JFrame implements ActionListener
 		content = new JPanel(new GridBagLayout());
 		content.setBackground(new Color(0,0,0,0));
 
+		/*
+		 * Add Jbuttons for each section to home screen and set Icons for each button
+		 */
 		search = new JButton(src);
 		search.setBackground(Color.WHITE);
 		search.setBorder(null);

@@ -41,6 +41,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 	private ArrayList<JTextField> dbTextFields;
 	private ButtonGroup bg;
 
+	private JDialog dbj;
 	private JTextField urlt,urll,urlc,user;
 	private JPasswordField password;
 
@@ -240,7 +241,13 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 
 		dbPanel.setBorder(dbBorder);
 
-		JOptionPane.showMessageDialog(null, dbPanel, "Connect to Database",JOptionPane.DEFAULT_OPTION);
+		dbj = new JDialog();
+		dbj.setTitle("Connect to Database");
+		dbj.setVisible(true);
+		dbj.setResizable(false);
+		dbj.setLocationRelativeTo(null);
+		dbj.setSize(600,300);
+		dbj.add(dbPanel);
 
 
 		if(conn != null)
