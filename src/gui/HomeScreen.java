@@ -54,12 +54,13 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 	private Border border = BorderFactory.createCompoundBorder(space, line);
 
 	//	Border for the database selection panel
-	private Border emptyB = (Border) BorderFactory.createEmptyBorder(10,150,10,150);
+	private Border emptyB = (Border) BorderFactory.createEmptyBorder(10,50,10,50);
 	private Border line2 = (Border) BorderFactory.createLineBorder(Color.LIGHT_GRAY);
 	private Border dbBorder = BorderFactory.createCompoundBorder(emptyB, line2);
 
 	private BorderLayout layout = new BorderLayout();
 	private GridBagConstraints gc = new GridBagConstraints();
+	private GridBagConstraints gc2 = new GridBagConstraints();
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private Color cl1;
 
@@ -104,7 +105,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		/*
 		 *   Add JOptionPane for connecting to a database
 		 */
-		/*dbPanel = new JPanel(new BorderLayout());
+		dbPanel = new JPanel(new BorderLayout());
 
 		dbHeading = new JLabel("Select a Database Connection:");
 		dbHeading.setFont(new Font("Calibri",Font.BOLD,25));
@@ -138,12 +139,12 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 
 		for(int i=0; i<dbButtons.size();i++)
 		{
-			gc.gridx =0;
-			gc.gridy = i;
-			gc.weightx=1.0;
-			gc.weighty=1.0;
-			gc.anchor = GridBagConstraints.NORTHWEST;
-			dbOptionsPanel.add(dbButtons.get(i),gc);
+			gc2.gridx =0;
+			gc2.gridy = i;
+			gc2.weightx=1.0;
+			gc2.weighty=1.0;
+			gc2.anchor = GridBagConstraints.NORTHWEST;
+			dbOptionsPanel.add(dbButtons.get(i),gc2);
 		}
 
 		//		Create text fields for displaying database URLs
@@ -161,62 +162,62 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 
 		for(int i=0;i<dbTextFields.size();i++)
 		{
-			gc.gridx =1;
-			gc.gridy = i;
-			gc.weightx=1.0;
-			gc.weighty=1.0;
-			gc.fill = GridBagConstraints.HORIZONTAL;
-			gc.anchor = GridBagConstraints.NORTHWEST;
-			dbOptionsPanel.add(dbTextFields.get(i),gc);
+			gc2.gridx =1;
+			gc2.gridy = i;
+			gc2.weightx=1.0;
+			gc2.weighty=1.0;
+			gc2.fill = GridBagConstraints.HORIZONTAL;
+			gc2.anchor = GridBagConstraints.NORTHWEST;
+			dbOptionsPanel.add(dbTextFields.get(i),gc2);
 		}
 
 		JLabel empty1 = new JLabel(" ");
-		gc.gridx =0;
-		gc.gridy = 4;
-		gc.weightx=1.0;
-		gc.weighty=1.0;
-		dbOptionsPanel.add(empty1,gc);
+		gc2.gridx =0;
+		gc2.gridy = 4;
+		gc2.weightx=1.0;
+		gc2.weighty=1.0;
+		dbOptionsPanel.add(empty1,gc2);
 
 		uName = new JLabel("        Username:");
-		gc.gridx =0;
-		gc.gridy = 5;
-		gc.weightx=1.0;
-		gc.weighty=1.0;
-		gc.anchor = GridBagConstraints.NORTHWEST;
-		dbOptionsPanel.add(uName,gc);
+		gc2.gridx =0;
+		gc2.gridy = 5;
+		gc2.weightx=1.0;
+		gc2.weighty=1.0;
+		gc2.anchor = GridBagConstraints.NORTHWEST;
+		dbOptionsPanel.add(uName,gc2);
 
 		pass = new JLabel("        Password:");
-		gc.gridx =0;
-		gc.gridy = 6;
-		gc.weightx=1.0;
-		gc.weighty=1.0;
-		gc.anchor = GridBagConstraints.NORTHWEST;
-		dbOptionsPanel.add(pass,gc);
+		gc2.gridx =0;
+		gc2.gridy = 6;
+		gc2.weightx=1.0;
+		gc2.weighty=1.0;
+		gc2.anchor = GridBagConstraints.NORTHWEST;
+		dbOptionsPanel.add(pass,gc2);
 
-		user = new JTextField();
-		gc.gridx =1;
-		gc.gridy = 5;
-		gc.weightx=1.0;
-		gc.weighty=1.0;
-		gc.fill = GridBagConstraints.HORIZONTAL;
-		gc.anchor = GridBagConstraints.NORTHWEST;
-		dbOptionsPanel.add(user,gc);
+		user = new JTextField("Ignore this part for now");
+		gc2.gridx =1;
+		gc2.gridy = 5;
+		gc2.weightx=1.0;
+		gc2.weighty=1.0;
+		gc2.fill = GridBagConstraints.HORIZONTAL;
+		gc2.anchor = GridBagConstraints.NORTHWEST;
+		dbOptionsPanel.add(user,gc2);
 
 		password = new JPasswordField();
-		gc.gridx =1;
-		gc.gridy = 6;
-		gc.weightx=1.0;
-		gc.weighty=1.0;
-		gc.gridwidth = 2;
-		gc.fill = GridBagConstraints.HORIZONTAL;
-		gc.anchor = GridBagConstraints.NORTHWEST;
-		dbOptionsPanel.add(password,gc);
+		gc2.gridx =1;
+		gc2.gridy = 6;
+		gc2.weightx=1.0;
+		gc2.weighty=1.0;
+		gc2.gridwidth = 2;
+		gc2.fill = GridBagConstraints.HORIZONTAL;
+		gc2.anchor = GridBagConstraints.NORTHWEST;
+		dbOptionsPanel.add(password,gc2);
 
 		innerDBPanel.add(dbOptionsPanel);
 
 		connButtonPanel = new JPanel();
 		connect = new JButton("Connect");
-		connect.setBackground(Color.DARK_GRAY);
+		connect.setBackground(Color.GRAY);
 		connect.setForeground(Color.WHITE);
 		connect.addActionListener(this);
 		connButtonPanel.add(connect);
@@ -224,8 +225,8 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 
 		dbPanel.setBorder(dbBorder);
 
-		JOptionPane.showMessageDialog(null, dbPanel, "Enter PIN:",JOptionPane.PLAIN_MESSAGE);
-*/
+		JOptionPane.showMessageDialog(null, dbPanel, "Connect to Database",JOptionPane.DEFAULT_OPTION);
+
 		
 		if(conn != null)
 		{
@@ -366,6 +367,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 
 			frame.setVisible(true);
 		}
+		else{System.exit(0);}
 
 	}
 
@@ -556,7 +558,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 					{
 						if(dbButtons.get(i).isSelected())
 						{
-							System.out.println("Connect");
+//							System.out.println("Connect");
 							conn = db.openDB(dbTextFields.get(i).getText(),user.getText(),p);
 						}
 					}
