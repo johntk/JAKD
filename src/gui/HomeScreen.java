@@ -95,6 +95,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 	private DateFormat dateFormat;
 	private static final String log = "UserLog.txt";
 	private Date date;
+	private String section;
 
 	////////////////     log in variables //////////////////////////////////
 	JDialog logIn; 
@@ -511,6 +512,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 			if (e.getSource().equals(sideButtonsArray[i])) {
 				buttonSelect(sideButtonsArray[i], false);
 				index = i;
+				section = sideButtonsArray[i].getText();
 			}
 		}
 
@@ -525,13 +527,14 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		}
 		else if (e.getSource() == enterPButton)
 		{
+			
 			if(check() == true){	
 				buttonSelect(sideButtonsArray[index], true);
 				
 				try(FileWriter output = new FileWriter(log,true))
 				{
 					date = new Date();
-					output.write(dateFormat.format(date)+"\n");
+					output.write(" logged into "+ section +" @ "+ dateFormat.format(date)+"\n");
 				}catch(IOException ioe)
 				{
 					System.out.println("Error: "+ioe.getMessage());
