@@ -5,8 +5,12 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import java.sql.Connection;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -60,6 +64,11 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 
 	private BorderLayout layout = new BorderLayout();
 	private GridBagConstraints gc = new GridBagConstraints();
+
+	/*	Added a second GridBagConstraints to resolve an issue between
+	 *	the Homescreen and JOptionPane interfering with each other
+	 * when using the same GridBagConstraints variable
+	 */
 	private GridBagConstraints gc2 = new GridBagConstraints();
 	private Font font = new Font("Verdana", Font.PLAIN, 20);
 	private Color cl1;
@@ -83,6 +92,10 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 	private int index =0;
 	private boolean manager;
 
+	private DateFormat dateFormat;
+	private static final String log = "UserLog.txt";
+	private Date date;
+
 	////////////////     log in variables //////////////////////////////////
 	JDialog logIn; 
 	JLabel enterPassword;
@@ -101,7 +114,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 
 		db = new DBconnection();
 		conn = db.openDB(null,null,null);
-	
+
 		/*
 		 *   Add JOptionPane for connecting to a database
 		 */
@@ -227,7 +240,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 
 		JOptionPane.showMessageDialog(null, dbPanel, "Connect to Database",JOptionPane.DEFAULT_OPTION);
 
-		
+
 		if(conn != null)
 		{
 			// Main frame declaration
@@ -366,6 +379,8 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 			frame.add(cardPanel, BorderLayout.CENTER);
 
 			frame.setVisible(true);
+
+			dateFormat = new SimpleDateFormat("HH:mm:ss - dd/MM/yyyy");
 		}
 		else{System.exit(0);}
 
@@ -511,7 +526,17 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		else if (e.getSource() == enterPButton)
 		{
 			if(check() == true){	
-				buttonSelect(sideButtonsArray[index], true);}
+				buttonSelect(sideButtonsArray[index], true);
+				
+				try(FileWriter output = new FileWriter(log,true))
+				{
+					date = new Date();
+					output.write(dateFormat.format(date)+"\n");
+				}catch(IOException ioe)
+				{
+					System.out.println("Error: "+ioe.getMessage());
+				}
+			}
 			else {
 
 				manager = false;
@@ -558,7 +583,6 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 					{
 						if(dbButtons.get(i).isSelected())
 						{
-//							System.out.println("Connect");
 							conn = db.openDB(dbTextFields.get(i).getText(),user.getText(),p);
 						}
 					}
