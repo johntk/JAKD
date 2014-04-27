@@ -84,7 +84,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 
 	private SystemTray tray;
 	public static TrayIcon trayIcon;
-	private Image img;
+	private Image img,im;
 	private PopupMenu popup;
 	private ImageIcon frameIcon;
 	private ImageIcon ti;
@@ -112,14 +112,18 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 	public HomeScreen() {
 		ti = new ImageIcon(this.getClass().getResource("/resources/trayIcon.png"));
 		addSystemTray();
+		
+		frameIcon = new ImageIcon(this.getClass().getResource("/resources/titleIcon.png"));
+		im = frameIcon.getImage();
 
 		db = new DBconnection();
-//		conn = db.openDB(null,null,null);
+		conn = db.openDB(null,null,null);
+		showJFrame();
 
 		/*
 		 *   Create JFrame for options to connect to a database
 		 */
-		dbPanel = new JPanel(new BorderLayout());
+		/*dbPanel = new JPanel(new BorderLayout());
 
 		dbHeading = new JLabel("Select a Database Connection:");
 		dbHeading.setFont(new Font("Calibri",Font.BOLD,25));
@@ -258,18 +262,16 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		dbj.setVisible(true);
 		dbj.setResizable(false);
 		dbj.setSize(600,300);
+		dbj.setIconImage(im);
 		dbj.setLocationRelativeTo(null);
 		dbj.add(dbPanel);
-
+*/
 	}
 	
 	public void showJFrame()
 	{
 		if(conn != null)
 		{
-			frameIcon = new ImageIcon(this.getClass().getResource("/resources/titleIcon.png"));
-			Image im = frameIcon.getImage();
-			
 			// Main frame declaration
 			frame = new JFrame();
 			frame.setLayout(layout);
