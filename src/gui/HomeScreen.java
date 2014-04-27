@@ -96,6 +96,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 	private static final String log = "UserLog.txt";
 	private Date date;
 	private String section;
+	private String userNameLog;
 
 	////////////////     log in variables //////////////////////////////////
 	JDialog logIn; 
@@ -531,10 +532,12 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 			if(check() == true){	
 				buttonSelect(sideButtonsArray[index], true);
 				
+				// FileWriter to log users who log into POS or Admin and record the time and date of login
 				try(FileWriter output = new FileWriter(log,true))
 				{
+					String name = ho.getUserName(pin);
 					date = new Date();
-					output.write(" logged into "+ section +" @ "+ dateFormat.format(date)+"\n");
+					output.write(name+" logged into "+ section +" @ "+ dateFormat.format(date)+"\n");
 				}catch(IOException ioe)
 				{
 					System.out.println("Error: "+ioe.getMessage());

@@ -100,6 +100,37 @@ public class HomeScreenOperations
 		return authenticate;
 	}
 	
+	public String getUserName(String pin)
+	{
+		String fName=null;
+		String lName=null;
+		try {
 
-
+			stmt = conn.createStatement();
+			String sqlStatement = "select f_name, l_name from employee where pin_num = '"+pin+"'";
+			rset = stmt.executeQuery(sqlStatement);
+			
+			while (rset.next())
+			{
+				fName = rset.getString("f_name");
+				lName = rset.getString("l_name");
+			}	
+		} catch (Exception ex)
+		{
+			ex.printStackTrace();
+			System.out.println("ERROR: " + ex.getMessage());
+		}
+		finally {  
+		    if(rset != null) {  
+		        try {  
+		        	rset.close();
+		        }  
+		        catch (SQLException e) {}  
+		    }  
+		}
+		
+		String name = fName+" "+lName;
+		return name;
+	}
+	
 }
