@@ -450,6 +450,70 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		});
 	}
 
+	public void logIn()
+	{
+
+		ho = new HomeScreenOperations(conn);
+
+		logIn = new JDialog();
+		logIn.setTitle("Log In");
+		logIn.setVisible(true);
+		logIn.setResizable(false);
+		logIn.setLocationRelativeTo(null);
+		logIn.setSize(160,130);
+		logIn.setLayout(new FlowLayout());
+
+		enterPassword = new JLabel("Enter Pin:");
+		logIn.add(enterPassword);
+		jpf = new JPasswordField(10);
+		logIn.add(jpf);
+		enterPButton = new JButton("Log In");
+		enterPButton.addActionListener(this);
+		logIn.add(enterPButton);
+
+		logIn.add(enterPButton); 
+
+		/////// allows enter key press "enter" in gui
+		enterPButton.registerKeyboardAction(enterPButton.getActionForKeyStroke(
+				KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
+				KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
+				JComponent.WHEN_IN_FOCUSED_WINDOW);
+
+		enterPButton.registerKeyboardAction(enterPButton.getActionForKeyStroke(
+				KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
+				KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
+				JComponent.WHEN_FOCUSED);
+
+	}
+
+	public boolean check()
+	{
+		boolean go = false;
+
+		if(manager != true)
+		{
+			pin = new String(jpf.getPassword());
+			if(ho.getStaffPin(pin)==true){
+				go = true;	
+			}
+			else{
+				go = false;
+			}	
+		}
+		else
+		{
+			pin = new String(jpf.getPassword());
+			if(ho.getMangPin(pin)==true){
+				go = true;	
+			}
+			else{
+				go = false;
+			}	
+		}
+		return go;
+	}
+
+	
 	public void privilegeCheck()
 	{
 		if(check() == true){	
@@ -641,69 +705,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 	}
 
 
-	public void logIn()
-	{
-
-		ho = new HomeScreenOperations(conn);
-
-		logIn = new JDialog();
-		logIn.setTitle("Log In");
-		logIn.setVisible(true);
-		logIn.setResizable(false);
-		logIn.setLocationRelativeTo(null);
-		logIn.setSize(160,130);
-		logIn.setLayout(new FlowLayout());
-
-		enterPassword = new JLabel("Enter Pin:");
-		logIn.add(enterPassword);
-		jpf = new JPasswordField(10);
-		logIn.add(jpf);
-		enterPButton = new JButton("Log In");
-		enterPButton.addActionListener(this);
-		logIn.add(enterPButton);
-
-		logIn.add(enterPButton); 
-
-		/////// allows enter key press "enter" in gui
-		enterPButton.registerKeyboardAction(enterPButton.getActionForKeyStroke(
-				KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
-				KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
-				JComponent.WHEN_IN_FOCUSED_WINDOW);
-
-		enterPButton.registerKeyboardAction(enterPButton.getActionForKeyStroke(
-				KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
-				KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
-				JComponent.WHEN_FOCUSED);
-
-	}
-
-	public boolean check()
-	{
-		boolean go = false;
-
-		if(manager != true)
-		{
-			pin = new String(jpf.getPassword());
-			if(ho.getStaffPin(pin)==true){
-				go = true;	
-			}
-			else{
-				go = false;
-			}	
-		}
-		else
-		{
-			pin = new String(jpf.getPassword());
-			if(ho.getMangPin(pin)==true){
-				go = true;	
-			}
-			else{
-				go = false;
-			}	
-		}
-		return go;
-	}
-
+	
 	public void itemStateChanged(ItemEvent ie)
 	{	
 		for(int i=0;i<dbButtons.size();i++)
