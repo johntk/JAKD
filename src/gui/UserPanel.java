@@ -259,7 +259,7 @@ public class UserPanel extends JPanel implements ActionListener {
 				manager.getText());
 		
 		return ep;
-	}
+	}//
 
 	public void updateEmployee() {
 		
