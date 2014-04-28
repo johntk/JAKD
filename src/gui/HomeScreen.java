@@ -106,7 +106,6 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 	private HomeScreenOperations ho;
 
 
-
 	public HomeScreen() {
 		ti = new ImageIcon(this.getClass().getResource("/resources/trayIcon.png"));
 		addSystemTray();
@@ -503,7 +502,6 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		return go;
 	}
 
-	
 	public void privilegeCheck()
 	{
 		if(check() == true){	
@@ -695,8 +693,6 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 			dbj.dispose();
 		}
 	}
-
-
 	
 	public void itemStateChanged(ItemEvent ie)
 	{	
