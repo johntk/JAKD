@@ -414,6 +414,7 @@ public class PosGui extends JPanel implements ActionListener
 						}
 	
 					displayProducts();
+					enterProd.setText("");
 					voidd = false;
 					prodExists = false;
 					enter.setText("Enter ");
@@ -586,6 +587,7 @@ public class PosGui extends JPanel implements ActionListener
 				tempTotal = totalCost;
 				tranList.get(quanPoint).setQuantity(tranList.get(quanPoint).getQuantity() + 1);
 				totalPriceField.setText(decf.format(totalCost));
+				enterProd.setText("");
 				
 
 				
