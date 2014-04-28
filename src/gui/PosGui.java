@@ -50,6 +50,7 @@ public class PosGui extends JPanel implements ActionListener
 	private String empID, pin;
 	private boolean voidd = false;
 	private boolean returnn = false;
+	private int numRows;
 	
 	
 	///// cash pop up
@@ -139,7 +140,7 @@ public class PosGui extends JPanel implements ActionListener
 		
 		
 		//// table set up for products on transaction
-		dtm= new DefaultTableModel(colNames,40); 
+		dtm= new DefaultTableModel(colNames,numRows); 
 	    table = new JTable(dtm);
 	    table.setShowGrid(false);
 	    table.setShowVerticalLines(true);
@@ -147,6 +148,8 @@ public class PosGui extends JPanel implements ActionListener
 		table.setBackground(Color.white);
 		prodBox.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		posMiddle.add(prodBox,BorderLayout.CENTER);
+		
+		//table.getParent().setBackground(Color.black);
 		
 		
 
@@ -400,6 +403,7 @@ public class PosGui extends JPanel implements ActionListener
 							totalCost -=  tranList.get(prodCount).getTotalCost();
 							tempTotal = totalCost;
 							totalPriceField.setText(decf.format(totalCost));
+							numRows-=1;
 							tranList.remove(prodCount);
 							
 							
@@ -414,7 +418,7 @@ public class PosGui extends JPanel implements ActionListener
 							totalPriceField.setText(decf.format(totalCost));
 	
 						}
-	
+					
 					displayProducts();
 					enterProd.setText("");
 					voidd = false;
@@ -460,7 +464,7 @@ public class PosGui extends JPanel implements ActionListener
 							totalPriceField.setText(decf.format(totalCost));
 							enterProd.setText("");
 							tranList.add(tran);
-		
+							numRows+=1;
 							displayProducts();
 				
 							
@@ -500,7 +504,7 @@ public class PosGui extends JPanel implements ActionListener
 								tempTotal = totalCost;
 								tranList.add(tran);
 								
-								
+								numRows+=1;
 								displayProducts();
 
 								
@@ -538,7 +542,9 @@ public class PosGui extends JPanel implements ActionListener
 	
 	public void displayProducts() // prints out all products in sale/return to gui
 	{
-		for(int i = 0; i < (tranList.size() + 1);i++)
+		
+		dtm.setNumRows(numRows);
+		for(int i = 0; i < (tranList.size());i++)
 		{
 			dtm.setValueAt("", i, 0);
 			dtm.setValueAt("", i, 1);
@@ -635,6 +641,7 @@ public class PosGui extends JPanel implements ActionListener
 		totalPrice.setText("Total:");
 		totalPriceField.setText("");
 		tranList.clear();
+		numRows=0;
 		
 		
 		for(int i = 0; i < dtm.getRowCount();i++)
