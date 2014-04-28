@@ -344,12 +344,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 			// Different panels for action performed events on the side buttons
 			cardPanel = new JPanel();
 
-			// Generate report panel
-			genReportPanel = new JPanel();
-			genReportPanel.setBackground(Color.WHITE);
-			closeBtn = new JButton("Close");
-			closeBtn.addActionListener(this);
-			genReportPanel.add(closeBtn);
+		
 
 
 			// Home panel
@@ -689,9 +684,6 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		else if (e.getSource().equals(digiProd)) {
 			cards.show(cardPanel, "editDigi");
 		} 
-		else if (e.getSource() == closeBtn) {
-
-		}
 		else if (e.getSource() == enterPButton)
 		{
 			privilegeCheck();
