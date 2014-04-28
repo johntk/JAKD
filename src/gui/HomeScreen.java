@@ -100,12 +100,12 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 	private String userNameLog;
 
 	////////////////     log in variables //////////////////////////////////
-	JDialog logIn; 
-	JLabel enterPassword;
-	JPasswordField jpf;
-	JButton enterPButton;
-	String pin;
-	HomeScreenOperations ho;
+	private JDialog logIn; 
+	private JLabel enterPassword;
+	private JPasswordField jpf;
+	private JButton enterPButton;
+	private String pin;
+	private HomeScreenOperations ho;
 
 
 
@@ -343,9 +343,6 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 
 			// Different panels for action performed events on the side buttons
 			cardPanel = new JPanel();
-
-		
-
 
 			// Home panel
 			homePanel = new JPanel();
