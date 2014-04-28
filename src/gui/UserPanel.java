@@ -263,22 +263,22 @@ public class UserPanel extends JPanel implements ActionListener {
 
 	public void updateEmployee() {
 		
-		if(manager.getText() != "Y" || manager.getText() != "N")
+		if(manager.getText().equals("Y") || manager.getText().equals("N"))
 		{
-			JOptionPane.showMessageDialog(null, "Mamager field must be upper case Y for yes\n or upper case N for no");
-			manager.setText("");
+			Employee e = new Employee(Integer.parseInt(staffIDBx.getText()),
+					forenameBx.getText(), surenamebx.getText(), line1Bx.getText(),
+					line2Bx.getText(), Line3Bx.getText(), line2Bx.getText(),
+					PPSBx.getText(), Integer.parseInt(pinBx.getText()),
+					manager.getText());
+			employeeList.updateEmployee(e);
+			JOptionPane.showMessageDialog(null, "Employee " + forenameBx.getText()
+					+ " Updated");
+			userDetails.setText("User Details");	
 		}
 		else
 		{
-		Employee e = new Employee(Integer.parseInt(staffIDBx.getText()),
-				forenameBx.getText(), surenamebx.getText(), line1Bx.getText(),
-				line2Bx.getText(), Line3Bx.getText(), line2Bx.getText(),
-				PPSBx.getText(), Integer.parseInt(pinBx.getText()),
-				manager.getText());
-		employeeList.updateEmployee(e);
-		JOptionPane.showMessageDialog(null, "Employee " + forenameBx.getText()
-				+ " Updated");
-		userDetails.setText("User Details");
+			JOptionPane.showMessageDialog(null, "Mamager field must be upper case Y for yes\n or upper case N for no");
+			manager.setText("");
 		}
 	}
 
