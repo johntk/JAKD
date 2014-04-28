@@ -207,6 +207,31 @@ public class POSOperations
 		
 		return id;
 	}
+	
+	public String getUserName(String empID)
+	{
+		String name= "";
+		try 
+		{
+			stmt = conn.createStatement();
+			String sqlStatement = "SELECT f_name FROM EMPLOYEE WHERE emp_id = '" +empID+"'" ;
+			rset = stmt.executeQuery(sqlStatement);
+			
+			rset.next();
+			name = rset.getString(1);
+		}
+	
+		catch (Exception ex)
+		{
+			System.out.println("get employee id problem");
+			ex.printStackTrace();
+			System.out.println("ERROR: " + ex.getMessage());
+		}
+		
+		
+		return name;
+		
+	}
 
 
 }

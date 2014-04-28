@@ -24,10 +24,10 @@ public class PosGui extends JPanel implements ActionListener
 	private static final long serialVersionUID = 1L;
 	
 	private JPanel posPanel,posTop, posMiddle,posRight, posBottom;
-	private JLabel trans_id, dateField, totalPrice, enterProdid,blank,blank2,blank3;
+	private JLabel trans_id, dateField, totalPrice, enterProdid,blank,blank2,blank3,currentUser;
 	private JButton complete, isReturn,isVoid,enter;
 	private JScrollPane prodBox;
-	private JTextField trans_idf,dateFieldf, enterProd;
+	private JTextField trans_idf,dateFieldf, enterProd,currentUserf;
 	private JTextField totalPriceField;
 	private final DateFormat df;
 	private Calendar now;
@@ -106,7 +106,7 @@ public class PosGui extends JPanel implements ActionListener
 		
 
 		////////insert space
-		blank = new JLabel("                                                                         ");
+		blank = new JLabel("                          ");
 		posTop.add(blank);
 		
 		///// set up current time
@@ -121,6 +121,13 @@ public class PosGui extends JPanel implements ActionListener
 		
 		dateFieldf.setEditable(false);
 		posTop.add(dateFieldf);
+		
+		currentUser = new JLabel("User: ");
+		posTop.add(currentUser);
+		currentUserf = new JTextField(8);
+		currentUserf.setText(po.getUserName(empID));
+		currentUserf.setEditable(false);
+		posTop.add(currentUserf);
 
 		
 		/////insert space
