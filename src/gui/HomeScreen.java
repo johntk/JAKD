@@ -450,6 +450,39 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		});
 	}
 
+	public void privilegeCheck()
+	{
+		if(check() == true){	
+			buttonSelect(sideButtonsArray[index], true);
+			
+			// FileWriter to log users who log into POS or Admin and record the time and date of login
+			try(FileWriter output = new FileWriter(log,true))
+			{
+				userNameLog = ho.getUserName(pin);
+				date = new Date();
+				output.write(userNameLog+" logged into "+ section +" @ "+ dateFormat.format(date)+"\n");
+			}catch(IOException ioe)
+			{
+				System.out.println("Error: "+ioe.getMessage());
+			}
+		}
+		else {
+
+			manager = false;
+			if(check() != true)
+			{
+				logIn.dispose();
+				JOptionPane.showMessageDialog(null,"Pin Incorrect","",JOptionPane.WARNING_MESSAGE);
+			}
+			else
+			{
+				logIn.dispose();
+				JOptionPane.showMessageDialog(null,"You do not have sufficent privliges","", JOptionPane.WARNING_MESSAGE);
+
+			}
+		}
+	}
+	
 	public void buttonSelect(JButton button, boolean pinCheck) {
 
 		if (button.equals(button1) && button1.getText().equals("Generate Report")) {
@@ -554,36 +587,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		}
 		else if (e.getSource() == enterPButton)
 		{
-			
-			if(check() == true){	
-				buttonSelect(sideButtonsArray[index], true);
-				
-				// FileWriter to log users who log into POS or Admin and record the time and date of login
-				try(FileWriter output = new FileWriter(log,true))
-				{
-					userNameLog = ho.getUserName(pin);
-					date = new Date();
-					output.write(userNameLog+" logged into "+ section +" @ "+ dateFormat.format(date)+"\n");
-				}catch(IOException ioe)
-				{
-					System.out.println("Error: "+ioe.getMessage());
-				}
-			}
-			else {
-
-				manager = false;
-				if(check() != true)
-				{
-					logIn.dispose();
-					JOptionPane.showMessageDialog(null,"Pin Incorrect","",JOptionPane.WARNING_MESSAGE);
-				}
-				else
-				{
-					logIn.dispose();
-					JOptionPane.showMessageDialog(null,"You do not have sufficent privliges","", JOptionPane.WARNING_MESSAGE);
-
-				}
-			}
+			privilegeCheck();
 		}
 
 		if(e.getSource()==connect)
