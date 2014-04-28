@@ -25,7 +25,6 @@ public class PosGui extends JPanel implements ActionListener
 	
 	private JPanel posPanel,posTop, posMiddle,posRight, posBottom;
 	private JLabel trans_id, dateField, totalPrice, enterProdid,blank,blank2,blank3;
-	private JTextArea products;
 	private JButton complete, isReturn,isVoid,enter;
 	private JScrollPane prodBox;
 	private JTextField trans_idf,dateFieldf, enterProd;
@@ -38,19 +37,19 @@ public class PosGui extends JPanel implements ActionListener
 	private Transaction tran;
 	private Connection conn;
 	
-	double totalCost = 0;
-	boolean quantity = false;
-	int quanPoint;
-	boolean prodExists;
-	int prodCount;
-	DecimalFormat decf = new DecimalFormat(" € #####.##");
+	private double totalCost = 0;
+	private boolean quantity = false;
+	private int quanPoint;
+	private boolean prodExists;
+	private int prodCount;
+	private DecimalFormat decf = new DecimalFormat(" € #####.##");
 	private DefaultTableModel dtm ;
 	private String colNames[] = {"ID" , "Description", "Sale/Return","Quantity", "Price"};
 	private JTable table;
 	private boolean continueWithTran = true;
 	private String empID, pin;
-	boolean voidd = false;
-	boolean returnn = false;
+	private boolean voidd = false;
+	private boolean returnn = false;
 	
 	
 	///// cash pop up
@@ -144,8 +143,6 @@ public class PosGui extends JPanel implements ActionListener
 	    table = new JTable(dtm);
 	    table.setShowGrid(false);
 	    table.setShowVerticalLines(true);
-		products = new JTextArea(25,45);
-		products.setEditable(false);
 		prodBox = new JScrollPane(table);
 		table.setBackground(Color.white);
 		prodBox.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -356,6 +353,7 @@ public class PosGui extends JPanel implements ActionListener
 					{
 						JOptionPane.showMessageDialog(null,"Can't buy whats already returned","Invalid Input",JOptionPane.WARNING_MESSAGE);
 						continueWithTran = false;
+						enterProd.setText("");
 					}
 						
 				}
@@ -365,6 +363,7 @@ public class PosGui extends JPanel implements ActionListener
 					{
 						JOptionPane.showMessageDialog(null,"Can't return whats already a sale","Invalid Input",JOptionPane.WARNING_MESSAGE);
 						continueWithTran = false;
+						enterProd.setText("");
 					}
 				}
 
