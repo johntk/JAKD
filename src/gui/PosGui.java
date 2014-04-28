@@ -345,28 +345,31 @@ public class PosGui extends JPanel implements ActionListener
 			tran = new Transaction(conn);
 			
 			///////////////////// can't have return and sale of same product in same tran
-			for(int i = 0;i < tranList.size();i++) //check if product is in sale
+			if (voidd == false)
 			{
-				if(returnn == false && enterProd.getText().equals(tranList.get(i).getProdID()))
+				for(int i = 0;i < tranList.size();i++) //check if product is in sale
 				{
-					if(tranList.get(i).getTransType().equals("R"))
+					if(returnn == false && enterProd.getText().equals(tranList.get(i).getProdID()))
 					{
-						JOptionPane.showMessageDialog(null,"Can't buy whats already returned","Invalid Input",JOptionPane.WARNING_MESSAGE);
-						continueWithTran = false;
-						enterProd.setText("");
+						if(tranList.get(i).getTransType().equals("R"))
+						{
+							JOptionPane.showMessageDialog(null,"Can't buy whats already returned","Invalid Input",JOptionPane.WARNING_MESSAGE);
+							continueWithTran = false;
+							enterProd.setText("");
+						}
+							
 					}
-						
-				}
-				else if(returnn == true && enterProd.getText().equals(tranList.get(i).getProdID()))
-				{
-					if(tranList.get(i).getTransType().equals("S"))
+					else if(returnn == true && enterProd.getText().equals(tranList.get(i).getProdID()))
 					{
-						JOptionPane.showMessageDialog(null,"Can't return whats already a sale","Invalid Input",JOptionPane.WARNING_MESSAGE);
-						continueWithTran = false;
-						enterProd.setText("");
+						if(tranList.get(i).getTransType().equals("S"))
+						{
+							JOptionPane.showMessageDialog(null,"Can't return whats already a sale","Invalid Input",JOptionPane.WARNING_MESSAGE);
+							continueWithTran = false;
+							enterProd.setText("");
+						}
 					}
+	
 				}
-
 			}
 			
 			
