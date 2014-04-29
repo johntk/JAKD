@@ -38,7 +38,7 @@ public class ReportDesignToFrom extends JPanel
 		gc = new GridBagConstraints();
 		this.setLayout(new BorderLayout());
 		f = new Font("Helvetica", Font.ITALIC, 20);
-		String[] colNames = {"Transaction ID","Transaction Date","Total"};
+		String[] colNames = {"Transaction ID","Transaction Date","Total", "Employee ID"};
 
 		topPanel = new JPanel(new GridLayout());
 		this.add(topPanel, BorderLayout.NORTH);
@@ -159,6 +159,7 @@ public class ReportDesignToFrom extends JPanel
 		table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
 		table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
 		table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+		table.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
 		for(int i = 0;i < rowCount;i++)
 		{
 			if(rset.next())
@@ -168,6 +169,7 @@ public class ReportDesignToFrom extends JPanel
 				String d = new SimpleDateFormat("dd-MM-YYYY").format(date);
 				table.setValueAt(d, i, 1);
 				table.setValueAt(rset.getString(3), i, 2);
+				table.setValueAt(rset.getString(4), i, 3);
 			}
 		}
 		resultsPanel.add(scrollPane, BorderLayout.CENTER);

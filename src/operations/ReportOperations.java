@@ -12,7 +12,7 @@ public class ReportOperations
 
 	public ResultSet salesReportToFromDates()
 	{
-		String query = "SELECT unique(trans_ID),trans_date,total_cost "
+		String query = "SELECT unique(trans_ID),trans_date,total_cost,emp_id "
 				+ "FROM TRANSACTION "
 				+ "WHERE TRANS_DATE BETWEEN '"+ topDate +"' AND '"+ bottomDate +"' "
 				+ "ORDER BY trans_ID";
