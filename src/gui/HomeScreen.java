@@ -457,6 +457,11 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		jpf = new JPasswordField(10);
 		logIn.add(jpf);
 		enterPButton = new JButton("Log In");
+		enterPButton.setIcon(new ImageIcon(this.getClass().getResource("/resources/blueButton.png")));
+		enterPButton.setFont(new Font("sansserif",Font.BOLD,12));
+		enterPButton.setPreferredSize(new Dimension(80,30 ));
+		enterPButton.setHorizontalTextPosition(JButton.CENTER);
+		enterPButton.setVerticalTextPosition(JButton.CENTER);
 		enterPButton.addActionListener(this);
 		logIn.add(enterPButton);
 
