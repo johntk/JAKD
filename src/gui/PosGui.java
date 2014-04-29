@@ -111,10 +111,7 @@ public class PosGui extends JPanel implements ActionListener
 		tright.add(trans_idf);
 		
 
-		////////insert space
-		//blank = new JLabel("");
-		//posTop.add(blank);
-		
+
 		///// set up current time
 		dateField = new JLabel("Date");
 		tcentre.add(dateField);
@@ -135,17 +132,6 @@ public class PosGui extends JPanel implements ActionListener
 		currentUserf.setEditable(false);
 		tleft.add(currentUserf);
 
-		
-		/////insert space
-		//blank2 = new JLabel("                              ");
-		//posTop.add(blank2);
-		
-
-		
-		
-		
-		
-		
 		/////////////////////////////////center panel//////////////////////
 		posMiddle = new JPanel();
 		posMiddle.setLayout(new BorderLayout());
