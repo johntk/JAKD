@@ -261,7 +261,9 @@ public class UserPanel extends JPanel implements ActionListener {
 		return ep;
 	}
 
-	public void updateEmployee() {
+	public void updateEmployee() 
+	{
+
 		
 		if(manager.getText().equals("Y") || manager.getText().equals("N"))
 		{

@@ -135,6 +135,7 @@ public class PosGui extends JPanel implements ActionListener
 		/////////////////////////////////center panel//////////////////////
 		posMiddle = new JPanel();
 		posMiddle.setLayout(new BorderLayout());
+		posMiddle.setBackground(Color.white);
 		this.add(posMiddle, BorderLayout.CENTER);
 		
 		
