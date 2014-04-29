@@ -88,30 +88,36 @@ public class PosGui extends JPanel implements ActionListener
 		
 		//Top panel
 		posTop = new JPanel();
-		posTop.setLayout(new FlowLayout());
+		posTop.setLayout(new GridLayout(1,3));
 		this.add(posTop, BorderLayout.NORTH);
 		
+		JPanel tright, tcentre,tleft;
+		tright = new JPanel();
+		tcentre = new JPanel();
+		tleft = new JPanel();
 		
-		
+		posTop.add(tleft);
+		posTop.add(tcentre);
+		posTop.add(tright);
 		
 		trans_id = new JLabel("Transaction ID:");
-		posTop.add(trans_id);
+		tright.add(trans_id);
 		trans_idf = new JTextField(10);
 		
 		trans_idf.setText(po.queryTransid()); ///gets id from method
 		
 		
 		trans_idf.setEditable(false);
-		posTop.add(trans_idf);
+		tright.add(trans_idf);
 		
 
 		////////insert space
-		blank = new JLabel("                          ");
-		posTop.add(blank);
+		//blank = new JLabel("");
+		//posTop.add(blank);
 		
 		///// set up current time
 		dateField = new JLabel("Date");
-		posTop.add(dateField);
+		tcentre.add(dateField);
 		
 		dateFieldf = new JTextField(8);
 		df = new SimpleDateFormat("ddMMMyy");
@@ -120,19 +126,19 @@ public class PosGui extends JPanel implements ActionListener
 		
 		
 		dateFieldf.setEditable(false);
-		posTop.add(dateFieldf);
+		tcentre.add(dateFieldf);
 		
 		currentUser = new JLabel("User: ");
-		posTop.add(currentUser);
+		tleft.add(currentUser);
 		currentUserf = new JTextField(8);
 		currentUserf.setText(po.getUserName(empID));
 		currentUserf.setEditable(false);
-		posTop.add(currentUserf);
+		tleft.add(currentUserf);
 
 		
 		/////insert space
-		blank2 = new JLabel("                              ");
-		posTop.add(blank2);
+		//blank2 = new JLabel("                              ");
+		//posTop.add(blank2);
 		
 
 		
