@@ -144,9 +144,10 @@ public class PosGui extends JPanel implements ActionListener
 	    table.setShowGrid(false);
 	    table.setShowVerticalLines(true);
 		prodBox = new JScrollPane(table);
-		table.setBackground(Color.white);
 		prodBox.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		//prodBox.getViewport().setBackground(Color.white); // product area background colour
 		posMiddle.add(prodBox,BorderLayout.CENTER);
+		
 		
 		//table.getParent().setBackground(Color.black);
 		
@@ -204,7 +205,12 @@ public class PosGui extends JPanel implements ActionListener
 		enterProd = new JTextField(10);
 		posBottom.add(enterProd);
 		
-		enter = new JButton("Enter ");
+		enter = new JButton("Enter "); // set enter to be blue button
+		enter.setIcon(new ImageIcon(this.getClass().getResource("/resources/blueButton.png")));
+		enter.setFont(new Font("sansserif",Font.BOLD,12));
+		enter.setPreferredSize(new Dimension(80,30 ));
+		enter.setHorizontalTextPosition(JButton.CENTER);
+		enter.setVerticalTextPosition(JButton.CENTER);
 		enter.addActionListener(this);
 		posBottom.add(enter);
 
@@ -297,6 +303,11 @@ public class PosGui extends JPanel implements ActionListener
 				enterAmountf = new JTextField(10);
 				jd.add(enterAmountf);
 				enterAm = new JButton("Enter");
+				enterAm.setIcon(new ImageIcon(this.getClass().getResource("/resources/blueButton.png")));
+				enterAm.setFont(new Font("sansserif",Font.BOLD,12));
+				enterAm.setPreferredSize(new Dimension(80,30 ));
+				enterAm.setHorizontalTextPosition(JButton.CENTER);
+				enterAm.setVerticalTextPosition(JButton.CENTER);
 				enterAm.addActionListener(this);
 				jd.add(enterAm);
 			}
