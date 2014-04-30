@@ -410,11 +410,22 @@ public class PosGui extends JPanel implements ActionListener
 						
 						if(tranList.get(prodCount).getQuantity() == 1) // void if there is a qty more than 1 in sale
 						{
-							
-							totalCost -=  tranList.get(prodCount).getTotalCost();
-							tempTotal = totalCost;
-							totalPriceField.setText(decf.format(totalCost));
+							if(tranList.get(prodCount).getTransType().equals("S"))
+							{
+								totalCost -=  tranList.get(prodCount).getTotalCost();
+								tempTotal = totalCost;
+								totalPriceField.setText(decf.format(totalCost));
+							}
+							else
+							{
+								totalCost +=  tranList.get(prodCount).getTotalCost();
+								tempTotal = totalCost;
+								totalPriceField.setText(decf.format(totalCost));
+							}
+
 							numRows-=1;
+							
+							
 							tranList.remove(prodCount);
 							
 							
