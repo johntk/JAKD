@@ -24,7 +24,7 @@ public class PosGui extends JPanel implements ActionListener
 	private static final long serialVersionUID = 1L;
 	
 	private JPanel posPanel,posTop, posMiddle,posRight, posBottom;
-	private JLabel trans_id, dateField, totalPrice, enterProdid,blank,blank2,blank3,currentUser;
+	private JLabel trans_id, dateField, totalPrice, enterProdid,blank3,currentUser;
 	private JButton complete, isReturn,isVoid,enter;
 	private JScrollPane prodBox;
 	private JTextField trans_idf,dateFieldf, enterProd,currentUserf;
@@ -510,7 +510,7 @@ public class PosGui extends JPanel implements ActionListener
 							{
 								
 								ResultSet data;
-								data = po.displayProduct(enterProd.getText().toUpperCase().toUpperCase());
+								data = po.displayProduct(enterProd.getText().toUpperCase());
 								data.next();
 								
 								tran.setDate(dateFieldf.getText());
