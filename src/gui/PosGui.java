@@ -144,6 +144,7 @@ public class PosGui extends JPanel implements ActionListener
 	    table = new JTable(dtm);
 	    table.setShowGrid(false);
 	    table.setShowVerticalLines(true);
+	    table.setEnabled(false); // table is uneditable
 		prodBox = new JScrollPane(table);
 		prodBox.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		//prodBox.getViewport().setBackground(Color.white); // product area background colour
@@ -587,7 +588,10 @@ public class PosGui extends JPanel implements ActionListener
 		
 		for(int i = 0; i < tranList.size();i++)
 		{
-	
+			if (i % 2 == 0)
+			{
+				/// code for adding colour to row
+			}
 				dtm.setValueAt(tranList.get(i).getProdID(), i, 0);
 				dtm.setValueAt(tranList.get(i).getDesc(), i, 1);
 				dtm.setValueAt(tranList.get(i).getTransType(), i, 2);
