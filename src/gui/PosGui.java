@@ -363,7 +363,7 @@ public class PosGui extends JPanel implements ActionListener
 			{
 				for(int i = 0;i < tranList.size();i++) //check if product is in sale
 				{
-					if(returnn == false && enterProd.getText().equals(tranList.get(i).getProdID()))
+					if(returnn == false && enterProd.getText().toUpperCase().equals(tranList.get(i).getProdID()))
 					{
 						if(tranList.get(i).getTransType().equals("R"))
 						{
@@ -373,7 +373,7 @@ public class PosGui extends JPanel implements ActionListener
 						}
 							
 					}
-					else if(returnn == true && enterProd.getText().equals(tranList.get(i).getProdID()))
+					else if(returnn == true && enterProd.getText().toUpperCase().equals(tranList.get(i).getProdID()))
 					{
 						if(tranList.get(i).getTransType().equals("S"))
 						{
@@ -395,7 +395,7 @@ public class PosGui extends JPanel implements ActionListener
 					System.out.println("in void product");
 					for(int i = 0;i < tranList.size();i++) //check if product is in sale
 					{
-						if(enterProd.getText().equals(tranList.get(i).getProdID()))
+						if(enterProd.getText().toUpperCase().equals(tranList.get(i).getProdID()))
 						{
 							prodExists = true;
 							prodCount = i;
@@ -467,7 +467,7 @@ public class PosGui extends JPanel implements ActionListener
 						try
 						{
 						
-							data = po.displayProduct(enterProd.getText());
+							data = po.displayProduct(enterProd.getText().toUpperCase());
 							data.next();
 							
 							tran.setEmpID(empID);
@@ -510,7 +510,7 @@ public class PosGui extends JPanel implements ActionListener
 							{
 								
 								ResultSet data;
-								data = po.displayProduct(enterProd.getText());
+								data = po.displayProduct(enterProd.getText().toUpperCase().toUpperCase());
 								data.next();
 								
 								tran.setDate(dateFieldf.getText());
@@ -592,7 +592,7 @@ public class PosGui extends JPanel implements ActionListener
 	{
 		for(int i = 0; i< tranList.size(); i++)
 		{
-			if (tranList.get(i).getProdID().equals(enterProd.getText()))
+			if (tranList.get(i).getProdID().equals(enterProd.getText().toUpperCase()))
 			{
 				System.out.println("check qty method!!!!!!!");
 				quantity = true;
