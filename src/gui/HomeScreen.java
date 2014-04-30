@@ -513,7 +513,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 			buttonSelect(sideButtonsArray[index], true);
 			
 			// FileWriter to log users who log into POS or Admin and record the time and date of login
-			try(FileWriter output = new FileWriter(log,true))
+			/*try(FileWriter output = new FileWriter(log,true))
 			{
 				userNameLog = ho.getUserName(pin);
 				date = new Date();
@@ -521,7 +521,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 			}catch(IOException ioe)
 			{
 				System.out.println("Error: "+ioe.getMessage());
-			}
+			}*/
 		}
 		else {
 
