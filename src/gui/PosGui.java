@@ -318,31 +318,41 @@ public class PosGui extends JPanel implements ActionListener
 		
 		else if(e.getSource() == enterAm)
 		{
-			
-			double cashEntered = Double.parseDouble(enterAmountf.getText());
-			if( tempTotal > cashEntered)
+			double cashEntered;
+			try
 			{
-				//products.setText(products.getText() + "Cash\t\t " + cashEntered);
-				totalPriceField.setText(decf.format((tempTotal - cashEntered)));
-				tempTotal -= cashEntered;
-				jd.setVisible(false);
-				
-			}
-			else
-			{
-				totalPrice.setText("Change:");
-				totalPriceField.setText(decf.format((cashEntered - tempTotal)));
-				jd.setVisible(false);
-				po.insertTran(tranList);
-				po.updateCurrentStock(tranList);
-								
-				newTran(); // clears all data for a new transaction
-				
-				
-				
+				cashEntered = Double.parseDouble(enterAmountf.getText());
+				if( tempTotal > cashEntered)
+				{
+					//products.setText(products.getText() + "Cash\t\t " + cashEntered);
+					totalPriceField.setText(decf.format((tempTotal - cashEntered)));
+					tempTotal -= cashEntered;
+					jd.setVisible(false);
+					
+				}
+				else
+				{
+					totalPrice.setText("Change:");
+					totalPriceField.setText(decf.format((cashEntered - tempTotal)));
+					jd.setVisible(false);
+					po.insertTran(tranList);
+					po.updateCurrentStock(tranList);
+									
+					newTran(); // clears all data for a new transaction
+					
+					
+					
 
-				
+					
+				}
 			}
+			catch(NumberFormatException ne)
+			{
+				
+				enterAmountf.setText("");
+			}
+			
+
 			
 
 			
@@ -664,6 +674,7 @@ public class PosGui extends JPanel implements ActionListener
 		totalPriceField.setText("");
 		tranList.clear();
 		numRows=0;
+		dtm.setNumRows(numRows);
 		
 		
 		for(int i = 0; i < dtm.getRowCount();i++)
