@@ -45,7 +45,9 @@ public class PosGui extends JPanel implements ActionListener
 	private DecimalFormat decf = new DecimalFormat(" € #####.##");
 	private DefaultTableModel dtm ;
 	private String colNames[] = {"ID" , "Description", "Sale/Return","Quantity", "Price"};
+	
 	private JTable table;
+	
 	private boolean continueWithTran = true;
 	private String empID, pin;
 	private boolean voidd = false;
@@ -151,8 +153,8 @@ public class PosGui extends JPanel implements ActionListener
 		posMiddle.add(prodBox,BorderLayout.CENTER);
 		
 		
-		//table.getParent().setBackground(Color.black);
-		
+		//table.getParent().setBackground(Color.WHITE);
+
 		
 
 		
@@ -588,10 +590,11 @@ public class PosGui extends JPanel implements ActionListener
 		
 		for(int i = 0; i < tranList.size();i++)
 		{
-			if (i % 2 == 0)
+			/*if (i % 2 == 0)
 			{
+				
 				/// code for adding colour to row
-			}
+			}*/
 				dtm.setValueAt(tranList.get(i).getProdID(), i, 0);
 				dtm.setValueAt(tranList.get(i).getDesc(), i, 1);
 				dtm.setValueAt(tranList.get(i).getTransType(), i, 2);
