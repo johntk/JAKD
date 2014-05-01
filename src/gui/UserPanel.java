@@ -266,6 +266,7 @@ public class UserPanel extends JPanel implements ActionListener {
 		Employee ep =null;
 		if(manager.getText().equals("Y") || manager.getText().equals("N"))
 		{
+			
 		 ep = new Employee(Integer.parseInt(staffIDBx.getText()),
 				forenameBx.getText(), surenamebx.getText(), line1Bx.getText(),
 				line2Bx.getText(), Line3Bx.getText(), line2Bx.getText(),
@@ -305,10 +306,10 @@ public class UserPanel extends JPanel implements ActionListener {
 
 	//Searches for an employee
 	public void searchEmployee() {
-		String employeeName = JOptionPane.showInputDialog(null,
-				"Enter the name of an Employee: ",
+		String id = JOptionPane.showInputDialog(null,
+				"Enter the Employee ID: ",
 				"Employee Manager", JOptionPane.QUESTION_MESSAGE);
-		int index = employeeList.findEmployee(employeeName);
+		int index = employeeList.findEmployee(Integer.parseInt(id));
 		if (index != -1) 
 			displayEmployee(employeeList.getEmployee(index));
 		 else 

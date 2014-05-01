@@ -107,10 +107,10 @@ public class EmployeeList {
 	}
 
 	//Searches the ArrayList for and employee and returns the position in the array if found
-	public int findEmployee(String name) {
+	public int findEmployee(int id) {
 		int index = -1;
 		for (int i = 0; i < elist.size(); i++) {
-			if (elist.get(i).getfName().equals(name)) {
+			if (elist.get(i).getEmpID() == id) {
 				index = i;
 			}
 		}
