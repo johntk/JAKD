@@ -31,6 +31,10 @@ public class KioskResultsScreen extends JFrame implements ActionListener, ItemLi
 	private GridBagConstraints gc;
 	private KioskOperations kq;
 
+	/*
+	 * Kiosk results screen displays a list of results based on the chosen category
+	 * or from the search input
+	 */
 	public KioskResultsScreen(KioskOperations kq)
 	{
 		this.kq = kq;

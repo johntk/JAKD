@@ -16,6 +16,11 @@ public class KioskResult extends JPanel
 	private GridBagConstraints gc;
 	private DecimalFormat d;
 
+	/*
+	 * Constructs a result object and inserts the product
+	 * information into a JPanel which is used in the
+	 * KioskResultsScreen class
+	 */
 	public KioskResult(String img,String desc,double price,String prodID)
 	{
 		this.prodID = prodID;
