@@ -19,6 +19,7 @@ public class ProdOperations {
 		this.conn = conn;
 	}
 
+	//Returns all CD products from the DB
 	public ResultSet getProductCD() {
 		try {
 			
@@ -40,6 +41,7 @@ public class ProdOperations {
 		return rset;
 	}
 
+	//Returns all songs from the DB
 	public ResultSet getSongs() {
 		try {
 			
@@ -57,6 +59,7 @@ public class ProdOperations {
 		return rset;
 	}
 	
+	//Returns all DVD products from the DB
 	public ResultSet getProductDVD() {
 		try {
 			
@@ -74,7 +77,7 @@ public class ProdOperations {
 		return rset;
 	}
 	
-	
+	//Returns all Game products from the DB
 	public ResultSet getProductGame() {
 		try {
 			
@@ -93,7 +96,7 @@ public class ProdOperations {
 	}
 	
 	
-	
+	//Returns all Headphone products from the DB
 	public ResultSet getProductHeadphone() {
 		try {
 			
@@ -112,7 +115,7 @@ public class ProdOperations {
 	}
 	
 	
-	
+	//Returns all Console products from the DB
 	public ResultSet getProductConsole() {
 		try {
 			
@@ -130,7 +133,7 @@ public class ProdOperations {
 		return rset;
 	}
 	
-	
+	//Returns all Sounddock products from the DB
 	public ResultSet getProductDock() {
 		try {
 			
@@ -149,7 +152,7 @@ public class ProdOperations {
 	}
 	
 
-
+	//Returns the next Product ID, this is only for Display, the product is input into the DB using a sequence.
 	public String getId() {
 		String nextVal = "";
 		try {
@@ -165,29 +168,34 @@ public class ProdOperations {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+
 		String newID = "";
 		String numZeros ="" ;
 		int idLength = nextVal.length() - 1;
+		//Removes the leading letter and Zeros on the product ID,
 		int id = Integer.parseInt(nextVal.replaceAll("\\D", ""));
+		//adds 1 onto the remaining value.
 		id += 1;
+		//keeps track of of the number of leading zeros,
 		int zeros = idLength - String.valueOf(id).length();
 		for(int i = 0; i < zeros; i++)
 		{
 			numZeros += "0";
 		}
+		//Returns the new ID by adding the leading letter and zeros onto the new ID value
 		newID = ("P"+ numZeros + id);
 		
 		return newID;
 	}
 	
 
+	//Updates the product associated with the passed in product
 	public void updateProduct(DigiProduct p)
 	{
 		 
 			try {
 				if(p.getProd_type().equals("CD"))
 				{
-//				System.out.println(p.getAlbumName());
 				String queryString1 = "UPDATE Product SET prod_id=?, prod_type=?, "
 						+" current_stock=? "
 						+"WHERE prod_id ="+ "'" + p.getProd_id() + "'";
@@ -305,7 +313,7 @@ public class ProdOperations {
 					System.out.println(ex);
 			}
 		}
-	
+	//Updates the product associated with the passed in product
 	public void updateProduct(ElecProduct p)
 	{
 		 
@@ -323,9 +331,7 @@ public class ProdOperations {
 				pstmt.setInt(3, p.getCurrent_stock());
 				pstmt.executeUpdate();
 				
-				//I'm an easter egg, you win life ,!,,
-//				Found it
-				//I suspect you used Git for a little help...
+				//I'm an easter egg, you win life!
 				String queryString2 = "UPDATE Headphones SET over_ear=?, headphone_cost_price=?, headphone_sale_price=?, "
 						+" iphone_compatible=?, microphone=? "
 						+"WHERE headphone_id ="+ "'" + p.getHeadphone_id() + "'";
@@ -427,6 +433,7 @@ public class ProdOperations {
 			}
 		}
 	
+	//Updates the song associated with the passed in product
 	public void updateAlbum(DigiProduct p)
 	{
 		
@@ -452,6 +459,7 @@ public class ProdOperations {
 		
 	}
 	
+	//Adds the passed in product to the DB
 	public void addNewProd(DigiProduct p) {
 		try {
 			
@@ -577,7 +585,7 @@ public class ProdOperations {
 			System.out.println(se);
 		}
 	}
-	
+	//Adds the passed in product to the DB
 	public void addNewProd(ElecProduct p) {
 		try {
 			
@@ -696,13 +704,12 @@ public class ProdOperations {
 			System.out.println(se);
 		}
 	}
+	//Adds the passed in product to the DB
 	public void addAlbum(DigiProduct p)
 	{
 		
-		
 		for(int i =0; i < p.getAlbum().getSongList().size(); i++)
 		{
-//			System.out.println(p.getAlbum().getSongList().get(i).getSong_name());
 			
 			String queryString = "INSERT INTO Song (song_id, cd_id, song_length, song_name) "
 					+ "VALUES ('S'||to_char(song_seq.nextVal,'FM0000000'),'C'||to_char(cd_seq.currVal,'FM0000000'),?,?) ";
@@ -724,10 +731,11 @@ public class ProdOperations {
 		
 	}
 	
-	public int deleteProd(String n) {
+	//deletes the product associated with passed in ID
+	public int deleteProd(String id) {
 		int no = 0;
 		try {
-			String cmd = "DELETE FROM Product WHERE prod_id =" + "'" + n + "'";
+			String cmd = "DELETE FROM Product WHERE prod_id =" + "'" + id + "'";
 			stmt = conn.createStatement();
 			no = stmt.executeUpdate(cmd);
 		} catch (Exception e) {
@@ -737,7 +745,7 @@ public class ProdOperations {
 
 	}
 	
-	
+	//Gets the last inserted product in the DB
 	public ResultSet getLastRow() {
 		String queryString = "SELECT* "
 				+"FROM product "
@@ -758,6 +766,7 @@ public class ProdOperations {
 		return rset;
 	}
 	
+	//Gets the last inserted CD in the DB
 	public ResultSet getLastRowCD() {
 		String queryString = "SELECT p.prod_id, dp.dig_id, c.cd_id, a.artist_id, p.prod_type, c.album_name, "
 				+ "c.cd_cost_price, c.cd_sale_price, "
@@ -783,6 +792,7 @@ public class ProdOperations {
 
 		return rset;
 	}
+	//Gets the last inserted DVD in the DB
 	public ResultSet getLastRowDVD() {
 		String queryString = "SELECT p.prod_id, dp.dig_id, d.dvd_id, p.prod_type, d.dvd_name, d.dvd_sale_price, d.dvd_cost_price, "
 				+ "p.current_stock, dp.age_rating, dp.genre, d.studio, d.dvd_length "
@@ -804,6 +814,7 @@ public class ProdOperations {
 
 		return rset;
 	}
+	//Gets the last inserted Game in the DB
 	public ResultSet getLastRowGAME() {
 		String queryString = "SELECT p.prod_id, dp.dig_id, g.game_id, p.prod_type, g.game_name, g.game_sale_price, g.game_cost_price, "
 				+ "p.current_stock, dp.age_rating, dp.genre, g.company, g.platform "
@@ -825,7 +836,7 @@ public class ProdOperations {
 
 		return rset;
 	}
-	
+	//Gets the last inserted songs in the DB, associated with the passed in ID
 	public ResultSet getLastRowAlbum(String id)
 	{
 		
@@ -851,7 +862,7 @@ public class ProdOperations {
 		
 		
 	}
-	
+	//Gets the last inserted Headphone in the DB
 	public ResultSet getLastRowHeadphone() {
 		String queryString = "SELECT p.prod_id, e.elec_id, hp.headphone_id, p.prod_type, e.model,  hp.headphone_cost_price, hp.headphone_sale_price, "
 				+ " p.current_stock, hp.microphone, hp.over_ear, hp.iphone_compatible, e.manufacturer,  e.colour "
@@ -873,6 +884,7 @@ public class ProdOperations {
 
 		return rset;
 	}
+	//Gets the last inserted Console in the DB
 		public ResultSet getLastRowConsole() {
 			String queryString = "SELECT p.prod_id, e.elec_id, console_id, p.prod_type, e.model,  c.console_cost_price, c.console_sale_price, "
 					+ " p.current_stock, c.storage_size, c.wifi, c.num_controllers, e.manufacturer,  e.colour "
@@ -894,7 +906,7 @@ public class ProdOperations {
 
 			return rset;
 		}
-		
+		//Gets the last inserted Sounddock in the DB
 		public ResultSet getLastRowSounddock() {
 			String queryString = "SELECT p.prod_id, e.elec_id, sd_id, p.prod_type, e.model,  sd.sd_cost_price, sd.sd_sale_price, "
 					+ " p.current_stock, sd.digital_radio, sd.wireless, sd.power_ouput,  e.manufacturer,  e.colour "
@@ -917,6 +929,7 @@ public class ProdOperations {
 			return rset;
 		}
 		
+		//close ResultsSets, Prepared Statements and Statements
 		public void closeReultSets()
 		{
 			try
