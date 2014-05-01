@@ -28,6 +28,10 @@ public class ProdDialog extends JDialog {
 	private DigiProdList digiProductList;
 	private DigiProdPanel digiPanel;
 
+	
+	//Product Dialog to add product panels, 
+	//Originally I had more than one panel being add to this dialog, 
+	//this is why it was designed like this
 	public ProdDialog(JFrame jFrame, DigiProduct p, DigiProdList digiProductList, DigiProdPanel digiPanel, int size) {
 
 		this.digiPanel = digiPanel;
@@ -44,6 +48,8 @@ public class ProdDialog extends JDialog {
 		cdDialog.setVisible(true);
 		
 		
+		
+		//gets data from methods and fields in CDPop panel
 		for (Component c : cdDialog.getContentPane().getComponents()) {
 		    if (c instanceof JPanel) {
 		 
@@ -54,6 +60,7 @@ public class ProdDialog extends JDialog {
 			
 	}
 	
+	//Passes songs from CdPop panel to digiProdPanel
 	public void addSongs(ArrayList<Song> slist, String artist)
 	{
 			digiPanel.newAlbum(slist, artist);
