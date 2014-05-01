@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import operations.EmpOperations;
@@ -39,6 +40,15 @@ public class EmployeeList {
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
+		finally {  
+		    if(rset != null) {  
+		        try {  
+		        	rset.close();  
+		        	ao.closeReultSets();
+		        }  
+		        catch (SQLException e) {}  
+		    }  
+		}
 	}
 
 	
@@ -57,6 +67,15 @@ public class EmployeeList {
 
 		} catch (Exception ex) {
 			System.out.println(ex);
+		}
+		finally {  
+		    if(rset != null) {  
+		        try {  
+		        	rset.close();  
+		        	ao.closeReultSets();
+		        }  
+		        catch (SQLException e) {}  
+		    }  
 		}
 	}
 
@@ -113,6 +132,8 @@ public class EmployeeList {
 				elist.get(i).setHouseNum(e.getHouseNum());
 
 				ao.updateEmployee(elist.get(i));
+				
+				ao.closeReultSets();
 			}
 		}
 
