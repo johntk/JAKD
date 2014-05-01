@@ -38,7 +38,7 @@ public class ReportDesignToFrom extends JPanel
 		gc = new GridBagConstraints();
 		this.setLayout(new BorderLayout());
 		f = new Font("Helvetica", Font.ITALIC, 20);
-		String[] colNames = {"Transaction ID","Transaction Date","Total", "Employee ID"};
+		String[] colNames = {"Transaction ID","Transaction Date", "Employee ID", "Total"};
 
 		topPanel = new JPanel(new GridLayout());
 		this.add(topPanel, BorderLayout.NORTH);

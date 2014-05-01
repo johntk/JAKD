@@ -12,10 +12,9 @@ public class ReportOperations
 
 	public ResultSet salesReportToFromDates()
 	{
-		String query = "SELECT unique(trans_ID),trans_date,total_cost,emp_id "
-				+ "FROM TRANSACTION "
-				+ "WHERE TRANS_DATE BETWEEN '"+ topDate +"' AND '"+ bottomDate +"' "
-				+ "ORDER BY trans_ID";
+		String query = "select trans_id, TRANS_DATE,EMP_ID, sum(TOTAL_COST)from transaction WHERE TRANS_DATE BETWEEN '" + topDate + "' AND '" + bottomDate + "' group by trans_id,TRANS_DATE,EMP_ID order by trans_id";
+
+
 		try
 		{
 			stmt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
