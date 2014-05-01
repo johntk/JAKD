@@ -67,7 +67,7 @@ public class DBconnection
 				name.requestFocusInWindow();
 				ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
 				ods.setUser("johntk86");
-				ods.setPassword("FuckYou");
+				ods.setPassword("");
 				conn = ods.getConnection();
 				HomeScreen.trayIcon.displayMessage("JAKD", "Database Connected", TrayIcon.MessageType.INFO);
 			}
