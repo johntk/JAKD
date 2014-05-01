@@ -95,6 +95,7 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 		elecGroup.add(console);
 		elecGroup.add(dock);
 
+		//Adding Labels and TextFields to the product detail panel
 		for (int i = 0; i < elecProdDetailLb.length; i++) {
 			gc.gridx = 0;
 			gc.gridy = i;
@@ -205,7 +206,7 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 		this.add(prodBtnsPanel, BorderLayout.WEST);
 		
 		
-		
+		//Creates the buttons for add and update product
 		newProdBtnsPanel = new JPanel();
 		newProdBtnsPanel.setLayout(new GridBagLayout());
 		newProdBtnsPanel.setPreferredSize(new Dimension(250, 50));
@@ -232,7 +233,7 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 		
 		setFirst();
 	}
-	
+	// Displays the first digital product in the GUI
 	public void setFirst() {
 		int pos = 0;
 		counter = 0;
@@ -241,18 +242,19 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 	}
 	
 	
-	
+	//sets the TextFields to editable
 	public void setEditableOn() {
 		for (int i = 0; i < elecProdDetailBx.length; i++)
 			if (elecProdDetailLb[i].getText() !=" Product ID:")
 				elecProdDetailBx[i].setEditable(true);
 	}
-
+	//sets the TextFields to not editable
 	public void setEditableOff() {
 		for (int i = 0; i < elecProdDetailBx.length; i++)
 			elecProdDetailBx[i].setEditable(false);
 	}
 	
+	//prepares the panel for a new product
 	public void addNew() {
 		
 
@@ -275,7 +277,9 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 		this.add(newProdBtnsPanel);
 	}
 
-public ElecProduct newProduct() {
+	
+	//Adds a new product
+	public ElecProduct newProduct() {
 		
 	
 		ElecProduct p =null;
@@ -364,6 +368,7 @@ public ElecProduct newProduct() {
 		return p;
 	}
 	
+	//changes the panel and fields for a product update
 	public void updateProd() {
 		updateBtn.setText("Update Product");
 		prodDetails.setText("Update Product Details");
@@ -372,10 +377,10 @@ public ElecProduct newProduct() {
 		this.add(newProdBtnsPanel);
 	}
 
+	
+	//Updates a product
 	public void updateProduct() {
-		
-
-		
+	
 		if(phono.isSelected())
 		{		
 			ElecProduct p = new ElecProduct(
@@ -449,6 +454,8 @@ public ElecProduct newProduct() {
 			prodDetails.setText("Product Details");
 		}
 	}
+	
+	//Searches a product
 	public void searchProd() {
 		String prodID = JOptionPane.showInputDialog(null,
 				"Enter the Product ID: ",
@@ -460,6 +467,7 @@ public ElecProduct newProduct() {
 			JOptionPane.showMessageDialog(null, " Product not found");
 	}
 	
+	//Deletes a product
 	public void deleteProd() {
 		int numberOfDeleted = elecProdList.removeProd(prodId.getText());
 		JOptionPane.showMessageDialog(null, numberOfDeleted
@@ -467,6 +475,7 @@ public ElecProduct newProduct() {
 		setFirst();
 	}
 	
+	//Displays the product passed in, in the GUI
 	public ElecProduct displayProduct(ElecProduct p) {
 		setEditableOff();
 		
