@@ -12,7 +12,9 @@ public class Employee {
 	private String PPS;
 	private int pin;
 	private String manager;
-	//
+	
+	
+	//Employee constructor and fields
 	public Employee(int empID, String fName, String lName, String houseNum, String street,  String town, String city, String PPS, int pin, String manager)
 	{
 		this.empID = empID;
