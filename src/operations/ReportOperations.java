@@ -12,7 +12,7 @@ public class ReportOperations
 
 	public ResultSet salesReportToFromDates()
 	{
-		String query = "select trans_id, TRANS_DATE,EMP_ID, sum(TOTAL_COST)from transaction WHERE TRANS_DATE BETWEEN '" + topDate + "' AND '" + bottomDate + "' group by trans_id,TRANS_DATE,EMP_ID order by trans_id";
+		String query = "select trans_id, TRANS_DATE,EMP_ID, sum(TOTAL_COST)from transaction WHERE TRANS_DATE BETWEEN '" + topDate + "' AND '" + bottomDate + "' AND TRANS_TYPE = 'S' group by trans_id,TRANS_DATE,EMP_ID order by trans_id";
 
 
 		try
