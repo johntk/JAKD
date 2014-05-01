@@ -53,7 +53,7 @@ public class PosGui extends JPanel implements ActionListener
 	private boolean voidd = false;
 	private boolean returnn = false;
 	private int numRows;
-	private Font font = new Font("sansserif",Font.PLAIN,16);
+	private Font font = new Font("sansserif",Font.PLAIN,14);
 	
 	
 	///// cash pop up
@@ -248,8 +248,9 @@ public class PosGui extends JPanel implements ActionListener
 		totalPrice.setFont(new Font("sansserif",Font.BOLD,22));
 		posBottom.add(totalPrice);
 		
-		totalPriceField = new JTextField(10);
+		totalPriceField = new JTextField(8);
 		totalPriceField.setEditable(false);
+		totalPriceField.setFont(font);
 		Color c2 = new Color(75,255,250);
 		totalPriceField.setBackground(c2);
 		posBottom.add(totalPriceField);     
