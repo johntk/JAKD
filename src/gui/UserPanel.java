@@ -42,8 +42,8 @@ public class UserPanel extends JPanel implements ActionListener {
 
 	private JLabel[] userDetailLb = { new JLabel(" Forename:"),
 			new JLabel(" Surename:"), new JLabel(" Address"),
-			new JLabel(" House No:"), new JLabel(" Town:"),
-			new JLabel(" City:"), new JLabel(""), new JLabel(" Staff ID:"),
+			new JLabel(" House No:"), new JLabel(" City:"),
+			new JLabel(" Town:"), new JLabel(""), new JLabel(" Staff ID:"),
 			new JLabel(" Pin:"), new JLabel(" PPS:"),
 			new JLabel(" Manager:") };
 	
@@ -252,7 +252,7 @@ public class UserPanel extends JPanel implements ActionListener {
 		this.add(editNewUserBtnsPanel);
 	}
 
-	//Deletes and employee
+	//Deletes an employee
 	public void deleteContact() {
 		int numberOfDeleted = employeeList.removeEmployee(Integer.parseInt(staffIDBx.getText()));
 		JOptionPane.showMessageDialog(null, numberOfDeleted
@@ -264,13 +264,20 @@ public class UserPanel extends JPanel implements ActionListener {
 	public Employee newEmployee() {
 		
 		Employee ep =null;
-		
+		if(manager.getText().equals("Y") || manager.getText().equals("N"))
+		{
+			
 		 ep = new Employee(Integer.parseInt(staffIDBx.getText()),
 				forenameBx.getText(), surenamebx.getText(), line1Bx.getText(),
 				line2Bx.getText(), Line3Bx.getText(), line2Bx.getText(),
 				PPSBx.getText(), Integer.parseInt(pinBx.getText()),
 				manager.getText());
-		
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null, "Manager field must be upper case Y for yes\n or upper case N for no");
+			manager.setText("");
+		}
 		return ep;
 	}
 
@@ -299,14 +306,21 @@ public class UserPanel extends JPanel implements ActionListener {
 
 	//Searches for an employee
 	public void searchEmployee() {
-		String employeeName = JOptionPane.showInputDialog(null,
-				"Enter the name of an Employee: ",
+		String id = JOptionPane.showInputDialog(null,
+				"Enter the Employee ID: ",
 				"Employee Manager", JOptionPane.QUESTION_MESSAGE);
-		int index = employeeList.findEmployee(employeeName);
+		try
+		{
+		int index = employeeList.findEmployee(Integer.parseInt(id));
 		if (index != -1) 
 			displayEmployee(employeeList.getEmployee(index));
 		 else 
 			JOptionPane.showMessageDialog(null, " Employee not found");
+		}
+		catch(NumberFormatException e)
+		{
+			
+		}
 	}
 
 	
@@ -353,6 +367,8 @@ public class UserPanel extends JPanel implements ActionListener {
 				&& updateBtn.getText().equals("Add New User")) {
 			try
 			{
+				if(newEmployee() != null)
+				{
 				adminOperations.addEmployee(newEmployee());
 				employeeList.addContact();
 				employeeList.refreshList();
@@ -362,7 +378,7 @@ public class UserPanel extends JPanel implements ActionListener {
 				editUserBtnsPanel.setVisible(true);
 				setEditableOff();
 				setFirst();
-				
+				}
 			}
 			catch(NumberFormatException ea)
 			{
