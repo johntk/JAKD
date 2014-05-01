@@ -403,6 +403,8 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		else{System.exit(0);}
 	}
 
+	
+	//Adds System tray icon in windows 
 	public void addSystemTray()
 	{
 		if (!java.awt.SystemTray.isSupported())
@@ -439,6 +441,8 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		});
 	}
 
+	
+	// Creates the login Dialog and home screen operations
 	public void logIn()
 	{
 
@@ -480,6 +484,8 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 
 	}
 
+	
+	//Checks if the pin entered is correct,based on the panel being accessed 
 	public boolean check()
 	{
 		boolean go = false;
@@ -507,6 +513,8 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		return go;
 	}
 
+	
+	//Checks the access level of the user inputed pin
 	public void privilegeCheck()
 	{
 		if(check() == true){	
@@ -540,6 +548,8 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		}
 	}
 	
+	
+	//Changes/creates, buttons and panels based on user input
 	public void buttonSelect(JButton button, boolean pinCheck) {
 
 		if (button.equals(button1) && button1.getText().equals("Generate Report")) {
@@ -622,7 +632,9 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		}
 	}
 
-	public void dbconnectionnnn()
+	
+	//Shows the DB username and password Dialog, if no DB connection
+	public void dbConnection()
 	{
 		Boolean select = false;
 		String p = new String(password.getPassword());
@@ -689,7 +701,7 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 
 		if(e.getSource()==connect)
 		{
-			dbconnectionnnn();
+			dbConnection();
 		}
 		
 		if(e.getSource() == dbjOK)
