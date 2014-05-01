@@ -309,11 +309,18 @@ public class UserPanel extends JPanel implements ActionListener {
 		String id = JOptionPane.showInputDialog(null,
 				"Enter the Employee ID: ",
 				"Employee Manager", JOptionPane.QUESTION_MESSAGE);
+		try
+		{
 		int index = employeeList.findEmployee(Integer.parseInt(id));
 		if (index != -1) 
 			displayEmployee(employeeList.getEmployee(index));
 		 else 
 			JOptionPane.showMessageDialog(null, " Employee not found");
+		}
+		catch(NumberFormatException e)
+		{
+			
+		}
 	}
 
 	
