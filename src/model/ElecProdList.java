@@ -19,7 +19,7 @@ public class ElecProdList {
 		plist = new ArrayList<ElecProduct>();
 	}
 	
-	
+	//Removes products from the ArrayLists and re populates the ArrayLists from the resultsSet
 	public void refreshList()
 	{
 		if (plist.size() > 0) {
@@ -32,7 +32,7 @@ public class ElecProdList {
 		refreshListDock();
 	}
 	
-	
+	//Populates the ArrayList from the resultsSet
 	public void refreshListPhono()
 	{
 		rset = po.getProductHeadphone();
@@ -72,7 +72,7 @@ public class ElecProdList {
 			}
 	}
 	
-	
+	//Populates the ArrayList from the resultsSet
 	public void refreshListConsole()
 	{
 		rset = po.getProductConsole();
@@ -112,7 +112,7 @@ public class ElecProdList {
 		}
 	}
 	
-	
+	//Populates the ArrayList from the resultsSet
 	public void refreshListDock()
 	{
 		rset = po.getProductDock();
@@ -152,6 +152,7 @@ public class ElecProdList {
 		}
 	}
 	
+	//adds the last product added to the DB to the Arraylist
 	public void addProduct() {
 		
 		rset2 = po.getLastRow();
@@ -234,6 +235,8 @@ public class ElecProdList {
 		}
 		
 	}
+	
+	//Updates the product values associated with the passed in product ID
 	public void updateProduct(ElecProduct p) {
 		
 		for (int i = 0; i < plist.size(); i++) {
@@ -299,7 +302,7 @@ public class ElecProdList {
 		}
 
 	}
-	
+	//Searches the ArrayList for a product and returns the position in the array if found
 	public int findProd(String id) {
 		int index = -1;
 		for (int i = 0; i < plist.size(); i++) {
@@ -309,12 +312,14 @@ public class ElecProdList {
 		}
 		return index;
 	}
-
+	
+	//Returns a product from the ArrayList based on the value i passed in
 	public ElecProduct getProd(int i) {
 		refreshList();
 		return plist.get(i);
 	}
 	
+	//Deletes a product from the ArrayList and from the DB
 	public int removeProd(String id) {
 		int num = 0;
 		for (int i = 0; i < plist.size(); i++) {
@@ -329,14 +334,13 @@ public class ElecProdList {
 		
 	}
 
-	
+	// Returns the arraylist of products, size
 	public int getNumProduct() {
 		return plist.size();
 	}
 	
 	
-	
-	
+	//Returns a product from the ArrayList based on the value i passed in
 	public ElecProduct getProduct(int i) {
 		
 		refreshList(); 
