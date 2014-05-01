@@ -83,6 +83,8 @@ public class CDPopup extends JPanel implements ActionListener {
 		this.setBorder(new TitledBorder("CD"));
 		cl2 = new Color(75,255,250);
 		
+		
+		//Sets the size of the Dialog based on the number of songs
 		if(p.getAlbum().getSongList().size() >= 15 || size  >= 15){
 			this.setSize(690, 650);
 		}
@@ -93,7 +95,7 @@ public class CDPopup extends JPanel implements ActionListener {
 			this.setSize(690, 520);
 		}
 
-
+		//Check if new album, or existing album
 		if(size > 0){
 			newSongs = true;
 			addFields(size, newSongs);
@@ -102,11 +104,12 @@ public class CDPopup extends JPanel implements ActionListener {
 			addFields(p.getAlbum().getSongList().size(), false);
 		}
 			
-
+		//Main panel to add all other panels
 		JPanel detailsPanel = new JPanel(new BorderLayout());
 		detailsPanel.setPreferredSize(new Dimension(240, 80));
 		this.add(detailsPanel, BorderLayout.WEST);
 
+		//Song details panel
 		JPanel details = new JPanel(new GridBagLayout());
 		details.setBorder(border);
 		details.setPreferredSize(new Dimension(150, 130));
@@ -146,6 +149,7 @@ public class CDPopup extends JPanel implements ActionListener {
 		bottom.add(addAlbum);
 		
 		
+		//remove buttons on panel depending on whether its an update or an add
 		if(newSongs == false)
 		{
 			bottom.remove(addAlbum);
@@ -161,7 +165,7 @@ public class CDPopup extends JPanel implements ActionListener {
 }
 
 	
-	
+	//Adds Fields and song info to the panel and fields respectively
 	public void addFields(int size, boolean newSong)
 	{
 		
@@ -259,6 +263,8 @@ public class CDPopup extends JPanel implements ActionListener {
 		this.revalidate();
 	}
 	
+	
+	//Updates an existing album 
 	public void updateAlbum() {
 		
 		

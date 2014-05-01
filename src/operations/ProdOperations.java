@@ -934,11 +934,9 @@ public class ProdOperations {
 		{
 			try
 			{
-			if (rset != null) rset.close();
-			if (pstmt != null) pstmt.close();
-			if (stmt != null) stmt.close();
-//			if (conn != null) conn.close();
-			
+				if (rset != null) rset.close();
+				if (pstmt != null) pstmt.close();
+				if (stmt != null) stmt.close();
 			}
 			catch(Exception e)
 			{
