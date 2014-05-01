@@ -10,7 +10,9 @@ public class KioskSong
 	
 	private URL filePath;
 	
-
+/*
+ * Constructor creates a song object which gets added to the songList array in KioskPRoductDisplay
+ */
 	public KioskSong(String id, String name, String length, String artist, String album, int songNum)
 	{
 		title = name;

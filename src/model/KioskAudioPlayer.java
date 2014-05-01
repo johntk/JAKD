@@ -17,6 +17,9 @@ public class KioskAudioPlayer
 	private FloatControl volume;
 	private URL filePath;
 
+	/*
+	 * Audio player takes a URL from the selected song object
+	 */
 	public void play(URL fp) throws UnsupportedAudioFileException, IOException
 	{
 		filePath = fp;
@@ -41,6 +44,10 @@ public class KioskAudioPlayer
 		clip.stop();
 		clip.close();
 	}
+	/*
+	 * Set volume method receives a float number from the KioskProductView class
+	 * The float number is taken from a JSlider value
+	 */
 	public void setVolume(float x)
 	{
 		volume.setValue(x);
