@@ -62,7 +62,9 @@ public class UserPanel extends JPanel implements ActionListener {
 
 		cl2 = new Color(75,255,250);
 		cl3 = new Color(255,230,0);
-				
+		
+		
+		//Heading of the JPanel
 		JPanel top = new JPanel();
 		top.setLayout(new FlowLayout());
 		userDetails = new JLabel("User Details");
@@ -125,6 +127,9 @@ public class UserPanel extends JPanel implements ActionListener {
 
 		this.add(userDetailsPanel, BorderLayout.EAST);
 
+		
+		
+		//This is the panel that appears when you select the update or add buttons
 		editNewUserBtnsPanel = new JPanel();
 		editNewUserBtnsPanel.setLayout(new GridBagLayout());
 		editNewUserBtnsPanel.setPreferredSize(new Dimension(250, 50));
@@ -199,6 +204,7 @@ public class UserPanel extends JPanel implements ActionListener {
 		setFirst();
 	}
 
+	// Displays the first employee in the GUI
 	public void setFirst() {
 		int pos = 0;
 		counter = 0;
@@ -206,17 +212,21 @@ public class UserPanel extends JPanel implements ActionListener {
 		this.displayEmployee(e);
 	}
 
+	//sets the TextFields to editable
 	public void setEditableOn() {
 		for (int i = 0; i < userDetailBx.length; i++)
 			if (userDetailLb[i].getText() !=" Staff ID:")
 				userDetailBx[i].setEditable(true);
 	}
 
+	//sets the TextFields to not editable
 	public void setEditableOff() {
 		for (int i = 0; i < userDetailBx.length; i++)
 			userDetailBx[i].setEditable(false);
 	}
 
+	
+	//prepares the panel for a new employee
 	public void addNew() {
 		userDetails.setText("Enter New Details");
 		userDetails.setBorder(new EmptyBorder(10, 390, 0, 110));
@@ -233,6 +243,7 @@ public class UserPanel extends JPanel implements ActionListener {
 		this.add(editNewUserBtnsPanel);
 	}
 
+	//prepares the panel for an update of an employee
 	public void updateUser() {
 		updateBtn.setText("Update User");
 		userDetails.setText("Update User Details");
@@ -241,6 +252,7 @@ public class UserPanel extends JPanel implements ActionListener {
 		this.add(editNewUserBtnsPanel);
 	}
 
+	//Deletes and employee
 	public void deleteContact() {
 		int numberOfDeleted = employeeList.removeEmployee(Integer.parseInt(staffIDBx.getText()));
 		JOptionPane.showMessageDialog(null, numberOfDeleted
@@ -248,6 +260,7 @@ public class UserPanel extends JPanel implements ActionListener {
 		setFirst();
 	}
 
+	//Creates a new employee
 	public Employee newEmployee() {
 		
 		Employee ep =null;
@@ -261,10 +274,10 @@ public class UserPanel extends JPanel implements ActionListener {
 		return ep;
 	}
 
+	
+	//Checks for correct values, if their correct updates the employee with the new details 
 	public void updateEmployee() 
 	{
-
-		
 		if(manager.getText().equals("Y") || manager.getText().equals("N"))
 		{
 			Employee e = new Employee(Integer.parseInt(staffIDBx.getText()),
@@ -279,11 +292,12 @@ public class UserPanel extends JPanel implements ActionListener {
 		}
 		else
 		{
-			JOptionPane.showMessageDialog(null, "Mamager field must be upper case Y for yes\n or upper case N for no");
+			JOptionPane.showMessageDialog(null, "Manager field must be upper case Y for yes\n or upper case N for no");
 			manager.setText("");
 		}
 	}
 
+	//Searches for an employee
 	public void searchEmployee() {
 		String employeeName = JOptionPane.showInputDialog(null,
 				"Enter the name of an Employee: ",
@@ -295,6 +309,8 @@ public class UserPanel extends JPanel implements ActionListener {
 			JOptionPane.showMessageDialog(null, " Employee not found");
 	}
 
+	
+	//Displays the employee searched for in searchEmployee() in the GUI
 	public void displayEmployee(Employee e) {
 		staffIDBx.setText(Integer.toString(e.getEmpID()));
 		forenameBx.setText(e.getfName());

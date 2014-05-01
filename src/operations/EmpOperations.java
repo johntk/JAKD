@@ -31,6 +31,7 @@ public class EmpOperations {
 		return rset;
 	}
 
+	//returns all employees from the DB sorted by ID
 	public ResultSet getEmployee() {
 		try {
 			String queryString = "SELECT * FROM Employee ORDER BY emp_id";
@@ -43,6 +44,7 @@ public class EmpOperations {
 		return rset;
 	}
 
+	//Adds an employee to the DB
 	public void addEmployee(Employee e) {
 		try {
 			String sql = "INSERT INTO Employee(emp_id, f_name, l_name, house_number, street, town,"
@@ -65,6 +67,10 @@ public class EmpOperations {
 			System.out.println(se);
 		}
 	}
+	
+	//Returns the value of the last employee ID and adds one on to it
+	// this is only for displaying purposes, a sequence is used for inputing
+	// the ID into the database.
 	public int getId() {
 		int nextVal = 0;
 		try {
@@ -95,6 +101,7 @@ public class EmpOperations {
 		return nextVal + 1;
 	}
 
+	//Deletes an employee from the DB
 	public int deleteContact(int n) {
 		int no = 0;
 		try {
@@ -108,6 +115,7 @@ public class EmpOperations {
 
 	}
 
+	//Updates and existing employee in the DB
 	public void updateEmployee(Employee e) {
 		try {
 
@@ -132,6 +140,8 @@ public class EmpOperations {
 		}
 	}
 
+	
+	//Gets the last row inserted into the DB.
 	public ResultSet getLastRow() {
 		String sqlStatement = "SELECT * FROM Employee ORDER BY emp_id";
 		try {
@@ -147,6 +157,7 @@ public class EmpOperations {
 		return rset;
 	}
 
+	//Closes the DB.
 	public void closeDB() {
 		try {
 			conn.close();
