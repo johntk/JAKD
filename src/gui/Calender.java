@@ -241,6 +241,7 @@ class DialogBox
 					grp.removeAll();
 					grp.add(rd);
 					grp.revalidate();
+					frame.setVisible(false);
 
 					//				
 				} 
@@ -263,6 +264,7 @@ class DialogBox
 					grp.removeAll();
 					grp.add(rr);
 					grp.revalidate();
+					frame.setVisible(false);
 				} 
 				catch (SQLException e) 
 				{	
