@@ -482,7 +482,7 @@ public class KioskProductDisplay extends JFrame implements ActionListener
 		// Add volume controls to album preview window
 		JPanel volumeControl = new JPanel(new BorderLayout());
 		volumeControl.setBorder(new CompoundBorder(
-				BorderFactory.createEmptyBorder(200,20,0,0),
+				BorderFactory.createEmptyBorder(350,20,0,0),
 				BorderFactory.createMatteBorder(1, 1, 1, 1, Color.LIGHT_GRAY)));
 		gc.gridx =1;
 		gc.gridy =0;
