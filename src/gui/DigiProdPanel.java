@@ -60,10 +60,10 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 			bx4 = new JTextField(), bx1 = new JTextField(), bx2 = new JTextField()
 			 };
 	//Remove label name when finished
-	JLabel[] digiProdDetailLb = { titleLB = new JLabel(" Product title:"),
-			typeLB = new JLabel(" Type:"), detailsLB = new JLabel(" Songs:"), idLB = new JLabel(" Product ID:"),
-			cPriceLB = new JLabel(" Cost price:"), sPriceLB = new JLabel(" Selling price:"),
-			stockLB = new JLabel(" Current stock:"), label1 = new JLabel(" Age Rating:"),
+	JLabel[] digiProdDetailLb = {new JLabel(" Product title:"),
+			new JLabel(" Type:"), detailsLB = new JLabel(" Songs:"), new JLabel(" Product ID:"),
+			new JLabel(" Cost price:"), new JLabel(" Selling price:"),
+			new JLabel(" Current stock:"), label1 = new JLabel(" Age Rating:"),
 			label2 = new JLabel(" Genre:"), label3 = new JLabel(" Publisher:"), label4 = new JLabel(" length:") };
 	
 	private JFrame frame;
@@ -103,6 +103,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		digiGroup.add(game);
 
 		
+		//Adding Labels and TextFields to the product detail panel
 		for (int i = 0; i < digiProdDetailLb.length; i++) {
 			gc.gridx = 0;
 			gc.gridy = i;
@@ -197,6 +198,8 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 
 		};
 
+		
+		//Adds the buttons to the product panel
 		for (int i = 0; i < prodButtons.length; i++) {
 
 			if (i < prodButtons.length - 2) {
@@ -229,6 +232,8 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 
 		this.add(prodBtnsPanel, BorderLayout.WEST);
 		
+		
+		//Creates the buttons for add and update product
 		newProdBtnsPanel = new JPanel();
 		newProdBtnsPanel.setLayout(new GridBagLayout());
 		newProdBtnsPanel.setPreferredSize(new Dimension(250, 50));
@@ -257,6 +262,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		setFirst();
 	}
 	
+	// Displays the first digital product in the GUI
 	public void setFirst() {
 		int pos = 0;
 		counter = 0;
@@ -264,7 +270,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		this.displayProduct(p);
 	}
 
-	
+	//sets the TextFields to editable
 	public void setEditableOn() {
 		for (int i = 0; i < digiProdDetailBx.length; i++)
 			if (digiProdDetailLb[i].getText() !=" Product ID:")
@@ -272,13 +278,13 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 				digiProdDetailBx[i].setEditable(true);
 			}
 	}
-
+	//sets the TextFields to not editable
 	public void setEditableOff() {
 		for (int i = 0; i < digiProdDetailBx.length; i++)
 			digiProdDetailBx[i].setEditable(false);
 	}
 	
-	
+	//prepares the panel for a new product
 	public void addNew() {
 		
 		if (slist.size() > 0) {
@@ -305,6 +311,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		this.add(newProdBtnsPanel);
 	}
 
+	//Adds a new product
 	public DigiProduct newProduct() {
 		
 		DigiProduct p =null;
@@ -367,6 +374,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	}
 	
 	
+	//Takes in Songs from the CD Dialog and temporarily stores them in an Arraylist
 	public void newAlbum(ArrayList<Song> slist, String artist)
 	{
 		this.slist = slist;
@@ -381,7 +389,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		this.add(newProdBtnsPanel);
 	}
 	
-	
+	//Updates a product
 	public void updateProduct() {
 		
 		if(cd.isSelected())
@@ -456,6 +464,8 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		}
 	}
 	
+	
+	//Searches a product
 	public void searchProd() {
 		String prodID = JOptionPane.showInputDialog(null,
 				"Enter the Product ID: ",
@@ -474,6 +484,8 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		setFirst();
 	}
 	
+	
+	//Checks the size of the slist array and chooses the appropriate action
 	public void newAlbum()
 	{
 		if(newProd == true){
@@ -517,6 +529,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		}
 	}
 	
+	//Displays the product passed in, in the GUI
 	public DigiProduct displayProduct(DigiProduct p) {
 		
 		setEditableOff();
