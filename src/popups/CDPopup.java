@@ -301,7 +301,7 @@ public class CDPopup extends JPanel implements ActionListener {
 		
 }
 
-	
+	//
 	public JTextField[] getDigiProdDetailBx() {
 		return digiProdDetailBx;
 	}
