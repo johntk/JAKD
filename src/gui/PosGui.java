@@ -53,6 +53,7 @@ public class PosGui extends JPanel implements ActionListener
 	private boolean voidd = false;
 	private boolean returnn = false;
 	private int numRows;
+	private Font font = new Font("sansserif",Font.PLAIN,16);
 	
 	
 	///// cash pop up
@@ -103,8 +104,11 @@ public class PosGui extends JPanel implements ActionListener
 		posTop.add(tright);
 		
 		trans_id = new JLabel("Transaction ID:");
+		trans_id.setFont(font);
 		tright.add(trans_id);
-		trans_idf = new JTextField(10);
+		trans_idf = new JTextField(8);
+		trans_idf.setHorizontalAlignment(JTextField.CENTER);
+		trans_idf.setFont(font);
 		
 		trans_idf.setText(po.queryTransid()); ///gets id from method
 		
@@ -115,12 +119,15 @@ public class PosGui extends JPanel implements ActionListener
 
 
 		///// set up current time
-		dateField = new JLabel("Date");
+		dateField = new JLabel("Date:");
+		dateField.setFont(font);
 		tcentre.add(dateField);
 		
 		dateFieldf = new JTextField(8);
+		dateFieldf.setFont(font);
 		df = new SimpleDateFormat("ddMMMyy");
 		now = Calendar.getInstance();
+		dateFieldf.setHorizontalAlignment(JTextField.CENTER);
 		dateFieldf.setText(df.format(now.getTime()));
 		
 		
@@ -128,8 +135,11 @@ public class PosGui extends JPanel implements ActionListener
 		tcentre.add(dateFieldf);
 		
 		currentUser = new JLabel("User: ");
+		currentUser.setFont(font);
 		tleft.add(currentUser);
 		currentUserf = new JTextField(8);
+		currentUserf.setHorizontalAlignment(JTextField.CENTER);
+		currentUserf.setFont(font);
 		currentUserf.setText(po.getUserName(empID));
 		currentUserf.setEditable(false);
 		tleft.add(currentUserf);
