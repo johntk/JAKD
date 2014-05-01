@@ -20,6 +20,9 @@ public class HomeScreenOperations
 	{
 		conn = c;
 	}
+	
+	
+	//Verifys  staff pin
 	public Boolean getStaffPin(String pin)
 	{
 		
@@ -55,7 +58,7 @@ public class HomeScreenOperations
 	
 	
 	
-	
+	//Verifys manager pin
 	public Boolean getMangPin(String pin)
 	{
 		
@@ -89,6 +92,7 @@ public class HomeScreenOperations
 		return authenticate;
 	}
 	
+	//Returns User name associated with the passed in pin number
 	public String getUserName(String pin)
 	{
 		String fName=null;
