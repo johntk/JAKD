@@ -28,6 +28,8 @@ public class DigiProdList {
 	}
 	
 	
+	
+	//Removes products, songs from the ArrayLists and re populates the ArrayLists from the resultsSet
 	public void refreshList()
 	{
 
@@ -47,6 +49,8 @@ public class DigiProdList {
 				refreshListGame();
 			}
 	
+	
+	//Populates the ArrayList from the resultsSet
 	public void refreshListCD() {
 		
 		rset = po.getProductCD();
@@ -95,6 +99,7 @@ public class DigiProdList {
 		}
 	}
 	
+	//Populates the ArrayList from the resultsSet
 	public void songs()
 	{
 
@@ -125,7 +130,7 @@ public class DigiProdList {
 		}
 
 	
-	
+	//Populates the ArrayList from the resultsSet
 	public void refreshListDVD()
 	{
 		rset = po.getProductDVD();
@@ -163,7 +168,7 @@ public class DigiProdList {
 		
 	}
 	
-		
+	//Populates the ArrayList from the resultsSet	
 	public void refreshListGame()
 	{
 		rset = po.getProductGame();
@@ -190,7 +195,7 @@ public class DigiProdList {
 		}
 		
 	}
-		
+	//Searches the ArrayList for a product and returns the position in the array if found
 	public int findProd(String id) {
 		int index = -1;
 		for (int i = 0; i < plist.size(); i++) {
@@ -201,12 +206,13 @@ public class DigiProdList {
 		return index;
 	}
 
+	//Returns a product from the ArrayList based on the value i passed in
 	public DigiProduct getProd(int i) {
 		refreshList();
 		return plist.get(i);
 	}
 	
-	
+	//Deletes a product from the ArrayList and from the DB
 	public int removeProd(String id) {
 		int num = 0;
 		for (int i = 0; i < plist.size(); i++) {
@@ -220,7 +226,7 @@ public class DigiProdList {
 	}
 
 	
-	
+	//adds the last product added to the DB to the Arraylist
 	public void addProduct() {
 	
 		rset2 = po.getLastRow();
@@ -304,6 +310,7 @@ public class DigiProdList {
 		
 	}
 	
+	//adds the songs in the DB based on the ID passed in, to the Arraylist
 	public void addSongs(String id)
 	{
 		
@@ -332,7 +339,7 @@ public class DigiProdList {
 		    }  
 		}
 	}
-	
+	//Updates the product values associated with the passed in product ID
 	public void updateProduct(DigiProduct p) {
 		
 		for (int i = 0; i < plist.size(); i++) {
@@ -399,10 +406,12 @@ public class DigiProdList {
 
 	}
 	
+	// Returns the arraylist of products, size
 	public int getNumProduct() {
 		return plist.size();
 	}
 	
+	//Returns a product from the ArrayList based on the value i passed in
 	public DigiProduct getProduct(int i) {
 		
 		refreshList();
