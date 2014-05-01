@@ -252,7 +252,7 @@ public class UserPanel extends JPanel implements ActionListener {
 		this.add(editNewUserBtnsPanel);
 	}
 
-	//Deletes and employee
+	//Deletes an employee
 	public void deleteContact() {
 		int numberOfDeleted = employeeList.removeEmployee(Integer.parseInt(staffIDBx.getText()));
 		JOptionPane.showMessageDialog(null, numberOfDeleted
@@ -264,13 +264,19 @@ public class UserPanel extends JPanel implements ActionListener {
 	public Employee newEmployee() {
 		
 		Employee ep =null;
-		
+		if(manager.getText().equals("Y") || manager.getText().equals("N"))
+		{
 		 ep = new Employee(Integer.parseInt(staffIDBx.getText()),
 				forenameBx.getText(), surenamebx.getText(), line1Bx.getText(),
 				line2Bx.getText(), Line3Bx.getText(), line2Bx.getText(),
 				PPSBx.getText(), Integer.parseInt(pinBx.getText()),
 				manager.getText());
-		
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null, "Manager field must be upper case Y for yes\n or upper case N for no");
+			manager.setText("");
+		}
 		return ep;
 	}
 
@@ -353,6 +359,8 @@ public class UserPanel extends JPanel implements ActionListener {
 				&& updateBtn.getText().equals("Add New User")) {
 			try
 			{
+				if(newEmployee() != null)
+				{
 				adminOperations.addEmployee(newEmployee());
 				employeeList.addContact();
 				employeeList.refreshList();
@@ -362,7 +370,7 @@ public class UserPanel extends JPanel implements ActionListener {
 				editUserBtnsPanel.setVisible(true);
 				setEditableOff();
 				setFirst();
-				
+				}
 			}
 			catch(NumberFormatException ea)
 			{
