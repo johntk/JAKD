@@ -287,6 +287,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 	//prepares the panel for a new product
 	public void addNew() {
 		
+		//Empties the slist array
 		if (slist.size() > 0) {
 			for (int i = slist.size() - 1; i >= 0; i--) {
 				slist.remove(i);
@@ -381,6 +382,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 		this.artist = artist;
 	}
 	
+	//changes the panel and fields for a product update
 	public void updateProd() {
 		updateBtn.setText("Update Product");
 		prodDetails.setText("Update Product Details");
@@ -477,6 +479,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 			JOptionPane.showMessageDialog(null, " Product not found");
 	}
 	
+	//Deletes a product
 	public void deleteProd() {
 		int numberOfDeleted = digiProductList.removeProd(prodId.getText());
 		JOptionPane.showMessageDialog(null, numberOfDeleted
