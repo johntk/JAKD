@@ -42,8 +42,8 @@ public class UserPanel extends JPanel implements ActionListener {
 
 	private JLabel[] userDetailLb = { new JLabel(" Forename:"),
 			new JLabel(" Surename:"), new JLabel(" Address"),
-			new JLabel(" House No:"), new JLabel(" Town:"),
-			new JLabel(" City:"), new JLabel(""), new JLabel(" Staff ID:"),
+			new JLabel(" House No:"), new JLabel(" City:"),
+			new JLabel(" Town:"), new JLabel(""), new JLabel(" Staff ID:"),
 			new JLabel(" Pin:"), new JLabel(" PPS:"),
 			new JLabel(" Manager:") };
 	
