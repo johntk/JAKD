@@ -2,6 +2,7 @@
 package operations;
 
 import java.sql.*;
+
 import model.Employee;
 
 
@@ -167,6 +168,19 @@ public class EmpOperations {
 			e.printStackTrace();
 		}
 	}
-	
+	//close ResultsSets, Prepared Statements and Statements
+	public void closeReultSets()
+	{
+		try
+		{
+			if (rset != null) rset.close();
+			if (pstmt != null) pstmt.close();
+			if (stmt != null) stmt.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 }
 
