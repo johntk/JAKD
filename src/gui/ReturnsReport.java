@@ -42,7 +42,7 @@ public class ReturnsReport extends JPanel
 		gc = new GridBagConstraints();
 		this.setLayout(new BorderLayout());
 		f = new Font("Helvetica", Font.ITALIC, 20);
-		String[] colNames = {"Transaction ID","Transaction Date", "Transaction Type","Total Returned", "Employee"};
+		String[] colNames = {"Transaction ID","Transaction Date", "Employee ID", "Total"};
 
 		topPanel = new JPanel(new GridLayout());
 		this.add(topPanel, BorderLayout.NORTH);
@@ -168,7 +168,7 @@ public class ReturnsReport extends JPanel
 		{
 			if(rset.next())
 			{
-				table.setValueAt(rset.getInt(1), i, 0);
+				table.setValueAt(rset.getString(1), i, 0);
 				
 				Date date = rset.getDate(2); 
 				String d = new SimpleDateFormat("dd-MM-YYYY").format(date);
@@ -176,7 +176,7 @@ public class ReturnsReport extends JPanel
 				
 				table.setValueAt(rset.getString(3), i, 2);
 				table.setValueAt(rset.getDouble(4), i, 3);
-				table.setValueAt(rset.getString(5), i, 4);
+				
 			}
 		}
 		resultsPanel.add(scrollPane, BorderLayout.CENTER);

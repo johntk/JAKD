@@ -104,11 +104,8 @@ public class ReportOperations
 	}
 	public ResultSet returnTrans()
 	{
-		String query = "select Trans_id, Trans_date, Trans_type, total_Cost,e.f_name || ' ' || e.L_NAME as Employee "
-				+"from TRANSACTION t, Employee e "
-				+"where e.EMP_ID = t.EMP_ID " 
-				+"and TRANS_TYPE = 'R' "
-				+"and TRANS_DATE BETWEEN '"+ topDate +"' AND '"+ bottomDate +"'";
+		String query = "select trans_id, TRANS_DATE,EMP_ID, sum(TOTAL_COST)from transaction WHERE TRANS_DATE BETWEEN '" + topDate + "' AND '" + bottomDate + "' AND TRANS_TYPE = 'R' group by trans_id,TRANS_DATE,EMP_ID order by trans_id";
+
 
 		//System.out.printf("%10",rset.getString(0));
 		try
