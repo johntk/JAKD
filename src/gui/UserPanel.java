@@ -354,7 +354,7 @@ public class UserPanel extends JPanel implements ActionListener {
 		else if (e.getSource() == exit) {
 			this.setVisible(false);
 			this.repaint();
-//			this.dispose();
+//	//		this.dispose();
 		} 
 		else if (e.getSource().equals(addUser)) {
 			userDetailBx[0].requestFocus();
