@@ -28,7 +28,7 @@ public class POSOperations
 	
 	public ResultSet queryProduct(String prodInput) throws SQLException
 	{
-		System.out.println("in query product");
+		
 
 
 		String sql = "SELECT p.prod_id,d.dvd_name,d.dvd_sale_price FROM product p, DIGITAL_PRODUCT dp, dvd d where p.PROD_ID = dp.PROD_ID AND dp.DIG_ID = d.DIG_ID AND p.prod_id = '" + prodInput + "'" +
