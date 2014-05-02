@@ -133,7 +133,7 @@ public class POSOperations
 				pstmt.setString(7,t.get(i).getProdID());
 				
 				pstmt.execute();
-				System.out.println("insert" + (i+1) +" sucessfull :)");
+				
 			}
 		}
 		catch(SQLException e)
