@@ -169,6 +169,7 @@ public class DigiProdPanel extends JPanel implements ActionListener, ItemListene
 				gc.weightx = 10.0;
 				gc.gridwidth = 3;
 				digiProdDetailBx[i].setPreferredSize(new Dimension(300, 30));
+				//Adds colour to the TextFields
 				if(digiProdDetailLb[i].getText().equals(" Product ID:"))
 				{
 					digiProdDetailBx[i].setBackground(cl3);
