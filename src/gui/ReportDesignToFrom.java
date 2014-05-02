@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,7 +20,7 @@ public class ReportDesignToFrom extends JPanel
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel topPanel, mainPanel, topLeftPanel, topRightPanel, headingsPanel, resultsPanel;
-	private JLabel dateTo, dateFrom, tranID, saleDate,amount;
+	private JLabel dateTo, dateFrom, tranID, saleDate,amount, heading;
 	private JTextField textDateTo, textDateFrom;
 	private DefaultTableModel dtm;
 	private ResultSet rset;
@@ -41,6 +42,7 @@ public class ReportDesignToFrom extends JPanel
 		String[] colNames = {"Transaction ID","Transaction Date", "Employee ID", "Total"};
 
 		topPanel = new JPanel(new GridLayout());
+		
 		this.add(topPanel, BorderLayout.NORTH);
 
 		topLeftPanel = new JPanel(layout);
@@ -52,6 +54,12 @@ public class ReportDesignToFrom extends JPanel
 		gc.anchor = GridBagConstraints.CENTER;
 		topPanel.add(topLeftPanel,gc);
 
+		heading = new JLabel("Sales Report");
+		heading.setFont(f);
+		heading.setBorder(new EmptyBorder(0, 90, 0, 0));
+		heading.setBackground(Color.WHITE);
+		topPanel.add(heading);
+		
 		dateFrom = new JLabel("Date From");
 		gc.gridx = 0;
 		gc.gridy = 0;

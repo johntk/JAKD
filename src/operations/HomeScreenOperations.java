@@ -22,7 +22,7 @@ public class HomeScreenOperations
 	}
 	
 	
-	//Verifys  staff pin
+	//Verify  staff pin
 	public Boolean getStaffPin(String pin)
 	{
 		
@@ -58,7 +58,7 @@ public class HomeScreenOperations
 	
 	
 	
-	//Verifys manager pin
+	//Verify manager pin
 	public Boolean getMangPin(String pin)
 	{
 		
