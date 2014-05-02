@@ -18,7 +18,6 @@ public class DBconnection
 	private JTextField name;
 	private JPasswordField pswd;
 	private JPanel panel;
-	private String pass;
 
 	public DBconnection()
 	{
