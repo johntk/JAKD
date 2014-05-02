@@ -42,7 +42,7 @@ public class ReportDesignToFrom extends JPanel
 		String[] colNames = {"Transaction ID","Transaction Date", "Employee ID", "Total"};
 
 		topPanel = new JPanel(new GridLayout());
-		
+		topPanel.setBackground(Color.white);
 		this.add(topPanel, BorderLayout.NORTH);
 
 		topLeftPanel = new JPanel(layout);
