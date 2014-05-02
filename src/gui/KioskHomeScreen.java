@@ -84,7 +84,7 @@ public class KioskHomeScreen extends JFrame implements ActionListener
 		content.setBackground(new Color(0,0,0,0));
 
 		/*
-		 * Add Jbuttons for each section to home screen and set Icons for each button
+		 * Add Jbuttons for each section to home screen and set Icon for each button
 		 */
 		search = new JButton(src);
 		search.setBackground(Color.WHITE);

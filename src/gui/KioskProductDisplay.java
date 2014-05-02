@@ -123,6 +123,9 @@ public class KioskProductDisplay extends JFrame implements ActionListener
 		resultsHeading.setText(resultsHeading.getText()+s);
 	}
 
+	/*
+	 * Methods for displaying each category of product
+	 */
 	public void displayConsole(String manufacturer,String model,String colour,int storage,String wifi,int numControllers,double salePrice,int currentStock)
 	{
 		// Add product image and information
