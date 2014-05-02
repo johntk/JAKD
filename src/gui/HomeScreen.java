@@ -114,13 +114,11 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		im = frameIcon.getImage();
 
 		db = new DBconnection();
-		conn = db.openDB(null,null,null);
-		showJFrame();
 
 		/*
 		 *   Create JFrame for options to connect to a database
 		 */
-		/*dbPanel = new JPanel(new BorderLayout());
+		dbPanel = new JPanel(new BorderLayout());
 
 		dbHeading = new JLabel("Select a Database Connection:");
 		dbHeading.setFont(new Font("Calibri",Font.BOLD,25));
@@ -262,7 +260,6 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		dbj.setIconImage(im);
 		dbj.setLocationRelativeTo(null);
 		dbj.add(dbPanel);
-*/
 	}
 	
 	public void showJFrame()
