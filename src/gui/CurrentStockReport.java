@@ -34,6 +34,7 @@ public class CurrentStockReport extends JPanel
 		String[] colNames = {"Product ID","Description","Product Type","Current Stock","Sale Price"};
 
 		topPanel = new JPanel(new FlowLayout());
+		topPanel.setBackground(Color.white);
 		this.add(topPanel, BorderLayout.NORTH);
 		
 		title = new JLabel("Current Stock");
