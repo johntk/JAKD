@@ -84,7 +84,7 @@ public class KioskHomeScreen extends JFrame implements ActionListener
 		content.setBackground(new Color(0,0,0,0));
 
 		/*
-		 * Add Jbuttons for each section to home screen and set Icons for each button
+		 * Add Jbuttons for each section to home screen and set Icon for each button
 		 */
 		search = new JButton(src);
 		search.setBackground(Color.WHITE);
@@ -211,6 +211,10 @@ public class KioskHomeScreen extends JFrame implements ActionListener
 
 	}
 
+	/*
+	 * Takes in a JPanel when a button from the homescreen is pressed
+	 * and adds it to the main JFrame and repaints the screen
+	 */
 	public static void addPanel(JPanel panel)
 	{
 		frame.add(panel);
@@ -218,6 +222,10 @@ public class KioskHomeScreen extends JFrame implements ActionListener
 		frame.repaint();
 	}
 
+	/*
+	 * When exiting out from a sub section of the kiosk screens
+	 * this method sets the screen back to the main JPanel
+	 */
 	public static void switchToMainPanel(JPanel panel)
 	{
 		if(main.isVisible()==true)

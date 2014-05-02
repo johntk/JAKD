@@ -13,7 +13,7 @@ import model.KioskSong;
 public class KioskOperations
 {
 	private Connection conn;
-	private Statement stmt;
+	private PreparedStatement stmt;
 	private ResultSet rset;
 
 	public void queryAllProducts(String sTerm,KioskResultsScreen krs)
@@ -25,13 +25,13 @@ public class KioskOperations
 		double salePrice;
 		int y=0;
 		try {
-			stmt = conn.createStatement();
 			String sqlStatement = "select d.dvd_name as description, d.dvd_sale_price as salePrice, p.prod_id as prodID from dvd d, product p, digital_product dp where UPPER(dvd_name) like UPPER('%"+sTerm+"%') and p.prod_id = dp.prod_id and d.dig_id = dp.dig_id "+
 					"UNION select g.game_name, g.game_sale_price, p.prod_id as prodID from game g, product p, digital_product dp where UPPER(game_name) like UPPER('%"+sTerm+"%') and p.prod_id = dp.prod_id and g.dig_id = dp.dig_id "+
 					"UNION select a.artist_name||' - '||c.album_name, c.cd_sale_price, p.prod_id as prodID from cd c, artist a, cd_artist ca, digital_product d, product p where c.cd_id = ca.cd_id and a.artist_id = ca.artist_id and c.dig_id = d.dig_id and p.prod_id = d.prod_id and UPPER(a.artist_name||' '||c.album_name) like UPPER('%"+sTerm+"%') "+
 					"UNION select e.manufacturer||' '||e.model, h.headphone_sale_price, p.prod_id as prodID from electronic e, headphones h, product p where e.elec_id = h.elec_id and p.prod_id = e.prod_id and UPPER(e.manufacturer||' '||e.model) like UPPER('%"+sTerm+"%') "+
 					"UNION select e.manufacturer||' '||e.model, s.sd_sale_price, p.prod_id as prodID from electronic e, sound_dock s, product p where e.elec_id = s.elec_id and p.prod_id = e.prod_id and UPPER(e.manufacturer||' '||e.model) like UPPER('%"+sTerm+"%') "+
 					"UNION select e.manufacturer||' '||e.model, c.console_sale_price, p.prod_id as prodID from electronic e, console c, product p where e.elec_id = c.elec_id and p.prod_id = e.prod_id and UPPER(e.manufacturer||' '||e.model) like UPPER('%"+sTerm+"%') ";
+			stmt = conn.prepareStatement(sqlStatement, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			rset = stmt.executeQuery(sqlStatement);
 			while (rset.next())
 			{
@@ -59,13 +59,13 @@ public class KioskOperations
 		double salePrice;
 		int y=0;
 		try {
-			stmt = conn.createStatement();
 			String sqlStatement = "select d.dvd_name as description, d.dvd_sale_price as salePrice, p.prod_id as prodID, p.prod_type from dvd d, product p, digital_product dp where UPPER(prod_type) like UPPER('%"+productType+"%') and p.prod_id = dp.prod_id and d.dig_id = dp.dig_id "+
 					"UNION select g.game_name, g.game_sale_price, p.prod_id as prodID, p.prod_type from game g, product p, digital_product dp where UPPER(prod_type) like UPPER('%"+productType+"%') and p.prod_id = dp.prod_id and g.dig_id = dp.dig_id "+
 					"UNION select a.artist_name||' - '||c.album_name, c.cd_sale_price, p.prod_id as prodID, p.prod_type from cd c, artist a, cd_artist ca, digital_product d, product p where c.cd_id = ca.cd_id and a.artist_id = ca.artist_id and c.dig_id = d.dig_id and p.prod_id = d.prod_id and UPPER(prod_type) like UPPER('%"+productType+"%') "+
 					"UNION select e.manufacturer||' '||e.model, h.headphone_sale_price, p.prod_id as prodID, p.prod_type from electronic e, headphones h, product p where e.elec_id = h.elec_id and p.prod_id = e.prod_id and UPPER(prod_type) like UPPER('%"+productType+"%') "+
 					"UNION select e.manufacturer||' '||e.model, s.sd_sale_price, p.prod_id as prodID, p.prod_type from electronic e, sound_dock s, product p where e.elec_id = s.elec_id and p.prod_id = e.prod_id and UPPER(prod_type) like UPPER('%"+productType+"%') "+
 					"UNION select e.manufacturer||' '||e.model, c.console_sale_price, p.prod_id as prodID, p.prod_type from electronic e, console c, product p where e.elec_id = c.elec_id and p.prod_id = e.prod_id and UPPER(prod_type) like UPPER('%"+productType+"%') ";
+			stmt = conn.prepareStatement(sqlStatement, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			rset = stmt.executeQuery(sqlStatement);
 			while (rset.next())
 			{
@@ -89,8 +89,8 @@ public class KioskOperations
 		ArrayList<String> consoleList = new ArrayList<String>();
 		String description;
 		try {
-			stmt = conn.createStatement();
 			String sqlStatement = "select e.manufacturer||' '||e.model as description from product p, electronic e, console c where p.prod_id = e.prod_id and c.elec_id = e.elec_id";
+			stmt = conn.prepareStatement(sqlStatement, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			rset = stmt.executeQuery(sqlStatement);
 			while (rset.next())
 			{
@@ -113,8 +113,8 @@ public class KioskOperations
 		String prodID;
 		int y=0;
 		try {
-			stmt = conn.createStatement();
 			String sqlStatement = "select g.game_name as description, g.game_sale_price, p.prod_id as prodID from product p, digital_product d, game g where p.prod_id = d.prod_id and g.dig_id = d.dig_id and g.platform like '%"+platform+"%'";
+			stmt = conn.prepareStatement(sqlStatement, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			rset = stmt.executeQuery(sqlStatement);
 			while (rset.next())
 			{
@@ -137,8 +137,8 @@ public class KioskOperations
 		String prodType =null;
 		try
 		{
-			stmt = conn.createStatement();
 			String sqlStatement = "select prod_type from product where prod_id = '"+prodID+"'";
+			stmt = conn.prepareStatement(sqlStatement, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			rset = stmt.executeQuery(sqlStatement);
 			while (rset.next())
 			{
@@ -159,12 +159,12 @@ public class KioskOperations
 			double salePrice =0;
 			int currentStock =0;
 			try {
-				stmt = conn.createStatement();
 				String sqlStatement = "select p.current_stock, dp.genre, dp.age_rating, g.company, g.platform, g.game_name, g.game_sale_price "+
 						"from product p, digital_product dp, game g "+
 						"where dp.prod_id = p.prod_id "+
 						"and dp.dig_id = g.dig_id "+
 						"and p.prod_id = '"+prodID+"'";
+				stmt = conn.prepareStatement(sqlStatement, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 				rset = stmt.executeQuery(sqlStatement);
 				while (rset.next())
 				{
@@ -195,7 +195,6 @@ public class KioskOperations
 			double salePrice =0;
 			int currentStock =0;
 			try {
-				stmt = conn.createStatement();
 				String sqlStatement = "select p.current_stock, dp.genre, dp.age_rating, a.artist_name, c.album_name, c.record_company, c.album_length, c.cd_sale_price "+
 						"from product p, digital_product dp, cd c, artist a, cd_artist ca "+
 						"where dp.prod_id = p.prod_id "+
@@ -203,6 +202,7 @@ public class KioskOperations
 						"and a.artist_id = ca.artist_id "+
 						"and c.cd_id = ca.cd_id "+
 						"and p.prod_id = '"+prodID+"'";
+				stmt = conn.prepareStatement(sqlStatement, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 				rset = stmt.executeQuery(sqlStatement);
 				while (rset.next())
 				{
@@ -226,13 +226,13 @@ public class KioskOperations
 			int songNum =1;
 
 			try {
-				stmt = conn.createStatement();
 				String sqlStatement = "select s.song_id, s.song_name, s.song_length "+
 						"from product p, digital_product dp, cd c, song s "+
 						"where p.prod_id = dp.prod_id "+
 						"and dp.dig_id = c.dig_id "+
 						"and s.cd_id = c.cd_id "+
 						"and p.prod_id = '"+prodID+"'";
+				stmt = conn.prepareStatement(sqlStatement, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 				rset = stmt.executeQuery(sqlStatement);
 				while (rset.next())
 				{
@@ -261,12 +261,12 @@ public class KioskOperations
 			double salePrice =0;
 			int currentStock =0;
 			try {
-				stmt = conn.createStatement();
 				String sqlStatement = "select p.current_stock, dp.genre, dp.age_rating, d.studio, d.dvd_length, d.dvd_name, d.dvd_sale_price "+
 						"from product p, digital_product dp, dvd d "+
 						"where dp.prod_id = p.prod_id "+
 						"and dp.dig_id = d.dig_id "+
 						"and p.prod_id = '"+prodID+"'";
+				stmt = conn.prepareStatement(sqlStatement, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 				rset = stmt.executeQuery(sqlStatement);
 				while (rset.next())
 				{
@@ -297,12 +297,12 @@ public class KioskOperations
 			double salePrice =0;
 			int currentStock =0;
 			try {
-				stmt = conn.createStatement();
 				String sqlStatement = "select p.current_stock, e.manufacturer, e.model, e.colour, sd.wireless, sd.power_ouput, sd.digital_radio, sd.sd_sale_price "+
 						"from product p, electronic e, sound_dock sd "+
 						"where e.prod_id = p.prod_id "+
 						"and e.elec_id = sd.elec_id "+
 						"and p.prod_id = '"+prodID+"'";
+				stmt = conn.prepareStatement(sqlStatement, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 				rset = stmt.executeQuery(sqlStatement);
 				while (rset.next())
 				{
@@ -334,12 +334,12 @@ public class KioskOperations
 			double salePrice =0;
 			int currentStock =0;
 			try {
-				stmt = conn.createStatement();
 				String sqlStatement = "select p.current_stock, e.manufacturer, e.model, e.colour, hp.over_ear, hp.microphone, hp.iphone_compatible, hp.headphone_sale_price "+
 						"from product p, electronic e, headphones hp "+
 						"where e.prod_id = p.prod_id "+
 						"and e.elec_id = hp.elec_id "+
 						"and p.prod_id = '"+prodID+"'";
+				stmt = conn.prepareStatement(sqlStatement, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 				rset = stmt.executeQuery(sqlStatement);
 				while (rset.next())
 				{
@@ -371,12 +371,12 @@ public class KioskOperations
 			double salePrice =0;
 			int currentStock =0;
 			try {
-				stmt = conn.createStatement();
 				String sqlStatement = "select p.current_stock, e.manufacturer, e.model, e.colour, c.storage_size, c.wifi, c.num_controllers, c.console_sale_price "+
 						"from product p, electronic e, console c "+
 						"where e.prod_id = p.prod_id "+
 						"and e.elec_id = c.elec_id "+
 						"and p.prod_id = '"+prodID+"'";
+				stmt = conn.prepareStatement(sqlStatement, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 				rset = stmt.executeQuery(sqlStatement);
 				while (rset.next())
 				{
@@ -415,13 +415,13 @@ public class KioskOperations
 		double salePrice;
 		int y=0;
 		try {
-			stmt = conn.createStatement();
 			String sqlStatement = "select d.dvd_name as description, d.dvd_sale_price as salePrice, p.prod_id as prodID, p.prod_type from dvd d, product p, digital_product dp where p.prod_id = dp.prod_id and d.dig_id = dp.dig_id and d.dvd_sale_price < "+priceThreshold+
 					"UNION select g.game_name, g.game_sale_price, p.prod_id as prodID, p.prod_type from game g, product p, digital_product dp where p.prod_id = dp.prod_id and g.dig_id = dp.dig_id and g.game_sale_price < "+priceThreshold+
 					"UNION select a.artist_name||' - '||c.album_name, c.cd_sale_price, p.prod_id as prodID, p.prod_type from cd c, artist a, cd_artist ca, digital_product d, product p where c.cd_id = ca.cd_id and a.artist_id = ca.artist_id and c.dig_id = d.dig_id and p.prod_id = d.prod_id and c.cd_sale_price < "+priceThreshold+
 					"UNION select e.manufacturer||' '||e.model, h.headphone_sale_price, p.prod_id as prodID, p.prod_type from electronic e, headphones h, product p where e.elec_id = h.elec_id and p.prod_id = e.prod_id and h.headphone_sale_price < "+priceThreshold+
 					"UNION select e.manufacturer||' '||e.model, s.sd_sale_price, p.prod_id as prodID, p.prod_type from electronic e, sound_dock s, product p where e.elec_id = s.elec_id and p.prod_id = e.prod_id and s.sd_sale_price < "+priceThreshold+
 					"UNION select e.manufacturer||' '||e.model, c.console_sale_price, p.prod_id as prodID, p.prod_type from electronic e, console c, product p where e.elec_id = c.elec_id and p.prod_id = e.prod_id and c.console_sale_price < "+priceThreshold;
+			stmt = conn.prepareStatement(sqlStatement, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			rset = stmt.executeQuery(sqlStatement);
 			while (rset.next())
 			{
@@ -444,8 +444,8 @@ public class KioskOperations
 	{
 		Boolean authenticate = false;
 		try {
-			stmt = conn.createStatement();
 			String sqlStatement = "SELECT pin_num FROM EMPLOYEE";
+			stmt = conn.prepareStatement(sqlStatement, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			rset = stmt.executeQuery(sqlStatement);
 
 			while(rset.next())

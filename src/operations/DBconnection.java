@@ -35,7 +35,7 @@ public class DBconnection
 
 	public Connection openDB(String URL,String uName,String psw)
 	{
-		/*try {
+		try {
 			OracleDataSource ods = new OracleDataSource();
 
 			ods.setURL(URL);
@@ -47,63 +47,6 @@ public class DBconnection
 		catch (Exception e)
 		{
 			HomeScreen.trayIcon.displayMessage("JAKD", "Could not connect to Database", TrayIcon.MessageType.ERROR);
-		}*/
-		
-		try {
-			OracleDataSource ods = new OracleDataSource();
-
-			name.requestFocusInWindow();
-			ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
-			ods.setUser("project");
-			ods.setPassword("project");
-			conn = ods.getConnection();
-			HomeScreen.trayIcon.displayMessage("JAKD", "Database Connected", TrayIcon.MessageType.INFO);
-		} 
-		catch (Exception e)
-		{
-			try
-			{
-				OracleDataSource ods = new OracleDataSource();
-				name.requestFocusInWindow();
-				ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
-				ods.setUser("johntk86");
-				ods.setPassword("");
-				conn = ods.getConnection();
-				HomeScreen.trayIcon.displayMessage("JAKD", "Database Connected", TrayIcon.MessageType.INFO);
-			}
-			catch(Exception ex)
-			{
-				try 
-				{
-					OracleDataSource ods = new OracleDataSource();
-					ods.setURL("jdbc:oracle:thin:HR/@localhost:1521:XE");
-					JOptionPane.showMessageDialog(null, panel, "Local DB", JOptionPane.INFORMATION_MESSAGE);
-					ods.setUser(name.getText());
-					pass = new String(pswd.getPassword());
-					ods.setPassword(pass);
-					conn = ods.getConnection();
-					HomeScreen.trayIcon.displayMessage("JAKD", "Database Connected", TrayIcon.MessageType.INFO);
-				}
-				catch (Exception x)
-				{
-					try{
-						// Tallaght Database
-						OracleDataSource ods = new OracleDataSource();
-						ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
-						JOptionPane.showMessageDialog(null, panel, "Tallght DB", JOptionPane.INFORMATION_MESSAGE);
-						ods.setUser(name.getText());
-						pass = new String(pswd.getPassword());
-						ods.setPassword(pass);
-						conn = ods.getConnection();
-						HomeScreen.trayIcon.displayMessage("JAKD", "Database Connected", TrayIcon.MessageType.INFO);
-
-					}catch (Exception exc)
-					{
-						System.out.print("Unable to load driver " + exc);
-						System.exit(0);
-					}
-				}
-			}
 		}
 		return conn;
 	}

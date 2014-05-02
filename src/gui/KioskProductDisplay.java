@@ -45,6 +45,10 @@ public class KioskProductDisplay extends JFrame implements ActionListener
 		stop = new ImageIcon(this.getClass().getResource("/resources/kioskFiles/images/stop.png"));
 		ap = new KioskAudioPlayer();
 
+		/*
+		 * Adds a JSlider which is used to set the volume method
+		 * in the audio player class
+		 */
 		volume = new JSlider(JSlider.HORIZONTAL,0,100,90);
 		volume.setMajorTickSpacing(25);
 		volume.setPaintTicks(true);
@@ -119,6 +123,9 @@ public class KioskProductDisplay extends JFrame implements ActionListener
 		resultsHeading.setText(resultsHeading.getText()+s);
 	}
 
+	/*
+	 * Methods for displaying each category of product
+	 */
 	public void displayConsole(String manufacturer,String model,String colour,int storage,String wifi,int numControllers,double salePrice,int currentStock)
 	{
 		// Add product image and information
@@ -571,6 +578,10 @@ public class KioskProductDisplay extends JFrame implements ActionListener
 		}
 	}
 
+	/*
+	 * Adds a song to the songList array
+	 * Also adds a JButton for every song to an arrayList to play/stop each song
+	 */
 	public void addSong(KioskSong s)
 	{
 		pb = new JButton();
@@ -752,6 +763,11 @@ public class KioskProductDisplay extends JFrame implements ActionListener
 
 			}
 		}
+		/*
+		 * If the action event is triggered by a JButton
+		 * the arraylist of play/stop buttons is looped through to
+		 * find the song at the same position in the songList array
+		 */
 		if(e.getSource() instanceof JButton)
 		{
 			for(int i=0; i<playButtons.size(); i++)
@@ -764,9 +780,13 @@ public class KioskProductDisplay extends JFrame implements ActionListener
 						}
 						catch(Exception ex){
 						}
-
 						for(int j=0; j<songNames.size(); j++)
 						{
+							/*
+							 * If statement to find which song is currently playing
+							 * and set that song's title font to blue
+							 * and set the remaining song titles to grey
+							 */
 							if(songNames.get(j) != songNames.get(i))
 							{
 								songNames.get(j).setForeground(Color.GRAY);
@@ -780,10 +800,14 @@ public class KioskProductDisplay extends JFrame implements ActionListener
 								songNames.get(j).setForeground(new Color(20,120,230));
 								songNames.get(j).setFont(new Font("Calibri",Font.BOLD,20));
 								songNames.get(j).setIcon(ind);
+								//Changes the play button to a stop button on the song currently playing
 								playButtons.get(j).setIcon(stop);
 							}
 						}
-
+						/*
+						 * If the jbutton from the currently playing song is pressed
+						 * the audio player is then stopped
+						 */
 						if(ap.getFilePath() == songList.get(i).getFilePath())
 						{
 							ap.stop();

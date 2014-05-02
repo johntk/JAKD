@@ -21,6 +21,10 @@ public class KioskSearch extends JFrame implements ActionListener
 	private GridBagConstraints gc;
 	private KioskOperations k;
 
+	/*
+	 * Search screen allows a user to search for a product
+	 * from keyboard input
+	 */
 	public KioskSearch(KioskOperations kq)
 	{
 		k = kq;
