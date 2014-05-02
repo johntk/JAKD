@@ -721,9 +721,6 @@ public class HomeScreen extends JFrame implements ActionListener, ItemListener{
 		}
 	}
 
-	public static void main(String args[]) {
-		new HomeScreen();
-	}
 }
 
 
