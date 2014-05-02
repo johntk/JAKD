@@ -3,6 +3,8 @@ package operations;
 
 import java.sql.*;
 
+import javax.swing.JOptionPane;
+
 import model.Employee;
 
 
@@ -19,7 +21,7 @@ public class EmpOperations {
 	}
 	
 	public ResultSet queryEmployee() {
-		String sqlStatement = "SELECT * FROM Employee";
+		String sqlStatement = "SELECT pin_num FROM Employee";
 		try {
 			pstmt = conn.prepareStatement(sqlStatement,
 					ResultSet.TYPE_SCROLL_INSENSITIVE,
@@ -46,27 +48,51 @@ public class EmpOperations {
 	}
 
 	//Adds an employee to the DB
-	public void addEmployee(Employee e) {
+	public int addEmployee(Employee e) {
+		
+		int newPin = -1;
+		boolean go = true;
 		try {
 			String sql = "INSERT INTO Employee(emp_id, f_name, l_name, house_number, street, town,"
 					+ " city, pps_num, pin_num, manager) "
 					+ "VALUES (empId_seq.nextVal,?,?,?,?,?,?,?,?,?) ";
 
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, e.getfName());
-			pstmt.setString(2, e.getlName());
-			pstmt.setString(3, e.getHouseNum());
-			pstmt.setString(4, e.getStreet());
-			pstmt.setString(5, e.getTown());
-			pstmt.setString(6, e.getCity());
-			pstmt.setString(7, e.getPPS());
-			pstmt.setInt(8, e.getPin());
-			pstmt.setString(9, e.getManager());
-			
-			pstmt.executeUpdate();
+			//checks if the pin is already used
+			rset = queryEmployee();
+					while(rset.next())
+					{
+						if(rset.getString(1).equals(String.valueOf(e.getPin())))
+						{	
+							go = false;
+						}
+						
+					}
+					
+				if(go == true)
+				{
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, e.getfName());
+					pstmt.setString(2, e.getlName());
+					pstmt.setString(3, e.getHouseNum());
+					pstmt.setString(4, e.getStreet());
+					pstmt.setString(5, e.getTown());
+					pstmt.setString(6, e.getCity());
+					pstmt.setString(7, e.getPPS());
+					pstmt.setInt(8, e.getPin());
+					pstmt.setString(9, e.getManager());
+					
+					pstmt.executeUpdate();
+					newPin = 0;
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, e.getPin() + " is already in use\nEnter a different pin");
+				}
+				
 		} catch (Exception se) {
 			System.out.println(se);
 		}
+		return newPin;
 	}
 	
 	//Returns the value of the last employee ID and adds one on to it

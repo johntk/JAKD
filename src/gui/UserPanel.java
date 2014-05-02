@@ -266,7 +266,6 @@ public class UserPanel extends JPanel implements ActionListener {
 		Employee ep =null;
 		if(manager.getText().equals("Y") || manager.getText().equals("N"))
 		{
-			
 		 ep = new Employee(Integer.parseInt(staffIDBx.getText()),
 				forenameBx.getText(), surenamebx.getText(), line1Bx.getText(),
 				line2Bx.getText(), Line3Bx.getText(), line2Bx.getText(),
@@ -369,7 +368,9 @@ public class UserPanel extends JPanel implements ActionListener {
 			{
 				if(newEmployee() != null)
 				{
-				adminOperations.addEmployee(newEmployee());
+					if(adminOperations.addEmployee(newEmployee()) != -1)
+					{
+				
 				employeeList.addContact();
 				employeeList.refreshList();
 				editUserBtnsPanel.setVisible(true);
@@ -378,6 +379,11 @@ public class UserPanel extends JPanel implements ActionListener {
 				editUserBtnsPanel.setVisible(true);
 				setEditableOff();
 				setFirst();
+					}
+					else
+					{
+						pinBx.setText("");
+					}
 				}
 			}
 			catch(NumberFormatException ea)
