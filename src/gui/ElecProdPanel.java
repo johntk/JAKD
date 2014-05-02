@@ -25,8 +25,7 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 	private JPanel prodBtnsPanel, prodDetailsPanel, newProdBtnsPanel;
 	private JButton addProd, editProd, removeProd, exit, previous, searchProd, next, updateProd, updateBtn, back;
 	
-	private JLabel prodDetails, detailsLB, titleLB, typeLB, idLB, cPriceLB, sPriceLB, stockLB,  
-	manufLB, label1, label2, label3, colour;
+	private JLabel prodDetails, label1, label2, label3, colour;
 	private JTextField  prodTitle, type, prodId, sellPrice, costPrice, currentStock,
 	manuf,  bx1, bx2, bx3, colourbx ;
 	
@@ -52,11 +51,11 @@ public class ElecProdPanel extends JPanel implements ActionListener, ItemListene
 			bx2 = new JTextField(), bx3 = new JTextField(), colourbx = new JTextField()
 			 };
 	
-	JLabel[] elecProdDetailLb = { titleLB = new JLabel(" Product title:"),
-			typeLB = new JLabel(" Type:"),  idLB = new JLabel(" Product ID:"),
-			cPriceLB = new JLabel(" Cost price:"), sPriceLB = new JLabel(" Selling price:"),
-			stockLB = new JLabel(" Current stock:"), label1 = new JLabel(" Over Ear:"),
-			manufLB = new JLabel(" Manufacturer:"),
+	JLabel[] elecProdDetailLb = { new JLabel(" Product title:"),
+			new JLabel(" Type:"),   new JLabel(" Product ID:"),
+			new JLabel(" Cost price:"), new JLabel(" Selling price:"),
+			new JLabel(" Current stock:"), label1 = new JLabel(" Over Ear:"),
+			new JLabel(" Manufacturer:"),
 			label2 = new JLabel(" Mic:"), label3 = new JLabel(" iPhone Ready:"), colour = new JLabel(" Colour:") };
 	
 	private JFrame frame;
