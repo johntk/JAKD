@@ -81,7 +81,7 @@ public class POSOperations
 		catch(SQLException e)
 		{
 			System.out.println(e);
-			System.out.println("no trans_id found");
+			
 		}
 		
 
@@ -139,7 +139,7 @@ public class POSOperations
 		catch(SQLException e)
 		{
 			e.printStackTrace();
-			System.out.println("cant do insert");
+			
 		}
 	}
 	
@@ -172,13 +172,13 @@ public class POSOperations
 				rset.updateInt(2,stock);
 				rset.updateRow();
 		
-				System.out.println("updated current stock ");
+				
 			}
 			catch(SQLException e)
 			{
-				e.printStackTrace();
-				System.out.println(e);
-				System.out.println("error with updating stock");
+
+				System.out.println(e.getMessage());
+				
 			}
 		}
 	}
@@ -199,8 +199,7 @@ public class POSOperations
 	
 		catch (Exception ex)
 		{
-			System.out.println("get employee id problem");
-			ex.printStackTrace();
+
 			System.out.println("ERROR: " + ex.getMessage());
 		}
 		
@@ -223,8 +222,7 @@ public class POSOperations
 	
 		catch (Exception ex)
 		{
-			System.out.println("get employee id problem");
-			ex.printStackTrace();
+
 			System.out.println("ERROR: " + ex.getMessage());
 		}
 		

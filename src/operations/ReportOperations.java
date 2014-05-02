@@ -107,7 +107,7 @@ public class ReportOperations
 		String query = "select trans_id, TRANS_DATE,EMP_ID, sum(TOTAL_COST)from transaction WHERE TRANS_DATE BETWEEN '" + topDate + "' AND '" + bottomDate + "' AND TRANS_TYPE = 'R' group by trans_id,TRANS_DATE,EMP_ID order by trans_id";
 
 
-		//System.out.printf("%10",rset.getString(0));
+		
 		try
 		{
 			stmt = conn.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);

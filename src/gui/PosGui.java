@@ -416,7 +416,6 @@ public class PosGui extends JPanel implements ActionListener
 				if (voidd == true)
 				{
 					
-					System.out.println("in void product");
 					for(int i = 0;i < tranList.size();i++) //check if product is in sale
 					{
 						if(enterProd.getText().toUpperCase().equals(tranList.get(i).getProdID()))
@@ -571,7 +570,7 @@ public class PosGui extends JPanel implements ActionListener
 							catch(SQLException sqle)
 							{
 								System.out.println(sqle);
-								System.out.println("cant display product");
+
 							}
 					}
 				}
@@ -601,11 +600,7 @@ public class PosGui extends JPanel implements ActionListener
 		
 		for(int i = 0; i < tranList.size();i++)
 		{
-			/*if (i % 2 == 0)
-			{
-				
-				/// code for adding colour to row
-			}*/
+
 				dtm.setValueAt(tranList.get(i).getProdID(), i, 0);
 				dtm.setValueAt(tranList.get(i).getDesc(), i, 1);
 				dtm.setValueAt(tranList.get(i).getTransType(), i, 2);
