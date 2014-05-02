@@ -36,6 +36,7 @@ public class LowStockReport extends JPanel
 
 		topPanel = new JPanel(new FlowLayout());
 		topPanel.setSize(600, 140);
+		topPanel.setBackground(Color.white);
 		this.add(topPanel, BorderLayout.NORTH);
 
 		title = new JLabel("Low Stock Levels");
