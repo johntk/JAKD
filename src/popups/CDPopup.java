@@ -180,7 +180,7 @@ public class CDPopup extends JPanel implements ActionListener {
 		
 		JLabel[] digiProdDetailLb = new JLabel[size];
 
-		
+		//Adds Fields and songs based on array content 
 		for (int i = 0; i < size; i++) {
 
 			int num = i +1;
